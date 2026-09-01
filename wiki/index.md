@@ -4,4 +4,4 @@ Read this content map before navigating or updating the wiki. Every durable wiki
 
 ## System
 
-- [[log|Activity log]] — Chronological record of ingests, queries, lint passes, and schema changes.
+- [[log|Activity log]] — Chronological record of ingests, queries, lint passes, automatic checkpoints, and schema changes.
