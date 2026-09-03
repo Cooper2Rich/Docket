@@ -238,11 +238,24 @@ Coach authority over a School is established through the School Membership proce
 
 ## Open decisions
 
-- Post-start same-role standby and absent-participant replacement boundaries
-- Practice Workspace role-specific default limits and over-cap recovery
-- Google Practice Meeting creation failure, regeneration, and link-access boundaries
+- Event Ballot Rubric collaborative-edit conflict resolution, field deletion, and publication review
+- Open-ended Event Ballot question requirements, answer visibility, and response limits
+- Practice Placement Correction timing, recipient notice, and panel-result recalculation details
 
 ## Decision record
+
+- **2026-09-03:** The project owner completed collaborative platform-governed Event Ballot Rubric drafting and pinning, owner-only titled Feedback Rubric versioning without suggestions, browser and offline draft handling, warned incomplete closure, and placement-only owner correction.
+
+- **2026-09-03:** The project owner finalized session-only Practice Panel Results, calculation, corrections, submission and incompleteness, replaced session Ballot rubrics with event-wide unified rubrics, separated configurable default Feedback rubrics, and settled audiences, exports, history, and standby handling.
+
+- **2026-09-03:** The project owner settled locked owner-controlled practice rubrics, publication validation and audiences, an official session-scoped panel result after all Judges submit, Feedback recipient and version rules, post-removal freezing, safety handling, emergency co-host replacement, and PDF and JSON exports.
+
+- **2026-09-02:** The project owner settled default practice Judge count, Google co-host and presentation authority, calendar privacy and reminders, RSVP independence, and nonoperative Practice Ballot and Feedback lifecycles.
+
+- **2026-09-02:** The project owner adopted format-defined Competitor and Judge defaults plus zero Observers, then completed Google authorization-loss, owner-succession, exact-guest, leak, Observer, outage, and dual-notification rules.
+
+- **2026-09-02:** The project owner settled same-role Practice Standby activation, blocked over-cap start without silent participant removal, and made lower future platform caps prospective for sessions already underway.
+- **2026-09-02:** The project owner completed the Google Practice Meeting lifecycle and access boundary, permitted deletion during separately preserved safety review, and rejected import of all Google meeting participation or content data.
 
 - **2026-09-02:** The project owner allowed governed pre-start practice role changes, prohibited all live role changes, adopted a one-hundred-Account platform cap, and left same-role post-start replacement unresolved.
 - **2026-09-02:** The project owner settled safety evidence access and correction, Legal Holds, reporter identity, malicious reports, cancellation, and Docket-created Google Meet delivery without recording retention.

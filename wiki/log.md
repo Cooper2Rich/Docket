@@ -1342,3 +1342,89 @@ This file is append-only. Each entry records a completed wiki operation.
 - Made Practice Workspace cancellation irreversible, reasoned, noticed, and subject to the original thirty-day deletion deadline.
 - Prohibited native or imported practice audio and video recordings while requiring Docket to create a Google Meet link for online debate or speech practice and send it to the assigned Competitors and Judges.
 - Added Google Practice Meeting to the glossary; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[retention-model]], [[backend-roadmap]], and the index.
+
+## [2026-09-02] checkpoint | Practice standby and Google meeting lifecycle
+
+- Allowed a post-start vacancy to be filled only by a preaccepted Practice Standby whose identical role was accepted and locked before start, without new invitations or expanded permissions.
+- Blocked an over-cap session from starting without silently removing participants and made a lower future platform maximum prospective rather than disruptive to an underway session.
+- Made the Practice Session Owner's connected Google Account own each Google Practice Meeting while Docket retains only management and distribution identifiers.
+- Delayed meeting creation until the online session has a scheduled time and all event-required Competitor and Judge roles are filled by accepted participants.
+- Restricted meeting-link visibility to the owner, accepted Competitors and Judges, and Observers explicitly granted attendance before the Practice Role Lock.
+- Required three creation retries before Meeting Setup Failed and allowed a later retry or Organizer-supplied link only after Google Meet URL validation.
+- Required session cancellation to cancel the connected calendar event, notify assigned Competitors and Judges, hide the link, and retain minimal status only until ordinary deletion.
+- Required pre-start time changes to update the connected calendar event and to regenerate and redistribute the link only when Google invalidates it.
+- Allowed ordinary Practice Workspace deletion during an unresolved safety review without withdrawing, suppressing, or altering separately preserved evidence.
+- Prohibited import of Google Meet attendance, join times, recordings, transcripts, and chat and prohibited No-Show or reliability inference from meeting activity.
+- Added Practice Standby and Meeting Setup Failed to the glossary; refined Google Practice Meeting; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[retention-model]], [[backend-roadmap]], and the index.
+
+## [2026-09-02] checkpoint | Google practice authorization and guest controls
+
+- Made each event format define its required Competitor structure and recommended Judge range, defaulted Observers to zero, and allowed pre-start increases within the platform maximum.
+- Made missing or revoked pre-creation Google authorization set Meeting Setup Failed, notify the owner, and block online-session start pending reconnection or a validated link.
+- Created Google Connection Lost for post-creation authorization loss, preserved the existing link for authorized participants, and blocked managed updates until reconnection or validated replacement.
+- Required Practice Session ownership transfer to cancel the former owner's event, create a meeting through the new same-School owner's Google Account, replace the link, and notify participants.
+- Required same-School ownership transfer or cancellation when the owner's Account becomes unavailable before start; allowed an underway session to finish without changes before transfer or closure.
+- Invited only exact authorized Account emails to Google Meet and prohibited forwarded-link possession from creating Docket Practice Workspace authority.
+- Allowed suspected pre-start link leaks to trigger meeting rotation and fresh notices while routing post-start exclusion through Google admission controls without automatic Docket penalties.
+- Limited Observers to ordinary Google meeting attendance without co-host, recording, transcript, or management authority.
+- Prohibited silent provider switching during a Google Meet outage and allowed retry, validated replacement, rescheduling, or cancellation without No-Show or competitive effects.
+- Required synchronized Docket notices and Google Calendar invitations, updates, and cancellations without duplicate Docket acceptance.
+- Added Google Connection Lost to the glossary; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[retention-model]], [[backend-roadmap]], and the index.
+
+## [2026-09-02] checkpoint | Practice calendars, ballots, and feedback
+
+- Defaulted a Practice Workspace to one Judge, subject to event-specific minimums, maximums, and odd-panel rules, while retaining zero Observers by default.
+- Allowed the owner to predesignate one accepted adult Organizer as backup Google co-host before the Practice Role Lock and excluded Competitors, Observers, and ordinary Judges from co-host authority.
+- Allowed accepted Organizers, Competitors, and Judges to present when enabled, limited Observer presentation to an explicit pre-lock grant, and retained no presentation activity.
+- Made the Google calendar event private and privacy-minimized with a minimal title, time, and Docket session link and no Ballot, feedback, safety, classification, private-note, or unnecessary minor data.
+- Requested hidden Google guest lists where supported and limited Docket participant presentation to role-appropriate names and Schools without email addresses.
+- Added mutable routine reminders twenty-four hours and one hour before start while keeping cancellation, removal, link replacement, and safety notices mandatory.
+- Made Docket Practice Invitation acceptance authoritative over Google RSVP, decline, or event deletion and prohibited RSVP import as attendance or reliability evidence.
+- Required a participant to leave through Docket or be removed by the Organizer before Docket participation and link access end.
+- Created visibly nonoperative Practice Ballots derived from official event structures and allowed unmistakably separate optional practice rubrics without official or qualification effects.
+- Created Practice Feedback with private drafts, explicit publication, no Competitive Result dependency, edits until closure, and current-version and last-updated visibility for intended recipients.
+- Added Practice Ballot and Practice Feedback to the glossary; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], and the index.
+
+## [2026-09-03] checkpoint | Practice panel results and feedback controls
+
+- Reserved optional Practice Ballot rubric creation and selection to the Practice Session Owner, required accepted Judge and Competitor preview, and locked the exact version at the Practice Role Lock.
+- Allowed incomplete Practice Ballot drafts and required only fields marked mandatory by the locked structure when publishing; mock winners and scores remain optional unless required and always nonoperative.
+- Restricted published Practice Ballots to their authoring Judge, assigned Competitors, and Practice Session Owner or authorized Organizer.
+- Kept each panel Judge's Ballot hidden from the other Judges until all assigned Judges submit, then required an official Practice Panel Result authoritative inside the session but nonoperative for tournaments, qualifications, rankings, and permanent history.
+- Defaulted Practice Feedback recipients to assigned Competitors and the Practice Session Owner or authorized Organizer without wider School, Coach, Observer, or participant sharing.
+- Froze a removed participant's received Ballots and Feedback at the last pre-removal publication and prohibited later publication to that participant.
+- Gave the authoring Judge and owner complete Feedback version history while limiting intended Competitors to the current version, last-updated time, and change notice without withdrawn drafts.
+- Preserved reported harmful feedback separately and allowed platform safety staff to hide, restore, remove, or restrict it through the governed safety decision.
+- Allowed the owner to replace an unavailable backup Google co-host after the Practice Role Lock only with another already accepted adult Organizer, without changing the locked Docket role.
+- Added permission-filtered PDF and structured JSON exports of authorized Practice Ballots and Feedback with prominent nonoperative labeling and exclusion of drafts, third-party material, emails, and safety records.
+- Added Practice Panel Result to the glossary; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], and the index.
+
+## [2026-09-03] checkpoint | Unified event rubrics and practice panel finality
+
+- Confirmed that a Practice Panel Result is official only within its Practice Workspace and cannot affect tournaments, qualifications, rankings, profiles, or permanent history.
+- Applied each event's panel rule, normally strict majority, and recorded `Tied Practice Panel` when no required majority exists rather than inventing a winner or discretionary tiebreak.
+- Reserved reasoned reopening and correction of a submitted Practice Ballot before closure to the Practice Session Owner alone, withdrew the prior result during correction, preserved versions, and required all Ballots again before recalculation.
+- Required each Judge to submit the Practice Ballot before using Docket's leave or complete-round action while allowing Ballot Feedback to follow later under tournament-style separation.
+- Applied private drafts, explicit publication, retained prior publications, no automatic publication, a seventy-two-hour default deadline, extension-only changes, and reasoned owner Feedback Reopening within the thirty-day practice ceiling.
+- Prohibited a Practice Panel Result when any required Ballot remains missing at closure and recorded `Incomplete Practice Panel` without fabrication or inference.
+- Superseded session- or School-created Practice Ballot rubrics with one versioned Event Ballot Rubric per individual event across Docket.
+- Separated a configurable Practice Feedback Rubric from the Event Ballot Rubric and required a Docket-provided event default when no alternative is selected.
+- Restricted Practice Panel Result visibility to assigned Competitors, all assigned Judges after submission, and the owner or authorized Organizer; included scoped results in PDF and JSON exports.
+- Prohibited Practice Panel Results from Account, School, qualification, ranking, or public-profile history.
+- Required a preaccepted same-role Practice Standby to permanently replace an unavailable Judge for the session or left the panel incomplete when none exists.
+- Added Event Ballot Rubric and Practice Feedback Rubric to the glossary and refined Practice Ballot; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], and the index.
+
+## [2026-09-03] checkpoint | Collaborative event rubrics and placement corrections
+
+- Reserved Event Ballot Rubric publication to Platform Administrators with rules-governance authority and required validation, examples, a version diff, reason, and permanent audit history.
+- Made Event Ballot Rubric drafting collaborative and document-like, with ordered open-ended question fields, while keeping drafts nonoperative until an authorized version is published.
+- Applied the latest published rubric to new draft practices, pinned it at the Practice Role Lock, preserved prior versions for existing sessions, and pinned official tournaments through the pre-pairing Event Ruleset and migration controls.
+- Reserved Practice Feedback Rubric editing to the Practice Session Owner and prohibited suggestions from Organizers, Judges, Competitors, and every other participant.
+- Required platform rules administrators to maintain versioned event-default Feedback rubrics and pinned each selected default or custom version at the Practice Role Lock.
+- Allowed custom Feedback Rubric versions to have user-supplied titles, supported same-School reuse, and permitted explicit sanitized cross-School export and import without participant or private data.
+- Prohibited Practice Feedback Rubric changes after the Practice Role Lock, including during later Feedback Reopening.
+- Kept a browser-abandoned Ballot outstanding, preserved its private draft, notified the Judge and owner, and created no reliability or qualification effect.
+- Allowed warned closure with `Incomplete Practice Panel` without fabricating, inferring, or marking a missing Judge submission complete.
+- Allowed only the Practice Session Owner to make a reasoned, versioned Practice Placement Correction limited to competitor-placement fields on the final Practice Ballot, without changing Judge-authored responses, Feedback, other scoring, attribution, or a missing Ballot.
+- Adopted encrypted local draft autosave where supported, retry after reconnection, and server receipt as the only valid submission boundary; prohibited owner submission on behalf of a Judge.
+- Added Event Ballot Rubric Draft and Practice Placement Correction to the glossary and refined Event Ballot Rubric and Practice Feedback Rubric; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], and the index.

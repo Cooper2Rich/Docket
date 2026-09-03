@@ -816,13 +816,53 @@ _Avoid_: Tournament Permission Bundle, School Membership role, official assignme
 The start-of-session boundary after which accepted participants' Practice Participant Roles cannot change.
 _Avoid_: Tournament role lock, live role reassignment, permission escalation
 
+**Practice Standby**:
+A preaccepted participant whose exact Practice Participant Role is locked before session start and who may fill only a vacancy in that same role.
+_Avoid_: Late invitee, live role change, automatic replacement
+
 **Practice Safety Report**:
 A restricted report of harmful or unsafe Practice Workspace conduct reviewed separately from ordinary practice content and incapable of changing official tournament records.
 _Avoid_: Ballot Feedback, tournament protest, public complaint
 
+**Practice Ballot**:
+A clearly nonoperative adjudication form governed by the event's single platform-wide Event Ballot Rubric and incapable of affecting tournament or qualification records.
+_Avoid_: Official Ballot, Competitive Result, Judge assessment
+
+**Practice Feedback**:
+Written nonoperative feedback a practice Judge drafts privately and explicitly publishes to its intended Practice Workspace recipients.
+_Avoid_: Public feedback, official Ballot Feedback, permanent performance history
+
+**Event Ballot Rubric**:
+The single Docket-wide adjudication rubric governing fixed decision fields and ordered open-ended question fields for one event in official and practice rounds.
+_Avoid_: School rubric, session-specific Ballot rubric, Feedback rubric
+
+**Event Ballot Rubric Draft**:
+A collaboratively edited, document-like draft whose open-ended question fields do not govern any round until an authorized version is validated and published.
+_Avoid_: Published rubric version, live Ballot, School rubric
+
+**Practice Feedback Rubric**:
+A titled, versioned Practice Workspace guide for written Judge feedback, falling back to Docket's event-specific default when the host selects no alternative.
+_Avoid_: Event Ballot Rubric, Judge assessment, Competitive Result schema
+
+**Practice Panel Result**:
+The official decision within a multi-Judge Practice Workspace round, created only after every assigned Judge submits a Practice Ballot and remaining nonoperative outside that session.
+_Avoid_: Competitive Result, tournament Panel Decision, permanent performance result
+
+**Practice Placement Correction**:
+A reasoned, versioned Practice Session Owner edit limited to competitor-placement fields on a final Practice Ballot and unable to supply a missing Judge Ballot or modify Judge-authored responses or Feedback.
+_Avoid_: Ballot impersonation, Feedback edit, fabricated submission
+
 **Google Practice Meeting**:
-The Google Meet session Docket creates and distributes to the Competitors and Judges assigned to an online Practice Workspace session.
+The Google Meet session Docket creates through the Practice Session Owner's connected Google Account and distributes to authorized participants in an online Practice Workspace session.
 _Avoid_: Docket recording, public meeting room, tournament round room
+
+**Meeting Setup Failed**:
+The state of an online Practice Workspace after three unsuccessful Google meeting-creation attempts and before an Organizer successfully retries or supplies a validated Google Meet link.
+_Avoid_: Canceled practice, participant No-Show, silent meeting failure
+
+**Google Connection Lost**:
+The state of an existing Google Practice Meeting that remains available to already authorized participants after Docket loses the owner's Google authorization but cannot receive Docket-managed updates until reconnection or validated replacement.
+_Avoid_: Meeting Setup Failed, canceled meeting, participant removal
 
 **Personal Tournament Agenda**:
 A read-only, cross-event view of the rounds and assignments an authenticated user is authorized to see, without replacing the underlying Event Workspaces.

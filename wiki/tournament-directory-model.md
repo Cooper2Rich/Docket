@@ -60,11 +60,24 @@ Docket may then present a complete eligible Replacement Candidate Pool and separ
 
 ## Open decisions
 
-- Post-start same-role standby and absent-participant replacement boundaries
-- Practice Workspace role-specific default limits and over-cap recovery
-- Google Practice Meeting creation failure, regeneration, and link-access boundaries
+- Event Ballot Rubric collaborative-edit conflict resolution, field deletion, and publication review
+- Open-ended Event Ballot question requirements, answer visibility, and response limits
+- Practice Placement Correction timing, recipient notice, and panel-result recalculation details
 
 ## Decision record
+
+- **2026-09-03:** The project owner settled collaborative Event Ballot Rubric editing and rollout, owner-only titled Practice Feedback Rubric versions without suggestions, outstanding-draft handling, incomplete closure, and competitor-placement-only correction.
+
+- **2026-09-03:** The project owner completed Practice Panel Result calculation, tie, correction, incomplete-panel, audience, export, and history rules; unified Ballot rubrics per event; and separated configurable default Feedback rubrics under tournament-style feedback behavior.
+
+- **2026-09-03:** The project owner completed the current Practice Ballot, Practice Feedback, panel-independence, session-result, emergency backup-co-host, harmful-feedback, and material-export boundaries.
+
+- **2026-09-02:** The project owner settled one-Judge practice defaults, backup co-host and presentation controls, private calendar and reminder behavior, Google RSVP independence, and nonoperative Practice Ballot and Feedback lifecycles.
+
+- **2026-09-02:** The project owner adopted format-specific practice defaults and completed Google authorization, succession, exact-guest access, leak response, Observer, outage, and calendar-notification behavior.
+
+- **2026-09-02:** The project owner admitted only preaccepted same-role standbys after practice start, blocked over-cap starts without silent removal, and made later platform-cap reductions prospective for sessions underway.
+- **2026-09-02:** The project owner settled private Google Practice Meeting ownership, creation timing, access, failure recovery, update, cancellation, and strict non-import of Google participation or content data.
 
 - **2026-09-02:** The project owner governed pre-start practice role changes, reaffirmed the live role lock, capped sessions at one hundred accepted Accounts, and left same-role absence replacement open.
 - **2026-09-02:** The project owner settled restricted safety evidence governance, made cancellation irreversible, prohibited practice recording retention, and required Docket to create and distribute Google Meet links for online practice.
