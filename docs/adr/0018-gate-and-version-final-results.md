@@ -8,6 +8,11 @@ Docket will publish final tournament results only from a validated, versioned dr
 
 ## Consequences
 
+- A Rubric-Blocked Administrative Ruling satisfies result completeness only after ordinary verification or a recorded Director-only exception.
+- Until that ruling is complete, only dependent standings, Pairings, advancement, and results publication are blocked; deadline expiry never supplies a result.
+- A corrected public rubric-defect outcome links the former and corrected outcome in a human-readable Correction Notice while internal evidence and metadata remain restricted.
+- An objective correction invalidates dependent Final Results Approval, preserves the original ruling and publication history, recalculates standings and advancement, and republishes with any required public Correction Notice.
+
 - All required round decisions and governing standings, advancement, bracket, eligibility, and award versions must be current and internally consistent.
 - Placement- or award-affecting corrections, disqualifications, emergency rule corrections, and Downstream Conflicts block readiness until resolved.
 - Ballot Feedback does not block final publication.

@@ -10,7 +10,7 @@ Competitive Completion preserves the existing Final Results correction lifecycle
 
 **Tournament Closure** is a separate governance action available only to the Tournament Owner. It is never an automatic consequence of Final Results Publication and cannot be delegated through a Tabulation Staff permission bundle or exercised by an additional Tournament Director.
 
-Closure becomes eligible only after Final Results Publication, expiration of the Feedback Deadline, and completion or explicit resolution of required operational tasks. Each tournament publishes and locks a feedback-window duration before first-round Pairing Publication, defaulting to 72 hours after the final scheduled round's published end. A Director may extend but never shorten the locked deadline. Closure does not require every Judge to publish feedback; expiration of the promised opportunity is sufficient. Docket presents the Owner with a readiness review and requires explicit confirmation and a reason before closing.
+Closure becomes eligible only after Final Results Publication, expiration of the Feedback Deadline, and completion or explicit resolution of required operational tasks. The hard Feedback Deadline is exactly seven days after the current published end of the final scheduled competitive round. No actor may extend or shorten it, and Closure cannot cut the window short. An authorized pre-end Schedule revision changes the anchor rather than exercising deadline discretion. Closure does not require every Judge to publish feedback; expiration of the promised opportunity is sufficient. Docket presents the Owner with a readiness review and requires explicit confirmation and a reason before closing.
 
 ### Closure Readiness Review
 
@@ -48,7 +48,6 @@ Docket rejects ordinary post-closure mutations to registration, staff assignment
 A closed tournament accepts only an explicit audited **Post-Closure Exception** using the existing authority and validation rules for:
 
 - an authorized correction and any required recalculation, approval, republication, or public Correction Notice;
-- a Feedback Reopening rather than an ordinary late feedback edit;
 - Ownership Recovery; or
 - a legally required privacy action through its separately authorized process.
 
@@ -73,6 +72,12 @@ While the case is unresolved, public viewers continue to see the last published 
 Resolving, rejecting, or withdrawing the case does not require another Tournament Closure action. The tournament remains Closed throughout, the case and all attempted versions remain in audit history, and no unrelated tournament operation is reopened.
 
 ## Decision record
+
+- **2026-09-04:** The project owner prohibited every official-tournament Feedback change after the hard seven-day deadline and removed Feedback Reopening from Post-Closure Exceptions.
+
+- **2026-09-03:** The project owner fixed the official Feedback Deadline at exactly seven days after the current published end of the final scheduled competitive round and prohibited every extension or shortening.
+
+- **2026-09-03:** The project owner superseded the 72-hour official Feedback default with a seven-day post-tournament Judge editing window that Tournament Closure cannot shorten; the exact tournament-end anchor remains open.
 
 - **2026-09-02:** The project owner made current corrected results the default Closed-tournament view and preserved prior public versions through clearly superseded Tournament Publication History alongside visible Correction Notices.
 - **2026-09-02:** The project owner made every timely filed No-Show Dispute a non-waivable Tournament Closure blocker and separately blocked the affected event's Final Results until the Director decides it.

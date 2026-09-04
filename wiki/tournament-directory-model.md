@@ -58,13 +58,31 @@ The No-Show grace period defaults to ten minutes after the current published rou
 
 Docket may then present a complete eligible Replacement Candidate Pool and separately ranked recommendations, but it cannot write a replacement Judge or Competitor into the round. Judge ranking uses qualification, conflicts and strikes, availability, competitive-round fit, workload, and minimum disruption. Competitor candidates must be authenticated, fully authorized and eligible for the same School and event, free of assignment conflict, and allowed by the Ruleset before the Entry's first round or under an express mid-tournament substitution rule. If no Competitor is available, the opposing Entry receives a Bye Round. Before sign-off, Tabulation Staff may restore a late-arriving original assignee; after replacement or bye approval, reversal requires Director correction, and Started rounds cannot restore the original. A successful dispute appends a reasoned reversal, removes the current restricted No-Show flag, corrects unstarted artifacts, and preserves the original classification only in restricted audit history. Tabulation Staff sign-off creates a new validated pairing or schedule version, preserves the original, sends all affected-party notices, and produces a Correction Notice when public information changed. The public notice identifies the previous and corrected pairing, Bye Round, result, or standings effect using the generic reason “No-Show classification corrected” and excludes absence details, evidence, internal reasoning, and restricted actor metadata. Started and Completed rounds remain as operated. A Competitor No-Show otherwise remains restricted evidence for that tournament, visible only to the Competitor, their authorized Coach, and authorized tournament staff, and never creates a cross-tournament score or public history. An Unexcused Judge No-Show produces the same restricted two-year Judge Reliability Record as an Unexcused Special Circumstance Withdrawal.
 
-## Open decisions
-
-- Event Ballot Rubric collaborative-edit conflict resolution, field deletion, and publication review
-- Open-ended Event Ballot question requirements, answer visibility, and response limits
-- Practice Placement Correction timing, recipient notice, and panel-result recalculation details
+The Historical Access Dashboard exposes authorized Represented-School Tournament Records through tournament, season, event, Competitor, record-type, and represented-School filters without full-text search across private Feedback. Only the School Manager may request a freshly reauthenticated bulk export, limited to one completed atomic delivery set per School every twenty-four hours and a seven-day authenticated download window that begins when every numbered part succeeds. A master checksum manifest is copied into each part, and date-range preflight discloses included and excluded retention categories plus imminent scheduled deletion without extending retention. Later corrections notify the Competitor and original represented School, and notify a destination School only when its represented Entry changes. Retention-protected history cannot be deleted early by either the Competitor or School.
 
 ## Decision record
+
+- **2026-09-04:** The project owner required atomic School export delivery, one master checksum manifest copied into every part, and mixed-retention preflight warnings without retention extension.
+
+- **2026-09-04:** The project owner fixed nondelegable Manager-only exports as encrypted ZIPs containing PDFs, JSON, and a category manifest, split archives above two gigabytes, filtered opponent material, exposed two-year Manager-only export history, and canceled former-Manager jobs and downloads.
+
+- **2026-09-04:** The project owner reserved bulk represented-School export to the freshly reauthenticated School Manager, imposed a daily rate and seven-day archive, limited dashboard search to metadata, routed corrections by represented Entry, and prohibited early historical-record deletion.
+
+- **2026-09-04:** The project owner defined Represented-School Tournament Records as operated Entries, rosters, Pairings, School notices, authorized Ballots and Feedback, points, results, and corrections; excluded opponent and restricted evidence; prohibited Competitor revocation; and required one new-staff notice plus a historical dashboard.
+
+- **2026-09-04:** The project owner made authorization revocation close active views and block new exports, granted newly authorized staff still-retained represented-School records, kept historical Feedback with the School represented by each Entry after transfer, and limited the destination School to its own represented Entries.
+
+- **2026-09-04:** The project owner limited Coaching Staff Feedback access to active School Memberships, gave the sole School Manager the same scope, ended access immediately with authority, and settled authenticated in-app delivery and explicit acceptance for the fixed publisher review.
+
+- **2026-09-04:** The project owner granted all current School Coaching Staff and the School Manager access to each affiliated Competitor's Published Feedback and released points and fixed the publisher-review wait at four hours before Director fallback.
+
+- **2026-09-04:** The project owner settled default Practice Feedback Rubric auto-update, Coach receipt of Competitor-published Feedback, immutable post-deadline official Feedback, deadline calculation and anchor, global publication notice and defect handling, and detailed point visibility and release.
+
+- **2026-09-03:** The project owner made rubric fallback publication Docket-wide, fixed the nonextendable Feedback window, locked submitted answers, granted responsible-Coach access to own-Competitor points, governed access revocation and participation correction, and restricted links to safe HTTPS behavior.
+
+- **2026-09-03:** The project owner settled authoring-Judge, official, Coach, and actual-participant answer audiences; defined substantive editors and safe formatting; allowed Director fallback publication; required versioned rollback and immediate defaults; and adopted seven-day post-tournament Feedback editing.
+
+- **2026-09-03:** The project owner completed conflict-aware rubric editing, immutable version history, second-administrator publication, open-ended field validation and restricted audiences, and pre-closure placement-correction governance.
 
 - **2026-09-03:** The project owner settled collaborative Event Ballot Rubric editing and rollout, owner-only titled Practice Feedback Rubric versions without suggestions, outstanding-draft handling, incomplete closure, and competitor-placement-only correction.
 

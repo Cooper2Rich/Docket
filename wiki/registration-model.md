@@ -236,13 +236,31 @@ See [ADR 0004](../docs/adr/0004-canonical-platform-schools.md).
 
 Coach authority over a School is established through the School Membership process in [[access-model]].
 
-## Open decisions
-
-- Event Ballot Rubric collaborative-edit conflict resolution, field deletion, and publication review
-- Open-ended Event Ballot question requirements, answer visibility, and response limits
-- Practice Placement Correction timing, recipient notice, and panel-result recalculation details
+Historical School access uses the Represented-School Tournament Record defined in [[ballot-model]]. Only the School Manager may initiate its freshly Google-reauthenticated bulk export; Docket permits one completed export set per School every twenty-four hours, audits it, exposes no part until every numbered archive succeeds, and deletes the complete delivery set seven days after readiness. A master checksum manifest is copied into every part. Date-range preflight identifies included and excluded retention categories and records nearing deletion without extending retention. The Historical Access Dashboard supports tournament, season, event, Competitor, record-type, and represented-School filters without full-text search across private Feedback. Corrections after transfer notify the Competitor and original represented School, reaching the destination School only when its represented Entry changes. Neither School nor Competitor may delete retained historical evidence early.
 
 ## Decision record
+
+- **2026-09-04:** The project owner made represented-School exports atomic multi-part sets with a master checksum manifest in every part and required date-range inclusion, exclusion, and imminent-deletion warnings without changing retention.
+
+- **2026-09-04:** The project owner fixed nondelegable Manager-only exports as encrypted ZIPs containing PDFs, JSON, and a category manifest, split archives above two gigabytes, filtered opponent material, exposed two-year Manager-only export history, and canceled former-Manager jobs and downloads.
+
+- **2026-09-04:** The project owner reserved bulk represented-School export to the freshly reauthenticated School Manager, imposed a daily rate and seven-day archive, limited dashboard search to metadata, routed corrections by represented Entry, and prohibited early historical-record deletion.
+
+- **2026-09-04:** The project owner defined Represented-School Tournament Records as operated Entries, rosters, Pairings, School notices, authorized Ballots and Feedback, points, results, and corrections; excluded opponent and restricted evidence; prohibited Competitor revocation; and required one new-staff notice plus a historical dashboard.
+
+- **2026-09-04:** The project owner made authorization revocation close active views and block new exports, granted newly authorized staff still-retained represented-School records, kept historical Feedback with the School represented by each Entry after transfer, and limited the destination School to its own represented Entries.
+
+- **2026-09-04:** The project owner limited Coaching Staff Feedback access to active School Memberships, gave the sole School Manager the same scope, ended access immediately with authority, and settled authenticated in-app delivery and explicit acceptance for the fixed publisher review.
+
+- **2026-09-04:** The project owner granted all current School Coaching Staff and the School Manager access to each affiliated Competitor's Published Feedback and released points and fixed the publisher-review wait at four hours before Director fallback.
+
+- **2026-09-04:** The project owner settled default Practice Feedback Rubric auto-update, Coach receipt of Competitor-published Feedback, immutable post-deadline official Feedback, deadline calculation and anchor, global publication notice and defect handling, and detailed point visibility and release.
+
+- **2026-09-03:** The project owner made rubric fallback publication Docket-wide, fixed the nonextendable Feedback window, locked submitted answers, granted responsible-Coach access to own-Competitor points, governed access revocation and participation correction, and restricted links to safe HTTPS behavior.
+
+- **2026-09-03:** The project owner settled authoring-Judge, official, Coach, and actual-participant answer audiences; defined substantive editors and safe formatting; allowed Director fallback publication; required versioned rollback and immediate defaults; and adopted seven-day post-tournament Feedback editing.
+
+- **2026-09-03:** The project owner completed conflict-aware rubric editing, immutable version history, second-administrator publication, open-ended field validation and restricted audiences, and pre-closure placement-correction governance.
 
 - **2026-09-03:** The project owner completed collaborative platform-governed Event Ballot Rubric drafting and pinning, owner-only titled Feedback Rubric versioning without suggestions, browser and offline draft handling, warned incomplete closure, and placement-only owner correction.
 

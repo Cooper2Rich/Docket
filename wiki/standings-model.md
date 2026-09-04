@@ -105,9 +105,15 @@ When a successful No-Show Dispute changes an already published standings input, 
 
 Standings consume current Competitive Results and point provenance from [[ballot-model]] and Entry eligibility from [[registration-model]]. The resulting versioned standings snapshot is consumed by the separate [[advancement-model]] and by preliminary power-pairing methods in [[pairing-model]]. The standings configuration does not decide the elimination break, qualifiers, or seeds.
 
+A Rubric-Blocked Administrative Ruling is the authoritative competitive outcome for its pairing. Until it is published, Docket blocks only standings snapshots and downstream Pairings, advancement, or publications that depend on that outcome; unrelated events and rounds continue, and deadline expiry creates no automatic outcome. Standings consume the published ruling's win or loss normally but never invent Judge-submitted Speaker Points. The locked Standings Rules Configuration may assign clearly labeled Administrative Points only when its published Administrative Outcome treatment explicitly permits them. An objective correction preserves the prior ruling, recalculates every affected snapshot and advancement input from the corrected version, and surfaces Downstream Conflicts and public Correction Notices without rewriting rounds already started.
+
 See [ADR 0015](../docs/adr/0015-use-director-uploaded-standings-rules.md).
 
 ## Decision record
+
+- **2026-09-04:** The project owner limited an unresolved Rubric-Blocked ruling to its actual standings dependency chain and prohibited timeout-generated outcomes.
+
+- **2026-09-04:** The project owner made Rubric-Blocked Administrative Rulings authoritative standings inputs without Judge points, allowed only configured Administrative Points, and required versioned objective correction, recalculation, notices, and Downstream Conflict handling.
 
 - **2026-09-02:** The project owner required the locked Standings Rules Configuration to define every No-Show Bye Round's win, loss, point, and opponent-adjustment treatment and prohibited fabricated Ballots, Judge points, or a universal implicit bye value.
 - **2026-09-02:** The project owner required an accepted No-Show Dispute affecting published standings to regenerate the authoritative snapshot, invalidate affected approvals, republish with a privacy-minimized Correction Notice, preserve operated rounds, and surface downstream conflicts.

@@ -8,6 +8,9 @@ Docket will calculate preliminary standings from a tournament-scoped Standings R
 
 ## Consequences
 
+- A Rubric-Blocked Administrative Ruling supplies the authoritative win or loss without Judge-submitted Speaker Points; only published Ruleset-defined Administrative Points may supplement it.
+- An objective correction recalculates every affected standings snapshot and advancement input from the corrected ruling version and preserves prior public history through Correction Notices.
+
 - Each tournament event can supply the standings choices required by its governing rules.
 - The uploaded configuration is versioned and attributed to its Director, event, source file, content fingerprint, and upload time.
 - Standings outputs identify the exact configuration version used to calculate them.

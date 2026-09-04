@@ -541,7 +541,7 @@ An unpublished Ballot Feedback revision visible only to its Judge.
 _Avoid_: Published Feedback, public comment
 
 **Feedback Publication**:
-The Judge action that makes one Feedback Draft the current feedback version visible to authorized School Members for both Entries.
+The Judge action that makes one Feedback Draft the current version visible to its adjudicated Competitors, every current Coaching Staff member for each represented School, and that School's sole School Manager.
 _Avoid_: Ballot Submission, auto-publish
 
 **Published Feedback**:
@@ -641,7 +641,7 @@ The immutable pre-closure assessment separating non-waivable competitive blocker
 _Avoid_: Final Results readiness, optional checklist, automatic closure
 
 **Post-Closure Exception**:
-An explicit, reasoned, audited action allowed on a closed tournament only through an existing correction, Feedback Reopening, Ownership Recovery, or legally required privacy workflow.
+An explicit, reasoned, audited action allowed on a closed tournament only through an existing correction, Ownership Recovery, or legally required privacy workflow.
 _Avoid_: Tournament reopening, ordinary edit, unrestricted administrator override
 
 **Post-Closure Correction Case**:
@@ -749,16 +749,12 @@ The scheduling objective that maximizes assignments of correct, qualified Judges
 _Avoid_: Maximum Judge workload, Time-Efficiency Objective
 
 **Feedback Deadline**:
-The locked tournament deadline at which Ballot Feedback becomes read-only to its Judge, configured before the first round as a duration after the final scheduled round and defaulting to 72 hours.
+The immutable official-tournament deadline exactly seven days after the current published end of the final scheduled competitive round, when Ballot Feedback becomes read-only to its Judge.
 _Avoid_: Ballot Submission deadline, result lock
 
-**Feedback Deadline Extension**:
-A reasoned Tournament Director action that moves a locked Feedback Deadline later without changing the already promised minimum feedback window.
-_Avoid_: Deadline shortening, Feedback Reopening, Emergency Amendment
-
-**Feedback Reopening**:
-An authorized, reasoned, audited action that restores Judge editing of Ballot Feedback after its Feedback Deadline.
-_Avoid_: Ballot Reopening, silent edit
+**Practice Feedback Reopening**:
+An owner-authorized, reasoned action that restores editing of Practice Feedback after its practice deadline but before the Practice Workspace deletion ceiling.
+_Avoid_: Official-tournament Feedback Reopening, Ballot Reopening, silent edit
 
 **Competitor**:
 A student who holds one authenticated Docket Account and may participate in tournament Entries while representing a School through separately governed relationships.
@@ -837,19 +833,83 @@ The single Docket-wide adjudication rubric governing fixed decision fields and o
 _Avoid_: School rubric, session-specific Ballot rubric, Feedback rubric
 
 **Event Ballot Rubric Draft**:
-A collaboratively edited, document-like draft whose open-ended question fields do not govern any round until an authorized version is validated and published.
+A collaboratively edited, document-like draft whose open-ended question fields do not govern any round until its validated publication review completes, normally through a distinct rules-governance approver.
 _Avoid_: Published rubric version, live Ballot, School rubric
 
+**Event Ballot Rubric Version**:
+An immutable published Event Ballot Rubric whose exact fields remain attached to every Ballot governed by it even after a later version removes or deprecates those fields, and which becomes the immediate default for new unpinned uses.
+_Avoid_: Mutable rubric, current draft, overwritten rubric
+
+**Single-Publisher Rubric Exception**:
+The warned, reasoned, impact-previewed fallback allowing a Tournament Director to publish a Docket-wide Event Ballot Rubric Version alone after authenticated requests containing the exact diff reach a frozen set of qualified publishers and none explicitly accepts within four hours.
+_Avoid_: Ordinary two-person approval, silent self-publication, tournament-specific rubric
+
+**Emergency Rubric Publication**:
+The narrow fifteen-minute publisher-request path for a defect that prevents valid adjudication, allowing a Director to publish a corrected Docket-wide version for future unstarted rounds without changing any started round's pinned rubric.
+_Avoid_: Started-round migration, live Ballot rewrite, ordinary rubric publication
+
 **Practice Feedback Rubric**:
-A titled, versioned Practice Workspace guide for written Judge feedback, falling back to Docket's event-specific default when the host selects no alternative.
+A titled, versioned Practice Workspace guide for written Judge feedback. A pre-lock session using Docket's event default automatically follows each newly implemented default version, while a selected custom version does not.
 _Avoid_: Event Ballot Rubric, Judge assessment, Competitive Result schema
+
+**Feedback Migration Review**:
+The private, versioned review that preserves existing draft content while mapping stable fields to a corrected rubric, isolating removed-field content until its Judge intentionally remaps it, and requiring completion of newly mandatory fields before the next publication.
+_Avoid_: Silent rewrite, completed-Ballot mutation, automatic publication
+
+**Round Rubric Pin**:
+The immutable association created when the first pairing in a scheduled event-round cohort validly starts, binding every pairing, Ballot, and decision in that cohort to one Event Ballot Rubric Version.
+_Avoid_: Live rubric migration, current platform default, future-round rubric
+
+**Unacknowledged Rubric Notice**:
+The nonblocking warning recorded when a round or practice starts before its responsible Director or owner acknowledges the governing rubric notice, retained as minimized operational telemetry for two years after acknowledgment or closure.
+_Avoid_: Start prohibition, rubric rejection, competitive penalty
+
+**Feedback Safety Reconsideration**:
+The single request available to an authoring Judge or affected Competitor within fourteen days of a Feedback safety restriction, decided by different Platform Safety personnel while the content remains restricted.
+_Avoid_: Competitive appeal, Feedback Reopening, automatic restoration
+
+**Attributed Restricted Export**:
+A permission-filtered Feedback or point export that visibly identifies its recipient, represented School, generation time, source version, and restricted-use status without remote tracking.
+_Avoid_: Anonymous export, tracking beacon, public report
+
+**Rubric-Blocked Decision**:
+The state of a started round whose pinned rubric cannot support a valid Judge decision, requiring a separate evidence-backed Administrative Ruling normally verified by a distinct Ballot-correction actor without changing the rubric or fabricating a Ballot.
+_Avoid_: Rubric migration, Judge impersonation, automatic outcome
+
+**Rubric-Blocked Ruling Evidence**:
+The restricted package containing the pin, affected fields, Judge report, validation failure, impossibility explanation, Ruleset, Pairing, proposed outcome, and downstream impact needed to support a Rubric-Blocked Administrative Ruling.
+_Avoid_: Merits argument, unrelated private evidence, replacement Ballot
+
+**Rubric-Blocked Correction Request**:
+A time-limited request by an affected Competitor, their current represented-School Coach or Manager, the assigned Judge, or authorized tournament staff to correct an objective defect in a Rubric-Blocked Administrative Ruling.
+_Avoid_: Merits appeal, public complaint, unrelated-School challenge
+
+**Represented-School Tournament Record**:
+The historical Entry, roster-as-operated, Pairing, School-directed notice, authorized Ballot and Feedback, released point, result, and correction set belonging to the School represented by an Entry.
+_Avoid_: Competitor's complete personal history, opponent-private record, School investigation file
+
+**Represented-School Data Export**:
+A nondelegable School Manager-initiated, freshly reauthenticated delivery set of permission-filtered PDFs, JSON, and checksum manifests for one School's retained records, split into numbered ZIP archives above two gigabytes and available only when complete.
+_Avoid_: Account Data Export, public tournament archive, unrestricted School dump
+
+**School Export Manifest**:
+The integrity inventory for a Represented-School Data Export, recording every numbered archive's sequence, checksum, and record count without adding sensitive content beyond the export itself.
+_Avoid_: School Export History, audit log, exported record
+
+**Historical Access Dashboard**:
+The School-scoped view that organizes retained Represented-School Tournament Records by tournament, season, event, Competitor, and record type without full-text search across private Feedback.
+_Avoid_: Public results search, Competitor personal history, private Feedback index
+
+**School Export History**:
+The two-year School Manager view of represented-School bulk-export requests, requester, date range, completion, and archive expiration, with separate governed privacy and audit access.
+_Avoid_: Export contents, Coaching Staff activity feed, public download log
 
 **Practice Panel Result**:
 The official decision within a multi-Judge Practice Workspace round, created only after every assigned Judge submits a Practice Ballot and remaining nonoperative outside that session.
 _Avoid_: Competitive Result, tournament Panel Decision, permanent performance result
 
 **Practice Placement Correction**:
-A reasoned, versioned Practice Session Owner edit limited to competitor-placement fields on a final Practice Ballot and unable to supply a missing Judge Ballot or modify Judge-authored responses or Feedback.
+A categorized, explained, versioned pre-closure Practice Session Owner edit limited to competitor-placement fields on a submitted Practice Ballot. It cannot supply a missing Judge Ballot or modify Judge-authored responses or Feedback.
 _Avoid_: Ballot impersonation, Feedback edit, fabricated submission
 
 **Google Practice Meeting**:

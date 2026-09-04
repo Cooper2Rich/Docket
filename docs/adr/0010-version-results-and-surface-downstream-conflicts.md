@@ -16,6 +16,13 @@ A Competitive Result correction will create a new version, recompute derived sta
 - Each mismatch between corrected inputs and a downstream artifact becomes a Downstream Conflict requiring an explicit, attributed, audited resolution.
 - Tabulation Staff may prepare the impact analysis and resolution plan, but only a Tournament Director may approve a Downstream Conflict resolution.
 - Unpublished artifacts regenerate from corrected data. Published but unstarted rounds are withdrawn and republished with notices. Started or completed rounds remain as played, with an Administrative Ruling governing effects on future standings and advancement.
+- A started round also retains its exact Round Rubric Pin through every Ballot and decision. A corrected rubric version can govern only future unstarted rounds, even when the original defect is discovered before every Ballot is submitted.
+- When the pinned rubric itself prevents a valid Judge decision, Docket records a Rubric-Blocked Decision and uses a separately attributed, evidence-backed Director Administrative Ruling without modifying the pin or fabricating a Judge Ballot.
+- The ruling normally requires independent verification by Ballot-correction-authorized Tabulation Staff, with a warned Director-only exception when no second authorized actor is available; unaffected cohort pairings continue under the shared pin.
+- Only objective error in inputs, Ruleset application, participant identity, or system behavior permits correction; disagreement with the ruling's merits does not.
+- An affected Competitor, current represented-School Coach or Manager, assigned Judge, or authorized tournament staff may file within sixty minutes of ruling notice or before the next affected event round, whichever occurs first; staff- or system-discovered objective defects remain correctable through the governing correction path.
+- A correction preserves and supersedes the original, recalculates standings and advancement, invalidates dependent approvals, emits any required public Correction Notice, and surfaces Downstream Conflicts without rewriting started rounds.
+- A public Correction Notice links the former and corrected outcomes and explains competitive effect without exposing evidence, internal actors, fingerprints, exact technical timestamps, or audit metadata.
 - A correction affecting published final results creates a versioned Correction Notice.
 - Resolution preserves every original artifact and prior version; it never deletes tournament history.
 - The original Judge supplies the Result Correction whenever available.

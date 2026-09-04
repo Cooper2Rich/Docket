@@ -121,9 +121,15 @@ The TypeScript backend must construct distinct runtime-validated public, School-
 
 The Advancement Field supplies the seeds and bracket inputs used by the Seeded Elimination Bracket method in [[pairing-model]].
 
+An unresolved Rubric-Blocked Administrative Ruling blocks only the Advancement Field, verification, Pairing, or publication that depends on its outcome and never generates automatic advancement when its deadline expires. An objective correction invalidates every dependent Advancement Field or verification built from the prior ruling version. Docket recalculates from the corrected standings, republishes unstarted downstream artifacts through their ordinary gates, and surfaces Downstream Conflicts while preserving started rounds.
+
 See [ADR 0017](../docs/adr/0017-separate-standings-from-advancement.md).
 
 ## Decision record
+
+- **2026-09-04:** The project owner constrained unresolved rubric-defect blocking to dependent advancement artifacts and prohibited automatic advancement at deadline expiry.
+
+- **2026-09-04:** The project owner required corrected rubric-defect rulings to invalidate dependent advancement, recalculate from corrected standings, republish only unstarted artifacts, and preserve started rounds through Downstream Conflict resolution.
 
 - **2026-09-01:** The project owner separated advancement from standings and required a versioned Advancement Plan that references the locked standings fingerprint and defines break size, eligibility, cut ties, seeding, and bracket byes.
 - **2026-09-01:** The project owner selected a declarative `.docket-advancement.json` contract with runtime validation and sample previews, required a Director to accept and publish one exact fingerprint before the first round, required the future TypeScript UI to generate it, and locked it with the standings configuration at first-round Pairing Publication.

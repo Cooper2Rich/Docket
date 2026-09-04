@@ -63,9 +63,15 @@ The TypeScript backend must construct and runtime-validate a dedicated public re
 
 The public Final Results Summary, its supporting published standings, bracket, awards, represented Schools, and Correction Notices are part of the Permanent Public Tournament Record in [[retention-model]]. Restricted source evidence, nonpublic versions, fingerprints, approvals, correction provenance, and calculation records are Seven-Year Competitive Evidence. Their expiry never removes or changes the permanent public projection.
 
+A Rubric-Blocked Administrative Ruling satisfies the round-outcome requirement only after its required verification or warned Director-only exception completes. While unresolved, it blocks only Final Results and other artifacts that actually depend on that round; missing the ruling deadline creates no automatic outcome. A later objective correction preserves the original, invalidates dependent Final Results Approval, recalculates affected standings and advancement, and republishes through the existing correction workflow. When public results change, the public Correction Notice links the former and corrected outcomes and explains the competitive effect while withholding evidence, internal actors, configuration fingerprints, exact technical timestamps, and other internal metadata.
+
 See [ADR 0018](../docs/adr/0018-gate-and-version-final-results.md).
 
 ## Decision record
+
+- **2026-09-04:** The project owner limited unresolved rubric-defect blocking to dependent results, prohibited timeout-generated outcomes, and required a human-readable public correction linkage without internal evidence or metadata.
+
+- **2026-09-04:** The project owner made completed rubric-defect rulings valid Final Results inputs and required objective corrections to invalidate approval, recalculate dependencies, preserve the original, and republish with any required public notice.
 
 - **2026-09-02:** The project owner made current corrected results the Tournament Archive default, kept Correction Notices visible, and placed prior public results versions in an expandable Superseded publication history without exposing restricted correction metadata.
 - **2026-09-02:** The project owner blocked affected-event Final Results while a timely No-Show Dispute is unresolved and required successful disputes to regenerate dependent results, invalidate approvals, and republish through the ordinary privacy-preserving correction lifecycle.

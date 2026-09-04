@@ -26,18 +26,25 @@ Permanent retention does not add internal fingerprints, versions, publishing act
 Docket retains restricted records needed to reproduce, validate, or investigate competitive outcomes for seven years after Tournament Closure, including:
 
 - complete Ballots and all Ballot Feedback versions;
+- the exact Published Feedback version restricted by safety personnel, its restriction and reconsideration history, recipient-access correction history, mistaken-download access-and-export incidents including the external-copy recall limitation, attributed restricted-export provenance, and prior corrected point values needed to explain later access or standings;
 - Judge-linked scores and panel provenance;
 - private eligibility and disqualification evidence;
-- locked Rulesets, Pairing Plans, Schedule versions, Standings Rules Configurations, Advancement Plans, Award Plans, and their source fingerprints;
+- locked Rulesets, immutable Event Ballot Rubric Versions and their historical field definitions, Pairing Plans, Schedule versions, Standings Rules Configurations, Advancement Plans, Award Plans, and their source fingerprints;
 - calculation inputs and outputs for pairings, standings, advancement, awards, and Final Results;
 - approval, publication, correction, Downstream Conflict, and historical-attribution provenance; and
 - audit events whose contents are necessary to explain an operative or published competitive decision.
 
 These records remain behind their existing Judge, School-scoped, tournament-operational, evidence, or audit permissions. At seven years, Docket automatically deletes the restricted record and nonpublic historical versions unless an active Legal Hold applies. The permanent public projection and Correction Notices remain unchanged.
 
+Safety-restricted Feedback is omitted from ordinary Account and School exports while restricted. An Attributed Restricted Export contains visible recipient, represented School, generation time, source version, and restricted-use metadata but no tracking pixel, remote beacon, or remotely loaded content.
+
 ## Two-Year Routine Operational Telemetry
 
 Docket retains delivery attempts and statuses, acknowledgments, routine operational-access events, and similar telemetry that is not needed to reproduce a competitive outcome for two years after Tournament Closure. If an event is part of competitive provenance, the seven-year class governs instead. At two years, Docket automatically deletes the telemetry unless an active Legal Hold applies.
+
+School Export History retains request, requester, date range, completion, and archive-expiration metadata for two years. Only the current School Manager and governed privacy or audit personnel may view it; the history contains no exported payload.
+
+An Unacknowledged Rubric Notice clears as an active warning when acknowledgment arrives. Its content-minimized event is retained as restricted operational telemetry for two years after acknowledgment or the applicable tournament or practice closure, whichever starts the clock first, and never becomes public or Competitive Evidence.
 
 A restricted Judge Reliability Record created by an Unexcused Special Circumstance Withdrawal is retained for two years from its decision. It exposes only the tournament, date, and outcome to the Judge and authorized future Judge Pool reviewers, never the private explanation, and its expiry does not change historical schedule or assignment provenance.
 
@@ -57,10 +64,27 @@ Routine telemetry is not public and is not included in ordinary School exports m
 - Judge Strike selections, Coach approvals, corrections, releases, and assignment provenance follow the same restricted seven-year Competitive Evidence period as the other Competitor tournament records. They receive no special extension and remain unavailable to Judges, opponents, and the public.
 - Full Judge Qualification Assessment answers, detailed scores, Critical Competency detail, provider payloads, and integrity evidence follow a two-year attempt-based period in [[judge-qualification-model]]. Minimal expired or superseded Qualification History follows seven years from expiration or supersession. Superseded Judging Profiles follow two years unless a tournament-disclosed version qualifies for that tournament's seven-year Competitive Evidence period. Quick details retain their earlier deletion trigger. An Unexcused Judge No-Show uses the same restricted two-year Judge Reliability Record as an Unexcused Special Circumstance Withdrawal.
 - A generated Account Data Export archive is an ephemeral delivery artifact deleted seven days after generation; this does not shorten the retention of its independently governed source records.
+- A Represented-School Data Export is an ephemeral authenticated delivery set. No numbered part is downloadable until the set is complete, the seven-day deletion clock begins at complete-set readiness, and Manager cancellation may delete a pending or generated set immediately. Its daily generation limit, mixed-retention preflight warnings, cancellation, and deletion do not change source-record retention; only payload-free School Export History remains.
 - Tournament-independent Practice Workspace sessions, invitations, governing Event Ballot Rubric references, titled Practice Feedback Rubric versions, Practice Ballot drafts and server receipts, Practice Placement Corrections, Practice Panel Results, Practice Feedback versions, mock results, and activity are deleted no later than thirty days after session creation; closure, cancellation, or copying cannot extend that limit, and they never inherit tournament Competitive Evidence retention because they are nonoperative. Practice creates no rankings, profile entries, or permanent performance history. Before deletion, each participant may export only their authorized Ballots, Panel Results, and Feedback as permission-filtered PDF or JSON, excluding private drafts, others' material, emails, and safety records; participants may delete their own unshared material, and the Practice Session Owner may delete the complete session after a warning. A removed participant's received material freezes at removal, and its export ends after seven days or the session's earlier deletion. Docket separately retains a minimized Practice Safety Report, decision, and necessary evidence for two years after resolution; a reported feedback version may be preserved there even after ordinary practice deletion. Safety records accept appended objective corrections, are restricted, excluded from Account exports unless legally required, and cannot affect tournament records. An exact Legal Hold may suspend their deletion under the existing two-person controls, and ordinary session deletion during review does not remove preserved safety evidence. Google Practice Meetings create no Docket-retained RSVP, attendance, join-time, recording, transcript, chat, presentation, audio, or video data. Minimal creation, connection-loss, replacement, leak rotation, delivery, update, and cancellation status expires with the ordinary session.
 - Legal Holds follow [[access-model]] and [ADR 0026](../docs/adr/0026-require-two-person-legal-hold-control.md).
 
 ## Decision record
+
+- **2026-09-04:** The project owner started the School export deletion clock only when every part is ready, allowed immediate Manager cancellation, and made retention warnings informational rather than retention-extending.
+
+- **2026-09-04:** The project owner retained payload-free School Export History for two years, limited it to the current School Manager and governed privacy or audit actors, and canceled former-Manager pending jobs and download authority without altering source records.
+
+- **2026-09-04:** The project owner made Represented-School Data Export archives ephemeral seven-day delivery artifacts without shortening source retention and prohibited early deletion of retained represented-School competitive evidence.
+
+- **2026-09-04:** The project owner retained minimized Unacknowledged Rubric Notice events for two years after acknowledgment or closure, while keeping them nonpublic and outside Competitive Evidence.
+
+- **2026-09-04:** The project owner retained attributed restricted-export provenance and Feedback safety-reconsideration history with the governing restricted evidence, excluded restricted content from ordinary exports, and prohibited remote tracking inside exports.
+
+- **2026-09-04:** The project owner added mistaken-download access-and-export incidents and the external-copy recall limitation to restricted Competitive Evidence while keeping the underlying content and safety evidence nonpublic.
+
+- **2026-09-04:** The project owner preserved exact harmful-feedback evidence, recipient-access correction history, and superseded corrected point values inside restricted Competitive Evidence without changing their audience or making them public.
+
+- **2026-09-03:** The project owner preserved every Event Ballot Rubric field in the immutable published versions and retained Ballots that used it, preventing later removal or deprecation from rewriting historical records.
 
 - **2026-09-03:** The project owner added titled Practice Feedback Rubric versions, Practice Ballot drafts and receipts, and Practice Placement Corrections to the ordinary thirty-day practice boundary without creating permanent history.
 

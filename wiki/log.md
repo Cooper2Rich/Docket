@@ -1428,3 +1428,154 @@ This file is append-only. Each entry records a completed wiki operation.
 - Allowed only the Practice Session Owner to make a reasoned, versioned Practice Placement Correction limited to competitor-placement fields on the final Practice Ballot, without changing Judge-authored responses, Feedback, other scoring, attribution, or a missing Ballot.
 - Adopted encrypted local draft autosave where supported, retry after reconnection, and server receipt as the only valid submission boundary; prohibited owner submission on behalf of a Judge.
 - Added Event Ballot Rubric Draft and Practice Placement Correction to the glossary and refined Event Ballot Rubric and Practice Feedback Rubric; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], and the index.
+
+## [2026-09-03] checkpoint | Rubric publication and placement correction finality
+
+- Required automatic merging only for nonconflicting simultaneous rubric edits, explicit same-field conflict resolution, and attribution of every edit.
+- Preserved removed or deprecated questions in every historical Event Ballot Rubric Version and Ballot governed by that version; new versions require an impact warning.
+- Required publication approval by a second distinct rules-governance Platform Administrator and prohibited a substantive draft editor from publishing alone.
+- Made new open-ended questions optional by default while allowing an explicit required designation that blocks submission when unanswered.
+- Limited answers to autosaved plain text with basic formatting, 5,000 characters per field, and no attachments, executable HTML, or embedded scripts.
+- Restricted submitted open-ended answers to authorized tournament officials and the Competitors adjudicated, excluding the public and other panel Judges; left author-Judge and tournament-independent practice-official mappings for the next frontier.
+- Limited Practice Placement Corrections to the pre-closure period and required a correction category plus short explanation.
+- Required each placement correction to preserve the prior Ballot and result as superseded, recalculate immediately, and notify assigned Competitors and Judges without exposing Feedback.
+- Confirmed that a placement correction cannot cure an Incomplete Practice Panel or supply a missing Judge Ballot.
+- Added Event Ballot Rubric Version to the glossary and refined Event Ballot Rubric Draft and Practice Placement Correction; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], and the index.
+
+## [2026-09-03] checkpoint | Rubric audiences, fallback publication, and Feedback window
+
+- Gave the authoring Judge retained read-only access to their own submitted open-ended answers while preserving the prohibition on access to another Judge's answers.
+- Allowed official-tournament Judges to edit and explicitly publish Ballot Feedback for seven days after the tournament and prohibited Tournament Closure from shortening that open window; left the exact tournament-end anchor for the next frontier.
+- Defined authorized official-tournament answer viewers as the Tournament Director and Tabulation Staff with explicit Ballot-view or correction permission, excluding generic staff, room monitors, and generic Platform Administrators.
+- Defined Practice Workspace official viewers as the Practice Session Owner and an explicitly designated Organizer with Ballot-oversight permission.
+- Excluded Coaches from direct answer access while allowing an authorized Competitor to share their own copy independently.
+- Included every active Competitor who actually participated in either adjudicated Entry and excluded alternates, withdrawn members, unrelated School members, and rostered nonparticipants.
+- Defined substantive rubric editing as changing questions, order, required status, instructions, validation, or answer limits; title-only administration does not disqualify the ordinary second approver.
+- Allowed a Tournament Director to publish alone through a Single-Publisher Rubric Exception when only one publisher is available; left its Docket-wide scope and availability proof for the next frontier.
+- Required rollback to copy former content into a newly numbered draft and repeat ordinary reason, impact, and publication controls without erasing history.
+- Made each published version the immediate default for new unpinned uses while preserving already pinned tournaments and practices.
+- Allowed paragraphs, bold, italics, headings, numbered and bullet lists, and sanitized hyperlinks; prohibited images, tables, attachments, embedded media, custom HTML, scripts, and automatically loaded external content.
+- Added Single-Publisher Rubric Exception to the glossary and refined Feedback Deadline, Event Ballot Rubric Draft, and Event Ballot Rubric Version; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[tournament-lifecycle-model]], [[backend-roadmap]], ADRs 0009 and 0020, and the index.
+
+## [2026-09-03] checkpoint | Global rubric fallback and hard Feedback deadline
+
+- Made a Tournament Director's Single-Publisher Rubric Exception publish a Docket-wide Event Ballot Rubric Version and required a prominent warning that every tournament may be affected.
+- Anchored the official Feedback Deadline to the current published end of the final scheduled competitive round.
+- Made the seven-day Feedback window a hard platform standard that no actor or configuration may extend or shorten; a valid pre-end Schedule revision recalculates the anchor rather than editing the duration.
+- Kept submitted Competitive Results and open-ended rubric answers locked outside authorized Ballot Reopening while allowing only Ballot Feedback editing during the seven-day window.
+- Granted a responsible Coach access to their own student or Competitor's scoring points while leaving Coach access to open-ended answers and Feedback for explicit clarification.
+- Ended an official's Ballot access immediately when the qualifying role or permission ends.
+- Required a corrected participation record to revoke mistaken access, grant the actual participant access, privately notify both, and preserve restricted audit history.
+- Limited open-ended-answer links to sanitized HTTPS destinations with a visible domain, safe new-context opening, and a leaving-Docket warning; rejected shorteners, tracking links, previews, and executable or embedded content.
+- Allowed the Tournament Director using the exception to be both substantive editor and publisher after a self-publication warning, no-other-publisher explanation, full impact preview, and permanent attribution.
+- Preserved Q487's requested automatic replacement without guessing whether “Feedback Rubric” means the Event Ballot Rubric, Practice Feedback Rubric, or both; carried that distinction to the next frontier.
+- Removed Feedback Deadline Extension from the glossary and superseded the configurable extension model in [[access-model]], [[scheduling-model]], [[ballot-model]], [[tournament-lifecycle-model]], [[backend-roadmap]], ADRs 0009 and 0020, and the index.
+
+## [2026-09-04] checkpoint | Practice default adoption and official Feedback finality
+
+- Applied automatic replacement only to the platform-default Practice Feedback Rubric in pre-lock Practice Workspaces still following that default; protected custom titled versions, Event Ballot Rubrics, and locked sessions.
+- Gave every Coach authorized for a Competitor access to all Published Feedback delivered to that Competitor, in addition to released scoring points, while continuing to restrict locked open-ended Event Ballot Rubric answers.
+- Prohibited every official-tournament Feedback Reopening after the hard seven-day deadline, including individual, staff-authorized, emergency, and Post-Closure paths; preserved the separate Practice Feedback Reopening.
+- Calculated the deadline at the same local clock time seven calendar days later in the tournament's official named timezone and displayed the equivalent in each user's local timezone.
+- Froze the Feedback Deadline anchor when the final scheduled competitive round ended and prohibited later clerical Schedule corrections from moving it.
+- Required Docket to identify all qualified rubric publishers and request approval before a Director exception; if none accepts within the applicable review period, the Director must attest that publication cannot reasonably wait and explain why.
+- Required global-rubric publication notices for rules-governance administrators, Directors of upcoming affected tournaments, and owners of affected pre-lock Practice Workspaces; Judges and Competitors receive notice only when their governing version changes.
+- Required a defective rubric correction to publish as a new version, allowed pre-start governed migration, preserved started-round versions and completed Ballots, and limited live correction to defects preventing valid adjudication.
+- Gave authorized Coaches every individual Judge-submitted preliminary-round point and official aggregate for their own Competitors after the tournament releases that round's decision and scoring information; withheld opponent-restricted points and exposed no points in Elimination Rounds.
+- Replaced generic Feedback Reopening in the glossary with Practice Feedback Reopening and updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[tournament-lifecycle-model]], [[backend-roadmap]], ADRs 0009 and 0020, and the index.
+
+## [2026-09-04] checkpoint | School-wide Coach access and rubric recovery
+
+- Granted every current Coaching Staff member for a Competitor's School and that School's sole School Manager access to the Competitor's Published Feedback and released preliminary points, while continuing to exclude them from locked open-ended Event Ballot Rubric answers and opponent-restricted material.
+- Fixed the qualified-publisher review period at four hours before a Tournament Director may invoke the Single-Publisher Rubric Exception.
+- Made global rubric notices informational while requiring the responsible Tournament Director or Practice Session Owner to acknowledge the exact governing version and diff before the relevant lock.
+- Required a new default Practice Feedback Rubric to notify the owner and accepted participants, with only the owner required to acknowledge before Practice Role Lock.
+- Preserved all draft content during pre-lock rubric updates, mapped stable fields, isolated removed-field content for private migration review, and required newly mandatory fields before publication without silent deletion, publication, or relocation.
+- Allowed authorized safety personnel to hide or restrict harmful Published Feedback after finality without editing or reopening it and preserved the exact restricted version as evidence.
+- Allowed recipient-access correction after the Feedback Deadline without content edits, with private notices and complete delivery history.
+- Delivered each Competitor's exact Published Feedback version to their authorized School recipients even when it discusses an opponent, without separately addressed opponent Feedback or opponent-restricted scores.
+- Required corrected released points to update the Competitor and authorized School recipients together, preserve prior restricted values, and feed standings from the current corrected values.
+- Required a live adjudication-blocking rubric defect to pause affected submissions, preserve drafts and completed Ballots, use a new governed Docket-wide version and Director-approved migration for affected unsubmitted Ballots, notify affected parties, and never silently rewrite a completed Ballot.
+- Added Feedback Migration Review to the glossary; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], ADR 0009, and the index.
+
+## [2026-09-04] checkpoint | Active School access and immutable started-round rubrics
+
+- Limited Coaching Staff access to Accounts whose current active School Membership carries that role and ended Docket access immediately when the role or Membership ends.
+- Gave the School's sole School Manager exactly the same Published Feedback and released-point scope as current Coaching Staff without granting locked open-ended answers or opponent-restricted material.
+- Started the ordinary four-hour publisher review only after authenticated in-app delivery of the exact diff to every currently qualified publisher; supplemental email failure warns without delaying the clock.
+- Counted only explicit approval of the exact diff as acceptance and made opening, acknowledgment, and rejection insufficient; even unanimous rejection does not shorten the four-hour period.
+- Allowed Practice Role Lock, round start, and session start without Director or Practice Session Owner rubric acknowledgment because governing-version notices are informational.
+- Preserved removed-field draft content privately until its Judge intentionally remaps it into a valid field, required newly mandatory fields only before the next publication, and kept earlier Published Feedback valid.
+- Required privacy-minimized safety-restriction notices to the authoring Judge, affected Competitors, current School Coaching Staff, School Managers, and authorized officials without exposing reports or evidence.
+- Required mistaken-download response to revoke future access, preserve an access-and-export incident, notify privacy and safety personnel and affected parties, and record that an external copy cannot be recalled.
+- Defined a Round Rubric Pin that makes the exact rubric version immutable from round start through every Ballot and round decision.
+- Prohibited every rubric edit or migration for a started round, including an unsubmitted Ballot, and limited a fifteen-minute Emergency Rubric Publication to future unstarted rounds.
+- Added Emergency Rubric Publication and Round Rubric Pin to the glossary; refined Feedback Migration Review and Single-Publisher Rubric Exception; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], ADRs 0009 and 0010, and the index.
+
+## [2026-09-04] checkpoint | Rubric pin activation and historical School access
+
+- Revalidated protected Feedback authorization on every request and active session, immediately closed protected views and blocked new exports after authority loss, and acknowledged that Docket cannot erase a previously downloaded external copy.
+- Required restricted PDF and JSON exports to identify the recipient Account, represented School, generation time, source version, and restricted-use status without tracking pixels, remote beacons, or remotely loaded content.
+- Allowed starts without rubric acknowledgment while pinning the displayed version, recording an Unacknowledged Rubric Notice, and sending a reminder without operational or competitive penalty.
+- Made an authorized Ready-or-Scheduled-to-Started transition—not scheduled time or Ballot opening—the Round Rubric Pin boundary and recorded actor, time, and exact version.
+- Gave newly authorized Coaching Staff and School Managers immediate access to still-retained records for Entries representing their School.
+- Allowed future rounds to proceed after emergency-notice delivery failure while requiring retry, escalation, and prominent governing-version display when affected Judges and Competitors enter.
+- Allowed the authoring Judge or an affected Competitor one Feedback Safety Reconsideration within fourteen days by different Platform Safety personnel, kept the content restricted during review, and prohibited any Competitive Result change.
+- Excluded safety-restricted Feedback from ordinary Account and School exports while preserving governed safety, legal, and audit access.
+- Kept historical School-scoped Feedback with the School represented by its original Entry, limited the destination School to records for Entries representing it, and preserved the Competitor's personal history.
+- Froze the required publisher set when a review begins, invalidated approval after authority loss, sent newly qualified publishers the live request without restarting the clock, and audited every authority change.
+- Added Unacknowledged Rubric Notice, Feedback Safety Reconsideration, and Attributed Restricted Export to the glossary; refined Feedback Publication, Single-Publisher Rubric Exception, and Round Rubric Pin; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], ADRs 0009 and 0030, and the index.
+
+## [2026-09-04] checkpoint | Event-round rubric cohort and represented-School records
+
+- Applied one Round Rubric Pin to every pairing and room in the same scheduled event-round cohort when its first pairing validly starts; later-starting rooms use the same version and corrections begin with a later event round.
+- Defined Rubric-Blocked Decision and routed an unusable pinned rubric to an evidence-backed Tournament Director Administrative Ruling without changing the pin or fabricating a Judge Ballot.
+- Cleared the active Unacknowledged Rubric Notice on acknowledgment while retaining its minimized restricted event for two years after acknowledgment or closure, outside public and Competitive Evidence projections.
+- Defined Represented-School Tournament Records as operated Entries and rosters, Pairings, School-directed notices, authorized Ballots and Feedback, released points, results, and corrections while excluding opponent-private information, Judge assessments, safety evidence, investigations, and unrelated Competitor history.
+- Prohibited a Competitor from revoking historical represented-School authority while preserving governed privacy and safety restriction paths.
+- Sent newly authorized Coaching Staff and School Managers one scoped access notice and provided a Historical Access Dashboard without one notice per record.
+- Kept legitimately authorized prior exports as ordinary audited exports after role removal and created incidents only for mistaken original access or reported misuse.
+- Preserved the original four-hour or fifteen-minute timer and Director fallback when every publisher in the frozen set loses authority, while invalidating their approvals and retaining request history.
+- Limited Unacknowledged Rubric Notice visibility to the responsible Director or Practice Session Owner and rules-governance administrators; Judges and Competitors see the governing rubric itself.
+- Standardized Feedback Safety Reconsideration outcomes as Restored, Remains Restricted, or Restricted with Revised Scope and sent only those statuses to the requester, authoring Judge, affected Competitors, represented-School staff and Managers, and authorized officials.
+- Added Rubric-Blocked Decision and Represented-School Tournament Record to the glossary; refined Round Rubric Pin and Unacknowledged Rubric Notice; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], ADRs 0009, 0010, and 0030, and the index.
+
+## [2026-09-04] checkpoint | Verified rubric-defect rulings and School history exports
+
+- Required a Rubric-Blocked Administrative Ruling to be prepared by the Tournament Director and verified by distinct Ballot-correction-authorized Tabulation Staff, with a warned, reasoned, evidence-reviewed Director-only exception when no second actor is available.
+- Labeled the outcome `Administrative Ruling — Rubric Defect`, disclosed only the general reason and outcome where the round decision ordinarily appears, and withheld evidence and staff reasoning.
+- Created no late-Ballot, Assignment Hold, No-Show, reliability, or qualification consequence for the assigned Judge.
+- Continued unaffected pairings under the event-round cohort pin and sent only the pairing that cannot produce a valid decision into administrative resolution.
+- Allowed a valid corrected rubric to govern the complete cohort only before any pairing in it starts.
+- Reserved Represented-School Data Export initiation to the freshly Google-reauthenticated School Manager, generated it asynchronously, limited each School to one completed export every twenty-four hours, audited it, and deleted the authenticated archive after seven days.
+- Limited Historical Access Dashboard search to tournament, season, event, Competitor, record type, and represented-School metadata without unrestricted full-text search across private Feedback.
+- Routed a historical correction notice to the Competitor and original represented School's current Coaching Staff and Manager, and to the destination School only when its represented Entry changes.
+- Returned Feedback with a `Restored` safety outcome to ordinary authorized views and future exports without automatically delivering or regenerating a file.
+- Prohibited School or Competitor deletion of retention-protected represented-School history while preserving governed correction, restriction, safety, and legally required privacy actions.
+- Added Represented-School Data Export and Historical Access Dashboard to the glossary; refined Rubric-Blocked Decision; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[retention-model]], [[backend-roadmap]], ADRs 0009, 0010, and 0030, and the index.
+
+## [2026-09-04] checkpoint | Ruling evidence and secured School export lifecycle
+
+- Required Rubric-Blocked Ruling Evidence to contain the pinned rubric, affected fields, Judge report, validation failure, impossibility explanation, Ruleset, Pairing, proposed outcome, and downstream preview while excluding unrelated private evidence.
+- Limited a Director-only ruling to a recorded finding that no distinct verifier is reasonably available before the result is operationally required; ordinary delay and convenience do not qualify.
+- Allowed only objective correction for wrong inputs, misapplied Ruleset, wrong participants, or proven system error and prohibited merits appeals.
+- Required Represented-School Data Exports to be encrypted ZIPs containing human-readable PDFs, structured JSON, and a category manifest, split into numbered archives above two gigabytes and never emailed.
+- Kept bulk export nondelegable and exclusive to the freshly Google-reauthenticated School Manager.
+- Included only already-authorized School copies and excluded separately addressed opponent Feedback, opponent-restricted points, private eligibility, conflicts, strikes, and staff evidence.
+- Gave the current School Manager two years of payload-free export request, completion, expiration, requester, and date-range history; ordinary Coaching Staff receive none.
+- Canceled a former Manager's pending export jobs and disabled their live downloads, requiring the new Manager to request a freshly reauthenticated export.
+- Made the rubric-defect Administrative Ruling the authoritative standings result without Judge-submitted Speaker Points, allowing only published Ruleset-defined Administrative Points.
+- Required an objective ruling correction to preserve the original, version and publish the correction, recalculate standings and advancement, invalidate dependent approvals, issue required Correction Notices, and surface Downstream Conflicts without rewriting started rounds.
+- Added Rubric-Blocked Ruling Evidence and School Export History to the glossary; refined Represented-School Data Export; updated [[access-model]], [[registration-model]], [[tournament-directory-model]], [[scheduling-model]], [[ballot-model]], [[standings-model]], [[advancement-model]], [[final-results-model]], [[retention-model]], [[backend-roadmap]], ADRs 0009, 0010, 0015, 0018, and 0030, and the index.
+## [2026-09-04] checkpoint | Rubric ruling deadlines and atomic School exports
+
+- Required a Rubric-Blocked Administrative Ruling or escalation within thirty minutes of the report and before the next affected event round, whichever occurs first.
+- Prohibited timeout-generated outcomes and limited unresolved-case blocking to dependent standings, Pairings, advancement, and publication.
+- Allowed affected Competitors, their current represented-School Coach or Manager, assigned Judges, and authorized staff to file objective correction requests within sixty minutes or before the next affected round.
+- Kept staff- or system-discovered objective defects correctable through the existing governed correction lifecycle after the participant filing window.
+- Required public corrections to link former and corrected outcomes and describe competitive effect without exposing internal evidence or metadata.
+- Made numbered represented-School exports one atomic delivery set unavailable until every part succeeds.
+- Required a master sequence, checksum, and record-count manifest copied into every numbered archive.
+- Used fresh Google-backed authentication for export generation and download without emailed archives or separate passwords.
+- Allowed the current School Manager to cancel pending exports or immediately delete generated delivery sets while preserving payload-free history and source records.
+- Required mixed-retention date-range preflight to disclose included, excluded, and imminently deleted records without extending retention.
