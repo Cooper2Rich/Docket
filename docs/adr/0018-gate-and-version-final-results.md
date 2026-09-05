@@ -10,6 +10,8 @@ Docket will publish final tournament results only from a validated, versioned dr
 
 - A Rubric-Blocked Administrative Ruling satisfies result completeness only after ordinary verification or a recorded Director-only exception.
 - Until that ruling is complete, only dependent standings, Pairings, advancement, and results publication are blocked; deadline expiry never supplies a result.
+- An overdue ruling exposes only Administrative Review in Progress to affected Competitors, Coaches, and the assigned Judge while high-priority escalation remains restricted to authorized tournament personnel.
+- One Tournament Director must accept formal responsibility before broad overdue escalation stops; Tabulation Staff assistance does not transfer ruling authority.
 - A corrected public rubric-defect outcome links the former and corrected outcome in a human-readable Correction Notice while internal evidence and metadata remain restricted.
 - An objective correction invalidates dependent Final Results Approval, preserves the original ruling and publication history, recalculates standings and advancement, and republishes with any required public Correction Notice.
 

@@ -54,11 +54,11 @@ Each area needs explicit requirements and observable acceptance criteria before 
 
 ## Technology direction
 
-Docket will ultimately be implemented in TypeScript across its backend and participant-facing application. Domain contracts, runtime schemas, deterministic calculation modules, tests, and integration boundaries should be designed with that destination in mind. TypeScript is settled; the specific framework, runtime, database, deployment platform, and repository architecture are not.
+Docket will be implemented in TypeScript across its backend and participant-facing application. The backend begins as a modular monolith using PostgreSQL, private S3-compatible object storage, and versioned REST/JSON interfaces described by OpenAPI, as settled in [[backend-architecture]] and [ADR 0031](../docs/adr/0031-start-with-a-modular-typescript-monolith.md). One repository will separate API, worker, domain-module, contract, database, and test packages. The specific framework, runtime host, deployment platform, and detailed package tooling remain undecided.
 
 ## Current status and knowledge gaps
 
-The brand foundation, broad product direction, and TypeScript implementation language are established. Detailed requirements, technical architecture, implementation priorities, remaining technology choices, and release milestones remain undecided.
+The brand foundation, broad product direction, TypeScript implementation language, and initial backend architecture are established. Detailed implementation priorities, framework and hosting choices, remaining technology decisions, and release milestones remain under design.
 
 ## Evidence
 

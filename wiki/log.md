@@ -1579,3 +1579,152 @@ This file is append-only. Each entry records a completed wiki operation.
 - Used fresh Google-backed authentication for export generation and download without emailed archives or separate passwords.
 - Allowed the current School Manager to cancel pending exports or immediately delete generated delivery sets while preserving payload-free history and source records.
 - Required mixed-retention date-range preflight to disclose included, excluded, and imminently deleted records without extending retention.
+## [2026-09-04] checkpoint | Overdue ruling escalation and uncapped verified exports
+
+- Sent persistent high-priority overdue-ruling escalation to every Tournament Director, the Tournament Owner, and Ballot-correction-authorized Tabulation Staff until publication or formal assignment.
+- Limited affected Competitors, Coaches, and the assigned Judge to the privacy-minimized Administrative Review in Progress status.
+- Reserved post-participant-window objective correction initiation to a Tournament Director or Ballot-correction-authorized Tabulation Staff member and prohibited automatic system correction.
+- Required audience-filtered private correction notices for affected Competitors, represented-School Coaching Staff and Managers, the assigned Judge, Directors, and involved Tabulation Staff.
+- Required Docket to digitally sign the master School Export Manifest.
+- Added an authenticated pre-download summary of range, included and excluded categories, archive count, total size, and retention warnings.
+- Required fresh Google reauthentication for every new or resumed numbered-archive download while preserving the ordinary signed-in Docket session.
+- Allowed resumable downloads throughout the seven-day availability period.
+- Required cancellation to delete all remaining server-side parts, preserve payload-free history, and warn that previously downloaded copies cannot be recalled.
+- Superseded the daily completed School-export limit with unlimited exports while retaining abuse throttling for repeated failures or cancellations.
+## [2026-09-04] checkpoint | Director-owned ruling cases and native School export builder
+
+- Required one Tournament Director to accept formal responsibility for an overdue Rubric-Blocked case and allowed audited transfer without granting ruling authority to assisting Tabulation Staff.
+- Allowed Ballot-correction-authorized Tabulation Staff to open, investigate, and prepare post-window objective corrections while reserving approval or rejection to a Tournament Director.
+- Made outcome-relevant system-defect flags block only dependent artifacts and lower-impact flags warn without blocking.
+- Kept corrected rulings operative when private notice delivery fails, with in-app and email retries, inbox retention, and escalation for repeated failure.
+- Retained non-secret manifest verification keys and rotation history indefinitely after generated exports expire.
+- Limited each School to one active generation job while queuing later selections without a daily completion cap.
+- Replaced duplicate-request handling with a notice that an exact export selection was already drafted and downloaded.
+- Fixed abuse throttling at five user-cancelled or non-system failed jobs within sixty minutes followed by a one-hour new-generation pause, excluding system failures.
+- Limited the throttle to new generation and made download reauthentication failure affect only the attempted download.
+- Replaced packet requests with a native Docket checklist that generates CSV or PDF, using ZIP only for multiple files or oversized output while keeping every contained document CSV or PDF.
+- Recorded the unresolved conflict between earlier sole-School-Manager export authority and the newer broader “School staff” wording for the next question frontier.
+## [2026-09-04] checkpoint | Permissioned School export content and file contracts
+
+- Superseded nondelegable Manager-only generation with School Data Export Permission held by the Manager by default and grantable or revocable for selected current Coaching Staff.
+- Kept ordinary Coaching Staff membership insufficient and preserved Manager-only access to the two-year all-School Export History.
+- Limited the export checklist to Entries, operated rosters, Pairings, School notices, authorized Ballots and Feedback, released points, results, and Correction Notices.
+- Allowed tournament, season, event, Competitor, record-type, date-range, and CSV-or-PDF filters while prohibiting arbitrary database fields and private-evidence categories.
+- Used CSV for structured data and PDF for human-readable presentation of the same authorized facts.
+- Required direct download for one file at or below two gigabytes and ZIP for multiple files or oversized partitioned output.
+- Appended a signed integrity page to a single PDF and paired CSV with a signed PDF manifest inside ZIP.
+- Required exact School, selection, filters, format, and source-version equality before showing an export as already drafted and downloaded; source changes mark it outdated.
+- Standardized filenames around Docket, School, tournament or date range, category, and generation date while excluding Competitor names except for intentional single-Competitor output.
+- Versioned CSV schemas with stable column identifiers and required new versions for removed or renamed columns.
+- Neutralized formula-triggering user content in CSV while preserving displayed text.
+## [2026-09-04] checkpoint | School export grant lifecycle and verifiable delivery
+
+- Kept School Data Export Permission indivisible and prevented a permissioned Coaching Staff member from granting it onward.
+- Required fresh Manager Google reauthentication, consequences review, attribution, recipient notice, and informed in-app acceptance within seven days.
+- Ended the grant immediately on Manager revocation, Coaching Staff role loss, or School Membership loss.
+- Preserved accepted grants through a School Manager transition while requiring the successor to review them within seven days under a persistent warning.
+- Canceled the actor's pending generation and live or shared downloads upon revocation while preserving payload-free audit history and warning that external copies cannot be recalled.
+- Gave permissioned Coaching Staff a two-year view of only their own export activity while preserving the Manager's all-School history.
+- Allowed an export creator or Manager to share a generated export only with another current permission holder who independently reauthenticates for each download.
+- Disabled private saved selections without transfer when their creator loses the School role and preserved Manager-published configuration-only School presets until retired.
+- Made generated exports immutable, marked them outdated after source correction, and notified still-authorized downloaders during the seven-day delivery-record window without attaching or regenerating data.
+- Limited personal identifiers to stable Docket IDs and authorized labels, used ISO 8601 timestamps with tournament-timezone context, and excluded unrelated email, Google, authentication, and contact data.
+- Required recipient and source attribution without tracking, searchable accessible PDF structure, and signature verification that does not upload private record contents.
+## [2026-09-04] checkpoint | Suspended export grants and snapshot-consistent files
+
+- Suspended unreviewed inherited School Export Grants after the successor Manager's seven-day review deadline without deleting them.
+- Required fresh successor reauthentication to confirm or revoke a suspended grant.
+- Closed declined or expired grant offers without activation, notified the Manager, and required reissuance for later access.
+- Allowed Coaching Staff to submit seven-day explanatory School Export Permission Requests without gaining automatic authority.
+- Ended School Export Shares at the earliest of file expiry, explicit creator or Manager revocation, or recipient permission loss.
+- Preserved the Manager's access to an already completed School export during its remaining seven-day window after creator role loss.
+- Versioned Manager-published School presets, made the newest version current, and retained superseded configurations in Manager history for two years.
+- Pinned one consistent source-version snapshot at generation start and marked output outdated rather than mixing records when sources changed during generation.
+- Preserved historical Entry IDs and represented Schools after Competitor transfer rather than substituting current affiliation.
+- Excluded contact-information export categories from the first release.
+- Allowed former lawful recipients to verify cryptographic signatures with public keys without restoring School access and required current authority for live outdated-status queries.
+## [2026-09-04] checkpoint | Suspended grants and privacy-safe export verification
+
+- Recorded that successor-review suspension cancels queued and running work and disables personal and shared live downloads while preserving the grant for later reauthenticated confirmation or revocation.
+- Allowed bulk revocation of inherited grants but required individual review for every continued grant.
+- Made School export permission requests editable or withdrawable before decision, versioned material changes, set a three-day reminder and seven-day expiry without platform escalation, and limited post-denial refiling.
+- Required all-or-nothing snapshot generation, warned confirmation for outdated downloads, notices only to still-authorized actual downloaders, schema-review blocking for incompatible presets, and public verification limited to validity and Docket signing-key identity.
+## [2026-09-04] checkpoint | Fixed grant review and explicit export replacement
+
+- Fixed inherited-grant review at seven days, notified the affected Coach and Manager when suspension occurs, allowed bulk revocation, and retained individual confirmation for every continuing grant.
+- Required a requester-visible denial reason, bounded same-purpose refiling after denial or withdrawal, and transferred pending requests to a successor Manager without resetting expiry.
+- Limited snapshot-consistency recovery to three system-excluded retries before failure and requester notice.
+- Preserved signed outdated artifacts unchanged, recorded explicit warning acknowledgment in School Export History, and required review and confirmation before generating a separate current replacement.
+- Assigned broken-preset repair to its private owner or the School Manager for School-wide presets and limited invalid public verification to generic guidance without hashes or diagnostics.
+## [2026-09-04] checkpoint | Export succession, retries, and verification-key safety
+
+- Kept suspension effective through failed email and repeated Manager transitions, with in-app notice, three email retries over 24 hours, and final Manager notification.
+- Restricted permission-request history, made the Manager record materially-different waiting-period bypasses, and preserved original request deadlines through succession.
+- Made each consistency retry pin the newest complete snapshot and identify the successful snapshot in the manifest.
+- Scoped outdated warnings to each new or resumed download session, kept replacement jobs independent, and required explicit missing-field repair for broken presets.
+- Made public verification Account-free, rate-limited, and ephemeral, while reporting later key compromise and revocation date without revealing School or export content.
+## [2026-09-04] checkpoint | Grant restoration and durable verification keys
+
+- Reused a still-eligible Coach's original acceptance when restoring a suspended grant and closed ineligible permission requests without transfer or a separate appeal.
+- Gave successor Managers the retained two-year request history while keeping export payloads excluded.
+- Revalidated authorization and retention at every snapshot attempt, fixed old-export expiry during replacement, and recorded resumable multipart delivery.
+- Retained detailed payload-free preset-repair provenance.
+- Notified current Managers and actual downloaders about compromised keys and established an indefinite signed, versioned public verification-key directory.
+## [2026-09-04] checkpoint | Restored exports and root-signed verification history
+
+- Limited restored grants to current-authorized unexpired exports and limited former requesters to their own final request view.
+- Warned and flagged three Manager waiting-period bypasses within 90 days without automatically blocking authority.
+- Minimized retention-failure details, isolated corrupted multipart redownload, and allowed only transfers authorized before expiry to finish.
+- Made compromised-key replacements use current sources with predecessor and changed-category disclosure and notified former downloaders without restoring School access.
+- Established a separate root-signed public key directory with two-Administrator root rotation and trusted status for safely retired keys.
+## [2026-09-04] checkpoint | Nonreviving restoration and verification-root recovery
+
+- Kept canceled generation jobs and disabled shares closed after grant restoration and retained a former requester's own final request view for two years.
+- Limited repeated-bypass audit flags to request metadata and Manager explanations absent separate investigative authority.
+- Stopped serving a part after two failed checksum redownloads, opened integrity review, and prohibited reconnecting after expiry.
+- Prioritized compromised-key replacements within the one-active-job rule and limited predownload change disclosure to categories and counts.
+- Added downloadable offline key-directory snapshots and a two-unaffected-administrator root-compromise transition published through independent official channels.
+## [2026-09-04] checkpoint | Revocation-aware transfers and matching verification tools
+
+- Made School-authority revocation terminate active transfers and prohibited staff from repairing integrity-failed signed artifacts in place.
+- Classified repeated-bypass review as expected use, policy concern, or investigation required, with two-year Manager-visible retention and requester notice only for their own permission changes.
+- Queued compromise replacements immediately after active School work and withheld change counts that retention prevents Docket from calculating exactly.
+- Added matching public web and downloadable offline verifiers, 24-hour offline-directory freshness warnings, and historical root trust chains.
+- Required a multi-credential offline recovery quorum for root compromise and retained delivery-tracked compromise notices while the public directory remains authoritative.
+## [2026-09-04] checkpoint | Independent export integrity review and verifier conformance
+
+- Recorded delivered parts and external-copy warnings when School authority is revoked during transfer.
+- Required a designated independent Platform security actor to classify repeated-checksum integrity cases within 24 hours and limited former-downloader invalidation notices.
+- Made policy concerns acknowledgment-only and required a second governed actor before an investigation-required referral opens a full investigation.
+- Required signed offline verifier releases and updates, one versioned validation specification, and a shared signed test-vector set with the web verifier.
+- Withheld current-trust claims when revocation refresh fails and required all declared parts, checksums, membership, and order before multipart output is fully valid.
+## [2026-09-04] decision | Initial backend architecture
+
+- Selected a modular TypeScript monolith and deferred service extraction until measured scaling or isolation evidence justifies it.
+- Selected PostgreSQL for authoritative transactional data and private encrypted S3-compatible storage for generated files.
+- Selected versioned REST/JSON with OpenAPI-generated TypeScript contracts and kept Google identity separate from Docket authorization.
+- Required server-derived School and tournament scope, optimistic record versions, and immutable privileged audit events.
+- Standardized UTC instants with governing IANA tournament timezones and opaque UUIDv7 durable identifiers.
+- Added [ADR 0031](../docs/adr/0031-start-with-a-modular-typescript-monolith.md) and [[backend-architecture]].
+## [2026-09-04] decision | Backend reliability and deployment contract
+
+- Fixed one-repository package boundaries and module-owned authoritative tables with automated dependency enforcement.
+- Required reviewed forward migrations, transactional-outbox delivery, idempotent jobs, and rebuildable nonauthoritative projections.
+- Set database recovery targets at no more than five minutes of expected data loss and thirty minutes to restore during active tournaments, backed by regular restore tests.
+- Required encrypted version-protected redundant object storage while prohibiting recovery copies from extending retention or download windows.
+- Adopted additive within-major API evolution, twelve-month prior-major support absent a security conflict, and expand-and-contract deployments that protect active tournaments.
+## [2026-09-04] decision | Backend runtime and operational safeguards
+
+- Separated API and worker runtime scaling while retaining one versioned modular-monolith release.
+- Selected a replaceable PostgreSQL-backed queue with at-least-once delivery and idempotent consumers.
+- Required module-local commits with explicit cross-module orchestration, durable events, and compensation, superseding the earlier shared-transaction proposal.
+- Required forward-fix production migrations and schema compatibility with the immediately preceding application release during rolling deployment.
+- Standardized privacy-safe machine-readable API errors, actor- and resource-scoped rate limits with tournament-critical capacity isolation, redacted structured telemetry, and separate readiness and liveness checks.
+
+## [2026-09-04] checkpoint | Q718 direct backend setup recommendation
+
+- Recorded the owner's request to replace the grilling interview with a direct architecture explanation.
+- Added an explicitly unaccepted stack recommendation to [[backend-architecture]]: Node LTS, pnpm, Nx, Fastify/TypeBox, PostgreSQL/Kysely, and pg-boss, with separate API and worker processes.
+- Recommended capability-based packages and one working registration path before extending the tournament lifecycle.
+- Clarified that module-owned writes can share one PostgreSQL transaction; the earlier unanswered separate-commit-only proposal is not an accepted requirement.
+- Distinguished compile-time ownership aids from runtime permissions and retained idempotent handling of external effects.

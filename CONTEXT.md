@@ -884,25 +884,73 @@ _Avoid_: Merits argument, unrelated private evidence, replacement Ballot
 A time-limited request by an affected Competitor, their current represented-School Coach or Manager, the assigned Judge, or authorized tournament staff to correct an objective defect in a Rubric-Blocked Administrative Ruling.
 _Avoid_: Merits appeal, public complaint, unrelated-School challenge
 
+**Administrative Review in Progress**:
+The privacy-minimized participant status for an overdue Rubric-Blocked Decision that confirms review is continuing without revealing evidence, proposed outcomes, staffing, or internal delay reasons.
+_Avoid_: Ruling outcome, staff escalation record, automatic decision
+
 **Represented-School Tournament Record**:
 The historical Entry, roster-as-operated, Pairing, School-directed notice, authorized Ballot and Feedback, released point, result, and correction set belonging to the School represented by an Entry.
 _Avoid_: Competitor's complete personal history, opponent-private record, School investigation file
 
 **Represented-School Data Export**:
-A nondelegable School Manager-initiated, freshly reauthenticated delivery set of permission-filtered PDFs, JSON, and checksum manifests for one School's retained records, split into numbered ZIP archives above two gigabytes and available only when complete.
-_Avoid_: Account Data Export, public tournament archive, unrestricted School dump
+A Docket-generated, School-scoped set of CSV or PDF files built from an authorized actor's explicit checklist of retained represented-School records; ZIP is only a container for multiple files or oversized output.
+_Avoid_: Requested packet, Account Data Export, public tournament archive, unrestricted School dump
+
+**School Export Selection**:
+The saved choice of record categories, filters, date range, and CSV or PDF format used to generate a Represented-School Data Export.
+_Avoid_: Packet request, database query, public report configuration
+
+**School Data Export Permission**:
+The single School-scoped authority held by the School Manager by default and grantable only by that Manager to selected current Coaching Staff for creating and downloading already-authorized Represented-School Data Exports.
+_Avoid_: General Coaching Staff access, School Manager transfer, tournament export authority
+
+**School Export Grant**:
+An informed, recipient-accepted assignment of School Data Export Permission that remains eligible until Manager revocation or the recipient's Coaching Staff role or School Membership ends, but may be suspended pending successor review.
+_Avoid_: Implied permission, delegated grant authority, permanent role
+
+**Suspended School Export Grant**:
+An inherited School Export Grant preserved for successor review but stripped of export-generation and download authority after the review window expires, recoverable only through that Manager's later reauthenticated decision.
+_Avoid_: Revoked grant, expired offer, active permission
+
+**School Export Permission Request**:
+A versioned, time-limited Coaching Staff request explaining the intended use of School Data Export Permission without granting, reserving, or automatically activating that authority.
+_Avoid_: School Export Grant, automatic approval, packet request
+
+**School Export Share**:
+A Manager- or creator-authorized opportunity for another currently export-permissioned School staff member to download one generated export without receiving broader record access.
+_Avoid_: Email attachment, public link, permission grant
+
+**School Export Preset**:
+A named School Export Selection containing configuration but no exported records, private to its creator unless the School Manager publishes it for School-wide reuse.
+_Avoid_: Generated export, downloaded data, report packet
+
+**School Export Preset Needs Review**:
+A School Export Preset that cannot generate output because its saved selection no longer maps cleanly to the current export schema and must be replaced by a reviewed version.
+_Avoid_: Silently migrated preset, invalid export, retired preset
+
+**Outdated School Export**:
+An immutable Represented-School Data Export whose pinned source snapshot no longer matches current authorized source records.
+_Avoid_: Invalid export, corrected export, expired export
 
 **School Export Manifest**:
-The integrity inventory for a Represented-School Data Export, recording every numbered archive's sequence, checksum, and record count without adding sensitive content beyond the export itself.
+The Docket-signed integrity record for a Represented-School Data Export, recording its successful source snapshot, selection, formats, file checksums, sequence when zipped, and record counts without adding sensitive content beyond the export itself.
 _Avoid_: School Export History, audit log, exported record
+
+**School Export Integrity Review**:
+A restricted Platform security review that determines whether a checksum-failing signed export is invalid by itself or evidence of wider compromise without changing the signed artifact.
+_Avoid_: File repair, School audit, export correction
+
+**Docket Verification Key Directory**:
+The signed public history of Docket keys used to verify exports, including each key's active, retired, revoked, or compromised status and effective dates without identifying any School or recipient.
+_Avoid_: School Export History, private key store, recipient directory
 
 **Historical Access Dashboard**:
 The School-scoped view that organizes retained Represented-School Tournament Records by tournament, season, event, Competitor, and record type without full-text search across private Feedback.
 _Avoid_: Public results search, Competitor personal history, private Feedback index
 
 **School Export History**:
-The two-year School Manager view of represented-School bulk-export requests, requester, date range, completion, and archive expiration, with separate governed privacy and audit access.
-_Avoid_: Export contents, Coaching Staff activity feed, public download log
+The two-year metadata view in which a School Manager sees all School exports and an export-permissioned Coaching Staff member sees only their own generation and delivery activity, with separate governed privacy and audit access.
+_Avoid_: Export contents, unrestricted Coaching Staff activity feed, public download log
 
 **Practice Panel Result**:
 The official decision within a multi-Judge Practice Workspace round, created only after every assigned Judge submits a Practice Ballot and remaining nonoperative outside that session.
