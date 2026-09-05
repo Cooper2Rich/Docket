@@ -5,9 +5,10 @@
 The initial backend supports authenticated accounts for:
 
 - **Platform Administrator** — operates Docket across tournaments for platform support and governance.
-- **Tournament Owner** — the single Tournament Director accountable for ownership, Director appointments, and closure.
+- **Tournament Administrator** — the single, temporarily assigned top-level tournament actor, historically called the Tournament Owner, accountable for Director appointments and closure.
 - **Tournament Director** — governs rules and delegated operational staff for a tournament.
 - **Tabulation Staff** — performs tournament operations under delegated authority.
+- **School Manager** — controls membership invitations for one governed School.
 - **Coach** — represents a School and manages that School's participation according to [[registration-model]].
 - **Judge** — receives assignments and submits ballots for assigned rounds.
 - **Competitor** — holds an individual authenticated Account and participates in tournament Entries.
@@ -16,15 +17,15 @@ The system also represents:
 
 - **Public Viewer** — an unauthenticated reader who can access only information explicitly published by a tournament.
 
-Precise permissions, delegation rules, and authority boundaries remain to be defined. Authorization must be scoped to the relevant platform, tournament, school, or round rather than inferred from possession of a generic role name.
+Remaining permissions and delegation rules must be defined explicitly. Authorization is scoped to the relevant platform, tournament, School, or round rather than inferred from possession of a generic role name.
 
 ## Google authentication boundary
 
 Google Identity Services using OpenID Connect is the sole authentication provider for the first backend slice. Docket does not store or administer passwords, passkeys, TOTP secrets, SMS factors, recovery codes, or other primary or additional authentication factors. Google owns sign-in, factor enrollment and challenges, account-security policy, and recovery of the Google account.
 
-Any verified Google account may authenticate a Competitor, Coach, Judge, Tournament Owner, Tournament Director, or Tabulation Staff account. Platform Administrators and Legal and Privacy Operations personnel must instead use a Google Workspace account from a Docket-approved organization-managed domain. This is an eligibility prerequisite for those platform permissions, not an authorization grant: an approved domain never creates a permission, School Membership, or Tournament Staff Assignment.
+Any verified Google account may authenticate a Competitor, Coach, Judge, Tournament Administrator, Tournament Director, or Tabulation Staff account. Platform Administrators and Legal and Privacy Operations personnel must instead use a Google Workspace account from a Docket-approved organization-managed domain. This is an eligibility prerequisite for those platform permissions, not an authorization grant: an approved domain never creates a permission, School Membership, or Tournament Staff Assignment.
 
-Competitors, Coaches, and Judges may create a **Basic Docket Account** through Google sign-in. That account carries no School, tournament, Judge-assignment, or platform authority merely because it exists. Competitor-School relationships, School Memberships, tournament staff positions, Tournament Director and Owner authority, and platform permissions require separately authorized workflows.
+Competitors, Coaches, and Judges may create a **Basic Docket Account** through Google sign-in. That account carries no School, tournament, Judge-assignment, or platform authority merely because it exists. A School Manager invitation establishes Coach or student Competitor affiliation only after acceptance. Tournament administration requires a Platform Administrator grant. Other tournament staff positions, Tournament Ownership, Judge assignments, and platform permissions require their separately authorized workflows.
 
 Each authenticated **Docket Account** links to exactly one current **Google Identity Subject**, identified by the verified token issuer and stable Google subject identifier, and one Google Identity Subject may belong to only one Docket Account. Email address, display name, and hosted-domain claims are mutable attributes and cannot serve as the account key, prove a School Membership, or grant a tournament or platform role. Docket requires Google's verified-email claim but never auto-links or merges Docket Accounts merely because an email address matches.
 
@@ -76,11 +77,13 @@ During a Google outage, an already-valid Docket Session continues until its norm
 
 Every **Access Offer** is bound to one intended verified Google email address and one exact School, tournament, or platform authority scope. Redemption requires a Docket Account authenticated with that verified address. Support cannot retarget an issued offer; if the recipient must use another Google identity, an authorized inviter cancels the offer and issues a new one.
 
+A School Manager is the sole ordinary inviter for Coach School Membership and student Competitor School Affiliation within that Manager's School. The Manager cannot use that authority to grant School Manager, Judge, tournament, or platform authority. A Platform Administrator is the sole issuer of a Tournament Administrator grant. Every such grant has an explicit effective time and ends automatically when the tournament reaches formal Tournament Closure; Platform Administration may revoke or replace it earlier. Neither an email domain nor possession of another role creates either authority automatically. Acceptance records the inviter, recipient, exact role and scope, effective time, ending rule, and resulting grant or affiliation. Ending it records the time and reason.
+
 Docket sends every Access Offer by email and also places it in the recipient's separate in-app **Access Inbox** when a matching Docket Account already exists. Docket does not require SMS delivery. Delivery failure raises an operational warning and permits notice resend without changing the offer's scope, state, token, or expiration.
 
 School and tournament Access Offers expire seven days after issuance. Platform-permission offers expire after 24 hours. Resending a notice does not extend or replace the original token; an authorized actor must issue a new offer.
 
-Opening an Access Offer grants nothing. Before acceptance, Docket shows the offering actor, governed School or tournament, offered role and permissions, and expiration. The recipient explicitly accepts the exact offer. Platform permissions, Tournament Ownership, and Tournament Director authority additionally require Google Reauthentication before acceptance.
+Opening an Access Offer grants nothing. Before acceptance, Docket shows the offering actor, governed School or tournament, offered role and permissions, and expiration. The recipient explicitly accepts the exact offer. Platform permissions, Tournament Administrator authority, and Tournament Director authority additionally require Google Reauthentication before acceptance.
 
 If the recipient already holds the exact offered authority, acceptance makes no change and records a redundant offer outcome. If acceptance would violate an exclusivity invariant, including the one-School-Manager rule, Docket rejects it rather than replacing the current holder or partially granting the offer.
 
@@ -88,7 +91,7 @@ Before acceptance, the original offering actor or any current actor holding the 
 
 Issuing a replacement for the same verified email and exact authority scope revokes every earlier Pending Access Offer and leaves only the newest version redeemable. Resending the notice for the same offer does not replace its token or move its expiration.
 
-Every Access Offer is reviewed and issued individually. Docket prohibits batch issuance for all School Membership, tournament staff, Director, Owner, platform, and Legal and Privacy Operations authority. Access Offers are never used to onboard Judges or Competitors or to advertise a tournament. Judges and Competitors create their own Basic Docket Accounts, and tournament discovery uses the [[tournament-directory-model|Active Tournament Directory]].
+Every Access Offer is reviewed and issued individually. Docket prohibits batch issuance for all School Membership, student Competitor affiliation, tournament staff, Director, Owner, platform, and Legal and Privacy Operations authority. School Managers use Access Offers to invite Coaches and student Competitors into their School scope. Those invitations may lead a recipient to create a Basic Docket Account but do not create an Account or authority before authenticated acceptance. Access Offers are not used to onboard Judges or advertise a tournament; tournament discovery uses the [[tournament-directory-model|Active Tournament Directory]]. This supersedes the earlier rule that prohibited Access Offers for all Competitors.
 
 An Access Offer sent to the wrong verified email must be revoked and reissued; no actor may edit or retarget it. Docket sends the incorrect recipient a revocation notice that reveals no additional private scope information beyond the original notice.
 
@@ -391,15 +394,20 @@ Only a Tournament Director may configure the tournament's Urgent Change Threshol
 
 See [ADR 0006](../docs/adr/0006-delegate-tabulation-permissions.md).
 
-## Tournament ownership
+## Tournament administration
 
-Every tournament has exactly one **Tournament Owner** and may have multiple additional Tournament Directors.
+**Tournament Administrator** is the user-facing name for the authority previously modeled as **Tournament Owner**. A tournament has at most one active Tournament Administrator assignment and may have multiple additional Tournament Directors.
 
-- The Owner is always also a Tournament Director.
-- Only the Owner may appoint or remove other Directors, transfer ownership, or close the tournament.
+- The Tournament Administrator is always also a Tournament Director while the temporary assignment is active.
+- Only Platform Administration staff may issue, replace, renew, or revoke the temporary assignment.
+- The Tournament Administrator cannot extend or transfer that actor's own assignment.
+- Only the active Tournament Administrator may appoint or remove other Directors or close the tournament.
 - Additional Directors may govern Rulesets, Emergency Amendments, and Tournament Staff Assignments.
-- Ownership transfer requires explicit acceptance by the recipient and a permanent audit record.
-- A tournament may never have zero Owners or multiple simultaneous Owners.
+- A replacement requires explicit acceptance by the recipient and an immutable audit record; activation atomically ends any prior assignment so two active Administrators cannot overlap.
+- Tournament Closure automatically revokes the Tournament Administrator context and future command authority without changing the attribution of earlier actions or independently granted Director authority. Authorization for the Closure command is evaluated before this revocation is committed.
+- If the assignment ends while administration is still required, the tournament remains without top-level administration until Platform Administration staff issue a new temporary assignment; administrator-only commands stay unavailable during that gap.
+
+Existing references to Tournament Owner or Owner in the wiki mean this same temporary Tournament Administrator authority and do not define a second role. This supersedes the permanent-ownership and never-zero-Owner portions of the earlier model while preserving the single-active-administrator constraint. After Closure, later work never silently restores the expired role; Platform Administration must create a new temporary assignment if a specifically authorized post-Closure action requires it.
 
 Only the Owner may perform Tournament Closure. Final Results Publication by an otherwise authorized Director or staff member marks Competitive Completion but does not grant closure authority or close the tournament automatically. Closure requires an explicit Owner action after the Feedback Deadline and a Closure Readiness Review. Unpublished Final Results, an open round, an unexpired Feedback Deadline, a timely filed unresolved No-Show Dispute, or a result-affecting unresolved correction or conflict cannot be waived. The Owner may resolve outcome-irrelevant warnings only by recording completion or an acknowledgment and reason. Authorized correction workflows remain available after closure. See [[tournament-lifecycle-model]].
 
@@ -409,9 +417,9 @@ A Tournament Director may initiate and approve an objective correction to a reje
 
 An authorized correction opens a Post-Closure Correction Case but leaves the tournament Closed. The actor may perform only commands authorized by both the original correction permission and the case scope. Public Viewers continue seeing the last published version until the corrected version completes its existing approval and republication workflow. Case resolution never grants closure authority or requires the Owner to close the tournament again.
 
-If the Owner loses account access, Docket attempts normal account recovery first. If the Owner cannot regain or exercise authority, an existing Director may request **Ownership Recovery**. Recovery requires verified evidence, notification to the current Owner, approval by two distinct Platform Administrators, recipient acceptance, and a permanent audit record.
+If the Tournament Administrator loses account access, Docket attempts normal account recovery first. If access cannot be restored in time, Platform Administration staff may revoke the assignment and issue a new temporary assignment through the ordinary grant workflow. The recipient must accept, and the system preserves a permanent audit record.
 
-During an active tournament, a Platform Administrator may issue a narrowly scoped, automatically expiring **Emergency Authority Grant** to an existing Director instead of rushing a permanent transfer. The grant does not change ownership, and all actions remain attributed to the Director who performs them.
+During an active tournament, a Platform Administrator may issue a narrower, automatically expiring **Emergency Authority Grant** to an existing Director without making that Director the Tournament Administrator. All actions remain attributed to the Director who performs them.
 
 See [ADR 0007](../docs/adr/0007-single-owner-multiple-directors.md).
 

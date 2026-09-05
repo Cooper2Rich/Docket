@@ -10,6 +10,8 @@ Competitive Completion preserves the existing Final Results correction lifecycle
 
 **Tournament Closure** is a separate governance action available only to the Tournament Owner. It is never an automatic consequence of Final Results Publication and cannot be delegated through a Tabulation Staff permission bundle or exercised by an additional Tournament Director.
 
+The same transaction that commits Tournament Closure ends the active temporary Tournament Administrator assignment. The actor is authorized as Administrator when the Closure command begins; after commit, that context can perform no further commands. Platform Administration may revoke or replace the assignment before Closure, and any specifically authorized post-Closure administration requires a new temporary assignment rather than silently restoring the former one. Tournament Administrator is the user-facing name for Tournament Owner in this document. See [[access-model]].
+
 Closure becomes eligible only after Final Results Publication, expiration of the Feedback Deadline, and completion or explicit resolution of required operational tasks. The hard Feedback Deadline is exactly seven days after the current published end of the final scheduled competitive round. No actor may extend or shorten it, and Closure cannot cut the window short. An authorized pre-end Schedule revision changes the anchor rather than exercising deadline discretion. Closure does not require every Judge to publish feedback; expiration of the promised opportunity is sufficient. Docket presents the Owner with a readiness review and requires explicit confirmation and a reason before closing.
 
 ### Closure Readiness Review

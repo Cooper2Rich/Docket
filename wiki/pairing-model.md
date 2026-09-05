@@ -30,6 +30,14 @@ The resulting **Prior-Match Side Lock** records the source tournament, round, Pa
 
 ## Initial pairing-method catalog
 
+### Bounded calculation
+
+Backend interview Q20–Q21 sets a 30-second initial round-pairing target per event/division, with visible progress, and allows the best valid candidate found within that budget without proof of global optimality. Validation must enforce the adopted Ruleset, locked Pairing Plan, and mandatory integrity constraints. Candidate ranking can optimize only the preferences that those rules permit. This does not authorize changing a locked method, weakening a hard constraint, or bypassing approval and publication.
+
+If the budget ends with a valid candidate, return it as valid without claiming proven optimality. If no valid candidate was found, report timeout/resource-budget exhaustion; claim infeasibility only when established. No invalid pairing becomes operative merely to meet the response target. Retain source versions, seed, algorithm version, validation outcome, and preference metrics for reproduction. See [[backend-implementation-proposal]] for resource and verification details.
+
+Q22 requires a clear timeout message with a Retry action. Only an authorized staff member can request another attempt after timeout; the application does not automatically loop the search. Each intentional retry creates a separately identified attempt under the same time budget and records its relationship to the prior outcome. Revalidate current grants, source versions, and the locked policy, and prevent duplicate delivery or repeated clicks for the same retry request from creating duplicate jobs. Retrying does not relax a constraint, imply success, or publish a pairing.
+
 The first Lincoln-Douglas backend release supports these versioned methods:
 
 - **Random Draw** — forms valid matchups from the eligible Entry pool using a recorded random seed after applying the selected hard constraints.

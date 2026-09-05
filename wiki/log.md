@@ -1579,3 +1579,240 @@ This file is append-only. Each entry records a completed wiki operation.
 - Used fresh Google-backed authentication for export generation and download without emailed archives or separate passwords.
 - Allowed the current School Manager to cancel pending exports or immediately delete generated delivery sets while preserving payload-free history and source records.
 - Required mixed-retention date-range preflight to disclose included, excluded, and imminently deleted records without extending retention.
+## [2026-09-04] query | Codex-guided constrained backend implementation
+
+- Researched current official OpenAI guidance for Codex application work, repository instructions, evaluation loops, deployment previews, and documentation verification.
+- Proposed a modular TypeScript monolith on a pinned Node.js LTS runtime with PostgreSQL, a transactional outbox, bounded workers, object storage, and audience-specific projections.
+- Kept Rust behind a benchmark-gated `ScheduleEngine` interface with shared runtime contracts and golden fixtures.
+- Defined a requirement-ledger workflow, implementation sequence, initial constraint categories, PostgreSQL transaction rules, and unresolved architecture decisions.
+- Recorded the proposal separately from accepted decisions in [[backend-implementation-proposal]] and updated the index.
+
+## [2026-09-04] query | Shared backend for web, iOS, and Android
+
+- Kept one client-neutral HTTPS command and query interface, TypeScript domain, PostgreSQL source of truth, worker system, projections, retention model, and optional Rust scheduling seam for all clients.
+- Separated the web cookie and browser path from mobile Google sign-in, secure storage, app-link, push, and offline-draft adapters.
+- Required mobile synchronization to carry an idempotency key, active-context identifier, and expected source version so offline work cannot bypass authoritative server state.
+- Added paired diagrams with the shared backend highlighted in green and expanded the implementation sequence and open decisions.
+
+## [2026-09-04] checkpoint | Require mobile connectivity
+
+- Required an active internet connection for every mobile Docket function.
+- Excluded offline Ballot drafts, queued commands, offline schedule access, and later synchronization from the mobile design.
+- Limited mobile persistence to secure session material and transient presentation state and required a server receipt before a command is treated as successful.
+- Replaced offline-conflict verification with connectivity-loss and server-receipt tests in [[backend-implementation-proposal]].
+
+## [2026-09-04] checkpoint | Select React Native and Expo
+
+- Selected one React Native and Expo TypeScript codebase for the downloadable iOS and Android applications.
+- Required Expo development builds for production development rather than treating Expo Go as the production environment.
+- Kept the browser and mobile interfaces separate while sharing versioned contracts, runtime schemas, the HTTPS client, terminology, and design tokens.
+- Preserved focused Swift or Kotlin native modules as an escape path for measured needs or platform requirements.
+- Updated [[backend-implementation-proposal]] and removed the mobile-framework choice from its open decisions.
+
+## [2026-09-04] checkpoint | Support every role on mobile
+
+- Required the React Native and Expo application to serve Competitors, Coaches, Judges, Tournament Directors, Tabulation Staff, School Managers, Platform Administrators, and Legal and Privacy Operations personnel.
+- Made current backend grants and the selected Active Role Context authoritative for mobile workspaces, commands, projections, navigation, and session policy.
+- Prohibited the client from inferring authority from the device, installation, email domain, or visible navigation.
+- Required mobile administration to preserve the same validation, approval, publication, recovery, warning, and audit semantics as the web interface.
+- Added complete mobile information architecture and role-context verification to [[backend-implementation-proposal]].
+
+## [2026-09-04] checkpoint | Switch roles within the application
+
+- Required a user with multiple grants to switch explicitly through the application UI.
+- Kept exactly one Active Role Context operative in a workspace at a time rather than combining role authority and data.
+- Required every request to carry a context identifier that the backend revalidates against current grants.
+- Required context switching to replace role-specific navigation, clear context-scoped client data, and honor the existing unsaved-work guard.
+- Updated the mobile build and verification plan in [[backend-implementation-proposal]].
+
+## [2026-09-04] checkpoint | Phase mobile feature delivery
+
+- Kept the complete backend command, projection, and authorization model shared by web and mobile.
+- Scoped the first mobile release to role switching, participant workflows, and time-critical live-tournament operations.
+- Deferred complex tournament setup, bulk administration, reporting, exports, platform support, identity review, retention governance, and Legal Hold interfaces to later mobile releases.
+- Prohibited a temporarily web-only interface from creating a separate domain command or authorization rule.
+- Updated the delivery sequence and remaining release-assignment decision in [[backend-implementation-proposal]].
+
+## [2026-09-04] checkpoint | Show tournament logistics in mobile notifications
+
+- Required mobile push notifications to show tournament identity, round, start time, room, and competitor names.
+- Required the backend to authorize the recipient and label the notification with its role and tournament context.
+- Required notification links to fetch current server state rather than treating possibly stale display text as authoritative.
+- Excluded Ballot contents, unreleased scores, credentials, contact information, and private administrative details from push payloads.
+- Left push-provider selection and token lifecycle details open.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-04] checkpoint | Assign role-invitation authority
+
+- Made the School Manager the ordinary authority that invites Coaches and student Competitors into that Manager's School scope.
+- Made Platform Administration staff the sole issuer of Tournament Administrator authority.
+- Required authenticated acceptance and an attributed, scope-specific grant or affiliation record; email domain and existing roles grant nothing automatically.
+- Prevented School Managers from using membership authority to grant School Manager, Judge, tournament, or platform authority.
+- Superseded the earlier blanket prohibition on Competitor Access Offers so student Competitor School Affiliation can be invited explicitly.
+- Left the relationship between Tournament Administrator, Tournament Owner, and Tournament Director open for clarification.
+- Updated [[access-model]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-04] checkpoint | Make tournament administration temporary
+
+- Made Tournament Administrator the user-facing name for the former single Tournament Owner authority rather than a separate overlapping role.
+- Required Platform Administration staff to issue, replace, renew, and revoke every Tournament Administrator assignment.
+- Made each assignment time-bounded with mandatory effective and expiration timestamps and automatic authorization failure after expiration.
+- Allowed the active Tournament Administrator to appoint additional Tournament Directors and Tabulation Staff but prohibited self-extension or self-transfer.
+- Preserved historical actor attribution after revocation and prohibited simultaneous active Tournament Administrators.
+- Superseded the permanent-ownership and never-zero-Owner portions of the earlier access model; an administrative gap locks Administrator-only commands until a new temporary grant is accepted.
+- Left the rule that determines the assignment's expiration time open for clarification.
+- Updated [[access-model]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-04] checkpoint | End tournament administration at Closure
+
+- Made formal Tournament Closure the automatic end of the active temporary Tournament Administrator assignment.
+- Allowed Platform Administration to revoke or replace the assignment earlier.
+- Required the Closure transaction to authorize the acting Administrator first and then atomically end that context when Closure commits.
+- Required any later post-Closure administration to receive a new explicit temporary assignment rather than restoring the former role.
+- Replaced the proposed mandatory expiration timestamp with an effective time, ending rule, eventual end time, and end reason.
+- Updated [[access-model]], [[tournament-lifecycle-model]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-04] checkpoint | Accept backend interview decisions Q1–Q9
+
+- Accepted a complete narrow tournament lifecycle, managed hosting and PostgreSQL, and a single US region for the US launch.
+- Set verification targets of 10 simultaneous tournaments, 5,000 connected users, and bursts of 200 commands per second.
+- Accepted a $200–$500 monthly pilot infrastructure budget as a planning constraint, without a verified quote or authorization to purchase infrastructure.
+- Required acknowledged tournament commands to survive server failure and targeted recovery within one hour after a major infrastructure failure; detailed failure scenarios remain unresolved.
+- Accepted the modular TypeScript monolith, separate HTTP and worker processes, one PostgreSQL database, and benchmark-gated optional Rust scheduling.
+- Accepted JSON over HTTPS, live web updates, mobile push, and polling fallback.
+- Required merge gates for strict TypeScript, lint, unit, real-PostgreSQL integration, migration, contract, and critical lifecycle checks, with pinned versions and reproducible scheduling fixtures.
+- Distinguished accepted targets from measured capacity, tested recovery, and validated cost; recorded the next dependent design branches in [[backend-implementation-proposal]].
+- Updated [[index]]; executable implementation and paid provisioning have not begun.
+
+## [2026-09-04] query | Hosting outage recovery with a small codebase
+
+- Recorded Q10 intent to cover an entire hosting-system outage while minimizing codebase size; region-wide versus provider-wide scope remains open.
+- Investigated PostgreSQL replication and failover guarantees using official documentation in [[backend-disaster-recovery]].
+- Kept the proposed application as one TypeScript implementation and one logical PostgreSQL database with infrastructure-managed replicas and one active writer.
+- Distinguished asynchronous recovery's possible loss of recent commits from synchronous durable acknowledgement, including its latency and write-availability costs.
+- Preserved the accepted no-loss and one-hour recovery targets pending failure-scope definition, deployment pricing, and recovery drills; did not accept a weaker guarantee or increase the budget.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-04] checkpoint | Set provider-outage recovery timing
+
+- Recorded Q11's one-hour recovery maximum and preferred recovery in under fifteen minutes for the entire-cloud-provider outage scenario.
+- Retained one TypeScript implementation; explained that shorter recovery chiefly adds standby readiness, deployment and failover automation, monitoring, and failure tests.
+- Kept no acknowledged-write loss as a separate requirement and left replication design, recovery capacity, initiation policy, and pricing unresolved.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-04] checkpoint | Prioritize live recovery within a hard monthly cap
+
+- Recorded Q12 acceptance of restoring live tournament functions first, targeting under fifteen minutes to reduce round delays and preserve trust.
+- Allowed reporting and large exports to recover within one hour while preserving required live-operation dependencies and integrity checks.
+- Replaced the approximate pilot budget with a hard $500 total monthly infrastructure cap, including primary, standby, and recurring usage charges.
+- Preserved no acknowledged-write loss; no deployment has yet demonstrated all capacity, recovery, and cost requirements together.
+- Documented the proposed live-recovery test scope and left automatic versus operator-initiated switchover unresolved.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-04] checkpoint | Select automatic safe failover
+
+- Recorded Q13 acceptance of automatic recovery switchover when safety can be verified, with an immediate Platform Administration alert.
+- Required preservation of acknowledged submissions and prevention of simultaneous writers before resuming writes at recovery.
+- Removed operator initiation as a prerequisite for a safe switch; retained escalation when safe promotion cannot be established.
+- Added failure-test expectations and kept the actual failover tooling, recovery capacity, and failback policy unresolved.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-04] checkpoint | Set single-tournament planning capacity
+
+- Recorded Q14's approximate upper limit of 750 competitors per tournament at launch.
+- Applied the number to load, scheduling, and recovery fixture planning without inventing an enforced registration cutoff or claiming measured capacity.
+- Distinguished Competitor count from concurrent users and left largest event/division, cross-entry distribution, and simultaneous maximum-size tournament assumptions open.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-04] checkpoint | Set representative speech and debate Entry mix
+
+- Recorded Q15's approximate 60% speech / 40% debate Entry allocation, distributed evenly across specified events in each category for workload planning.
+- Preserved Q14's 750-Competitor target separately; 450 speech and 300 debate Entries are conditional on a 750-Entry fixture, not a verified translation from unique people.
+- Left cross-entry, team/duo membership, and division distribution to be resolved before final load fixtures; did not establish registration quotas.
+- Kept the first Lincoln-Douglas lifecycle fixture distinct from mixed-event capacity testing.
+- Verified that the repository names Lincoln-Douglas as the first supported format but does not yet specify the complete event catalog needed to calculate per-event fixture sizes.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-04] checkpoint | Weight the mixed-event workload catalog
+
+- Recorded Q16's six speech event slots and four debate events for the mixed-event workload model.
+- Allocated 20% of speech Entries to each extemp slot and 15% each to OO, Prose, Poetry, and Informative Speaking; kept the first extemp name unresolved between interpretive and informative.
+- Allocated debate Entries as Congress 30%, LD 30%, CX 25%, and PF 15%, superseding Q15's equal within-category distribution.
+- Calculated each event's share of all Entries and retained the distinction between workload weights, unique Competitors, event rules, and actual registration quotas.
+- Preserved Lincoln-Douglas as the first implementation slice and recorded the remaining extemp naming clarification.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-04] checkpoint | Confirm Informative Extemp event name
+
+- Recorded Q17's correction of the first extemp name to Informative Extemp, distinct from Informative Speaking.
+- Preserved its allocation of 20% of speech Entries and 12% of all Entries.
+- Removed the pending naming ambiguity from [[backend-implementation-proposal]] and updated [[index]].
+
+## [2026-09-04] checkpoint | Add representative cross-entry workload
+
+- Recorded Q18 acceptance of two speech events per typical speech competitor in the test tournament.
+- Added cross-entry into one extemp event for approximately 30% of debate Entries; left the number of participating members in selected CX/PF teams and the split between extemp events unresolved.
+- Kept Competitor identity distinct from Entries and counted cross-entered extemp Entries within the existing speech totals as the current fixture interpretation.
+- Preserved existing cross-entry approval, schedule compatibility, and hold rules; workload percentages grant no automatic authority or registration exemption.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-04] checkpoint | Cross-enter both selected debate teammates
+
+- Recorded Q19's selection of both teammates for extemp participation when a CX/PF team is selected for cross-entry.
+- Kept the 30% selection denominator as debate Entries: a selected team contributes two individual extemp Entries, not two selected debate Entries.
+- Required shared Competitor identities and independent schedule checks for each teammate; kept those extemp Entries within the existing speech totals.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-04] checkpoint | Set round pairing calculation target
+
+- Recorded Q20 acceptance of a 30-second initial pairing target per event/division with visible progress and representative benchmarks.
+- Required explicit failure or timeout outcomes rather than pairings that violate mandatory constraints; preserved the distinction between budget exhaustion and proven infeasibility.
+- Defined the proposed measurement from backend acceptance through queueing, calculation, and validation, separately from approval and publication.
+- Kept optimality-proof requirements unresolved and applied the same validation expectations to TypeScript and any future Rust adapter.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-04] checkpoint | Accept best valid pairing within budget
+
+- Recorded Q21 acceptance of the best valid round pairing found within the 30-second budget without a proof of global optimality.
+- Preserved mandatory Ruleset, locked-method, integrity, approval, and publication requirements; only allowed preferences may be optimized.
+- Required timeout rather than an unsupported infeasibility claim when no valid candidate is found before budget exhaustion.
+- Left timeout retry policy and whole-tournament schedule-search budgets unresolved.
+- Updated [[pairing-model]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-04] checkpoint | Require explicit pairing retries after timeout
+
+- Recorded Q22 acceptance of a clear timeout message and staff-triggered Retry action, with no automatic repeated searches after timeout.
+- Kept every intentional attempt within the existing time budget and required authorization, current-source validation, and traceable attempt records.
+- Required duplicate retry delivery or clicks to avoid duplicate jobs; retrying never relaxes constraints or publishes a pairing.
+- Updated [[pairing-model]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-05] checkpoint | Test ten maximum-size tournaments together
+
+- Recorded Q23 acceptance of testing ten simultaneous tournaments with approximately 750 competitors each, totaling 7,500 tournament participants.
+- Preserved 5,000 concurrently connected users as a separate workload measure and retained the weighted event/cross-entry fixtures.
+- Required concurrent scheduling and live-command tests before claiming support; kept the $500 cap and existing recovery targets in force.
+- Left burst duration, read/write mix, and precise competing-job scenarios for subsequent fixture definition.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-05] checkpoint | Set peak command burst duration
+
+- Recorded Q24 acceptance of 200 commands per second sustained for 60 seconds, totaling 12,000 commands in the peak-load scenario.
+- Combined the burst with ten simultaneous 750-competitor tournaments and 5,000 connected users for verification.
+- Required offered/completed rate, latency, error, database-contention, queue-growth, and post-burst drain measurements; queued work alone does not establish successful throughput.
+- Left ordinary-action latency and the detailed command/read mix for subsequent decisions.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-05] checkpoint | Set ordinary backend request latency
+
+- Recorded Q25 acceptance of completion within two seconds for at least 95% of ordinary backend requests during the peak test, including check-in and Ballot submission.
+- Kept pairing and large-export completion under separate timing targets.
+- Defined backend timing to include queueing and required durable commit through response completion, with device-network and rendering delay separate.
+- Required operation-specific latency and error reporting; failed requests or mere enqueue acknowledgements do not count as successful committed commands.
+- Updated [[backend-implementation-proposal]] and [[index]].
+
+## [2026-09-05] checkpoint | Set foreground live-update target
+
+- Recorded Q26 acceptance of published room, schedule, and pairing updates appearing within five seconds on actively viewed, connected web and mobile screens.
+- Defined verification from publication commit to the current version rendered on an authorized client, including projection and delivery processing over a defined test network.
+- Kept background phone notifications and disconnected clients outside this target, with their delivery and reconnect behavior still to be specified.
+- Updated [[backend-implementation-proposal]] and [[index]]; the user requested committing and pushing all current repository changes.
