@@ -9,6 +9,8 @@ Docket needs authenticated Coaches, Judges, tournament personnel, and platform p
 
 Authentication must remain distinct from Docket's domain authorization. A valid Google identity must not imply authority over a School, tournament, Judge assignment, or platform operation.
 
+The later decision to distribute a general-public iOS application creates an unresolved external constraint: Apple App Review Guideline 4.8 generally requires an equivalent privacy-preserving login option when a third-party login establishes the primary account, unless an applicable narrow exception is documented. This ADR remains accepted for the first backend slice, but its iOS compatibility is under review rather than assumed. [Apple App Review Guideline 4.8](https://developer.apple.com/app-store/review/guidelines/)
+
 ## Decision
 
 The first backend slice will use Google Identity Services through OpenID Connect as its sole authentication provider.
@@ -54,5 +56,6 @@ An inaccessible, deleted, or Google-suspended account prevents new authenticatio
 - Docket's authentication availability depends on Google, and there is no weaker emergency login path.
 - The backend requires a small, isolated OpenID Connect adapter and runtime claim validation.
 - Authorization remains testable as Docket domain policy independently of the authentication provider.
+- Public iOS release is blocked until Docket documents an applicable Guideline 4.8 exception or a later ADR adds Sign in with Apple through the same provider-neutral Account and authorization model.
 - A changed email address does not create a new Docket identity or transfer authority.
 - Competitor School-linkage and minor-user privacy safeguards still require separate decisions.

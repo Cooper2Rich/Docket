@@ -1816,3 +1816,276 @@ This file is append-only. Each entry records a completed wiki operation.
 - Defined verification from publication commit to the current version rendered on an authorized client, including projection and delivery processing over a defined test network.
 - Kept background phone notifications and disconnected clients outside this target, with their delivery and reconnect behavior still to be specified.
 - Updated [[backend-implementation-proposal]] and [[index]]; the user requested committing and pushing all current repository changes.
+
+## [2026-09-05] checkpoint | Require controlled Platform-approved failback
+
+- Recorded Q27 acceptance that recovery remains active after automatic failover until Platform Administration approves return to the original hosting system.
+- Required verified health, authoritative database synchronization, a controlled switchover plan, fencing of the current writer, rollback planning, and an attributed outcome.
+- Prohibited automatic failback and oscillation between hosts; kept failback timing relative to active rounds unresolved.
+- Kept provider-specific failback logic in the infrastructure adapter rather than tournament domain modules.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-05] checkpoint | Accept reliability and small-queue constraints
+
+- Recorded Q28 acceptance of planned failback only between rounds or after competition, with a Platform-approved active-round exception only when recovery is unsafe or unavailable.
+- Recorded Q29 acceptance of a five-second p99 and below-0.1% unexpected-system-failure rate for valid ordinary requests during the peak test, with expected rejections reported separately.
+- Recorded Q30 acceptance of an authorized fresh snapshot before applying post-reconnect live updates, followed by versioned or cursor-based deltas.
+- Recorded Q31 acceptance of scope-bound idempotency keys for every write, atomic result storage, exact retry replay, and rejection of key reuse with different content.
+- Recorded Q32 acceptance of PostgreSQL-backed email, push, projection, and export jobs, with another broker permitted only after benchmark evidence.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-05] checkpoint | Bound retries and recovery reconnection
+
+- Recorded Q33 acceptance of seven-day idempotency-result retention with bounded cleanup and separate audit retention.
+- Recorded Q34 acceptance of at-least-once background-job delivery with idempotent handlers and duplicate suppression.
+- Recorded Q35 acceptance of three PostgreSQL priority lanes with reserved worker capacity for live projections and urgent tournament notices.
+- Recorded Q36 acceptance of type-specific bounded retry behavior for live projections, communication deliveries, reports, and exports, with permanent validation and authorization failures treated as terminal.
+- Recorded Q37 acceptance of all 5,000 clients obtaining fresh snapshots over 60 seconds while the 200-command-per-second recovery burst continues, using jittered client backoff.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-05] checkpoint | Specify backend retry and peak-load mechanics
+
+- Recorded Q38–Q39 acceptance of Account-, active-context-, command-, and client-action-scoped idempotency using a normalized validated-command fingerprint.
+- Recorded Q40 acceptance of a 512 KB compressed limit for each role-specific current-state snapshot, with history and large collections paginated.
+- Recorded Q41 acceptance of approximately one-, two-, and five-second live-projection retries followed by an operator alert and preserved failure evidence.
+- Recorded Q42 acceptance of renewable 30-second worker leases with approximately ten-second heartbeats and recovery of expired claims.
+- Recorded Q43 acceptance of the peak command mix: 60% Ballot work, 20% check-in or attendance, 10% round logistics or publication, and 10% registration, invitation, or other administration.
+- Recorded Q44 acceptance of urgent APNs or FCM submission within 30 seconds of authoritative commit, measured separately from device display.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-05] checkpoint | Bound live reads, transactions, and file transfer
+
+- Recorded Q45 acceptance of 600 ordinary reads per second for 60 seconds alongside the accepted command burst, live connections, and pairing work, with recovery snapshots additional.
+- Recorded Q46 acceptance of small, versioned, role-specific PostgreSQL projections for live logistics and paginated queries for administrative and historical views.
+- Recorded Q47 acceptance of a 256 KB uncompressed ordinary JSON-body limit and a separate governed path for larger payloads.
+- Recorded Q48 acceptance of a 250-millisecond p95 ordinary-transaction target and two-second execution limit, with long work moved to bounded workers.
+- Recorded Q49 acceptance of direct, short-lived signed object-storage transfers authorized and finalized through API commands.
+- Reconciled stale runtime, database, and repository-architecture wording in [[project-context]] and [[backend-roadmap]] with the newer accepted backend direction.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-05] checkpoint | Select the initial TypeScript backend stack
+
+- Recorded Q50 acceptance of Node.js 24 LTS, ECMAScript modules, strict TypeScript, and `tsc` compilation rather than treating native type stripping as a build gate.
+- Recorded Q51 acceptance of Fastify 5 with TypeBox and its Fastify type provider for application-owned runtime schemas and inferred handler types.
+- Recorded Q52 acceptance of stable Drizzle over `pg` with generated, checked-in, reviewed SQL migrations and no automatic production schema pushing.
+- Recorded Q53 acceptance of standard foreground WebSocket connections through `@fastify/websocket`, HTTPS commands, explicit TypeBox frame validation, and polling fallback.
+- Recorded Q54 acceptance of pg-boss behind a Docket-owned job interface for the accepted PostgreSQL queue behavior.
+- Recorded Q55 acceptance of a pnpm workspace without Nx or Turborepo initially.
+- Recorded Q56 from the owner's explicit correction: do not create an initial Rust crate; retain only the language-independent `ScheduleEngine` seam for a later benchmark-and-approval-gated decision.
+- Updated [[backend-implementation-proposal]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-05] checkpoint | Make live delivery and database operations bounded
+
+- Recorded Q57 acceptance of transactionally durable sequenced live-event rows with PostgreSQL `NOTIFY` used only as a wake-up hint.
+- Recorded Q58 acceptance of session-authenticated, Active-Role-Context-bound WebSocket subscriptions with no URL credentials and immediate revocation handling.
+- Recorded Q59 acceptance of approximately 25-second server heartbeats and termination after two missed responses.
+- Recorded Q60 acceptance of retryable disconnection after 1 MiB of queued data or more than 100 events of lag, followed by snapshot-first recovery.
+- Recorded Q61 acceptance of initial ten-connection API and worker pools, one listener connection per API instance, and a deployment total below 80% of the PostgreSQL limit.
+- Recorded Q62 acceptance of a single controlled expand–migrate–contract runner with destructive contraction delayed to a later verified deployment.
+- Recorded Q63 acceptance of repository-owned runtime decoding for persisted rows and versioned JSON rather than trusting Drizzle's static result types.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-05] checkpoint | Bound live history, abuse, telemetry, and backups
+
+- Recorded Q64–Q66 acceptance of 24-hour durable live events, opaque context-bound cursors, snapshot fallback, and small deduplicated invalidation frames followed by authorized HTTPS projection reads.
+- Recorded Q67 acceptance of five live connections per Account with only attributed, temporary Platform Administration increases.
+- Recorded Q68 acceptance of per-Account token buckets for ten writes per second with a burst of 20 and 30 reads per second with a burst of 60, preserving idempotency on throttled writes.
+- Recorded Q69 acceptance of privacy-minimized structured logs and OpenTelemetry, with 14-day raw service telemetry and 90-day aggregate metrics distinct from domain records.
+- Recorded Q70 acceptance of seven-day point-in-time recovery, daily encrypted independent-provider backups retained 30 days, monthly restore verification, and quarterly provider-outage drills.
+- Recorded Q71 acceptance of an explicit unknown-command-outcome state resolved through the original idempotency key and same-key retry.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], [[retention-model]], and [[index]].
+
+## [2026-09-05] query | Verify provider-wide recovery feasibility
+
+- Compared current official documentation for PostgreSQL durability and failover plus managed offerings from Render, Supabase, AWS Aurora, Google AlloyDB, and Crunchy Bridge.
+- Found no reviewed budget-tier managed PostgreSQL offering that documents synchronous cross-provider durability together with automatic fenced database promotion.
+- Estimated a provisional cross-provider managed topology at roughly $419–$485 monthly before load balancing, full observability, excess egress, and measured usage, leaving insufficient evidence for the hard $500 cap or accepted recovery load.
+- Recorded the conflict as an explicit pending product decision rather than weakening the accepted no-loss, automatic-recovery, managed-service, or budget constraints.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-05] checkpoint | Choose durability over the monthly cap
+
+- Recorded Q72 selection of durability-first architecture: preserve zero loss of acknowledged writes and automatic safe cross-provider failover.
+- Superseded the former $500 monthly infrastructure cap and authorized investigation of enterprise managed or custom consensus infrastructure.
+- Kept the tournament domain and TypeScript application provider-independent and small even if the infrastructure layer becomes more complex.
+- Marked PostgreSQL, Drizzle, and pg-boss for revalidation against the selected consensus topology instead of silently assuming compatibility.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-05] checkpoint | Define durability-first consensus semantics
+
+- Recorded Q73 acceptance that writes fail closed whenever a safe voting majority cannot be proven rather than risking split brain.
+- Recorded Q74 acceptance that success follows validation, authorization, and durable majority commit across the protected failure boundary.
+- Recorded Q75 acceptance that voting replicas, witnesses, backups, service telemetry, and object copies remain in US regions.
+- Recorded Q76 acceptance of strong consistency for live state, authorization, command receipts, and administrative decisions, with stale reads limited to immutable version-labelled public archives.
+- Superseded Q5's former single-region deployment assumption while retaining a US-user launch.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], [[project-context]], and [[index]].
+
+## [2026-09-05] query | Compare durability-first consensus topologies
+
+- Compared official material for CockroachDB Enterprise, YugabyteDB Anywhere, EDB PGD, PostgreSQL with Patroni, and Spanner's PostgreSQL interface against Q72–Q76.
+- Identified a contractually supported three-provider CockroachDB Enterprise cluster as the strongest candidate, with YugabyteDB Anywhere as fallback and EDB PGD as the PostgreSQL-fidelity alternative.
+- Recorded that standard CockroachDB Cloud terms do not by themselves establish one cluster across providers; vendor-managed or BYOC contract language or self-hosted Enterprise support is required.
+- Identified application changes for the Cockroach candidate: Drizzle's Cockroach dialect, bounded whole-transaction `40001` retries, Cockroach-compatible pg-boss configuration, UUID identities, and replacement of PostgreSQL `NOTIFY`.
+- Added mandatory contract and proof-of-concept gates; no database candidate was marked accepted from documentation alone.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], and [[index]].
+
+## [2026-09-05] checkpoint | Provisionally select CockroachDB Enterprise
+
+- Recorded Q77 acceptance of CockroachDB Enterprise as the provisional consensus engine, first seeking a vendor-managed or BYOC contract for one cluster across three US cloud providers.
+- Selected self-hosted CockroachDB Enterprise with vendor support if the qualifying managed contract is unavailable, with YugabyteDB Anywhere retained as fallback.
+- Replaced the PostgreSQL engine, `NOTIFY`, listener connection, and generic Drizzle configuration with CockroachDB, bounded live-event polling, Drizzle's Cockroach dialect over `pg`, and pg-boss's Cockroach backend.
+- Required bounded whole-transaction SQLSTATE `40001` retries, UUID identities, Cockroach-aware migrations, contract language, and all provider-loss and load proof gates before production acceptance.
+- Kept the TypeScript modular monolith, Fastify/TypeBox boundary, pnpm workspace, and no-Rust decision unchanged.
+- Updated [[backend-disaster-recovery]], [[backend-implementation-proposal]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-05] checkpoint | Accept CockroachDB deployment constraints
+
+- Recorded Q78 acceptance of AWS `us-east-1`, Azure `East US`, and Google Cloud `us-east4` as proof-of-concept regions, with three database nodes per provider and final placement gated by latency and correlated-risk testing.
+- Recorded Q79 acceptance of provider regions using `SURVIVE REGION FAILURE` and five voting replicas per range distributed 2+2+1 with no provider majority.
+- Recorded Q80 acceptance of no more than five whole-transaction `40001` attempts with jittered backoff inside the two-second ordinary execution limit and no external side effects inside retries.
+- Recorded Q81 acceptance of 500-millisecond durable-event polling while an API process has subscribers, stopping when it has none, with snapshot-first connection recovery.
+- Recorded Q82 acceptance of at least two API instances and one worker per provider, with any surviving two providers sized and tested for the complete accepted workload.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-05] checkpoint | Accept fail-closed operations and rollout
+
+- Recorded Q83 acceptance of a prominent outage state that rejects unsafe live reads and writes while allowing only immutable version-labelled public archives.
+- Recorded Q84 acceptance of visibly unsent, non-sensitive in-memory form input with no persistence or automatic submission and same-key deliberate retry after an inconclusive attempt.
+- Recorded Q85 acceptance of immediate primary-and-backup Platform Operations paging, informational Tournament Administrator status, and attributed recovery actions.
+- Recorded Q86 acceptance of one-provider-at-a-time canary deployment with automated gates, application rollback, and no automatic schema rollback.
+- Recorded Q87 acceptance of pausing durable low-priority work during provider loss while preserving live tournament functions, advancement-critical calculations, and urgent notices.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-06] query | Compare cross-cloud traffic and object storage
+
+- Compared official Cloudflare, AWS, Azure, and Google documentation for provider-neutral HTTP and WebSocket routing, health-based failover, DNS caching, and object replication.
+- Identified Cloudflare Enterprise Load Balancing as the smallest credible provider-neutral primary edge, while recording that it remains a common dependency and cannot move an existing WebSocket.
+- Recorded that DNS failover affects later resolutions rather than existing connections and may be delayed by resolver caching.
+- Recorded that native S3, Azure Blob, and Google transfer replication is asynchronous and therefore cannot prove zero loss for an irreplaceable object acknowledged immediately before source-provider loss.
+- Added the evidence and its architectural implications to [[backend-disaster-recovery]].
+
+## [2026-09-06] checkpoint | Accept edge boundaries and object classes
+
+- Recorded Q88 acceptance that automatic failover covers loss of one AWS, Azure, or Google Cloud origin provider but not automatic dual-edge recovery; independent diagnostics and an edge-failure runbook remain required.
+- Recorded Q89 acceptance of affinity-free WebSockets with jittered reconnection, reauthentication, snapshot-first synchronization, and durable cursor recovery.
+- Recorded Q90 acceptance of strong-service `/readyz` routing checks and shallow diagnostic `/healthz` checks without internal detail disclosure.
+- Recorded Q91 acceptance that CockroachDB holds authoritative tournament state, derived PDFs/CSV/exports are regenerable, and non-reconstructable uploads require synchronous cross-provider protection before acknowledgement.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-06] checkpoint | Select global edge and object durability
+
+- Recorded Q92 acceptance of Cloudflare Enterprise Load Balancing with separate AWS, Azure, and Google Cloud origin pools, `/readyz` routing, infrastructure-as-code configuration, and independent recovery access.
+- Recorded Q93 acceptance of synchronous writes to US-hosted Amazon S3 and Google Cloud Storage for irreplaceable objects, with readiness only after both copies succeed and uploads paused if either store is unavailable.
+- Recorded Q94 acceptance of one-store generated PDFs, CSV files, and exports that are regenerated from versioned CockroachDB state after object loss or provider unavailability.
+- Kept the automatic failover boundary from Q88 and declined an initial third object adapter or 2-of-3 storage quorum.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-06] query | Compare dual-store encryption and integrity
+
+- Compared official AWS and Google documentation for provider-managed encryption, customer-managed keys, envelope encryption, external key custody, signed uploads, checksums, and conditional object creation.
+- Identified independent provider-managed S3 and GCS encryption as the smallest provider-independent baseline and recorded the danger of wrapping both copies only under one cloud's KMS.
+- Recorded that customer-managed keys add rotation, retained-version, permission, deletion, and recovery obligations and should follow a concrete compliance requirement rather than be added speculatively.
+- Recorded provider checksum and no-overwrite capabilities while retaining a private SHA-256 content identity in Docket.
+- Added the evidence and architectural implications to [[backend-disaster-recovery]].
+
+## [2026-09-06] checkpoint | Accept edge cadence and protected upload workflow
+
+- Recorded Q95 acceptance of ten-second multi-location Cloudflare checks, consecutive-failure removal, packet-loss calibration, and immediate operator paging.
+- Recorded Q96 acceptance of opaque UUID object identities, immutable provider objects, and private SHA-256, length, media type, and provider-version metadata.
+- Recorded Q97 acceptance of one direct signed S3 upload followed by a durable verified GCS worker copy, with `Protecting` status until both copies commit `Ready`.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-06] checkpoint | Accept object encryption, deletion, and repair
+
+- Recorded Q98 acceptance of independent provider-managed SSE-S3 and GCS encryption without application cryptography or external key custody initially.
+- Recorded Q99 acceptance of create-only provider writes, provider transfer checksums, and independent private SHA-256 verification before `Ready`.
+- Recorded Q100 acceptance of Legal-Hold-aware tombstones, immediate access denial, all-version deletion from both stores, 24-hour verification, and residue alerts.
+- Recorded Q101 acceptance of daily manifest inventory comparison, monthly sampled full-read verification, immediate degraded-copy alerts, and idempotent repair.
+- Recorded Q102 acceptance of PDF, JPEG, and PNG evidence files capped at 25 MB, with archives, executables, audio, and video rejected initially.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-06] checkpoint | Accept protected-object timing and retrieval
+
+- Recorded Q103 acceptance of 15-minute operation-scoped signed URLs, current authorization for refresh, and prohibition of complete signed URLs in durable or telemetry records.
+- Recorded Q104 acceptance of a two-minute p95 normal protection target and an alert after ten minutes in `Protecting` without false success.
+- Recorded Q105 acceptance of 24-hour retry for incomplete protection followed by Legal-Hold-aware tombstoning and complete partial-object deletion.
+- Recorded Q106 acceptance of per-download authorization and transparent selection between a verified preferred S3 copy and GCS fallback.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-06] query | Compare managed containers and upload scanning
+
+- Compared official AWS, Azure, and Google documentation for managed container APIs, continuous workers, WebSockets, health probes, networking, and controlled rollouts without Kubernetes.
+- Identified ECS Fargate and ALB, Azure Container Apps, and Cloud Run Service plus Worker Pool as the smallest credible three-provider product set; retained Azure's request-timeout wording as a mandatory long-lived-connection proof gap.
+- Compared GuardDuty Malware Protection for S3 with Google's ClamAV reference architecture and portable ClamAV containers.
+- Identified GuardDuty scanning at the accepted S3 ingress as the smallest managed path and recorded its exact-version, at-least-once, non-clean outcome, and quarantine implications.
+- Added the evidence and architectural implications to [[backend-disaster-recovery]].
+
+## [2026-09-06] checkpoint | Select application hosting and upload quarantine
+
+- Recorded Q107 acceptance of ECS Fargate/ALB, Azure Container Apps, and Cloud Run Service/Worker Pool, with Azure provisional until multi-hour WebSocket proof.
+- Recorded Q108 acceptance of private S3 quarantine, exact-version GuardDuty scanning, Docket validation, and fail-closed handling for every outcome other than `NO_THREATS_FOUND`.
+- Recorded Q109 acceptance of attachment-only originals, server-controlled media types, `nosniff`, sandboxed re-encoded image derivatives, and no inline PDF preview initially.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-06] checkpoint | Accept immutable deployment and upload states
+
+- Recorded Q110 acceptance of three warm API instances and one active worker per provider, with six surviving APIs required to pass the complete failover fixture.
+- Recorded Q111 acceptance of one SBOM-inventoried, scanned, signed OCI image digest replicated unchanged to ECR, ACR, and Artifact Registry for both process roles.
+- Recorded Q112 acceptance of provider-independent 50-to-55-minute jittered WebSocket rotation and snapshot-first cursor recovery.
+- Recorded Q113 acceptance of three concurrently active leased workers, idempotent handling, no application singleton leader, and synthetic worker canaries.
+- Recorded Q114 acceptance of the six-state upload union with exact-version idempotent GuardDuty event handling and separate retry/failure attributes.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-06] checkpoint | Accept scan failure, database network, and preview isolation
+
+- Recorded Q115 acceptance of a ten-minute pending-scan alert, one exact-version rescan, fail-closed 24-hour limit, and truthful `CouldNotBeScanned` rejection.
+- Recorded Q116 acceptance of immediate confirmed-malware denial, no secondary copy, limited uploader detail, Platform Security escalation, and 24-hour malicious-byte deletion unless held.
+- Recorded Q117 acceptance of fixed-egress, narrowly allowlisted, encrypted public SQL connectivity without an initial three-cloud private mesh.
+- Recorded Q118 acceptance of no-egress, resource-bounded JPEG/PNG derivative generation that fails without altering the attachment-only original.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], [[retention-model]], and [[index]].
+
+## [2026-09-06] query | Verify cross-cloud workload identity and secret handling
+
+- Verified native short-lived workload identity for ECS, Azure Container Apps, Cloud Run, and CI federation into all three registries.
+- Identified agentless Google Storage Transfer Service role assumption as the smallest keyless S3-to-GCS option, while preserving Docket's exact-version verification and pre-`Ready` durability gate.
+- Identified separate provider-and-process CockroachDB SQL users in native vaults and one pipeline-only scoped Cloudflare token as the remaining long-lived-secret boundaries.
+- Added the supporting evidence and tradeoffs to [[backend-disaster-recovery]] and updated [[index]].
+
+## [2026-09-06] checkpoint | Accept workload identity, credential, and residency boundaries
+
+- Recorded Q119 acceptance of separate native short-lived API and worker identities and CI OIDC federation, with no stored long-lived cloud access keys.
+- Recorded Q120 acceptance of six provider-and-process-specific CockroachDB users stored in native vaults and rotated through overlapping successor credentials.
+- Recorded Q121 acceptance of one narrowly scoped, pipeline-only Cloudflare token with successor-first rotation and no application access.
+- Recorded Q122 acceptance of US-only records, object copies, secrets, backups, telemetry, and traffic decryption, with contractually governed vendor metadata and support access.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[project-context]], [[backend-roadmap]], [[retention-model]], and [[index]].
+
+## [2026-09-06] checkpoint | Accept managed transfer and infrastructure enforcement
+
+- Recorded Q123 acceptance of agentless S3-to-GCS transfer after exact-version scanning, with independent Docket verification before `Ready` and a direct workload-identity fallback gated by the two-minute proof.
+- Recorded Q124 acceptance of AWS-bound upload initiation and truthful upload-only unavailability during AWS loss while live tournament functions continue.
+- Recorded Q125 acceptance of explicitly versioned startup secrets, successor-first rolling credential changes, a versioned public CA trust bundle, and full TLS hostname verification.
+- Recorded Q126 acceptance of no permanent spare Cloudflare token and two-person, hardware-protected, short-lived break-glass access with recorded actions.
+- Recorded Q127 acceptance of deployment-blocking US location policy, daily infrastructure inventory and drift alerts, and quarterly vendor residency review.
+- Updated [[backend-implementation-proposal]], [[backend-disaster-recovery]], [[access-model]], [[retention-model]], [[project-context]], [[backend-roadmap]], and [[index]].
+
+## [2026-09-06] ingest | Andrej Karpathy LLM Wiki pattern
+
+- Added an immutable source pointer for Andrej Karpathy's canonical LLM Wiki description in [`raw/andrej-karpathy-llm-wiki.md`](../raw/andrej-karpathy-llm-wiki.md).
+- Verified Docket's existing `raw/`, `wiki/`, and `AGENTS.md` layers against the source's three-layer architecture and ingest, query, lint, index, and log operations.
+- Categorized [[index]] for faster Obsidian navigation and tightened repository rules around existing-page reuse, flat naming, page responsibility, and avoidance of copied mutable state.
+- Linted the wiki with no broken wikilinks, no orphan wiki pages, and complete index coverage; preserved all existing paths and the Obsidian junction.
+- Updated `README.md`, `AGENTS.md`, and [[index]].
+
+## [2026-09-06] query | Compare cross-cloud infrastructure as code
+
+- Compared Terraform HCL, Pulumi TypeScript, OpenTofu, and mixed cloud-native tooling against the accepted AWS, Azure, GCP, Cloudflare, and CockroachDB topology.
+- Recorded evidence favoring provider-isolated Terraform workspaces with HCP Terraform Standard as the smallest credible managed-state option, while leaving the selection unaccepted pending its price, SLA, recovery, US residency, and provider proof gates.
+- Recorded Cloudflare Customer Metadata Boundary as the principal Terraform coverage gap and prohibited hiding its configuration in an unaudited `local-exec` step.
+- Updated [[backend-disaster-recovery]] and [[index]].
+
+## [2026-09-06] query | Verify web, mobile, and push session constraints
+
+- Verified native authorization-code flow with PKCE, server-side Google OIDC validation, secure cookie and CSRF controls, rotating public-client refresh credentials, and immediate server-side session revocation guidance.
+- Identified a material unresolved conflict between Google-only authentication and Apple App Review Guideline 4.8 for Docket's general-public iOS application; preserved ADR 0029 while marking iOS release blocked on an applicable exception or a provider-neutral Sign in with Apple decision.
+- Verified that Expo Push Service reduces backend integration code but supplies no delivery SLA; its ticket does not prove APNs/FCM or handset delivery, so the accepted 30-second target still requires an explicit boundary decision.
+- Updated [[access-model]], [[project-context]], [[backend-implementation-proposal]], [[index]], and [ADR 0029](../docs/adr/0029-use-google-as-the-sole-authentication-provider.md).

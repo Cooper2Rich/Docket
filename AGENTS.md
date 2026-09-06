@@ -12,6 +12,9 @@
 - Use Obsidian `[[wikilinks]]` between wiki pages and relative links back to evidence in `raw/`.
 - Start every wiki operation by reading `wiki/index.md`. After changing the wiki, update that index and append one entry to `wiki/log.md` using `## [YYYY-MM-DD] operation | subject`.
 - Automatically checkpoint durable Docket context at major milestones and whenever a conversation becomes long or tool-heavy enough that compaction or handoff may occur. Exact context-window usage may be unavailable, so use those observable triggers without waiting for another user prompt.
+- Prefer strengthening an existing page over creating a new one. Create a page only for a durable concept with a distinct query surface, keep `wiki/` flat with kebab-case filenames, and categorize every page in `wiki/index.md`.
+- Keep responsibilities narrow: `project-context.md` is the executive snapshot, `backend-roadmap.md` is implementation order, `backend-implementation-proposal.md` is the backend decision ledger, `backend-disaster-recovery.md` holds failure and infrastructure evidence, and domain pages own their rules. Link instead of copying whole rules between them.
+- Do not copy live Git state, mutable counts, or other changing operational values into prose unless a documented decision depends on that exact value. Read current state from its authoritative source.
 
 ## Operations
 
