@@ -67,3 +67,7 @@ After successful integration, a fresh `plan` identifies the next leaf. A whole-q
 Issues use `release:r1`, `kind:implementation` / `kind:group` / `kind:decision`, `module:<owner>` and the five `status:*` labels. Eight milestones group related capabilities. The publisher uses native [sub-issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/adding-sub-issues) and [blocking dependencies](https://docs.github.com/en/rest/issues/issue-dependencies), then reads them back. The graph controls order; GitHub labels are a projection.
 
 Issue source links point to the retained `codex/release-1-issue-setup` specification branch. Keep that branch available or deliberately resynchronize source links and contract hashes when moving to permanent revision links.
+
+## Reading GitHub in execution order
+
+[Pinned issue-order index](https://github.com/Cooper2Rich/Docket/issues/165) lists all implementation leaves in graph order and links the non-runnable groups and gates. Use the [oldest-first implementation view](https://github.com/Cooper2Rich/Docket/issues?q=is%3Aissue%20is%3Aopen%20label%3Arelease%3Ar1%20label%3Akind%3Aimplementation%20sort%3Acreated-asc). The current #49–#163 sequence matches the graph; future insertions or splits require regenerating the index. The `kind:queue` navigation issue is never a Ralph implementation item.

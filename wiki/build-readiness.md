@@ -29,6 +29,8 @@ The [source audit](../docs/implementation/source-audit.md) classifies 2,201 clau
 
 The external launcher now accepts explicit reasoning, subagent-disable and quiet-output parameters. The Docket controller enforces Sol/high, one leaf, complete evidence, exact-head CI/review, protected integration and restart-safe issue reconciliation. Thirty-nine controller/fake-worker tests passed. No real Codex worker or application command ran. All 163 issues, 115 parent links and 122 blocking relationships were published and read back against the local contracts. The [setup report](../docs/implementation/setup-report.md) and [evidence record](../docs/implementation/setup-evidence.json) record the completed setup and its limits.
 
+The [pinned issue-order index](https://github.com/Cooper2Rich/Docket/issues/165) accounts for every work issue. Its [ordered implementation view](https://github.com/Cooper2Rich/Docket/issues?q=is%3Aissue%20is%3Aopen%20label%3Arelease%3Ar1%20label%3Akind%3Aimplementation%20sort%3Acreated-asc) follows steps 001–115 (#49–#163); 40 group issues and eight gate issues are non-runnable. Native child order and every dependency were rechecked. The index is a separate navigation issue and does not change graph eligibility.
+
 ## Next concrete objective
 
 Resolve the protected foundation integration decision and private-repository protection prerequisite, review and integrate the setup change, then obtain an explicit application-build instruction. Read the [launch guide](../docs/implementation/launch-guide.md) before activation. Later gates remain attached to the affected leaves.
