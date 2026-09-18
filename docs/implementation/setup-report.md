@@ -2,7 +2,7 @@
 
 September 18, 2026. Owner-selected option B is complete: the full issue queue is published and verified, and the external launcher is installed and fixture-tested. Application implementation has not started. Zero implementation leaves are ready or done.
 
-[Setup review branch](https://github.com/Cooper2Rich/Docket/tree/codex/release-1-issue-setup). Browse the [Release 1 issue queue](https://github.com/Cooper2Rich/Docket/issues?q=is%3Aissue+label%3Arelease%3Ar1), [roadmap](work-graph.md), [source audit](source-audit.md), [machine-readable evidence](setup-evidence.json), and [future launch procedure](launch-guide.md).
+[Draft setup PR](https://github.com/Cooper2Rich/Docket/pull/164). Browse the [Release 1 issue queue](https://github.com/Cooper2Rich/Docket/issues?q=is%3Aissue+label%3Arelease%3Ar1), [roadmap](work-graph.md), [source audit](source-audit.md), [machine-readable evidence](setup-evidence.json), and [future launch procedure](launch-guide.md).
 
 ## Delivered structure
 
