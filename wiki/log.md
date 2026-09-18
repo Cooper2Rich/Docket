@@ -2042,3 +2042,23 @@ The owner clarified that PRD means Project Resource Document: scope, design, req
 - Corrected ADR 0027 to point Judge Assessment retention to ADR 0028 and created accepted ADR 0038 to defer School Data Export while preserving its detailed design as later-release Project Resource Document input.
 - Removed the extensive export specification from ADR 0030, marked the remaining active wiki export material as later-release design, and retained Release 1 represented-School history, privacy, retention, and access boundaries.
 - Preserved the specification-only repository state; no application code, dependency installation, Release 1 scope, or work-graph status changed.
+
+## [2026-09-18] operation | Repository Ralph skill removal
+
+- Removed the repository-owned `.agents/skills/ralph-loop/` package, including its launchers, tests, and agent metadata, because Ralph is installed as a user-level skill outside Docket.
+- Updated active agent, build, orchestration, navigation, routing, and build-readiness documents to resolve the installed `ralph-loop` skill by name and keep implementation tooling outside the repository.
+- Preserved the repository-specific strict review skill, the Sol-only one-item orchestration contract, historical records, and the specification-only state; no build or Ralph run was started.
+
+## [2026-09-18] operation | Project skill requirements removal
+
+- Removed the remaining repository-owned strict-review skill and deleted the project-specific skill-routing document.
+- Preserved the strict-review skill as an exact user-level copy at `C:\Users\CooperRich\.codex\skills\thermo-nuclear-code-quality-review\SKILL.md`; the existing user-level Ralph skill remains outside Docket.
+- Removed active Docket requirements to invoke named skills, replacing them with direct links to the governing build and orchestration contracts.
+- Established that skills and agent launch tooling live outside the Docket repository while preserving the Sol-only one-item orchestration contract, historical records, and specification-only state.
+
+## [2026-09-18] checkpoint | Implementation issue setup recommendations
+
+- Reviewed the current 40-item graph, work-item and orchestration contracts, Release 1 scope, engineering evidence rules, and installed external Ralph runner; the GitHub connector returned no open issues for `Cooper2Rich/Docket`.
+- Added the [issue setup proposal](../docs/implementation/issue-setup-proposal.md) with three owner-selectable approaches and a recommendation to audit and decompose the complete release before publishing runnable leaf issues.
+- Recorded the runner's hard-coded extra-high reasoning, permitted subagents, raw output streaming, and completion-receipt limitations, plus the need to reconcile staged bootstrap evidence and protected-branch CI/review before execution.
+- Updated [[build-readiness]] and the index. The recommendation awaits owner selection; no issues were published, runner files changed, work-graph statuses changed, or application implementation started.

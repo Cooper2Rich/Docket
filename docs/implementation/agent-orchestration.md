@@ -26,7 +26,7 @@ A failed, blocked, or iteration-exhausted run stops the queue. Do not skip ahead
 
 ## Context and cost discipline
 
-- Each Ralph iteration is a fresh `codex exec` process with its own thread ID. The repository wrapper externally requests a durable checkpoint when its conservative event, action, or elapsed-time budget is reached, then rotates to a new process.
+- Each Ralph iteration is a fresh `codex exec` process with its own thread ID. Local launch tooling enforces the configured context boundary and rotates to a new process; that tooling remains outside this repository.
 - Raw child JSON and stderr stay in `.ralph/runs/`; the supervising task receives only concise lifecycle messages so child output does not consume its context.
 - Pass file paths and requirement identifiers instead of duplicating long source text.
 - Re-read only sources relevant to the current item and changed interfaces.
@@ -38,6 +38,6 @@ A failed, blocked, or iteration-exhausted run stops the queue. Do not skip ahead
 
 `RALPH_LOOP_COMPLETE` is valid only after every declared output and acceptance check passes and the queue, roadmap, traceability, and required wiki checkpoint agree. `RALPH_LOOP_BLOCKED` returns control to the owner with one concrete blocker. Otherwise the run continues within its iteration cap.
 
-## Start command
+## Start parameters
 
-Run `.agents/skills/ralph-loop/scripts/ralph-loop.ps1` with `-Model gpt-5.6-sol`, a self-contained objective containing the selected item's acceptance criteria, the repository path, and the default maximum of twenty fresh iterations.
+Launch one fresh `codex exec` process per iteration with `gpt-5.6-sol` at high reasoning, a self-contained objective containing the selected item's acceptance criteria, the repository path, and a default maximum of twenty iterations. Keep the launcher and other agent tooling outside this repository.

@@ -8,7 +8,6 @@ PRD means Project Resource Document; see [[project-context]] for its design-only
 
 - [[log|Activity log]] - Chronological record of ingests, queries, lint passes, automatic checkpoints, and schema changes.
 - [Documentation map](../docs/README.md) - Concern-based routes to the requirements, design contracts, and build instructions.
-- [Skill routing](../docs/implementation/skill-routing.md) - Reading path and repository-specific use of implementation, PRD, TDD, design, and review skills.
 - [Build guide](../BUILD.md) - Authoritative build entry point, source precedence, current release, and current implementation readiness.
 - [[repository-navigation|Repository navigation]] - Canonical source tree, folder roles, agent reading path, and Obsidian navigation after the implementation reset.
 - [Release 1 Project Resource Document](../docs/releases/release-1.md) - Product scope, actors, design requirements, capability targets, and required outcomes; testing procedures are separate later engineering work.
@@ -32,7 +31,7 @@ PRD means Project Resource Document; see [[project-context]] for its design-only
 - [[project-context|DOCKET project context]] — Settled identity, competitive objective, TypeScript direction, product intent, provisional scope, principles, and open product-definition gaps.
 - [[backend-architecture|Backend architecture]] - Accepted modular-monolith, TypeScript/React stack, Vercel web and AWS durable-service topology, Clerk authentication, PostgreSQL queue and outbox, REST/OpenAPI, recovery, deployment, observability, authorization, and audit.
 - [[backend-roadmap|Backend roadmap]] — Release 1 backend narrative aligned to Clerk authentication and the Vercel web/AWS durable-service split, spanning authenticated participants, School roster controls, conflict-safe event scheduling, tournament operations, and external Judge assessments.
-- [[build-readiness|Build readiness]] - Specification-only reset; no application commands; R1-FND-001 ready for a separately authorized build.
+- [[build-readiness|Build readiness]] - Specification-only reset; no application commands; R1-FND-001 eligible for a separately authorized build; implementation issue setup recommendation awaiting owner selection.
 - [[access-model|Access model]] - Clerk-managed authentication and Sessions, Clerk-recognized verified-email invitation matching, PostgreSQL-backed scoped authorization, School authority and affiliation, and Tournament staff authority.
 - [[tournament-directory-model|Tournament discovery and participation]] — Authenticated active discovery, the public archive, saved searches, current Judge Pool views, Judge striking, and No-Show entry points.
 - [[registration-model|Registration model]] - Required affiliation and transfer boundaries, Coach-approved Rosters, represented-School history, later-release School export design inputs, registration, admission, and correction.

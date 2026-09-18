@@ -4,7 +4,7 @@ Docket is a speech and debate tournament system. This repository currently conta
 
 ## Start here
 
-1. [AGENTS.md](AGENTS.md) — repository rules and the skill reading path.
+1. [AGENTS.md](AGENTS.md) — repository rules and operating constraints.
 2. [Wiki index](wiki/index.md) — product and domain knowledge map.
 3. [BUILD.md](BUILD.md) — source authority, future build procedure, and current state.
 4. [Release 1 requirements](docs/releases/release-1.md) — accepted product scope and requirement identifiers.
@@ -18,7 +18,6 @@ Docket is a speech and debate tournament system. This repository currently conta
 | [wiki/](wiki/index.md) | Linked domain knowledge and durable decisions. |
 | `raw/` | Immutable curated sources. |
 | [CONTEXT.md](CONTEXT.md) | Canonical domain vocabulary. |
-| `.agents/skills/` | Repository build and review skills, including Ralph's launcher tooling. |
 | `.codex/` | Sol-only agent settings. |
 | [docs/archive/previous-build/](docs/archive/previous-build/README.md) | Superseded evidence from the removed implementation; historical reference only. |
 

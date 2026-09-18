@@ -17,7 +17,7 @@ For product design, PRD means **Project Resource Document**. Start with [Release
 | What should the user experience be? | [Experience contract](product/experience-contract.md) |
 | What capacity, reliability, and integrity must the product provide? | [Capability targets](quality/release-1-gates.md) |
 | How will the system run and recover? | [Operations contract](operations/release-1.md) and [CI requirements](operations/github-branch-protection.md) |
-| What should an implementation skill read and do? | [Skill routing](implementation/skill-routing.md) and [orchestration](implementation/agent-orchestration.md) |
+| How should implementation be orchestrated? | [Agent orchestration](implementation/agent-orchestration.md) |
 | What is the next bounded item? | [YAML work graph](implementation/work-graph.yaml), [readable roadmap](implementation/work-graph.md), and [item contract](implementation/work-item-contract.md) |
 | How should the workspace be recreated? | [Development contract](development.md) and [preserved bootstrap inputs](implementation/bootstrap-baseline.md) |
 | What happened to the previous code? | [Historical archive](archive/previous-build/README.md) |

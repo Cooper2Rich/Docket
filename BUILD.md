@@ -38,7 +38,7 @@ A conflict among normative sources blocks implementation until a tracked change 
 ## Future implementation procedure
 
 1. Wait for an explicit request to build. Select the lowest-order ready item from [work-graph.yaml](docs/implementation/work-graph.yaml), then read its complete inputs and acceptance evidence.
-2. Follow [skill routing](docs/implementation/skill-routing.md) and [Sol-only orchestration](docs/implementation/agent-orchestration.md). Use the repository-owned Ralph skill for one bounded item, with GPT-5.6 Sol at high reasoning.
+2. Follow [Sol-only orchestration](docs/implementation/agent-orchestration.md) for one bounded item with GPT-5.6 Sol at high reasoning.
 3. For the first foundation item, consult the [bootstrap baseline](docs/implementation/bootstrap-baseline.md), accepted module map, development contract, and frontend contract. Create and verify the workspace and its command seams as that item's work.
 4. Run only the evidence available at that stage. Later contract generators, migrations, infrastructure, and full-release checks are requirements to implement, not existing executable tools.
 5. Mark an item done only with fresh evidence from the new implementation, synchronize the graph and roadmap, and checkpoint the wiki. Generate traceability when its foundation exists.
