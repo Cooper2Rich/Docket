@@ -1,12 +1,12 @@
 # Implementation issue setup proposal
 
-Status: recommendation for owner selection, September 18, 2026. This is engineering planning, not an accepted change to Release 1, the work graph, or build authorization.
+Status: option B selected by the owner on September 18, 2026; setup completed. See the [verified setup report](setup-report.md). The remainder preserves the recommendation and starting-point audit. This authorizes the complete issue setup and external launcher repair described below, not application implementation or a change to Release 1 product scope.
 
 ## Recommendation
 
 Choose **B: audit and prepare the complete Release 1 issue queue before implementation**. Keep the existing graph authoritative, preserve its 40 objective IDs, and split only objectives that exceed one bounded implementation run and one reviewable change. Publish executable leaf issues with precise acceptance and evidence contracts. Retain a split objective as a non-runnable tracking group.
 
-The issue count should follow the audited scope. There is not yet evidence for a precise final count or a reliable unattended completion-time estimate.
+At recommendation time, the issue count was intentionally unspecified. The completed audit produced 115 leaves, 40 groups and eight gates. There is no reliable unattended completion-time estimate.
 
 ## Choices
 
@@ -18,7 +18,7 @@ The issue count should follow the audited scope. There is not yet evidence for a
 
 All choices preserve the Work Item Contract and require a separate explicit instruction to start application implementation. An unresolved product decision stays visible and blocks the affected work; setup does not invent its answer.
 
-## Verified starting point
+## Historical verified starting point before option B
 
 - The checked-out remote is `Cooper2Rich/Docket`. A GitHub connector search for all open issues returned none on September 18, 2026.
 - The [YAML graph](work-graph.yaml) has 40 objectives in eight stages, currently arranged as one sequential dependency chain. `R1-FND-001` is ready; the remaining 39 are blocked. No item is done.
@@ -120,4 +120,4 @@ For option B:
 5. Adapt the external launcher and verify it with fake workers/fixtures covering graph order, no skipped blockers, required settings, incomplete evidence, stale contract/commit receipts, interrupted completion, and fail-stop behavior. This must not launch a real Docket build.
 6. Deliver the exact future launch procedure and an audit report distinguishing setup complete, currently eligible, blocked on implementation prerequisites, and blocked on an owner/external action.
 
-This recommendation audit is complete enough to choose a setup approach. It is not the exhaustive per-source decomposition or the finished issue queue. No issues have been published, local runner files changed, application commands run, or work-graph statuses changed by this proposal.
+The proposal above records the pre-selection recommendation. Its option-B setup has since been completed: consult the [setup report](setup-report.md) for the published queue, tested launcher and unresolved activation gates. Application implementation remains separately authorized work.

@@ -1,769 +1,4346 @@
-# Implementation reset by owner request on 2026-09-09; all prior code removed.
-schema_version: 1
+schema_version: 2
 release: R1
 title: Operable Lincoln-Douglas Tournament
 authority: docs/implementation/work-item-contract.md
-selection_rule: lowest_order_ready_item
-status_values: [blocked, ready, in_progress, verification, done]
-next_item: R1-FND-001
-
+selection_rule: lowest_order_ready_leaf
+status_values:
+- blocked
+- ready
+- in_progress
+- verification
+- done
+execution_authorized: false
+next_item: null
+first_item: R1-FND-001-A
+bootstrap_gate: GATE-BOOTSTRAP
+groups:
+- id: R1-FND-001
+  order: 10
+  title: Scaffold the pinned monorepo
+  status: blocked
+  owner: runtime
+  depends_on: []
+  requirements: &id001
+  - R1-LIFE-001
+  objective: Create the pnpm and Nx workspace, package exports, strict ESM TypeScript configuration, root commands, formatting,
+    linting, empty application and package shells, and the pinned Clerk-enabled, Vercel-deployable shadcn/ui web foundation
+    from the accepted repository map.
+  inputs:
+  - BUILD.md
+  - docs/development.md
+  - docs/product/experience-contract.md
+  - docs/architecture/repository-map.md
+  - ADR-0029
+  - ADR-0032
+  - ADR-0033
+  - ADR-0034
+  - ADR-0035
+  outputs:
+  - package.json
+  - pnpm-workspace.yaml
+  - pnpm-lock.yaml
+  - nx.json
+  - tsconfig files
+  - apps and packages shells
+  - apps/web/components.json
+  - React Router Vercel preset and checked-in deployment configuration
+  - initial shadcn/ui source and tokens
+  interfaces:
+  - root build and check scripts
+  - pinned ui:add script
+  - package public export seams
+  schemas:
+  - workspace configuration
+  tables: []
+  events: []
+  errors:
+  - invalid prerequisite version
+  - prohibited package dependency
+  audiences:
+  - developers
+  - CI
+  risks:
+  - version drift
+  - accidental framework coupling
+  - unenforced package seams
+  - unpinned registry generation
+  - inaccessible primitive customization
+  evidence:
+  - pnpm install --frozen-lockfile
+  - pnpm build
+  - pnpm check
+  - dependency-boundary negative fixture
+  - components.json configuration assertion
+  - shadcn primitive render and accessibility smoke test
+  kind: group
+  stage: 01 Foundations
+  children:
+  - R1-FND-001-A
+  - R1-FND-001-B
+  spec: docs/implementation/groups/R1-FND-001.md
+  completion: null
+- id: R1-FND-002
+  order: 20
+  title: Implement reproducible local infrastructure and configuration
+  status: blocked
+  owner: runtime
+  depends_on: []
+  requirements: &id002
+  - R1-LIFE-001
+  - R1-OPS-001
+  objective: Implement Docker Compose PostgreSQL, MinIO, and Mailpit; runtime environment schemas; process lifecycle; deterministic
+    clock and identifier adapters; and the production guard against fixed identity.
+  inputs:
+  - docs/development.md
+  - docs/operations/release-1.md
+  outputs:
+  - compose configuration
+  - .env.example
+  - runtime adapters
+  - health checks
+  - pnpm bootstrap
+  interfaces:
+  - RuntimeConfig
+  - Clock
+  - IdGenerator
+  - Readiness
+  - Liveness
+  schemas:
+  - environment configuration
+  tables: []
+  events: []
+  errors:
+  - CONFIG_INVALID
+  - ADAPTER_FORBIDDEN_IN_ENVIRONMENT
+  - DEPENDENCY_UNREADY
+  audiences:
+  - developers
+  - operators
+  risks:
+  - secret leakage
+  - production test adapter
+  - nonrepeatable setup
+  evidence:
+  - clean-machine bootstrap
+  - environment negative tests
+  - production fixed-identity rejection
+  kind: group
+  stage: 01 Foundations
+  children:
+  - R1-FND-002-A
+  - R1-FND-002-B
+  spec: docs/implementation/groups/R1-FND-002.md
+  completion: null
+- id: R1-FND-003
+  order: 30
+  title: Implement module-owned migration infrastructure
+  status: blocked
+  owner: database
+  depends_on: []
+  requirements: &id003
+  - R1-DATA-001
+  - R1-CONS-001
+  - R1-OPS-001
+  objective: Implement the global forward migration sequence, module ownership declarations, adjacent-release checks, and
+    isolated Testcontainers database harness.
+  inputs:
+  - docs/contracts/executable-contracts.md
+  - docs/architecture/repository-map.md
+  outputs:
+  - migration runner
+  - ownership validator
+  - migration journal
+  - test database harness
+  interfaces:
+  - MigrationPlan
+  - MigrationResult
+  - TestDatabase
+  schemas:
+  - migration metadata
+  tables:
+  - platform_migration_journal
+  events:
+  - MigrationApplied
+  errors:
+  - MIGRATION_OWNER_INVALID
+  - MIGRATION_ORDER_INVALID
+  - SCHEMA_INCOMPATIBLE
+  audiences:
+  - developers
+  - release operators
+  - audit
+  risks:
+  - foreign table writes
+  - destructive change
+  - rollback incompatibility
+  evidence:
+  - empty-to-head migration
+  - previous-to-head migration
+  - forbidden-owner test
+  - repeat execution test
+  kind: group
+  stage: 01 Foundations
+  children:
+  - R1-FND-003-A
+  - R1-FND-003-B
+  spec: docs/implementation/groups/R1-FND-003.md
+  completion: null
+- id: R1-FND-004
+  order: 40
+  title: Implement contract generation and traceability validation
+  status: blocked
+  owner: contracts
+  depends_on: []
+  requirements: &id004
+  - R1-AUTH-001
+  - R1-COMP-001
+  - R1-PRIV-001
+  objective: Generate and drift-check OpenAPI, JSON Schema, clients, state and authorization matrices, diagrams, vector indexes,
+    and the Release 1 traceability report.
+  inputs:
+  - docs/contracts/executable-contracts.md
+  - docs/releases/release-1.md
+  outputs:
+  - contract generator
+  - traceability schema
+  - generated artifact directories
+  - pnpm contracts check
+  interfaces:
+  - ContractSource
+  - GeneratorResult
+  - TraceabilityManifest
+  schemas:
+  - traceability manifest
+  - golden vector envelope
+  - stable error envelope
+  tables: []
+  events: []
+  errors:
+  - CONTRACT_DRIFT
+  - REQUIREMENT_UNTRACED
+  - ARTIFACT_UNOWNED
+  - CONTRACT_BREAKING_CHANGE
+  audiences:
+  - developers
+  - clients
+  - reviewers
+  risks:
+  - duplicate truth
+  - nondeterministic generation
+  - missing coverage
+  evidence:
+  - two-run byte equality
+  - dirty-tree drift test
+  - missing-trace negative test
+  kind: group
+  stage: 01 Foundations
+  children:
+  - R1-FND-004-A
+  - R1-FND-004-B
+  spec: docs/implementation/groups/R1-FND-004.md
+  completion: null
+- id: R1-FND-005
+  order: 50
+  title: Implement required GitHub Actions checks
+  status: blocked
+  owner: runtime
+  depends_on: []
+  requirements: &id005
+  - R1-OPS-001
+  objective: Run frozen installation, build, check, unit, integration, end-to-end, contract, migration, security, accessibility,
+    and artifact checks using documented root commands.
+  inputs:
+  - docs/development.md
+  - docs/quality/release-1-gates.md
+  outputs:
+  - required CI workflows
+  - cache policy
+  - artifact retention policy
+  - branch protection documentation
+  interfaces:
+  - CI check names
+  schemas:
+  - workflow configuration
+  tables: []
+  events: []
+  errors:
+  - CI_LOCAL_PARITY_FAILED
+  - REQUIRED_CHECK_MISSING
+  audiences:
+  - developers
+  - reviewers
+  - release operators
+  risks:
+  - CI-only behavior
+  - mutable dependencies
+  - skipped release gate
+  evidence:
+  - clean full workflow
+  - intentionally failing fixture for each required check
+  kind: group
+  stage: 01 Foundations
+  children:
+  - R1-FND-005-A
+  - R1-FND-005-B
+  spec: docs/implementation/groups/R1-FND-005.md
+  completion: null
+- id: R1-IDA-001
+  order: 60
+  title: Implement Clerk and fixed authentication evidence with Docket Sessions
+  status: blocked
+  owner: identity-access
+  depends_on: []
+  requirements: &id006
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
+  objective: Validate Clerk session tokens or fixed nonproduction evidence, link Clerk users to Accounts, create Docket Sessions,
+    enforce session limits and expiry, and expose session management UI.
+  inputs:
+  - ADR-0029
+  - wiki/access-model.md
+  outputs:
+  - identity interface
+  - migrations
+  - adapters
+  - session routes and screens
+  - audit and fixture coverage
+  interfaces:
+  - AuthenticateClerkSession
+  - AuthenticateFixedIdentity
+  - CreateDocketSession
+  - RevokeDocketSession
+  - ListDocketSessions
+  schemas:
+  - ClerkIdentity
+  - ClerkSessionEvidence
+  - DocketSession
+  - session projections
+  tables:
+  - identity_accounts
+  - identity_clerk_links
+  - identity_sessions
+  events:
+  - AccountCreated
+  - SessionCreated
+  - SessionRevoked
+  errors:
+  - IDENTITY_INVALID
+  - SESSION_EXPIRED
+  - SESSION_LIMIT_REACHED
+  - FIXED_IDENTITY_FORBIDDEN
+  audiences:
+  - Account holder
+  - Platform audit
+  risks:
+  - account collision
+  - token leakage
+  - provider outage
+  - session fixation
+  evidence:
+  - Clerk JWT and issuer validation matrix
+  - fixed-adapter production rejection
+  - session expiry and revocation tests
+  - accessible sign-in flow
+  kind: group
+  stage: 02 Walking skeleton
+  children:
+  - R1-IDA-001-A
+  - R1-IDA-001-B
+  - R1-IDA-001-C
+  - R1-IDA-001-D
+  - R1-IDA-001-E
+  spec: docs/implementation/groups/R1-IDA-001.md
+  completion: null
+- id: R1-IDA-002
+  order: 70
+  title: Implement Active Role Context and authorization core
+  status: blocked
+  owner: identity-access
+  depends_on: []
+  requirements: &id007
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-CONS-001
+  objective: Resolve current grants into explicit per-tab contexts, enforce privileged limits and Clerk Reverification, deny
+    stale contexts without disclosure, and implement role switching.
+  inputs:
+  - wiki/access-model.md
+  - docs/product/experience-contract.md
+  outputs:
+  - authorization interface
+  - context routes and persistent UI
+  - context cache destruction
+  - complete core authorization matrix
+  interfaces:
+  - ResolveAuthority
+  - EnterActiveRoleContext
+  - LeaveActiveRoleContext
+  - RequireRecentClerkReverification
+  schemas:
+  - ActiveRoleContext
+  - AuthorityDecision
+  - ClerkReverificationEvidence
+  tables:
+  - identity_role_contexts
+  - identity_reauthentication_events
+  - identity_authority_grants
+  events:
+  - RoleContextEntered
+  - RoleContextExited
+  - AuthorityInvalidated
+  errors:
+  - AUTHORITY_DENIED
+  - CONTEXT_STALE
+  - REAUTHENTICATION_REQUIRED
+  - ROLE_SWITCH_BLOCKED
+  audiences:
+  - Account holder
+  - privileged Account holder
+  - audit
+  risks:
+  - context confusion
+  - privilege retention
+  - cross-tab leakage
+  - existence disclosure
+  evidence:
+  - all core authorization cells
+  - stale and revoked context tests
+  - keyboard role switch
+  - privileged session limits
+  kind: group
+  stage: 02 Walking skeleton
+  children:
+  - R1-IDA-002-A
+  - R1-IDA-002-B
+  spec: docs/implementation/groups/R1-IDA-002.md
+  completion: null
+- id: R1-SCH-001
+  order: 80
+  title: Implement canonical Schools and Membership authority
+  status: blocked
+  owner: schools
+  depends_on: []
+  requirements: &id009
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  objective: Create and verify canonical or Provisional Schools, enforce one Manager, issue and accept Membership offers,
+    and expose School authority projections.
+  inputs:
+  - ADR-0004
+  - ADR-0008
+  - wiki/access-model.md
+  outputs:
+  - School module interface
+  - migrations
+  - API and web flows
+  - authority events and tests
+  interfaces:
+  - CreateProvisionalSchool
+  - VerifySchool
+  - IssueSchoolMembershipOffer
+  - AcceptSchoolMembershipOffer
+  - TransferSchoolManager
+  schemas:
+  - School
+  - SchoolMembership
+  - SchoolRole
+  - MembershipOffer
+  - SchoolEvent
+  tables:
+  - schools_schools
+  - schools_aliases
+  - schools_memberships
+  - schools_membership_offers
+  - schools_events
+  - schools_command_receipts
+  events:
+  - SchoolCreated
+  - SchoolVerified
+  - SchoolMembershipGranted
+  - SchoolManagerChanged
+  errors:
+  - SCHOOL_DUPLICATE
+  - SCHOOL_UNVERIFIED
+  - MANAGER_CONFLICT
+  - OFFER_INVALID
+  - IDEMPOTENCY_CONFLICT
+  audiences:
+  - School staff
+  - Account recipient
+  - Platform administrator
+  - Audit consumer
+  risks:
+  - duplicate School
+  - exclusive-role race
+  - domain inference
+  - foreign-School access
+  evidence:
+  - manager concurrency test
+  - offer terminal-action race
+  - cross-School denial matrix
+  - accessible School flows
+  kind: group
+  stage: 02 Walking skeleton
+  children:
+  - R1-SCH-001-A
+  - R1-SCH-001-B
+  - R1-SCH-001-C
+  spec: docs/implementation/groups/R1-SCH-001.md
+  completion: null
+- id: R1-SCH-002
+  order: 90
+  title: Implement Competitor School Affiliation
+  status: blocked
+  owner: schools
+  depends_on: []
+  requirements: &id011
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  objective: Issue exact-email affiliation invitations, enforce one current affiliation and transfer history, and preserve
+    represented-School boundaries.
+  inputs:
+  - ADR-0030
+  - wiki/registration-model.md
+  - wiki/access-model.md
+  outputs:
+  - affiliation commands
+  - migrations
+  - invitation and transfer UI
+  - fixture Accounts
+  interfaces:
+  - IssueCompetitorSchoolInvitation
+  - AcceptCompetitorSchoolInvitation
+  - TerminateAffiliation
+  schemas:
+  - CompetitorSchoolAffiliation
+  - AffiliationInvitation
+  tables:
+  - schools_competitor_affiliations
+  - schools_affiliation_invitations
+  events:
+  - AffiliationStarted
+  - AffiliationEnded
+  - CompetitorSchoolTransferred
+  errors:
+  - AFFILIATION_CONFLICT
+  - INVITATION_RECIPIENT_MISMATCH
+  - ACTIVE_ENTRY_TRANSFER_CONFLICT
+  audiences:
+  - Competitor
+  - current and former authorized School Managers
+  risks:
+  - cross-School leakage
+  - historical rewrite
+  - concurrent acceptance
+  evidence:
+  - single-affiliation constraint
+  - transfer vectors
+  - mistargeted invitation denial
+  - audience projection tests
+  kind: group
+  stage: 02 Walking skeleton
+  children:
+  - R1-SCH-002-A
+  - R1-SCH-002-B
+  spec: docs/implementation/groups/R1-SCH-002.md
+  completion: null
+- id: R1-TRN-001
+  order: 100
+  title: Implement authorized Tournament creation
+  status: blocked
+  owner: tournaments
+  depends_on: []
+  requirements: &id012
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  objective: Create a Tournament with one Owner, Directors and delegated staff permissions, IANA timezone, UUIDv7 identity,
+    and initial Draft lifecycle.
+  inputs:
+  - ADR-0006
+  - ADR-0007
+  - wiki/tournament-lifecycle-model.md
+  outputs:
+  - Tournament interface
+  - migrations
+  - create and staff-management routes and screens
+  interfaces:
+  - CreateTournament
+  - IssueTournamentAccessOffer
+  - AcceptTournamentAccessOffer
+  - DelegateTournamentPermission
+  schemas:
+  - Tournament
+  - TournamentStaffAssignment
+  - TournamentPermission
+  tables:
+  - tournaments_tournaments
+  - tournaments_staff_assignments
+  - tournaments_access_offers
+  events:
+  - TournamentCreated
+  - TournamentStaffAssigned
+  - TournamentPermissionChanged
+  errors:
+  - OWNER_CONFLICT
+  - TOURNAMENT_SCOPE_DENIED
+  - TIMEZONE_INVALID
+  - STAFF_PERMISSION_INVALID
+  - TOURNAMENT_COMMAND_CONFLICT
+  audiences:
+  - Owner
+  - Director
+  - assigned staff
+  - audit
+  risks:
+  - owner race
+  - scope spoofing
+  - timezone ambiguity
+  evidence:
+  - creation integration test
+  - exclusivity concurrency test
+  - foreign-tournament denial
+  - accessible creation flow
+  kind: group
+  stage: 02 Walking skeleton
+  children:
+  - R1-TRN-001-A
+  - R1-TRN-001-B
+  spec: docs/implementation/groups/R1-TRN-001.md
+  completion: null
+- id: R1-COM-001
+  order: 110
+  title: Implement transactional outbox and required notification delivery
+  status: blocked
+  owner: communications
+  depends_on: []
+  requirements: &id008
+  - R1-MSG-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Commit notice intents through module-local outboxes, dispatch with pg-boss, deliver to Mailpit or SES and the
+    restricted inbox, and record idempotent retry and escalation outcomes.
+  inputs:
+  - wiki/backend-architecture.md
+  - wiki/access-model.md
+  outputs:
+  - outbox plumbing
+  - communications interface
+  - migrations
+  - worker handlers
+  - inbox UI
+  interfaces:
+  - AppendOutboxMessage
+  - CreateNoticeIntent
+  - DeliverNotice
+  - ReadAccessInbox
+  schemas:
+  - OutboxEnvelope
+  - NoticeIntent
+  - DeliveryAttempt
+  - InboxItem
+  tables:
+  - communications_notice_intents
+  - communications_delivery_attempts
+  - communications_inbox_items
+  - module_outbox tables
+  events:
+  - NoticeRequested
+  - NoticeDelivered
+  - NoticeDeliveryFailed
+  - NoticeEscalated
+  errors:
+  - IDEMPOTENCY_CONFLICT
+  - RECIPIENT_UNAUTHORIZED
+  - DELIVERY_PROVIDER_FAILED
+  audiences:
+  - authorized recipient
+  - initiating actor where allowed
+  - operations
+  risks:
+  - lost message
+  - duplicate external effect
+  - private payload disclosure
+  - API starvation
+  evidence:
+  - commit-and-outbox atomicity
+  - duplicate-delivery test
+  - provider failure cycles
+  - queue timing gate
+  kind: group
+  stage: 02 Walking skeleton
+  children:
+  - R1-COM-001-A
+  - R1-COM-001-B
+  spec: docs/implementation/groups/R1-COM-001.md
+  completion: null
+- id: R1-REG-001
+  order: 120
+  title: Complete the walking skeleton with Entry submission
+  status: blocked
+  owner: registration
+  depends_on: []
+  requirements: &id016
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-DATA-001
+  - R1-MSG-001
+  objective: Create, validate, and submit one School-affiliated Lincoln-Douglas Entry and deliver an outbox-triggered confirmation
+    through the complete web, API, database, worker, and inbox path.
+  inputs:
+  - wiki/registration-model.md
+  - docs/releases/release-1.md
+  outputs:
+  - minimal Entry aggregate
+  - migration
+  - submission API and web form
+  - confirmation notification
+  - end-to-end fixture
+  interfaces:
+  - CreateDraftEntry
+  - SubmitEntry
+  - GetEntry
+  schemas:
+  - CoreEntryRegistrationData
+  - DraftEntry
+  - SubmittedEntry
+  tables:
+  - registration_entries
+  - registration_entry_versions
+  - registration_eligibility_attestations
+  events:
+  - EntryDrafted
+  - EntrySubmitted
+  - EntryConfirmationRequested
+  errors:
+  - ENTRY_DUPLICATE
+  - ENTRY_INCOMPLETE
+  - AFFILIATION_REQUIRED
+  - ENTRY_VERSION_STALE
+  audiences:
+  - responsible Coach
+  - Competitor limited view
+  - registration staff
+  risks:
+  - foreign-School submission
+  - duplicate Entry
+  - lost confirmation
+  - partial workflow
+  evidence:
+  - seeded walking-skeleton Playwright test
+  - rollback test
+  - stale and duplicate submission tests
+  kind: group
+  stage: 02 Walking skeleton
+  children:
+  - R1-REG-001-A
+  spec: docs/implementation/groups/R1-REG-001.md
+  completion: null
+- id: R1-TRN-002
+  order: 130
+  title: Implement Ruleset and Tournament configuration governance
+  status: blocked
+  owner: tournaments
+  depends_on: []
+  requirements: &id013
+  - R1-LIFE-001
+  - R1-CONS-001
+  objective: Adopt, validate, version, migrate, lock, and exceptionally amend the Release 1 Lincoln-Douglas Ruleset and allowed
+    Tournament Overrides.
+  inputs:
+  - ADR-0001
+  - wiki/backend-roadmap.md
+  - authoritative NSDA manual captured at rules-corpus cut
+  outputs:
+  - Ruleset contracts
+  - migration
+  - configuration UI
+  - diff and impact previews
+  - golden validation vectors
+  interfaces:
+  - AdoptRuleset
+  - ConfigureTournamentOverride
+  - MigrateRuleset
+  - LockRuleset
+  - EmergencyAmendRuleset
+  schemas:
+  - Ruleset
+  - TournamentOverride
+  - RulesetMigration
+  - EmergencyAmendment
+  tables:
+  - tournaments_rulesets
+  - tournaments_rule_adoptions
+  - tournaments_overrides
+  - tournaments_emergency_amendments
+  events:
+  - RulesetAdopted
+  - RulesetLocked
+  - RulesetAmended
+  errors:
+  - RULESET_INVALID
+  - OVERRIDE_PROHIBITED
+  - RULESET_LOCKED
+  - MIGRATION_INCOMPATIBLE
+  audiences:
+  - Director
+  - authorized staff
+  - public human-readable summary
+  - audit
+  risks:
+  - unversioned external rules
+  - silent outcome change
+  - prohibited override
+  evidence:
+  - authoritative source checksum
+  - override allowlist tests
+  - lock race test
+  - migration vectors
+  kind: group
+  stage: 03 Configuration and registration
+  children:
+  - R1-TRN-002-A
+  - R1-TRN-002-B
+  spec: docs/implementation/groups/R1-TRN-002.md
+  completion: null
+- id: R1-TRN-003
+  order: 140
+  title: Implement Tournament Invitation publication
+  status: blocked
+  owner: publication
+  depends_on: []
+  requirements: &id014
+  - R1-LIFE-001
+  - R1-PRIV-001
+  - R1-CONS-001
+  objective: Prepare, approve, publish, version, correct, and govern withdrawal from discovery for the Tournament Invitation
+    Page and active directory entry.
+  inputs:
+  - wiki/tournament-directory-model.md
+  - wiki/access-model.md
+  outputs:
+  - publication interface
+  - migrations
+  - public SSR route
+  - directory projection
+  - correction history
+  interfaces:
+  - PrepareTournamentInvitation
+  - ApprovePublication
+  - PublishTournamentInvitation
+  - WithdrawPublicPublication
+  schemas:
+  - TournamentInvitationProjection
+  - PublicationVersion
+  - PublicPublicationWithdrawal
+  tables:
+  - publication_versions
+  - publication_current_pointers
+  - publication_withdrawals
+  events:
+  - TournamentInvitationPublished
+  - PublicPublicationWithdrawn
+  errors:
+  - PUBLICATION_UNAPPROVED
+  - PUBLICATION_SOURCE_STALE
+  - WITHDRAWAL_REASON_INVALID
+  audiences:
+  - Public Viewer
+  - Director
+  - publication staff
+  - audit
+  risks:
+  - private-field exposure
+  - stale publication
+  - silent deletion
+  evidence:
+  - public field allowlist vectors
+  - no-JavaScript render
+  - immutable history test
+  - withdrawal authorization matrix
+  kind: group
+  stage: 03 Configuration and registration
+  children:
+  - R1-TRN-003-A
+  - R1-TRN-003-B
+  spec: docs/implementation/groups/R1-TRN-003.md
+  completion: null
+- id: R1-REG-002
+  order: 150
+  title: Implement Registration Policy and additional-field schema
+  status: blocked
+  owner: registration
+  depends_on: []
+  requirements: &id015
+  - R1-LIFE-001
+  - R1-PRIV-001
+  - R1-CONS-001
+  objective: Publish and enforce registration timelines, Admission Policy, monotonic revisions, late exceptions, Core Entry
+    Data, and governed additional fields.
+  inputs:
+  - ADR-0022
+  - ADR-0023
+  - ADR-0024
+  - wiki/registration-model.md
+  outputs:
+  - policy contracts
+  - migrations
+  - validation and preview UI
+  - public summary
+  interfaces:
+  - CreateRegistrationPolicy
+  - ReviseRegistrationPolicy
+  - GrantLateRegistrationException
+  - PublishRegistrationSchema
+  schemas:
+  - TournamentRegistrationPolicy
+  - AdmissionPolicy
+  - RegistrationDataSchema
+  tables:
+  - registration_policies
+  - registration_policy_versions
+  - registration_data_schemas
+  - registration_late_exceptions
+  events:
+  - RegistrationPolicyPublished
+  - RegistrationPolicyRevised
+  - LateExceptionGranted
+  errors:
+  - POLICY_REVISION_TIGHTENS_OBLIGATION
+  - DEADLINE_PASSED
+  - FIELD_PURPOSE_INVALID
+  audiences:
+  - School staff
+  - Director
+  - registration staff
+  - public summary
+  risks:
+  - retroactive burden
+  - unnecessary minor data
+  - timezone deadline error
+  evidence:
+  - monotonic-revision vectors
+  - timezone cases
+  - prohibited-field tests
+  - accessible policy preview
+  kind: group
+  stage: 03 Configuration and registration
+  children:
+  - R1-REG-002-A
+  - R1-REG-002-B
+  spec: docs/implementation/groups/R1-REG-002.md
+  completion: null
+- id: R1-REG-003
+  order: 160
+  title: Implement Tournament Rosters and complete Entry lifecycle
+  status: blocked
+  owner: registration
+  depends_on: []
+  requirements: &id017
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  objective: Manage roster placement, Coach sign-off, Draft through terminal Entry transitions, withdrawal, restoration, correction,
+    and Competitor Entry Error Reports.
+  inputs:
+  - ADR-0021
+  - ADR-0030
+  - wiki/registration-model.md
+  outputs:
+  - transition tables
+  - migrations
+  - role-scoped roster and Entry screens
+  - notice events
+  interfaces:
+  - PlaceOnTournamentRoster
+  - SignOffEntry
+  - TransitionEntryState
+  - RestoreEntry
+  - CorrectEntryAttribution
+  - FileEntryErrorReport
+  schemas:
+  - TournamentRoster
+  - EntryRegistrationState
+  - EntryRestoration
+  - EntryErrorReport
+  tables:
+  - registration_rosters
+  - registration_entry_transitions
+  - registration_restorations
+  - registration_error_reports
+  events:
+  - RosterChanged
+  - EntryStateChanged
+  - EntryRestored
+  - EntryErrorReported
+  errors:
+  - ENTRY_TRANSITION_INVALID
+  - ROSTER_AUTHORITY_DENIED
+  - RESTORATION_TOO_LATE
+  - REPRESENTED_SCHOOL_CONFLICT
+  audiences:
+  - Competitor
+  - responsible Coach
+  - School staff
+  - registration staff
+  risks:
+  - historical rewrite
+  - role confusion
+  - post-start restoration
+  evidence:
+  - complete state matrix
+  - role matrix
+  - restoration boundary tests
+  - responsive roster workflow
+  kind: group
+  stage: 03 Configuration and registration
+  children:
+  - R1-REG-003-A
+  - R1-REG-003-B
+  - R1-REG-003-C
+  spec: docs/implementation/groups/R1-REG-003.md
+  completion: null
+- id: R1-REG-004
+  order: 170
+  title: Implement admission, eligibility, minor authorization, and accommodations
+  status: blocked
+  owner: registration
+  depends_on: []
+  requirements: &id010
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-CONS-001
+  objective: Calculate deterministic admission and waitlists, govern Competitive Eligibility, record Minor Participation Authorization,
+    and isolate Accommodation Request content and operations.
+  inputs:
+  - ADR-0025
+  - ADR-0026
+  - wiki/registration-model.md
+  - wiki/retention-model.md
+  outputs:
+  - admission vectors
+  - eligibility transitions
+  - restricted accommodation interfaces
+  - migrations and screens
+  interfaces:
+  - CalculateAdmissionRecommendation
+  - ConfirmAdmission
+  - ChangeCompetitiveEligibility
+  - RecordMinorParticipationAuthorization
+  - SubmitAccommodationRequest
+  - DecideAccommodationRequest
+  schemas:
+  - AdmissionRecommendation
+  - CompetitiveEligibility
+  - MinorParticipationAuthorization
+  - AccommodationRequest
+  tables:
+  - registration_admission_runs
+  - registration_eligibility
+  - registration_minor_authorizations
+  - registration_accommodation_requests
+  events:
+  - AdmissionConfirmed
+  - EligibilityChanged
+  - AccommodationSubmitted
+  - AccommodationDecided
+  errors:
+  - ADMISSION_SOURCE_STALE
+  - ELIGIBILITY_BLOCKED
+  - MINOR_AUTHORIZATION_REQUIRED
+  - ACCOMMODATION_ACCESS_DENIED
+  audiences:
+  - Competitor
+  - School staff
+  - registration staff
+  - Accommodation Operations
+  risks:
+  - subjective waitlist
+  - sensitive-data exposure
+  - legal-policy interpretation
+  evidence:
+  - admission golden vectors
+  - restricted-field vectors
+  - expiry and revocation tests
+  - accommodation access matrix
+  kind: group
+  stage: 03 Configuration and registration
+  children:
+  - R1-REG-004-A
+  - R1-REG-004-B
+  - R1-REG-004-C
+  - R1-REG-004-D
+  spec: docs/implementation/groups/R1-REG-004.md
+  completion: null
+- id: R1-CMP-001
+  order: 180
+  title: Implement native schedules and rooms
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id025
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Create objective-specific schedule candidates, rooms, event workspaces, publication versions, revisions, breaks,
+    and cross-entry holds.
+  inputs:
+  - ADR-0011
+  - wiki/scheduling-model.md
+  outputs:
+  - schedule interface
+  - migrations
+  - algorithms and vectors
+  - operations and participant screens
+  interfaces:
+  - GenerateScheduleCandidates
+  - SelectSchedule
+  - PublishSchedule
+  - ReviseSchedule
+  - ActivateCrossEntryHold
+  schemas:
+  - TournamentSchedule
+  - ScheduleCandidate
+  - ScheduleRevision
+  - Room
+  - CrossEntryHold
+  tables:
+  - competition_schedules
+  - competition_schedule_versions
+  - competition_rooms
+  - competition_cross_entry_holds
+  events:
+  - ScheduleSelected
+  - SchedulePublished
+  - ScheduleRevised
+  - CrossEntryHoldActivated
+  errors:
+  - SCHEDULE_INFEASIBLE
+  - SCHEDULE_SOURCE_STALE
+  - REVISION_UNAPPROVED
+  - CROSS_ENTRY_CONFLICT
+  audiences:
+  - Competitor
+  - Coach
+  - Judge
+  - tournament staff
+  - Public Viewer limited schedule
+  risks:
+  - overlap
+  - timezone error
+  - unnoticed live change
+  evidence:
+  - schedule vectors
+  - overlap property tests
+  - revision approval tests
+  - accessible agenda and operations views
+  kind: group
+  stage: 04 Scheduling and Judge operations
+  children:
+  - R1-CMP-001-A
+  - R1-CMP-001-B
+  - R1-CMP-001-C
+  - R1-CMP-001-D
+  - R1-CMP-001-E
+  spec: docs/implementation/groups/R1-CMP-001.md
+  completion: null
+- id: R1-CMP-002
+  order: 190
+  title: Implement Judge qualification-provider consumption
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id018
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
+  objective: Create assessment attempts, verify provider webhook or signed-file results, calculate qualification, and govern
+    Event Qualification, Temporary Qualification, profiles, and Tournament Tier Grants.
+  inputs:
+  - ADR-0012
+  - ADR-0013
+  - wiki/judge-qualification-model.md
+  outputs:
+  - provider seam
+  - qualification interface
+  - migrations
+  - fixed provider adapter
+  - Judge and staff views
+  interfaces:
+  - CreateAssessmentAttempt
+  - ReceiveAssessmentResult
+  - PublishJudgingProfile
+  - GrantTournamentTier
+  - GrantTemporaryQualification
+  schemas:
+  - AssessmentAttempt
+  - ProviderResult
+  - EventQualification
+  - JudgingProfile
+  - TournamentTierGrant
+  tables:
+  - competition_assessment_attempts
+  - competition_assessment_results
+  - competition_qualifications
+  - competition_tier_grants
+  events:
+  - AssessmentVerified
+  - QualificationGranted
+  - TournamentTierGranted
+  errors:
+  - ASSESSMENT_IDENTITY_CONFLICT
+  - PROVIDER_SIGNATURE_INVALID
+  - ASSESSMENT_REQUIRED
+  - QUALIFICATION_EXPIRED
+  audiences:
+  - Judge
+  - qualification staff
+  - tournament operations
+  - assigned Schools limited profile
+  risks:
+  - provider spoofing
+  - raw-answer exposure
+  - grant before assessment
+  evidence:
+  - signed-result vectors
+  - identity collision tests
+  - retention tests
+  - tier-grant prerequisite test
+  kind: group
+  stage: 04 Scheduling and Judge operations
+  children:
+  - R1-CMP-002-A
+  - R1-CMP-002-B
+  - R1-CMP-002-C
+  - R1-CMP-002-D
+  - R1-CMP-002-E
+  spec: docs/implementation/groups/R1-CMP-002.md
+  completion: null
+- id: R1-CMP-003
+  order: 200
+  title: Implement Judge Pool Participation and source obligations
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id019
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
+  objective: Request, accept, decline, withdraw, and source-account Judge participation with current pool and restricted reliability
+    projections.
+  inputs:
+  - wiki/tournament-directory-model.md
+  - wiki/judge-qualification-model.md
+  outputs:
+  - Judge Pool interface
+  - migrations
+  - participation and staff screens
+  - pool projection
+  interfaces:
+  - RequestJudgePoolParticipation
+  - DecideJudgePoolParticipation
+  - CorrectJudgeSource
+  - WithdrawJudgePoolParticipation
+  schemas:
+  - JudgePoolParticipation
+  - JudgeSource
+  - SpecialCircumstanceWithdrawal
+  - JudgeReliabilityRecord
+  tables:
+  - competition_judge_pool
+  - competition_judge_sources
+  - competition_judge_withdrawals
+  - competition_judge_reliability
+  events:
+  - JudgePoolParticipationAccepted
+  - JudgeSourceCorrected
+  - JudgeWithdrawn
+  errors:
+  - JUDGE_NOT_QUALIFIED
+  - WITHDRAWAL_LOCKED
+  - SOURCE_UNCONFIRMED
+  - JUDGE_POOL_SCOPE_DENIED
+  audiences:
+  - Judge
+  - authenticated participants limited pool
+  - operations staff
+  risks:
+  - qualification disclosure
+  - source miscount
+  - hidden staffing deficit
+  evidence:
+  - pool audience vectors
+  - withdrawal deadline tests
+  - source-correction impact tests
+  kind: group
+  stage: 04 Scheduling and Judge operations
+  children:
+  - R1-CMP-003-A
+  - R1-CMP-003-B
+  - R1-CMP-003-C
+  spec: docs/implementation/groups/R1-CMP-003.md
+  completion: null
+- id: R1-CMP-004
+  order: 210
+  title: Implement Judge conflicts and striking
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id020
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
+  objective: Record verified Coach conflicts, configure and lock Judge Striking Policy, collect Coach-approved strike submissions,
+    and expose only appropriate indicators.
+  inputs:
+  - wiki/pairing-model.md
+  - wiki/tournament-directory-model.md
+  outputs:
+  - conflict and strike interfaces
+  - migrations
+  - native portal
+  - validation vectors
+  interfaces:
+  - SubmitJudgeConflict
+  - ConfigureJudgeStrikingPolicy
+  - ApproveJudgeStrikeSubmission
+  - LockJudgeStrikes
+  schemas:
+  - JudgeConflict
+  - JudgeStrikingPolicy
+  - JudgeStrikeSubmission
+  tables:
+  - competition_judge_conflicts
+  - competition_striking_policies
+  - competition_strike_submissions
+  events:
+  - JudgeConflictVerified
+  - JudgeStrikesSubmitted
+  - JudgeStrikesLocked
+  errors:
+  - STRIKE_WINDOW_CLOSED
+  - STRIKE_ALLOWANCE_EXCEEDED
+  - COACH_APPROVAL_REQUIRED
+  - CONFLICT_UNVERIFIED
+  audiences:
+  - Entry Competitors
+  - responsible Coach
+  - authorized operations
+  risks:
+  - strike disclosure
+  - competitor conflict authority
+  - post-lock mutation
+  evidence:
+  - window timezone vectors
+  - allowance tests
+  - audience matrix
+  - lock concurrency test
+  kind: group
+  stage: 04 Scheduling and Judge operations
+  children:
+  - R1-CMP-004-A
+  - R1-CMP-004-B
+  spec: docs/implementation/groups/R1-CMP-004.md
+  completion: null
+- id: R1-CMP-005
+  order: 220
+  title: Implement Judge and room assignment
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id026
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  objective: Generate eligible ranked recommendations, require staff sign-off, validate qualification, conflicts, strikes,
+    availability, workload and rooms, publish assignments, and handle acknowledgment.
+  inputs:
+  - wiki/scheduling-model.md
+  - wiki/judge-qualification-model.md
+  outputs:
+  - assignment algorithm and vectors
+  - migrations
+  - review and acknowledgment UI
+  interfaces:
+  - GenerateAssignmentCandidates
+  - ConfirmAssignment
+  - PublishAssignment
+  - AcknowledgeAssignment
+  schemas:
+  - AssignmentCandidate
+  - JudgeAssignment
+  - AssignmentAcknowledgment
+  tables:
+  - competition_assignments
+  - competition_assignment_versions
+  - competition_acknowledgments
+  events:
+  - AssignmentConfirmed
+  - AssignmentPublished
+  - AssignmentAcknowledged
+  errors:
+  - ASSIGNMENT_CONSTRAINT_FAILED
+  - ASSIGNMENT_SOURCE_STALE
+  - ACKNOWLEDGMENT_LATE
+  audiences:
+  - assigned Judge
+  - affected Competitors and Coaches
+  - operations
+  risks:
+  - hard-constraint bypass
+  - private preference disclosure
+  - unacknowledged change
+  evidence:
+  - assignment vectors
+  - all hard-constraint tests
+  - stale recommendation test
+  - accessible acknowledgment
+  kind: group
+  stage: 04 Scheduling and Judge operations
+  children:
+  - R1-CMP-005-A
+  - R1-CMP-005-B
+  spec: docs/implementation/groups/R1-CMP-005.md
+  completion: null
+- id: R1-CMP-006
+  order: 230
+  title: Implement preliminary Pairing generation
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id024
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  objective: Validate the Pairing Plan and generate every supported Release 1 preliminary method with deterministic sides,
+    constraints, byes, explanations, and reproducible versions.
+  inputs:
+  - ADR-0014
+  - wiki/pairing-model.md
+  outputs:
+  - Pairing algorithms
+  - plan schemas
+  - migrations
+  - complete method vector corpus
+  interfaces:
+  - ValidatePairingPlan
+  - GeneratePreliminaryPairings
+  - ExplainPairing
+  schemas:
+  - PairingPlan
+  - PairingCandidateSet
+  - Pairing
+  - ByeRound
+  tables:
+  - competition_pairing_plans
+  - competition_pairing_runs
+  - competition_pairings
+  events:
+  - PairingsGenerated
+  errors:
+  - PAIRING_PLAN_INVALID
+  - PAIRING_INFEASIBLE
+  - HARD_CONSTRAINT_UNSATISFIED
+  audiences:
+  - pairing staff
+  - restricted explanation viewers
+  risks:
+  - nondeterminism
+  - rematch
+  - side imbalance
+  - constraint bypass
+  evidence:
+  - eight-method golden corpus
+  - seeded-draw repeat test
+  - property tests
+  - infeasibility explanations
+  kind: group
+  stage: 05 Preliminary competition
+  children:
+  - R1-CMP-006-A
+  - R1-CMP-006-B
+  - R1-CMP-006-C
+  - R1-CMP-006-D
+  spec: docs/implementation/groups/R1-CMP-006.md
+  completion: null
+- id: R1-CMP-007
+  order: 240
+  title: Implement Pairing approval, publication, and revision
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id027
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Prepare, approve, publish, withdraw, correct, republish, notify, and preserve Pairing versions without changing
+    Started rounds.
+  inputs:
+  - wiki/pairing-model.md
+  - wiki/access-model.md
+  outputs:
+  - Pairing workflow
+  - publication projection
+  - participant routes
+  - revision impact preview
+  interfaces:
+  - PreparePairingPublication
+  - ApprovePairings
+  - PublishPairings
+  - CorrectPairings
+  schemas:
+  - PairingPublication
+  - PairingCorrection
+  - DownstreamConflict
+  tables:
+  - competition_pairing_approvals
+  - competition_pairing_publications
+  - competition_downstream_conflicts
+  events:
+  - PairingsApproved
+  - PairingsPublished
+  - PairingsCorrected
+  errors:
+  - PAIRING_UNAPPROVED
+  - PAIRING_SOURCE_STALE
+  - ROUND_ALREADY_STARTED
+  audiences:
+  - Competitor
+  - Coach
+  - assigned Judge
+  - operations
+  - Public Viewer allowed fields
+  risks:
+  - wrong audience
+  - stale approval
+  - silent live change
+  evidence:
+  - approval invalidation tests
+  - started-round immutability
+  - correction notices
+  - mobile Pairing flow
+  kind: group
+  stage: 05 Preliminary competition
+  children:
+  - R1-CMP-007-A
+  - R1-CMP-007-B
+  spec: docs/implementation/groups/R1-CMP-007.md
+  completion: null
+- id: R1-CMP-008
+  order: 250
+  title: Implement live rounds, No-Shows, and replacements
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id029
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Start and complete rounds, classify and dispute No-Shows, recommend nonoperative replacements, authorize emergency
+    Judges or byes, revise affected artifacts, and protect private evidence.
+  inputs:
+  - wiki/scheduling-model.md
+  - wiki/pairing-model.md
+  - wiki/tournament-lifecycle-model.md
+  outputs:
+  - round and No-Show transitions
+  - replacement selector
+  - migrations
+  - live operations and dispute UI
+  interfaces:
+  - StartRound
+  - CompleteRound
+  - ClassifyNoShow
+  - FileNoShowDispute
+  - DecideNoShowDispute
+  - GenerateReplacementCandidates
+  - AdmitEmergencyReplacementJudge
+  schemas:
+  - RoundState
+  - NoShow
+  - NoShowDispute
+  - ReplacementCandidatePool
+  - EmergencyReplacementJudge
+  tables:
+  - competition_rounds
+  - competition_no_shows
+  - competition_no_show_disputes
+  - competition_replacements
+  events:
+  - RoundStarted
+  - NoShowClassified
+  - NoShowCorrected
+  - ReplacementApproved
+  errors:
+  - NO_SHOW_EVIDENCE_INCOMPLETE
+  - DISPUTE_WINDOW_CLOSED
+  - REPLACEMENT_INVALID
+  - ROUND_STATE_INVALID
+  audiences:
+  - affected Competitor and Coach
+  - assigned Judge
+  - operations
+  - minimized public correction
+  risks:
+  - automatic competitive outcome
+  - private absence disclosure
+  - deadline race
+  evidence:
+  - deadline vectors
+  - dispute race tests
+  - replacement constraint tests
+  - privacy serialization vectors
+  kind: group
+  stage: 05 Preliminary competition
+  children:
+  - R1-CMP-008-A
+  - R1-CMP-008-B
+  - R1-CMP-008-C
+  - R1-CMP-008-D
+  spec: docs/implementation/groups/R1-CMP-008.md
+  completion: null
+- id: R1-CMP-009
+  order: 260
+  title: Implement rubric-pinned Ballot submission
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id028
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Pin the governing rubric at round start, autosave private drafts, validate and receipt Judge submissions, separate
+    result from Feedback, and enforce late and hold behavior.
+  inputs:
+  - ADR-0009
+  - wiki/ballot-model.md
+  outputs:
+  - Ballot aggregate
+  - rubric pin
+  - migrations
+  - Judge Ballot UI
+  - offline-safe draft behavior
+  interfaces:
+  - PinRoundRubric
+  - SaveBallotDraft
+  - SubmitBallot
+  - GetBallotReceipt
+  schemas:
+  - RoundRubricPin
+  - BallotDraft
+  - BallotSubmission
+  - CompetitiveResult
+  - BallotReceipt
+  tables:
+  - competition_rubric_pins
+  - competition_ballots
+  - competition_ballot_versions
+  - competition_assignment_holds
+  events:
+  - RoundRubricPinned
+  - BallotSubmitted
+  - BallotLate
+  errors:
+  - RUBRIC_VERSION_MISMATCH
+  - BALLOT_INVALID
+  - BALLOT_ALREADY_SUBMITTED
+  - ASSIGNMENT_SCOPE_DENIED
+  audiences:
+  - authoring Judge
+  - adjudicated Competitor and Coach after allowed release
+  - Ballot staff
+  risks:
+  - draft loss
+  - rubric drift
+  - Judge impersonation
+  - result-feedback coupling
+  evidence:
+  - rubric pin race
+  - offline draft recovery
+  - duplicate submission
+  - audience matrix
+  - keyboard Ballot flow
+  kind: group
+  stage: 05 Preliminary competition
+  children:
+  - R1-CMP-009-A
+  - R1-CMP-009-B
+  - R1-CMP-009-C
+  - R1-CMP-009-D
+  spec: docs/implementation/groups/R1-CMP-009.md
+  completion: null
+- id: R1-CMP-010
+  order: 270
+  title: Implement panels and Feedback lifecycle
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id030
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Enforce Judge blindness, calculate irreversible majorities, track outstanding Ballots, publish editable Feedback
+    until its immutable deadline, and protect opponent-restricted points.
+  inputs:
+  - wiki/ballot-model.md
+  - wiki/final-results-model.md
+  outputs:
+  - panel calculator and vectors
+  - Feedback transitions
+  - migrations
+  - participant and staff views
+  interfaces:
+  - CalculatePanelDecision
+  - PublishBallotFeedback
+  - ReviseBallotFeedback
+  - CloseFeedbackWindow
+  schemas:
+  - PanelDecision
+  - IrreversibleMajority
+  - BallotFeedback
+  - FeedbackPublication
+  tables:
+  - competition_panel_decisions
+  - competition_feedback_versions
+  - competition_feedback_publications
+  events:
+  - PanelDecisionLocked
+  - FeedbackPublished
+  - FeedbackDeadlineReached
+  errors:
+  - PANEL_INCOMPLETE
+  - FEEDBACK_DEADLINE_PASSED
+  - JUDGE_BLINDNESS_VIOLATION
+  audiences:
+  - individual Judge
+  - adjudicated Competitor
+  - current Coaching Staff
+  - Ballot operations
+  risks:
+  - cross-Judge disclosure
+  - point leakage
+  - deadline timezone error
+  evidence:
+  - panel golden vectors
+  - blindness negative tests
+  - Feedback deadline vectors
+  - audience tests
+  kind: group
+  stage: 05 Preliminary competition
+  children:
+  - R1-CMP-010-A
+  - R1-CMP-010-B
+  - R1-CMP-010-C
+  - R1-CMP-010-D
+  spec: docs/implementation/groups/R1-CMP-010.md
+  completion: null
+- id: R1-CMP-011
+  order: 280
+  title: Implement result correction and rubric-blocked administration
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id031
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-MSG-001
+  objective: Reopen Ballots through authorized cases, issue objective result corrections, govern rubric-blocked Administrative
+    Rulings, surface downstream conflicts, and preserve Judge protections.
+  inputs:
+  - ADR-0010
+  - wiki/ballot-model.md
+  outputs:
+  - correction and ruling transitions
+  - migrations
+  - restricted review UI
+  - public Correction Notice inputs
+  interfaces:
+  - OpenBallotCorrection
+  - ApproveBallotReopening
+  - CorrectCompetitiveResult
+  - AssignRubricBlockedCase
+  - PublishAdministrativeRuling
+  schemas:
+  - BallotCorrectionCase
+  - ResultCorrection
+  - RubricBlockedAdministrativeRuling
+  - DownstreamConflict
+  tables:
+  - competition_ballot_corrections
+  - competition_result_versions
+  - competition_administrative_rulings
+  events:
+  - BallotReopened
+  - ResultCorrected
+  - AdministrativeRulingPublished
+  - DownstreamConflictOpened
+  errors:
+  - CORRECTION_MERITS_APPEAL
+  - RULING_EVIDENCE_INCOMPLETE
+  - INDEPENDENCE_REQUIRED
+  audiences:
+  - affected participants
+  - assigned Judge
+  - authorized staff
+  - minimized public outcome
+  risks:
+  - merits appeal
+  - Judge punishment
+  - secret evidence exposure
+  - rewritten downstream state
+  evidence:
+  - correction category tests
+  - independence exceptions
+  - downstream invalidation tests
+  - privacy vectors
+  kind: group
+  stage: 05 Preliminary competition
+  children:
+  - R1-CMP-011-A
+  - R1-CMP-011-B
+  - R1-CMP-011-C
+  - R1-CMP-011-D
+  spec: docs/implementation/groups/R1-CMP-011.md
+  completion: null
+- id: R1-CMP-012
+  order: 290
+  title: Implement standings configuration, calculation, and publication
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id021
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Validate declarative standings rules, preview acceptance cases, lock configuration, calculate exact standings,
+    approve and publish snapshots, and correct verified divergence.
+  inputs:
+  - ADR-0015
+  - wiki/standings-model.md
+  outputs:
+  - standings schema
+  - calculator and vectors
+  - migrations
+  - configuration and publication UI
+  interfaces:
+  - ValidateStandingsRules
+  - AcceptStandingsRules
+  - CalculateStandings
+  - ApproveStandings
+  - PublishStandings
+  - CorrectStandingsRules
+  schemas:
+  - DocketStandingsRules
+  - StandingsSnapshot
+  - StandingsAcceptanceCase
+  tables:
+  - competition_standings_rules
+  - competition_standings_runs
+  - competition_standings_publications
+  events:
+  - StandingsRulesLocked
+  - StandingsCalculated
+  - StandingsPublished
+  - StandingsCorrected
+  errors:
+  - STANDINGS_RULES_INVALID
+  - ACCEPTANCE_CASE_FAILED
+  - STANDINGS_SOURCE_STALE
+  audiences:
+  - public aggregates
+  - School-private detail
+  - authorized staff evidence
+  risks:
+  - executable upload
+  - nondeterministic order
+  - Judge-linked disclosure
+  evidence:
+  - golden corpus
+  - acceptance cases
+  - lock and correction tests
+  - audience vectors
+  kind: group
+  stage: 06 Standings and eliminations
+  children:
+  - R1-CMP-012-A
+  - R1-CMP-012-B
+  - R1-CMP-012-C
+  spec: docs/implementation/groups/R1-CMP-012.md
+  completion: null
+- id: R1-CMP-013
+  order: 300
+  title: Implement Advancement Plan and Field
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id022
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Validate and lock declarative advancement policy, calculate ties and byes, prepare and approve exact Fields,
+    publish them, and govern pre-start correction.
+  inputs:
+  - ADR-0017
+  - wiki/advancement-model.md
+  outputs:
+  - advancement schema
+  - calculator and vectors
+  - migrations
+  - approval and publication UI
+  interfaces:
+  - ValidateAdvancementPlan
+  - AcceptAdvancementPlan
+  - CalculateAdvancementField
+  - ApproveAdvancementField
+  - PublishAdvancementField
+  schemas:
+  - DocketAdvancementPlan
+  - AdvancementField
+  - TieAtCutDecision
+  tables:
+  - competition_advancement_plans
+  - competition_advancement_fields
+  - competition_advancement_publications
+  events:
+  - AdvancementPlanLocked
+  - AdvancementFieldCalculated
+  - AdvancementFieldPublished
+  errors:
+  - ADVANCEMENT_PLAN_INVALID
+  - FIELD_SOURCE_STALE
+  - TIE_POLICY_INFEASIBLE
+  audiences:
+  - public qualifiers
+  - School-private exclusion
+  - authorized staff
+  risks:
+  - subjective cut selection
+  - wrong byes
+  - unpublished source drift
+  evidence:
+  - tie and power-of-two vectors
+  - approval invalidation
+  - audience tests
+  kind: group
+  stage: 06 Standings and eliminations
+  children:
+  - R1-CMP-013-A
+  - R1-CMP-013-B
+  - R1-CMP-013-C
+  spec: docs/implementation/groups/R1-CMP-013.md
+  completion: null
+- id: R1-CMP-014
+  order: 310
+  title: Implement elimination bracket and verification gates
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id032
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  objective: Build canonical seeded brackets, schedule elimination rounds, enforce out-round verification and governed exceptions,
+    and freeze replacement and reseeding after start.
+  inputs:
+  - wiki/advancement-model.md
+  - wiki/pairing-model.md
+  outputs:
+  - bracket calculator and vectors
+  - gate transitions
+  - migrations
+  - review and public bracket UI
+  interfaces:
+  - CreateEliminationBracket
+  - PrepareOutRound
+  - CompleteOutRoundVerification
+  - ActivateSinglePersonException
+  - OverrideOutRoundGate
+  schemas:
+  - EliminationBracket
+  - OutRoundVerification
+  - GateException
+  - GateOverride
+  tables:
+  - competition_brackets
+  - competition_out_round_gates
+  - competition_gate_exceptions
+  events:
+  - BracketPublished
+  - OutRoundVerified
+  - OutRoundGateOverridden
+  errors:
+  - BRACKET_SOURCE_STALE
+  - VERIFIER_NOT_DISTINCT
+  - HARD_CONSTRAINT_FAILED
+  - RESEEDING_PROHIBITED
+  audiences:
+  - Public Viewer bracket
+  - affected participants
+  - restricted gate staff
+  risks:
+  - bracket rewrite
+  - self-confirmation
+  - hard-constraint bypass
+  evidence:
+  - canonical bracket vectors
+  - two-person gate tests
+  - exception and override matrices
+  - started-bracket immutability
+  kind: group
+  stage: 06 Standings and eliminations
+  children:
+  - R1-CMP-014-A
+  - R1-CMP-014-B
+  - R1-CMP-014-C
+  spec: docs/implementation/groups/R1-CMP-014.md
+  completion: null
+- id: R1-CMP-015
+  order: 320
+  title: Implement Award Plan and Results
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id023
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Validate and lock the Release 1 Award Plan, calculate placement and Speaker Awards, correct rule divergence,
+    and feed exact results into Final Results.
+  inputs:
+  - ADR-0019
+  - wiki/award-model.md
+  outputs:
+  - award schema
+  - calculator and vectors
+  - migrations
+  - plan and preview UI
+  interfaces:
+  - ValidateAwardPlan
+  - AcceptAwardPlan
+  - CalculateAwardResults
+  - CorrectAwardPlan
+  schemas:
+  - AwardPlan
+  - AwardResult
+  - SpeakerAward
+  tables:
+  - competition_award_plans
+  - competition_award_results
+  events:
+  - AwardPlanLocked
+  - AwardResultsCalculated
+  - AwardResultsCorrected
+  errors:
+  - AWARD_PLAN_INVALID
+  - AWARD_SOURCE_INCOMPLETE
+  - AWARD_CORRECTION_PROHIBITED
+  audiences:
+  - Public Viewer
+  - affected participants
+  - authorized staff
+  risks:
+  - subjective award
+  - hidden recipient
+  - stale result
+  evidence:
+  - award vectors
+  - public-all-awards test
+  - correction impact test
+  kind: group
+  stage: 07 Awards and closure
+  children:
+  - R1-CMP-015-A
+  - R1-CMP-015-B
+  - R1-CMP-015-C
+  spec: docs/implementation/groups/R1-CMP-015.md
+  completion: null
+- id: R1-CMP-016
+  order: 330
+  title: Implement Final Results approval and publication source
+  status: blocked
+  owner: competition
+  depends_on: []
+  requirements: &id033
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Enforce competitive completeness, prepare and approve exact Final Results, invalidate stale approval, and supply
+    versioned audience-safe source projections.
+  inputs:
+  - ADR-0018
+  - wiki/final-results-model.md
+  outputs:
+  - Final Results transitions
+  - migrations
+  - completeness review and approval UI
+  interfaces:
+  - EvaluateCompetitiveCompleteness
+  - PrepareFinalResults
+  - ApproveFinalResults
+  - PublishFinalResults
+  schemas:
+  - CompetitiveCompletenessReview
+  - FinalResultsDraft
+  - FinalResultsProjection
+  tables:
+  - competition_final_result_versions
+  - competition_final_result_approvals
+  events:
+  - FinalResultsPrepared
+  - FinalResultsApproved
+  - FinalResultsPublished
+  errors:
+  - COMPETITION_INCOMPLETE
+  - FINAL_RESULTS_SOURCE_STALE
+  - FINAL_RESULTS_UNAPPROVED
+  audiences:
+  - Public Viewer
+  - participant
+  - School
+  - authorized staff
+  risks:
+  - premature publication
+  - private metadata exposure
+  - stale approval
+  evidence:
+  - completeness blocker matrix
+  - approval race
+  - public field vectors
+  - publication end-to-end test
+  kind: group
+  stage: 07 Awards and closure
+  children:
+  - R1-CMP-016-A
+  - R1-CMP-016-B
+  spec: docs/implementation/groups/R1-CMP-016.md
+  completion: null
+- id: R1-TRN-004
+  order: 340
+  title: Implement Competitive Completion and Tournament Closure
+  status: blocked
+  owner: tournaments
+  depends_on: []
+  requirements: &id034
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  objective: Separate Final Results publication from Owner-only Closure, evaluate nonwaivable blockers, record warning acknowledgment,
+    and preserve post-Closure exception commands.
+  inputs:
+  - ADR-0020
+  - wiki/tournament-lifecycle-model.md
+  outputs:
+  - lifecycle transitions
+  - Closure Readiness Review
+  - migrations
+  - Owner Closure UI
+  interfaces:
+  - MarkCompetitiveCompletion
+  - EvaluateClosureReadiness
+  - CloseTournament
+  schemas:
+  - CompetitiveCompletion
+  - ClosureReadinessReview
+  - TournamentClosure
+  tables:
+  - tournaments_completion
+  - tournaments_closure_reviews
+  - tournaments_closures
+  events:
+  - CompetitiveCompletionReached
+  - TournamentClosed
+  errors:
+  - CLOSURE_OWNER_REQUIRED
+  - CLOSURE_BLOCKED
+  - WARNING_ACKNOWLEDGMENT_REQUIRED
+  audiences:
+  - Owner
+  - Directors and staff
+  - participants
+  - Public Viewer archive status
+  risks:
+  - automatic Closure
+  - waived dispute
+  - premature retention clock
+  evidence:
+  - blocker matrix
+  - Owner-only authorization
+  - closure race
+  - timezone retention anchor
+  kind: group
+  stage: 07 Awards and closure
+  children:
+  - R1-TRN-004-A
+  - R1-TRN-004-B
+  spec: docs/implementation/groups/R1-TRN-004.md
+  completion: null
+- id: R1-PUB-001
+  order: 350
+  title: Implement archive, publication history, and post-Closure correction
+  status: blocked
+  owner: publication
+  depends_on: []
+  requirements: &id035
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-MSG-001
+  objective: Move Closed tournaments into the public archive, show current-first immutable history, publish Correction Notices,
+    and enforce scoped post-Closure correction cases.
+  inputs:
+  - wiki/tournament-directory-model.md
+  - wiki/final-results-model.md
+  - wiki/tournament-lifecycle-model.md
+  outputs:
+  - archive projections
+  - history routes
+  - correction workflow integrations
+  - search index events
+  interfaces:
+  - ProjectTournamentArchive
+  - PublishCorrectionNotice
+  - OpenPostClosureCorrection
+  - PublishCorrectedResult
+  schemas:
+  - TournamentArchiveProjection
+  - PublicationHistory
+  - CorrectionNotice
+  - PostClosureCorrectionCase
+  tables:
+  - publication_archive_entries
+  - publication_correction_notices
+  - publication_post_closure_cases
+  events:
+  - TournamentArchived
+  - CorrectionNoticePublished
+  - PostClosureCorrectionResolved
+  errors:
+  - CORRECTION_WINDOW_CLOSED
+  - CORRECTION_SCOPE_INVALID
+  - ARCHIVE_SOURCE_STALE
+  audiences:
+  - Public Viewer
+  - affected participants and Schools
+  - authorized staff
+  risks:
+  - history erasure
+  - private correction details
+  - expired correction
+  evidence:
+  - archive search vectors
+  - current-first history
+  - 168-hour boundary tests
+  - notification coverage
+  kind: group
+  stage: 07 Awards and closure
+  children:
+  - R1-PUB-001-A
+  - R1-PUB-001-B
+  - R1-PUB-001-C
+  spec: docs/implementation/groups/R1-PUB-001.md
+  completion: null
+- id: R1-GOV-001
+  order: 360
+  title: Complete privileged audit, retention, and Legal Hold
+  status: blocked
+  owner: governance
+  depends_on: []
+  requirements: &id036
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-OPS-001
+  objective: Verify immutable privileged audit across all modules, execute each retention class, and enforce exact-scope two-person
+    Legal Holds through deletion and recovery.
+  inputs:
+  - ADR-0026
+  - ADR-0027
+  - ADR-0028
+  - wiki/retention-model.md
+  outputs:
+  - governance interfaces
+  - migrations
+  - retention jobs
+  - Legal Hold UI
+  - cross-module conformance suite
+  interfaces:
+  - AppendPrivilegedAudit
+  - ScheduleRetention
+  - ExecuteDeletion
+  - PrepareLegalHold
+  - ApproveLegalHold
+  - ReleaseLegalHold
+  schemas:
+  - PrivilegedAuditEvent
+  - RetentionSchedule
+  - LegalHold
+  tables:
+  - governance_audit_events
+  - governance_retention_schedules
+  - governance_legal_holds
+  events:
+  - RetentionScheduled
+  - ArtifactDeleted
+  - LegalHoldActivated
+  - LegalHoldReleased
+  errors:
+  - LEGAL_HOLD_SECOND_ACTOR_REQUIRED
+  - RETENTION_SCOPE_INVALID
+  - DELETION_HELD
+  audiences:
+  - record audience
+  - Legal and Privacy Operations
+  - restricted audit
+  risks:
+  - over-retention
+  - unsafe deletion
+  - single-actor hold
+  - backup resurrection
+  evidence:
+  - all-class clock tests
+  - two-person matrix
+  - restore-retention exercise
+  - payload-free audit projections
+  kind: group
+  stage: 08 Governance and release
+  children:
+  - R1-GOV-001-A
+  - R1-GOV-001-B
+  - R1-GOV-001-C
+  - R1-GOV-001-D
+  spec: docs/implementation/groups/R1-GOV-001.md
+  completion: null
+- id: R1-GOV-002
+  order: 370
+  title: Complete security, integrity, support, and degraded-operation controls
+  status: blocked
+  owner: governance
+  depends_on: []
+  requirements: &id037
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-OPS-001
+  objective: Implement included integrity reviews, closed support actions, rate limits, security alerts, redacted telemetry,
+    dependency degradation, and incident-safe operational controls.
+  inputs:
+  - wiki/access-model.md
+  - wiki/backend-architecture.md
+  - docs/operations/release-1.md
+  outputs:
+  - security review interfaces
+  - support union
+  - rate-limit policies
+  - telemetry schemas
+  - degraded-mode tests and runbooks
+  interfaces:
+  - OpenIntegrityReview
+  - DecideIntegrityReview
+  - ExecuteSupportAction
+  - EvaluateRateLimit
+  schemas:
+  - IntegrityReview
+  - SupportActionCommand
+  - SecurityAlert
+  - RateLimitDecision
+  tables:
+  - governance_integrity_reviews
+  - governance_support_actions
+  - governance_security_alerts
+  events:
+  - IntegrityReviewOpened
+  - SupportActionExecuted
+  - SecurityAlertRaised
+  errors:
+  - SUPPORT_ACTION_PROHIBITED
+  - REVIEW_INDEPENDENCE_REQUIRED
+  - RATE_LIMITED
+  audiences:
+  - affected Account
+  - authorized Platform staff
+  - operations
+  risks:
+  - administrator impersonation
+  - source mutation
+  - sensitive telemetry
+  - critical traffic starvation
+  evidence:
+  - closed-union negative tests
+  - nonmutation tests
+  - redaction corpus
+  - degraded-provider scenarios
+  - rate-limit isolation load
+  kind: group
+  stage: 08 Governance and release
+  children:
+  - R1-GOV-002-A
+  - R1-GOV-002-B
+  - R1-GOV-002-C
+  spec: docs/implementation/groups/R1-GOV-002.md
+  completion: null
+- id: R1-REL-001
+  order: 380
+  title: Prove the complete seeded Release 1 tournament
+  status: blocked
+  owner: workflows
+  depends_on: []
+  requirements: &id038
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-DATA-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-MSG-001
+  - R1-PRIV-001
+  objective: Run one seeded Lincoln-Douglas tournament through every included actor journey, correction path, audience, browser
+    class, and accessibility scenario without manual state mutation.
+  inputs:
+  - all prior R1 items
+  - docs/product/experience-contract.md
+  outputs:
+  - complete fixture
+  - Playwright journey suite
+  - route and screen catalog
+  - notification catalog
+  - traceability report
+  interfaces:
+  - Release1TournamentWorkflow
+  schemas:
+  - Release1Fixture
+  - JourneyEvidence
+  tables:
+  - all Release 1 owned tables
+  events:
+  - all Release 1 durable events
+  errors:
+  - all Release 1 stable errors
+  audiences:
+  - all Release 1 actors
+  risks:
+  - happy-path-only proof
+  - manual fixture repair
+  - missing role or state
+  evidence:
+  - full lifecycle run
+  - current and previous browser matrix
+  - keyboard and screen-reader journeys
+  - clean traceability
+  kind: group
+  stage: 08 Governance and release
+  children:
+  - R1-REL-001-A
+  - R1-REL-001-B
+  - R1-REL-001-C
+  spec: docs/implementation/groups/R1-REL-001.md
+  completion: null
+- id: R1-REL-002
+  order: 390
+  title: Prove load, recovery, and deployment gates
+  status: blocked
+  owner: runtime
+  depends_on: []
+  requirements: &id039
+  - R1-OPS-001
+  - R1-CONS-001
+  - R1-MSG-001
+  objective: Meet the accepted reference load, latency, queue, availability, restore, rolling deployment, rollback, and degraded-operation
+    gates in staging.
+  inputs:
+  - docs/quality/release-1-gates.md
+  - docs/operations/release-1.md
+  outputs:
+  - load suite
+  - restore record
+  - deployment compatibility evidence
+  - rollback record
+  - capacity and alert dashboards
+  interfaces:
+  - ReleaseGateEvidence
+  schemas:
+  - LoadReport
+  - RestoreReport
+  - DeploymentReport
+  tables: []
+  events:
+  - ReleaseGateEvaluated
+  errors:
+  - QUALITY_GATE_FAILED
+  - RECOVERY_OBJECTIVE_MISSED
+  - DEPLOYMENT_INCOMPATIBLE
+  audiences:
+  - release operators
+  - reviewers
+  risks:
+  - unrepresentative load
+  - untested restore
+  - schema rollout outage
+  evidence:
+  - 30-minute load and burst
+  - queue drain
+  - RPO and RTO exercise
+  - previous-release compatibility
+  - failure rollback
+  kind: group
+  stage: 08 Governance and release
+  children:
+  - R1-REL-002-A
+  - R1-REL-002-B
+  - R1-REL-002-C
+  - R1-REL-002-D
+  - R1-REL-002-E
+  spec: docs/implementation/groups/R1-REL-002.md
+  completion: null
+- id: R1-REL-003
+  order: 400
+  title: Promote Release 1 to production readiness
+  status: blocked
+  owner: workflows
+  depends_on: []
+  requirements: &id040
+  - R1-LIFE-001
+  - R1-OPS-001
+  objective: Verify every requirement and gate, produce immutable release artifacts and manifests, exercise production-safe
+    deployment, and record the release decision without bypassing an open item.
+  inputs:
+  - complete traceability manifest
+  - all release evidence
+  - Terraform plan
+  - immutable application artifacts
+  outputs:
+  - release manifest
+  - signed artifact inventory
+  - production runbooks
+  - go or no-go record
+  interfaces:
+  - PromoteRelease
+  schemas:
+  - ReleaseManifest
+  - ReleaseDecision
+  tables: []
+  events:
+  - ReleaseApproved
+  - ReleaseRejected
+  errors:
+  - RELEASE_EVIDENCE_INCOMPLETE
+  - RELEASE_ARTIFACT_MISMATCH
+  - RELEASE_GATE_FAILED
+  audiences:
+  - project owner
+  - release operators
+  - audit
+  risks:
+  - partial release
+  - mutable artifact rebuild
+  - ignored blocker
+  evidence:
+  - pnpm test
+  - clean contract generation
+  - complete traceability
+  - signed artifact hashes
+  - approved production plan
+  kind: group
+  stage: 08 Governance and release
+  children:
+  - R1-REL-003-A
+  - R1-REL-003-B
+  spec: docs/implementation/groups/R1-REL-003.md
+  completion: null
+gates:
+- id: GATE-BOOTSTRAP
+  title: Choose a protected foundation integration policy
+  status: blocked
+  spec: docs/implementation/gates/GATE-BOOTSTRAP.md
+  blocks:
+  - R1-FND-001-A
+  resolution: null
+- id: GATE-GITHUB
+  title: Enable and verify protection for the private repository
+  status: blocked
+  spec: docs/implementation/gates/GATE-GITHUB.md
+  blocks:
+  - R1-FND-005-B
+  resolution: null
+- id: GATE-RULESET
+  title: Supply the adopted Release 1 Lincoln-Douglas Ruleset
+  status: blocked
+  spec: docs/implementation/gates/GATE-RULESET.md
+  blocks:
+  - R1-TRN-002-A
+  resolution: null
+- id: GATE-ASSESSMENT
+  title: Approve real assessment provider and scoring policy
+  status: blocked
+  spec: docs/implementation/gates/GATE-ASSESSMENT.md
+  blocks:
+  - R1-CMP-002-E
+  resolution: null
+- id: GATE-REVIEW
+  title: Provide independent review and accessibility evidence
+  status: blocked
+  spec: docs/implementation/gates/GATE-REVIEW.md
+  blocks:
+  - R1-REL-001-C
+  resolution: null
+- id: GATE-ENVIRONMENTS
+  title: Provision authorized deployment accounts and operational ownership
+  status: blocked
+  spec: docs/implementation/gates/GATE-ENVIRONMENTS.md
+  blocks:
+  - R1-REL-002-A
+  resolution: null
+- id: GATE-RELEASE
+  title: Record owner approval of the exact production candidate
+  status: blocked
+  spec: docs/implementation/gates/GATE-RELEASE.md
+  blocks:
+  - R1-REL-003-B
+  resolution: null
+- id: GATE-ATTRIBUTION
+  title: Clarify the Closed-state boundary for School attribution correction
+  status: blocked
+  spec: docs/implementation/gates/GATE-ATTRIBUTION.md
+  blocks:
+  - R1-PUB-001-C
+  resolution: null
 items:
-  - id: R1-FND-001
-    order: 10
-    title: Scaffold the pinned monorepo
-    status: ready
-    owner: runtime
-    depends_on: []
-    requirements: [R1-LIFE-001]
-    objective: Create the pnpm and Nx workspace, package exports, strict ESM TypeScript configuration, root commands, formatting, linting, empty application and package shells, and the pinned Clerk-enabled, Vercel-deployable shadcn/ui web foundation from the accepted repository map.
-    inputs: [BUILD.md, docs/development.md, docs/product/experience-contract.md, docs/architecture/repository-map.md, ADR-0029, ADR-0032, ADR-0033, ADR-0034, ADR-0035]
-    outputs: [package.json, pnpm-workspace.yaml, pnpm-lock.yaml, nx.json, tsconfig files, apps and packages shells, apps/web/components.json, React Router Vercel preset and checked-in deployment configuration, initial shadcn/ui source and tokens]
-    interfaces: [root build and check scripts, pinned ui:add script, package public export seams]
-    schemas: [workspace configuration]
-    tables: []
-    events: []
-    errors: [invalid prerequisite version, prohibited package dependency]
-    audiences: [developers, CI]
-    risks: [version drift, accidental framework coupling, unenforced package seams, unpinned registry generation, inaccessible primitive customization]
-    evidence: [pnpm install --frozen-lockfile, pnpm build, pnpm check, dependency-boundary negative fixture, components.json configuration assertion, shadcn primitive render and accessibility smoke test]
-
-  - id: R1-FND-002
-    order: 20
-    title: Implement reproducible local infrastructure and configuration
-    status: blocked
-    owner: runtime
-    depends_on: [R1-FND-001]
-    requirements: [R1-LIFE-001, R1-OPS-001]
-    objective: Implement Docker Compose PostgreSQL, MinIO, and Mailpit; runtime environment schemas; process lifecycle; deterministic clock and identifier adapters; and the production guard against fixed identity.
-    inputs: [docs/development.md, docs/operations/release-1.md]
-    outputs: [compose configuration, .env.example, runtime adapters, health checks, pnpm bootstrap]
-    interfaces: [RuntimeConfig, Clock, IdGenerator, Readiness, Liveness]
-    schemas: [environment configuration]
-    tables: []
-    events: []
-    errors: [CONFIG_INVALID, ADAPTER_FORBIDDEN_IN_ENVIRONMENT, DEPENDENCY_UNREADY]
-    audiences: [developers, operators]
-    risks: [secret leakage, production test adapter, nonrepeatable setup]
-    evidence: [clean-machine bootstrap, environment negative tests, production fixed-identity rejection]
-
-  - id: R1-FND-003
-    order: 30
-    title: Implement module-owned migration infrastructure
-    status: blocked
-    owner: database
-    depends_on: [R1-FND-002]
-    requirements: [R1-DATA-001, R1-CONS-001, R1-OPS-001]
-    objective: Implement the global forward migration sequence, module ownership declarations, adjacent-release checks, and isolated Testcontainers database harness.
-    inputs: [docs/contracts/executable-contracts.md, docs/architecture/repository-map.md]
-    outputs: [migration runner, ownership validator, migration journal, test database harness]
-    interfaces: [MigrationPlan, MigrationResult, TestDatabase]
-    schemas: [migration metadata]
-    tables: [platform_migration_journal]
-    events: [MigrationApplied]
-    errors: [MIGRATION_OWNER_INVALID, MIGRATION_ORDER_INVALID, SCHEMA_INCOMPATIBLE]
-    audiences: [developers, release operators, audit]
-    risks: [foreign table writes, destructive change, rollback incompatibility]
-    evidence: [empty-to-head migration, previous-to-head migration, forbidden-owner test, repeat execution test]
-
-  - id: R1-FND-004
-    order: 40
-    title: Implement contract generation and traceability validation
-    status: blocked
-    owner: contracts
-    depends_on: [R1-FND-003]
-    requirements: [R1-AUTH-001, R1-COMP-001, R1-PRIV-001]
-    objective: Generate and drift-check OpenAPI, JSON Schema, clients, state and authorization matrices, diagrams, vector indexes, and the Release 1 traceability report.
-    inputs: [docs/contracts/executable-contracts.md, docs/releases/release-1.md]
-    outputs: [contract generator, traceability schema, generated artifact directories, pnpm contracts check]
-    interfaces: [ContractSource, GeneratorResult, TraceabilityManifest]
-    schemas: [traceability manifest, golden vector envelope, stable error envelope]
-    tables: []
-    events: []
-    errors: [CONTRACT_DRIFT, REQUIREMENT_UNTRACED, ARTIFACT_UNOWNED, CONTRACT_BREAKING_CHANGE]
-    audiences: [developers, clients, reviewers]
-    risks: [duplicate truth, nondeterministic generation, missing coverage]
-    evidence: [two-run byte equality, dirty-tree drift test, missing-trace negative test]
-
-  - id: R1-FND-005
-    order: 50
-    title: Implement required GitHub Actions checks
-    status: blocked
-    owner: runtime
-    depends_on: [R1-FND-004]
-    requirements: [R1-OPS-001]
-    objective: Run frozen installation, build, check, unit, integration, end-to-end, contract, migration, security, accessibility, and artifact checks using documented root commands.
-    inputs: [docs/development.md, docs/quality/release-1-gates.md]
-    outputs: [required CI workflows, cache policy, artifact retention policy, branch protection documentation]
-    interfaces: [CI check names]
-    schemas: [workflow configuration]
-    tables: []
-    events: []
-    errors: [CI_LOCAL_PARITY_FAILED, REQUIRED_CHECK_MISSING]
-    audiences: [developers, reviewers, release operators]
-    risks: [CI-only behavior, mutable dependencies, skipped release gate]
-    evidence: [clean full workflow, intentionally failing fixture for each required check]
-
-  - id: R1-IDA-001
-    order: 60
-    title: Implement Clerk and fixed authentication evidence with Docket Sessions
-    status: blocked
-    owner: identity-access
-    depends_on: [R1-FND-005]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-PRIV-001]
-    objective: Validate Clerk session tokens or fixed nonproduction evidence, link Clerk users to Accounts, create Docket Sessions, enforce session limits and expiry, and expose session management UI.
-    inputs: [ADR-0029, wiki/access-model.md]
-    outputs: [identity interface, migrations, adapters, session routes and screens, audit and fixture coverage]
-    interfaces: [AuthenticateClerkSession, AuthenticateFixedIdentity, CreateDocketSession, RevokeDocketSession, ListDocketSessions]
-    schemas: [ClerkIdentity, ClerkSessionEvidence, DocketSession, session projections]
-    tables: [identity_accounts, identity_clerk_links, identity_sessions]
-    events: [AccountCreated, SessionCreated, SessionRevoked]
-    errors: [IDENTITY_INVALID, SESSION_EXPIRED, SESSION_LIMIT_REACHED, FIXED_IDENTITY_FORBIDDEN]
-    audiences: [Account holder, Platform audit]
-    risks: [account collision, token leakage, provider outage, session fixation]
-    evidence: [Clerk JWT and issuer validation matrix, fixed-adapter production rejection, session expiry and revocation tests, accessible sign-in flow]
-
-  - id: R1-IDA-002
-    order: 70
-    title: Implement Active Role Context and authorization core
-    status: blocked
-    owner: identity-access
-    depends_on: [R1-IDA-001]
-    requirements: [R1-AUTH-001, R1-PRIV-001, R1-CONS-001]
-    objective: Resolve current grants into explicit per-tab contexts, enforce privileged limits and Clerk Reverification, deny stale contexts without disclosure, and implement role switching.
-    inputs: [wiki/access-model.md, docs/product/experience-contract.md]
-    outputs: [authorization interface, context routes and persistent UI, context cache destruction, complete core authorization matrix]
-    interfaces: [ResolveAuthority, EnterActiveRoleContext, LeaveActiveRoleContext, RequireRecentClerkReverification]
-    schemas: [ActiveRoleContext, AuthorityDecision, ClerkReverificationEvidence]
-    tables: [identity_role_contexts, identity_reauthentication_events, identity_authority_grants]
-    events: [RoleContextEntered, RoleContextExited, AuthorityInvalidated]
-    errors: [AUTHORITY_DENIED, CONTEXT_STALE, REAUTHENTICATION_REQUIRED, ROLE_SWITCH_BLOCKED]
-    audiences: [Account holder, privileged Account holder, audit]
-    risks: [context confusion, privilege retention, cross-tab leakage, existence disclosure]
-    evidence: [all core authorization cells, stale and revoked context tests, keyboard role switch, privileged session limits]
-
-  - id: R1-SCH-001
-    order: 80
-    title: Implement canonical Schools and Membership authority
-    status: blocked
-    owner: schools
-    depends_on: [R1-IDA-002]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-CONS-001]
-    objective: Create and verify canonical or Provisional Schools, enforce one Manager, issue and accept Membership offers, and expose School authority projections.
-    inputs: [ADR-0004, ADR-0008, wiki/access-model.md]
-    outputs: [School module interface, migrations, API and web flows, authority events and tests]
-    interfaces: [CreateProvisionalSchool, VerifySchool, IssueSchoolMembershipOffer, AcceptSchoolMembershipOffer, TransferSchoolManager]
-    schemas: [School, SchoolMembership, SchoolRole, MembershipOffer, SchoolEvent]
-    tables: [schools_schools, schools_aliases, schools_memberships, schools_membership_offers, schools_events, schools_command_receipts]
-    events: [SchoolCreated, SchoolVerified, SchoolMembershipGranted, SchoolManagerChanged]
-    errors: [SCHOOL_DUPLICATE, SCHOOL_UNVERIFIED, MANAGER_CONFLICT, OFFER_INVALID, IDEMPOTENCY_CONFLICT]
-    audiences: [School staff, Account recipient, Platform administrator, Audit consumer]
-    risks: [duplicate School, exclusive-role race, domain inference, foreign-School access]
-    evidence: [manager concurrency test, offer terminal-action race, cross-School denial matrix, accessible School flows]
-
-  - id: R1-SCH-002
-    order: 90
-    title: Implement Competitor School Affiliation
-    status: blocked
-    owner: schools
-    depends_on: [R1-SCH-001]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-CONS-001]
-    objective: Issue exact-email affiliation invitations, enforce one current affiliation and transfer history, and preserve represented-School boundaries.
-    inputs: [ADR-0030, wiki/registration-model.md, wiki/access-model.md]
-    outputs: [affiliation commands, migrations, invitation and transfer UI, fixture Accounts]
-    interfaces: [IssueCompetitorSchoolInvitation, AcceptCompetitorSchoolInvitation, TerminateAffiliation]
-    schemas: [CompetitorSchoolAffiliation, AffiliationInvitation]
-    tables: [schools_competitor_affiliations, schools_affiliation_invitations]
-    events: [AffiliationStarted, AffiliationEnded, CompetitorSchoolTransferred]
-    errors: [AFFILIATION_CONFLICT, INVITATION_RECIPIENT_MISMATCH, ACTIVE_ENTRY_TRANSFER_CONFLICT]
-    audiences: [Competitor, current and former authorized School Managers]
-    risks: [cross-School leakage, historical rewrite, concurrent acceptance]
-    evidence: [single-affiliation constraint, transfer vectors, mistargeted invitation denial, audience projection tests]
-
-  - id: R1-TRN-001
-    order: 100
-    title: Implement authorized Tournament creation
-    status: blocked
-    owner: tournaments
-    depends_on: [R1-SCH-002]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-CONS-001]
-    objective: Create a Tournament with one Owner, Directors and delegated staff permissions, IANA timezone, UUIDv7 identity, and initial Draft lifecycle.
-    inputs: [ADR-0006, ADR-0007, wiki/tournament-lifecycle-model.md]
-    outputs: [Tournament interface, migrations, create and staff-management routes and screens]
-    interfaces: [CreateTournament, IssueTournamentAccessOffer, AcceptTournamentAccessOffer, DelegateTournamentPermission]
-    schemas: [Tournament, TournamentStaffAssignment, TournamentPermission]
-    tables: [tournaments_tournaments, tournaments_staff_assignments, tournaments_access_offers]
-    events: [TournamentCreated, TournamentStaffAssigned, TournamentPermissionChanged]
-    errors: [OWNER_CONFLICT, TOURNAMENT_SCOPE_DENIED, TIMEZONE_INVALID, STAFF_PERMISSION_INVALID, TOURNAMENT_COMMAND_CONFLICT]
-    audiences: [Owner, Director, assigned staff, audit]
-    risks: [owner race, scope spoofing, timezone ambiguity]
-    evidence: [creation integration test, exclusivity concurrency test, foreign-tournament denial, accessible creation flow]
-
-  - id: R1-COM-001
-    order: 110
-    title: Implement transactional outbox and required notification delivery
-    status: blocked
-    owner: communications
-    depends_on: [R1-TRN-001]
-    requirements: [R1-MSG-001, R1-CONS-001, R1-PRIV-001]
-    objective: Commit notice intents through module-local outboxes, dispatch with pg-boss, deliver to Mailpit or SES and the restricted inbox, and record idempotent retry and escalation outcomes.
-    inputs: [wiki/backend-architecture.md, wiki/access-model.md]
-    outputs: [outbox plumbing, communications interface, migrations, worker handlers, inbox UI]
-    interfaces: [AppendOutboxMessage, CreateNoticeIntent, DeliverNotice, ReadAccessInbox]
-    schemas: [OutboxEnvelope, NoticeIntent, DeliveryAttempt, InboxItem]
-    tables: [communications_notice_intents, communications_delivery_attempts, communications_inbox_items, module_outbox tables]
-    events: [NoticeRequested, NoticeDelivered, NoticeDeliveryFailed, NoticeEscalated]
-    errors: [IDEMPOTENCY_CONFLICT, RECIPIENT_UNAUTHORIZED, DELIVERY_PROVIDER_FAILED]
-    audiences: [authorized recipient, initiating actor where allowed, operations]
-    risks: [lost message, duplicate external effect, private payload disclosure, API starvation]
-    evidence: [commit-and-outbox atomicity, duplicate-delivery test, provider failure cycles, queue timing gate]
-
-  - id: R1-REG-001
-    order: 120
-    title: Complete the walking skeleton with Entry submission
-    status: blocked
-    owner: registration
-    depends_on: [R1-COM-001]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-DATA-001, R1-MSG-001]
-    objective: Create, validate, and submit one School-affiliated Lincoln-Douglas Entry and deliver an outbox-triggered confirmation through the complete web, API, database, worker, and inbox path.
-    inputs: [wiki/registration-model.md, docs/releases/release-1.md]
-    outputs: [minimal Entry aggregate, migration, submission API and web form, confirmation notification, end-to-end fixture]
-    interfaces: [CreateDraftEntry, SubmitEntry, GetEntry]
-    schemas: [CoreEntryRegistrationData, DraftEntry, SubmittedEntry]
-    tables: [registration_entries, registration_entry_versions, registration_eligibility_attestations]
-    events: [EntryDrafted, EntrySubmitted, EntryConfirmationRequested]
-    errors: [ENTRY_DUPLICATE, ENTRY_INCOMPLETE, AFFILIATION_REQUIRED, ENTRY_VERSION_STALE]
-    audiences: [responsible Coach, Competitor limited view, registration staff]
-    risks: [foreign-School submission, duplicate Entry, lost confirmation, partial workflow]
-    evidence: [seeded walking-skeleton Playwright test, rollback test, stale and duplicate submission tests]
-
-  - id: R1-TRN-002
-    order: 130
-    title: Implement Ruleset and Tournament configuration governance
-    status: blocked
-    owner: tournaments
-    depends_on: [R1-REG-001]
-    requirements: [R1-LIFE-001, R1-CONS-001]
-    objective: Adopt, validate, version, migrate, lock, and exceptionally amend the Release 1 Lincoln-Douglas Ruleset and allowed Tournament Overrides.
-    inputs: [ADR-0001, wiki/backend-roadmap.md, authoritative NSDA manual captured at rules-corpus cut]
-    outputs: [Ruleset contracts, migration, configuration UI, diff and impact previews, golden validation vectors]
-    interfaces: [AdoptRuleset, ConfigureTournamentOverride, MigrateRuleset, LockRuleset, EmergencyAmendRuleset]
-    schemas: [Ruleset, TournamentOverride, RulesetMigration, EmergencyAmendment]
-    tables: [tournaments_rulesets, tournaments_rule_adoptions, tournaments_overrides, tournaments_emergency_amendments]
-    events: [RulesetAdopted, RulesetLocked, RulesetAmended]
-    errors: [RULESET_INVALID, OVERRIDE_PROHIBITED, RULESET_LOCKED, MIGRATION_INCOMPATIBLE]
-    audiences: [Director, authorized staff, public human-readable summary, audit]
-    risks: [unversioned external rules, silent outcome change, prohibited override]
-    evidence: [authoritative source checksum, override allowlist tests, lock race test, migration vectors]
-
-  - id: R1-TRN-003
-    order: 140
-    title: Implement Tournament Invitation publication
-    status: blocked
-    owner: publication
-    depends_on: [R1-TRN-002]
-    requirements: [R1-LIFE-001, R1-PRIV-001, R1-CONS-001]
-    objective: Prepare, approve, publish, version, correct, and govern withdrawal from discovery for the Tournament Invitation Page and active directory entry.
-    inputs: [wiki/tournament-directory-model.md, wiki/access-model.md]
-    outputs: [publication interface, migrations, public SSR route, directory projection, correction history]
-    interfaces: [PrepareTournamentInvitation, ApprovePublication, PublishTournamentInvitation, WithdrawPublicPublication]
-    schemas: [TournamentInvitationProjection, PublicationVersion, PublicPublicationWithdrawal]
-    tables: [publication_versions, publication_current_pointers, publication_withdrawals]
-    events: [TournamentInvitationPublished, PublicPublicationWithdrawn]
-    errors: [PUBLICATION_UNAPPROVED, PUBLICATION_SOURCE_STALE, WITHDRAWAL_REASON_INVALID]
-    audiences: [Public Viewer, Director, publication staff, audit]
-    risks: [private-field exposure, stale publication, silent deletion]
-    evidence: [public field allowlist vectors, no-JavaScript render, immutable history test, withdrawal authorization matrix]
-
-  - id: R1-REG-002
-    order: 150
-    title: Implement Registration Policy and additional-field schema
-    status: blocked
-    owner: registration
-    depends_on: [R1-TRN-003]
-    requirements: [R1-LIFE-001, R1-PRIV-001, R1-CONS-001]
-    objective: Publish and enforce registration timelines, Admission Policy, monotonic revisions, late exceptions, Core Entry Data, and governed additional fields.
-    inputs: [ADR-0022, ADR-0023, ADR-0024, wiki/registration-model.md]
-    outputs: [policy contracts, migrations, validation and preview UI, public summary]
-    interfaces: [CreateRegistrationPolicy, ReviseRegistrationPolicy, GrantLateRegistrationException, PublishRegistrationSchema]
-    schemas: [TournamentRegistrationPolicy, AdmissionPolicy, RegistrationDataSchema]
-    tables: [registration_policies, registration_policy_versions, registration_data_schemas, registration_late_exceptions]
-    events: [RegistrationPolicyPublished, RegistrationPolicyRevised, LateExceptionGranted]
-    errors: [POLICY_REVISION_TIGHTENS_OBLIGATION, DEADLINE_PASSED, FIELD_PURPOSE_INVALID]
-    audiences: [School staff, Director, registration staff, public summary]
-    risks: [retroactive burden, unnecessary minor data, timezone deadline error]
-    evidence: [monotonic-revision vectors, timezone cases, prohibited-field tests, accessible policy preview]
-
-  - id: R1-REG-003
-    order: 160
-    title: Implement Tournament Rosters and complete Entry lifecycle
-    status: blocked
-    owner: registration
-    depends_on: [R1-REG-002]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-CONS-001]
-    objective: Manage roster placement, Coach sign-off, Draft through terminal Entry transitions, withdrawal, restoration, correction, and Competitor Entry Error Reports.
-    inputs: [ADR-0021, ADR-0030, wiki/registration-model.md]
-    outputs: [transition tables, migrations, role-scoped roster and Entry screens, notice events]
-    interfaces: [PlaceOnTournamentRoster, SignOffEntry, TransitionEntryState, RestoreEntry, CorrectEntryAttribution, FileEntryErrorReport]
-    schemas: [TournamentRoster, EntryRegistrationState, EntryRestoration, EntryErrorReport]
-    tables: [registration_rosters, registration_entry_transitions, registration_restorations, registration_error_reports]
-    events: [RosterChanged, EntryStateChanged, EntryRestored, EntryErrorReported]
-    errors: [ENTRY_TRANSITION_INVALID, ROSTER_AUTHORITY_DENIED, RESTORATION_TOO_LATE, REPRESENTED_SCHOOL_CONFLICT]
-    audiences: [Competitor, responsible Coach, School staff, registration staff]
-    risks: [historical rewrite, role confusion, post-start restoration]
-    evidence: [complete state matrix, role matrix, restoration boundary tests, responsive roster workflow]
-
-  - id: R1-REG-004
-    order: 170
-    title: Implement admission, eligibility, minor authorization, and accommodations
-    status: blocked
-    owner: registration
-    depends_on: [R1-REG-003]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-PRIV-001, R1-CONS-001]
-    objective: Calculate deterministic admission and waitlists, govern Competitive Eligibility, record Minor Participation Authorization, and isolate Accommodation Request content and operations.
-    inputs: [ADR-0025, ADR-0026, wiki/registration-model.md, wiki/retention-model.md]
-    outputs: [admission vectors, eligibility transitions, restricted accommodation interfaces, migrations and screens]
-    interfaces: [CalculateAdmissionRecommendation, ConfirmAdmission, ChangeCompetitiveEligibility, RecordMinorParticipationAuthorization, SubmitAccommodationRequest, DecideAccommodationRequest]
-    schemas: [AdmissionRecommendation, CompetitiveEligibility, MinorParticipationAuthorization, AccommodationRequest]
-    tables: [registration_admission_runs, registration_eligibility, registration_minor_authorizations, registration_accommodation_requests]
-    events: [AdmissionConfirmed, EligibilityChanged, AccommodationSubmitted, AccommodationDecided]
-    errors: [ADMISSION_SOURCE_STALE, ELIGIBILITY_BLOCKED, MINOR_AUTHORIZATION_REQUIRED, ACCOMMODATION_ACCESS_DENIED]
-    audiences: [Competitor, School staff, registration staff, Accommodation Operations]
-    risks: [subjective waitlist, sensitive-data exposure, legal-policy interpretation]
-    evidence: [admission golden vectors, restricted-field vectors, expiry and revocation tests, accommodation access matrix]
-
-  - id: R1-CMP-001
-    order: 180
-    title: Implement native schedules and rooms
-    status: blocked
-    owner: competition
-    depends_on: [R1-REG-004]
-    requirements: [R1-LIFE-001, R1-CONS-001, R1-PRIV-001]
-    objective: Create objective-specific schedule candidates, rooms, event workspaces, publication versions, revisions, breaks, and cross-entry holds.
-    inputs: [ADR-0011, wiki/scheduling-model.md]
-    outputs: [schedule interface, migrations, algorithms and vectors, operations and participant screens]
-    interfaces: [GenerateScheduleCandidates, SelectSchedule, PublishSchedule, ReviseSchedule, ActivateCrossEntryHold]
-    schemas: [TournamentSchedule, ScheduleCandidate, ScheduleRevision, Room, CrossEntryHold]
-    tables: [competition_schedules, competition_schedule_versions, competition_rooms, competition_cross_entry_holds]
-    events: [ScheduleSelected, SchedulePublished, ScheduleRevised, CrossEntryHoldActivated]
-    errors: [SCHEDULE_INFEASIBLE, SCHEDULE_SOURCE_STALE, REVISION_UNAPPROVED, CROSS_ENTRY_CONFLICT]
-    audiences: [Competitor, Coach, Judge, tournament staff, Public Viewer limited schedule]
-    risks: [overlap, timezone error, unnoticed live change]
-    evidence: [schedule vectors, overlap property tests, revision approval tests, accessible agenda and operations views]
-
-  - id: R1-CMP-002
-    order: 190
-    title: Implement Judge qualification-provider consumption
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-001]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-PRIV-001]
-    objective: Create assessment attempts, verify provider webhook or signed-file results, calculate qualification, and govern Event Qualification, Temporary Qualification, profiles, and Tournament Tier Grants.
-    inputs: [ADR-0012, ADR-0013, wiki/judge-qualification-model.md]
-    outputs: [provider seam, qualification interface, migrations, fixed provider adapter, Judge and staff views]
-    interfaces: [CreateAssessmentAttempt, ReceiveAssessmentResult, PublishJudgingProfile, GrantTournamentTier, GrantTemporaryQualification]
-    schemas: [AssessmentAttempt, ProviderResult, EventQualification, JudgingProfile, TournamentTierGrant]
-    tables: [competition_assessment_attempts, competition_assessment_results, competition_qualifications, competition_tier_grants]
-    events: [AssessmentVerified, QualificationGranted, TournamentTierGranted]
-    errors: [ASSESSMENT_IDENTITY_CONFLICT, PROVIDER_SIGNATURE_INVALID, ASSESSMENT_REQUIRED, QUALIFICATION_EXPIRED]
-    audiences: [Judge, qualification staff, tournament operations, assigned Schools limited profile]
-    risks: [provider spoofing, raw-answer exposure, grant before assessment]
-    evidence: [signed-result vectors, identity collision tests, retention tests, tier-grant prerequisite test]
-
-  - id: R1-CMP-003
-    order: 200
-    title: Implement Judge Pool Participation and source obligations
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-002]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-PRIV-001]
-    objective: Request, accept, decline, withdraw, and source-account Judge participation with current pool and restricted reliability projections.
-    inputs: [wiki/tournament-directory-model.md, wiki/judge-qualification-model.md]
-    outputs: [Judge Pool interface, migrations, participation and staff screens, pool projection]
-    interfaces: [RequestJudgePoolParticipation, DecideJudgePoolParticipation, CorrectJudgeSource, WithdrawJudgePoolParticipation]
-    schemas: [JudgePoolParticipation, JudgeSource, SpecialCircumstanceWithdrawal, JudgeReliabilityRecord]
-    tables: [competition_judge_pool, competition_judge_sources, competition_judge_withdrawals, competition_judge_reliability]
-    events: [JudgePoolParticipationAccepted, JudgeSourceCorrected, JudgeWithdrawn]
-    errors: [JUDGE_NOT_QUALIFIED, WITHDRAWAL_LOCKED, SOURCE_UNCONFIRMED, JUDGE_POOL_SCOPE_DENIED]
-    audiences: [Judge, authenticated participants limited pool, operations staff]
-    risks: [qualification disclosure, source miscount, hidden staffing deficit]
-    evidence: [pool audience vectors, withdrawal deadline tests, source-correction impact tests]
-
-  - id: R1-CMP-004
-    order: 210
-    title: Implement Judge conflicts and striking
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-003]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-PRIV-001]
-    objective: Record verified Coach conflicts, configure and lock Judge Striking Policy, collect Coach-approved strike submissions, and expose only appropriate indicators.
-    inputs: [wiki/pairing-model.md, wiki/tournament-directory-model.md]
-    outputs: [conflict and strike interfaces, migrations, native portal, validation vectors]
-    interfaces: [SubmitJudgeConflict, ConfigureJudgeStrikingPolicy, ApproveJudgeStrikeSubmission, LockJudgeStrikes]
-    schemas: [JudgeConflict, JudgeStrikingPolicy, JudgeStrikeSubmission]
-    tables: [competition_judge_conflicts, competition_striking_policies, competition_strike_submissions]
-    events: [JudgeConflictVerified, JudgeStrikesSubmitted, JudgeStrikesLocked]
-    errors: [STRIKE_WINDOW_CLOSED, STRIKE_ALLOWANCE_EXCEEDED, COACH_APPROVAL_REQUIRED, CONFLICT_UNVERIFIED]
-    audiences: [Entry Competitors, responsible Coach, authorized operations]
-    risks: [strike disclosure, competitor conflict authority, post-lock mutation]
-    evidence: [window timezone vectors, allowance tests, audience matrix, lock concurrency test]
-
-  - id: R1-CMP-005
-    order: 220
-    title: Implement Judge and room assignment
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-004]
-    requirements: [R1-LIFE-001, R1-COMP-001, R1-CONS-001]
-    objective: Generate eligible ranked recommendations, require staff sign-off, validate qualification, conflicts, strikes, availability, workload and rooms, publish assignments, and handle acknowledgment.
-    inputs: [wiki/scheduling-model.md, wiki/judge-qualification-model.md]
-    outputs: [assignment algorithm and vectors, migrations, review and acknowledgment UI]
-    interfaces: [GenerateAssignmentCandidates, ConfirmAssignment, PublishAssignment, AcknowledgeAssignment]
-    schemas: [AssignmentCandidate, JudgeAssignment, AssignmentAcknowledgment]
-    tables: [competition_assignments, competition_assignment_versions, competition_acknowledgments]
-    events: [AssignmentConfirmed, AssignmentPublished, AssignmentAcknowledged]
-    errors: [ASSIGNMENT_CONSTRAINT_FAILED, ASSIGNMENT_SOURCE_STALE, ACKNOWLEDGMENT_LATE]
-    audiences: [assigned Judge, affected Competitors and Coaches, operations]
-    risks: [hard-constraint bypass, private preference disclosure, unacknowledged change]
-    evidence: [assignment vectors, all hard-constraint tests, stale recommendation test, accessible acknowledgment]
-
-  - id: R1-CMP-006
-    order: 230
-    title: Implement preliminary Pairing generation
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-005]
-    requirements: [R1-LIFE-001, R1-COMP-001, R1-CONS-001]
-    objective: Validate the Pairing Plan and generate every supported Release 1 preliminary method with deterministic sides, constraints, byes, explanations, and reproducible versions.
-    inputs: [ADR-0014, wiki/pairing-model.md]
-    outputs: [Pairing algorithms, plan schemas, migrations, complete method vector corpus]
-    interfaces: [ValidatePairingPlan, GeneratePreliminaryPairings, ExplainPairing]
-    schemas: [PairingPlan, PairingCandidateSet, Pairing, ByeRound]
-    tables: [competition_pairing_plans, competition_pairing_runs, competition_pairings]
-    events: [PairingsGenerated]
-    errors: [PAIRING_PLAN_INVALID, PAIRING_INFEASIBLE, HARD_CONSTRAINT_UNSATISFIED]
-    audiences: [pairing staff, restricted explanation viewers]
-    risks: [nondeterminism, rematch, side imbalance, constraint bypass]
-    evidence: [eight-method golden corpus, seeded-draw repeat test, property tests, infeasibility explanations]
-
-  - id: R1-CMP-007
-    order: 240
-    title: Implement Pairing approval, publication, and revision
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-006]
-    requirements: [R1-LIFE-001, R1-CONS-001, R1-PRIV-001]
-    objective: Prepare, approve, publish, withdraw, correct, republish, notify, and preserve Pairing versions without changing Started rounds.
-    inputs: [wiki/pairing-model.md, wiki/access-model.md]
-    outputs: [Pairing workflow, publication projection, participant routes, revision impact preview]
-    interfaces: [PreparePairingPublication, ApprovePairings, PublishPairings, CorrectPairings]
-    schemas: [PairingPublication, PairingCorrection, DownstreamConflict]
-    tables: [competition_pairing_approvals, competition_pairing_publications, competition_downstream_conflicts]
-    events: [PairingsApproved, PairingsPublished, PairingsCorrected]
-    errors: [PAIRING_UNAPPROVED, PAIRING_SOURCE_STALE, ROUND_ALREADY_STARTED]
-    audiences: [Competitor, Coach, assigned Judge, operations, Public Viewer allowed fields]
-    risks: [wrong audience, stale approval, silent live change]
-    evidence: [approval invalidation tests, started-round immutability, correction notices, mobile Pairing flow]
-
-  - id: R1-CMP-008
-    order: 250
-    title: Implement live rounds, No-Shows, and replacements
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-007]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-CONS-001, R1-PRIV-001]
-    objective: Start and complete rounds, classify and dispute No-Shows, recommend nonoperative replacements, authorize emergency Judges or byes, revise affected artifacts, and protect private evidence.
-    inputs: [wiki/scheduling-model.md, wiki/pairing-model.md, wiki/tournament-lifecycle-model.md]
-    outputs: [round and No-Show transitions, replacement selector, migrations, live operations and dispute UI]
-    interfaces: [StartRound, CompleteRound, ClassifyNoShow, FileNoShowDispute, DecideNoShowDispute, GenerateReplacementCandidates, AdmitEmergencyReplacementJudge]
-    schemas: [RoundState, NoShow, NoShowDispute, ReplacementCandidatePool, EmergencyReplacementJudge]
-    tables: [competition_rounds, competition_no_shows, competition_no_show_disputes, competition_replacements]
-    events: [RoundStarted, NoShowClassified, NoShowCorrected, ReplacementApproved]
-    errors: [NO_SHOW_EVIDENCE_INCOMPLETE, DISPUTE_WINDOW_CLOSED, REPLACEMENT_INVALID, ROUND_STATE_INVALID]
-    audiences: [affected Competitor and Coach, assigned Judge, operations, minimized public correction]
-    risks: [automatic competitive outcome, private absence disclosure, deadline race]
-    evidence: [deadline vectors, dispute race tests, replacement constraint tests, privacy serialization vectors]
-
-  - id: R1-CMP-009
-    order: 260
-    title: Implement rubric-pinned Ballot submission
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-008]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-CONS-001, R1-PRIV-001]
-    objective: Pin the governing rubric at round start, autosave private drafts, validate and receipt Judge submissions, separate result from Feedback, and enforce late and hold behavior.
-    inputs: [ADR-0009, wiki/ballot-model.md]
-    outputs: [Ballot aggregate, rubric pin, migrations, Judge Ballot UI, offline-safe draft behavior]
-    interfaces: [PinRoundRubric, SaveBallotDraft, SubmitBallot, GetBallotReceipt]
-    schemas: [RoundRubricPin, BallotDraft, BallotSubmission, CompetitiveResult, BallotReceipt]
-    tables: [competition_rubric_pins, competition_ballots, competition_ballot_versions, competition_assignment_holds]
-    events: [RoundRubricPinned, BallotSubmitted, BallotLate]
-    errors: [RUBRIC_VERSION_MISMATCH, BALLOT_INVALID, BALLOT_ALREADY_SUBMITTED, ASSIGNMENT_SCOPE_DENIED]
-    audiences: [authoring Judge, adjudicated Competitor and Coach after allowed release, Ballot staff]
-    risks: [draft loss, rubric drift, Judge impersonation, result-feedback coupling]
-    evidence: [rubric pin race, offline draft recovery, duplicate submission, audience matrix, keyboard Ballot flow]
-
-  - id: R1-CMP-010
-    order: 270
-    title: Implement panels and Feedback lifecycle
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-009]
-    requirements: [R1-LIFE-001, R1-COMP-001, R1-CONS-001, R1-PRIV-001]
-    objective: Enforce Judge blindness, calculate irreversible majorities, track outstanding Ballots, publish editable Feedback until its immutable deadline, and protect opponent-restricted points.
-    inputs: [wiki/ballot-model.md, wiki/final-results-model.md]
-    outputs: [panel calculator and vectors, Feedback transitions, migrations, participant and staff views]
-    interfaces: [CalculatePanelDecision, PublishBallotFeedback, ReviseBallotFeedback, CloseFeedbackWindow]
-    schemas: [PanelDecision, IrreversibleMajority, BallotFeedback, FeedbackPublication]
-    tables: [competition_panel_decisions, competition_feedback_versions, competition_feedback_publications]
-    events: [PanelDecisionLocked, FeedbackPublished, FeedbackDeadlineReached]
-    errors: [PANEL_INCOMPLETE, FEEDBACK_DEADLINE_PASSED, JUDGE_BLINDNESS_VIOLATION]
-    audiences: [individual Judge, adjudicated Competitor, current Coaching Staff, Ballot operations]
-    risks: [cross-Judge disclosure, point leakage, deadline timezone error]
-    evidence: [panel golden vectors, blindness negative tests, Feedback deadline vectors, audience tests]
-
-  - id: R1-CMP-011
-    order: 280
-    title: Implement result correction and rubric-blocked administration
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-010]
-    requirements: [R1-CONS-001, R1-PRIV-001, R1-MSG-001]
-    objective: Reopen Ballots through authorized cases, issue objective result corrections, govern rubric-blocked Administrative Rulings, surface downstream conflicts, and preserve Judge protections.
-    inputs: [ADR-0010, wiki/ballot-model.md]
-    outputs: [correction and ruling transitions, migrations, restricted review UI, public Correction Notice inputs]
-    interfaces: [OpenBallotCorrection, ApproveBallotReopening, CorrectCompetitiveResult, AssignRubricBlockedCase, PublishAdministrativeRuling]
-    schemas: [BallotCorrectionCase, ResultCorrection, RubricBlockedAdministrativeRuling, DownstreamConflict]
-    tables: [competition_ballot_corrections, competition_result_versions, competition_administrative_rulings]
-    events: [BallotReopened, ResultCorrected, AdministrativeRulingPublished, DownstreamConflictOpened]
-    errors: [CORRECTION_MERITS_APPEAL, RULING_EVIDENCE_INCOMPLETE, INDEPENDENCE_REQUIRED]
-    audiences: [affected participants, assigned Judge, authorized staff, minimized public outcome]
-    risks: [merits appeal, Judge punishment, secret evidence exposure, rewritten downstream state]
-    evidence: [correction category tests, independence exceptions, downstream invalidation tests, privacy vectors]
-
-  - id: R1-CMP-012
-    order: 290
-    title: Implement standings configuration, calculation, and publication
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-011]
-    requirements: [R1-LIFE-001, R1-COMP-001, R1-CONS-001, R1-PRIV-001]
-    objective: Validate declarative standings rules, preview acceptance cases, lock configuration, calculate exact standings, approve and publish snapshots, and correct verified divergence.
-    inputs: [ADR-0015, wiki/standings-model.md]
-    outputs: [standings schema, calculator and vectors, migrations, configuration and publication UI]
-    interfaces: [ValidateStandingsRules, AcceptStandingsRules, CalculateStandings, ApproveStandings, PublishStandings, CorrectStandingsRules]
-    schemas: [DocketStandingsRules, StandingsSnapshot, StandingsAcceptanceCase]
-    tables: [competition_standings_rules, competition_standings_runs, competition_standings_publications]
-    events: [StandingsRulesLocked, StandingsCalculated, StandingsPublished, StandingsCorrected]
-    errors: [STANDINGS_RULES_INVALID, ACCEPTANCE_CASE_FAILED, STANDINGS_SOURCE_STALE]
-    audiences: [public aggregates, School-private detail, authorized staff evidence]
-    risks: [executable upload, nondeterministic order, Judge-linked disclosure]
-    evidence: [golden corpus, acceptance cases, lock and correction tests, audience vectors]
-
-  - id: R1-CMP-013
-    order: 300
-    title: Implement Advancement Plan and Field
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-012]
-    requirements: [R1-LIFE-001, R1-COMP-001, R1-CONS-001, R1-PRIV-001]
-    objective: Validate and lock declarative advancement policy, calculate ties and byes, prepare and approve exact Fields, publish them, and govern pre-start correction.
-    inputs: [ADR-0017, wiki/advancement-model.md]
-    outputs: [advancement schema, calculator and vectors, migrations, approval and publication UI]
-    interfaces: [ValidateAdvancementPlan, AcceptAdvancementPlan, CalculateAdvancementField, ApproveAdvancementField, PublishAdvancementField]
-    schemas: [DocketAdvancementPlan, AdvancementField, TieAtCutDecision]
-    tables: [competition_advancement_plans, competition_advancement_fields, competition_advancement_publications]
-    events: [AdvancementPlanLocked, AdvancementFieldCalculated, AdvancementFieldPublished]
-    errors: [ADVANCEMENT_PLAN_INVALID, FIELD_SOURCE_STALE, TIE_POLICY_INFEASIBLE]
-    audiences: [public qualifiers, School-private exclusion, authorized staff]
-    risks: [subjective cut selection, wrong byes, unpublished source drift]
-    evidence: [tie and power-of-two vectors, approval invalidation, audience tests]
-
-  - id: R1-CMP-014
-    order: 310
-    title: Implement elimination bracket and verification gates
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-013]
-    requirements: [R1-LIFE-001, R1-COMP-001, R1-CONS-001]
-    objective: Build canonical seeded brackets, schedule elimination rounds, enforce out-round verification and governed exceptions, and freeze replacement and reseeding after start.
-    inputs: [wiki/advancement-model.md, wiki/pairing-model.md]
-    outputs: [bracket calculator and vectors, gate transitions, migrations, review and public bracket UI]
-    interfaces: [CreateEliminationBracket, PrepareOutRound, CompleteOutRoundVerification, ActivateSinglePersonException, OverrideOutRoundGate]
-    schemas: [EliminationBracket, OutRoundVerification, GateException, GateOverride]
-    tables: [competition_brackets, competition_out_round_gates, competition_gate_exceptions]
-    events: [BracketPublished, OutRoundVerified, OutRoundGateOverridden]
-    errors: [BRACKET_SOURCE_STALE, VERIFIER_NOT_DISTINCT, HARD_CONSTRAINT_FAILED, RESEEDING_PROHIBITED]
-    audiences: [Public Viewer bracket, affected participants, restricted gate staff]
-    risks: [bracket rewrite, self-confirmation, hard-constraint bypass]
-    evidence: [canonical bracket vectors, two-person gate tests, exception and override matrices, started-bracket immutability]
-
-  - id: R1-CMP-015
-    order: 320
-    title: Implement Award Plan and Results
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-014]
-    requirements: [R1-LIFE-001, R1-COMP-001, R1-CONS-001, R1-PRIV-001]
-    objective: Validate and lock the Release 1 Award Plan, calculate placement and Speaker Awards, correct rule divergence, and feed exact results into Final Results.
-    inputs: [ADR-0019, wiki/award-model.md]
-    outputs: [award schema, calculator and vectors, migrations, plan and preview UI]
-    interfaces: [ValidateAwardPlan, AcceptAwardPlan, CalculateAwardResults, CorrectAwardPlan]
-    schemas: [AwardPlan, AwardResult, SpeakerAward]
-    tables: [competition_award_plans, competition_award_results]
-    events: [AwardPlanLocked, AwardResultsCalculated, AwardResultsCorrected]
-    errors: [AWARD_PLAN_INVALID, AWARD_SOURCE_INCOMPLETE, AWARD_CORRECTION_PROHIBITED]
-    audiences: [Public Viewer, affected participants, authorized staff]
-    risks: [subjective award, hidden recipient, stale result]
-    evidence: [award vectors, public-all-awards test, correction impact test]
-
-  - id: R1-CMP-016
-    order: 330
-    title: Implement Final Results approval and publication source
-    status: blocked
-    owner: competition
-    depends_on: [R1-CMP-015]
-    requirements: [R1-LIFE-001, R1-CONS-001, R1-PRIV-001]
-    objective: Enforce competitive completeness, prepare and approve exact Final Results, invalidate stale approval, and supply versioned audience-safe source projections.
-    inputs: [ADR-0018, wiki/final-results-model.md]
-    outputs: [Final Results transitions, migrations, completeness review and approval UI]
-    interfaces: [EvaluateCompetitiveCompleteness, PrepareFinalResults, ApproveFinalResults, PublishFinalResults]
-    schemas: [CompetitiveCompletenessReview, FinalResultsDraft, FinalResultsProjection]
-    tables: [competition_final_result_versions, competition_final_result_approvals]
-    events: [FinalResultsPrepared, FinalResultsApproved, FinalResultsPublished]
-    errors: [COMPETITION_INCOMPLETE, FINAL_RESULTS_SOURCE_STALE, FINAL_RESULTS_UNAPPROVED]
-    audiences: [Public Viewer, participant, School, authorized staff]
-    risks: [premature publication, private metadata exposure, stale approval]
-    evidence: [completeness blocker matrix, approval race, public field vectors, publication end-to-end test]
-
-  - id: R1-TRN-004
-    order: 340
-    title: Implement Competitive Completion and Tournament Closure
-    status: blocked
-    owner: tournaments
-    depends_on: [R1-CMP-016]
-    requirements: [R1-LIFE-001, R1-CONS-001, R1-PRIV-001]
-    objective: Separate Final Results publication from Owner-only Closure, evaluate nonwaivable blockers, record warning acknowledgment, and preserve post-Closure exception commands.
-    inputs: [ADR-0020, wiki/tournament-lifecycle-model.md]
-    outputs: [lifecycle transitions, Closure Readiness Review, migrations, Owner Closure UI]
-    interfaces: [MarkCompetitiveCompletion, EvaluateClosureReadiness, CloseTournament]
-    schemas: [CompetitiveCompletion, ClosureReadinessReview, TournamentClosure]
-    tables: [tournaments_completion, tournaments_closure_reviews, tournaments_closures]
-    events: [CompetitiveCompletionReached, TournamentClosed]
-    errors: [CLOSURE_OWNER_REQUIRED, CLOSURE_BLOCKED, WARNING_ACKNOWLEDGMENT_REQUIRED]
-    audiences: [Owner, Directors and staff, participants, Public Viewer archive status]
-    risks: [automatic Closure, waived dispute, premature retention clock]
-    evidence: [blocker matrix, Owner-only authorization, closure race, timezone retention anchor]
-
-  - id: R1-PUB-001
-    order: 350
-    title: Implement archive, publication history, and post-Closure correction
-    status: blocked
-    owner: publication
-    depends_on: [R1-TRN-004]
-    requirements: [R1-LIFE-001, R1-CONS-001, R1-PRIV-001, R1-MSG-001]
-    objective: Move Closed tournaments into the public archive, show current-first immutable history, publish Correction Notices, and enforce scoped post-Closure correction cases.
-    inputs: [wiki/tournament-directory-model.md, wiki/final-results-model.md, wiki/tournament-lifecycle-model.md]
-    outputs: [archive projections, history routes, correction workflow integrations, search index events]
-    interfaces: [ProjectTournamentArchive, PublishCorrectionNotice, OpenPostClosureCorrection, PublishCorrectedResult]
-    schemas: [TournamentArchiveProjection, PublicationHistory, CorrectionNotice, PostClosureCorrectionCase]
-    tables: [publication_archive_entries, publication_correction_notices, publication_post_closure_cases]
-    events: [TournamentArchived, CorrectionNoticePublished, PostClosureCorrectionResolved]
-    errors: [CORRECTION_WINDOW_CLOSED, CORRECTION_SCOPE_INVALID, ARCHIVE_SOURCE_STALE]
-    audiences: [Public Viewer, affected participants and Schools, authorized staff]
-    risks: [history erasure, private correction details, expired correction]
-    evidence: [archive search vectors, current-first history, 168-hour boundary tests, notification coverage]
-
-  - id: R1-GOV-001
-    order: 360
-    title: Complete privileged audit, retention, and Legal Hold
-    status: blocked
-    owner: governance
-    depends_on: [R1-PUB-001]
-    requirements: [R1-AUTH-001, R1-CONS-001, R1-PRIV-001, R1-OPS-001]
-    objective: Verify immutable privileged audit across all modules, execute each retention class, and enforce exact-scope two-person Legal Holds through deletion and recovery.
-    inputs: [ADR-0026, ADR-0027, ADR-0028, wiki/retention-model.md]
-    outputs: [governance interfaces, migrations, retention jobs, Legal Hold UI, cross-module conformance suite]
-    interfaces: [AppendPrivilegedAudit, ScheduleRetention, ExecuteDeletion, PrepareLegalHold, ApproveLegalHold, ReleaseLegalHold]
-    schemas: [PrivilegedAuditEvent, RetentionSchedule, LegalHold]
-    tables: [governance_audit_events, governance_retention_schedules, governance_legal_holds]
-    events: [RetentionScheduled, ArtifactDeleted, LegalHoldActivated, LegalHoldReleased]
-    errors: [LEGAL_HOLD_SECOND_ACTOR_REQUIRED, RETENTION_SCOPE_INVALID, DELETION_HELD]
-    audiences: [record audience, Legal and Privacy Operations, restricted audit]
-    risks: [over-retention, unsafe deletion, single-actor hold, backup resurrection]
-    evidence: [all-class clock tests, two-person matrix, restore-retention exercise, payload-free audit projections]
-
-  - id: R1-GOV-002
-    order: 370
-    title: Complete security, integrity, support, and degraded-operation controls
-    status: blocked
-    owner: governance
-    depends_on: [R1-GOV-001]
-    requirements: [R1-AUTH-001, R1-PRIV-001, R1-OPS-001]
-    objective: Implement included integrity reviews, closed support actions, rate limits, security alerts, redacted telemetry, dependency degradation, and incident-safe operational controls.
-    inputs: [wiki/access-model.md, wiki/backend-architecture.md, docs/operations/release-1.md]
-    outputs: [security review interfaces, support union, rate-limit policies, telemetry schemas, degraded-mode tests and runbooks]
-    interfaces: [OpenIntegrityReview, DecideIntegrityReview, ExecuteSupportAction, EvaluateRateLimit]
-    schemas: [IntegrityReview, SupportActionCommand, SecurityAlert, RateLimitDecision]
-    tables: [governance_integrity_reviews, governance_support_actions, governance_security_alerts]
-    events: [IntegrityReviewOpened, SupportActionExecuted, SecurityAlertRaised]
-    errors: [SUPPORT_ACTION_PROHIBITED, REVIEW_INDEPENDENCE_REQUIRED, RATE_LIMITED]
-    audiences: [affected Account, authorized Platform staff, operations]
-    risks: [administrator impersonation, source mutation, sensitive telemetry, critical traffic starvation]
-    evidence: [closed-union negative tests, nonmutation tests, redaction corpus, degraded-provider scenarios, rate-limit isolation load]
-
-  - id: R1-REL-001
-    order: 380
-    title: Prove the complete seeded Release 1 tournament
-    status: blocked
-    owner: workflows
-    depends_on: [R1-GOV-002]
-    requirements: [R1-LIFE-001, R1-AUTH-001, R1-DATA-001, R1-COMP-001, R1-CONS-001, R1-MSG-001, R1-PRIV-001]
-    objective: Run one seeded Lincoln-Douglas tournament through every included actor journey, correction path, audience, browser class, and accessibility scenario without manual state mutation.
-    inputs: [all prior R1 items, docs/product/experience-contract.md]
-    outputs: [complete fixture, Playwright journey suite, route and screen catalog, notification catalog, traceability report]
-    interfaces: [Release1TournamentWorkflow]
-    schemas: [Release1Fixture, JourneyEvidence]
-    tables: [all Release 1 owned tables]
-    events: [all Release 1 durable events]
-    errors: [all Release 1 stable errors]
-    audiences: [all Release 1 actors]
-    risks: [happy-path-only proof, manual fixture repair, missing role or state]
-    evidence: [full lifecycle run, current and previous browser matrix, keyboard and screen-reader journeys, clean traceability]
-
-  - id: R1-REL-002
-    order: 390
-    title: Prove load, recovery, and deployment gates
-    status: blocked
-    owner: runtime
-    depends_on: [R1-REL-001]
-    requirements: [R1-OPS-001, R1-CONS-001, R1-MSG-001]
-    objective: Meet the accepted reference load, latency, queue, availability, restore, rolling deployment, rollback, and degraded-operation gates in staging.
-    inputs: [docs/quality/release-1-gates.md, docs/operations/release-1.md]
-    outputs: [load suite, restore record, deployment compatibility evidence, rollback record, capacity and alert dashboards]
-    interfaces: [ReleaseGateEvidence]
-    schemas: [LoadReport, RestoreReport, DeploymentReport]
-    tables: []
-    events: [ReleaseGateEvaluated]
-    errors: [QUALITY_GATE_FAILED, RECOVERY_OBJECTIVE_MISSED, DEPLOYMENT_INCOMPATIBLE]
-    audiences: [release operators, reviewers]
-    risks: [unrepresentative load, untested restore, schema rollout outage]
-    evidence: [30-minute load and burst, queue drain, RPO and RTO exercise, previous-release compatibility, failure rollback]
-
-  - id: R1-REL-003
-    order: 400
-    title: Promote Release 1 to production readiness
-    status: blocked
-    owner: workflows
-    depends_on: [R1-REL-002]
-    requirements: [R1-LIFE-001, R1-OPS-001]
-    objective: Verify every requirement and gate, produce immutable release artifacts and manifests, exercise production-safe deployment, and record the release decision without bypassing an open item.
-    inputs: [complete traceability manifest, all release evidence, Terraform plan, immutable application artifacts]
-    outputs: [release manifest, signed artifact inventory, production runbooks, go or no-go record]
-    interfaces: [PromoteRelease]
-    schemas: [ReleaseManifest, ReleaseDecision]
-    tables: []
-    events: [ReleaseApproved, ReleaseRejected]
-    errors: [RELEASE_EVIDENCE_INCOMPLETE, RELEASE_ARTIFACT_MISMATCH, RELEASE_GATE_FAILED]
-    audiences: [project owner, release operators, audit]
-    risks: [partial release, mutable artifact rebuild, ignored blocker]
-    evidence: [pnpm test, clean contract generation, complete traceability, signed artifact hashes, approved production plan]
+- id: R1-FND-001-A
+  kind: leaf
+  parent: R1-FND-001
+  order: 10
+  title: Create the pinned workspace and executable item-verification entry point
+  status: blocked
+  owner: runtime
+  stage: 01 Foundations
+  depends_on: []
+  gates:
+  - GATE-BOOTSTRAP
+  requirements: *id001
+  spec: docs/implementation/items/R1-FND-001-A.md
+  blocking_reason: Explicit prerequisite decision unresolved.
+  completion: null
+- id: R1-FND-001-B
+  kind: leaf
+  parent: R1-FND-001
+  order: 20
+  title: Deliver the server-rendered shadcn web foundation
+  status: blocked
+  owner: runtime
+  stage: 01 Foundations
+  depends_on:
+  - R1-FND-001-A
+  gates: []
+  requirements: *id001
+  spec: docs/implementation/items/R1-FND-001-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-FND-002-A
+  kind: leaf
+  parent: R1-FND-002
+  order: 30
+  title: Bootstrap local services and validate runtime configuration
+  status: blocked
+  owner: runtime
+  stage: 01 Foundations
+  depends_on:
+  - R1-FND-001-B
+  gates: []
+  requirements: *id002
+  spec: docs/implementation/items/R1-FND-002-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-FND-002-B
+  kind: leaf
+  parent: R1-FND-002
+  order: 40
+  title: Provide deterministic clocks, identifiers, and guarded adapters
+  status: blocked
+  owner: runtime
+  stage: 01 Foundations
+  depends_on:
+  - R1-FND-002-A
+  gates: []
+  requirements: *id002
+  spec: docs/implementation/items/R1-FND-002-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-FND-003-A
+  kind: leaf
+  parent: R1-FND-003
+  order: 50
+  title: Run forward module-owned migrations
+  status: blocked
+  owner: database
+  stage: 01 Foundations
+  depends_on:
+  - R1-FND-002-B
+  gates: []
+  requirements: *id003
+  spec: docs/implementation/items/R1-FND-003-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-FND-003-B
+  kind: leaf
+  parent: R1-FND-003
+  order: 60
+  title: Isolate database integration fixtures and compatibility checks
+  status: blocked
+  owner: database
+  stage: 01 Foundations
+  depends_on:
+  - R1-FND-003-A
+  gates: []
+  requirements: *id003
+  spec: docs/implementation/items/R1-FND-003-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-FND-004-A
+  kind: leaf
+  parent: R1-FND-004
+  order: 70
+  title: Generate contracts from module-owned definitions
+  status: blocked
+  owner: contracts
+  stage: 01 Foundations
+  depends_on:
+  - R1-FND-003-B
+  gates: []
+  requirements: *id004
+  spec: docs/implementation/items/R1-FND-004-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-FND-004-B
+  kind: leaf
+  parent: R1-FND-004
+  order: 80
+  title: Connect requirements, acceptance evidence, and generated traceability
+  status: blocked
+  owner: contracts
+  stage: 01 Foundations
+  depends_on:
+  - R1-FND-004-A
+  gates: []
+  requirements: *id004
+  spec: docs/implementation/items/R1-FND-004-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-FND-005-A
+  kind: leaf
+  parent: R1-FND-005
+  order: 90
+  title: Run the eleven required checks on current pull-request heads
+  status: blocked
+  owner: runtime
+  stage: 01 Foundations
+  depends_on:
+  - R1-FND-004-B
+  gates: []
+  requirements: *id005
+  spec: docs/implementation/items/R1-FND-005-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-FND-005-B
+  kind: leaf
+  parent: R1-FND-005
+  order: 100
+  title: Verify main protection and bootstrap-to-CI completion gates
+  status: blocked
+  owner: runtime
+  stage: 01 Foundations
+  depends_on:
+  - R1-FND-005-A
+  gates:
+  - GATE-GITHUB
+  requirements: *id005
+  spec: docs/implementation/items/R1-FND-005-B.md
+  blocking_reason: Explicit prerequisite decision unresolved.
+  completion: null
+- id: R1-IDA-001-A
+  kind: leaf
+  parent: R1-IDA-001
+  order: 110
+  title: Authenticate Clerk identities and preserve Account identity
+  status: blocked
+  owner: identity-access
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-FND-005-B
+  gates: []
+  requirements: *id006
+  spec: docs/implementation/items/R1-IDA-001-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-IDA-001-B
+  kind: leaf
+  parent: R1-IDA-001
+  order: 120
+  title: Enforce session limits and Account security views
+  status: blocked
+  owner: identity-access
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-IDA-001-A
+  gates: []
+  requirements: *id006
+  spec: docs/implementation/items/R1-IDA-001-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-IDA-002-A
+  kind: leaf
+  parent: R1-IDA-002
+  order: 130
+  title: Isolate Active Role Context and reverify sensitive actions
+  status: blocked
+  owner: identity-access
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-IDA-001-B
+  gates: []
+  requirements: *id007
+  spec: docs/implementation/items/R1-IDA-002-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-COM-001-A
+  kind: leaf
+  parent: R1-COM-001
+  order: 140
+  title: Commit outbox events and deliver idempotent work
+  status: blocked
+  owner: communications
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-IDA-002-A
+  gates: []
+  requirements: *id008
+  spec: docs/implementation/items/R1-COM-001-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-COM-001-B
+  kind: leaf
+  parent: R1-COM-001
+  order: 150
+  title: Deliver scoped inbox and email notices with tracked retries
+  status: blocked
+  owner: communications
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-COM-001-A
+  gates: []
+  requirements: *id008
+  spec: docs/implementation/items/R1-COM-001-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-IDA-002-B
+  kind: leaf
+  parent: R1-IDA-002
+  order: 160
+  title: Accept, decline, revoke, and expire scoped Access Offers
+  status: blocked
+  owner: identity-access
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-COM-001-B
+  gates: []
+  requirements: *id007
+  spec: docs/implementation/items/R1-IDA-002-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-SCH-001-A
+  kind: leaf
+  parent: R1-SCH-001
+  order: 170
+  title: Verify canonical Schools and reversible duplicate merges
+  status: blocked
+  owner: schools
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-IDA-002-B
+  gates: []
+  requirements: *id009
+  spec: docs/implementation/items/R1-SCH-001-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-SCH-001-B
+  kind: leaf
+  parent: R1-SCH-001
+  order: 180
+  title: Manage School Memberships and one exclusive Manager
+  status: blocked
+  owner: schools
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-SCH-001-A
+  gates: []
+  requirements: *id009
+  spec: docs/implementation/items/R1-SCH-001-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-SCH-001-C
+  kind: leaf
+  parent: R1-SCH-001
+  order: 190
+  title: Recover a School Manager without temporary authority
+  status: blocked
+  owner: schools
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-SCH-001-B
+  gates: []
+  requirements: *id009
+  spec: docs/implementation/items/R1-SCH-001-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-004-A
+  kind: leaf
+  parent: R1-REG-004
+  order: 200
+  title: Record minor authorization before affiliation or participation
+  status: blocked
+  owner: registration
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-SCH-001-C
+  gates: []
+  requirements: *id010
+  spec: docs/implementation/items/R1-REG-004-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-SCH-002-A
+  kind: leaf
+  parent: R1-SCH-002
+  order: 210
+  title: Accept one Competitor School Affiliation
+  status: blocked
+  owner: schools
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-REG-004-A
+  gates: []
+  requirements: *id011
+  spec: docs/implementation/items/R1-SCH-002-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-SCH-002-B
+  kind: leaf
+  parent: R1-SCH-002
+  order: 220
+  title: Transfer or end affiliation while preserving represented School
+  status: blocked
+  owner: schools
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-SCH-002-A
+  gates: []
+  requirements: *id011
+  spec: docs/implementation/items/R1-SCH-002-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-TRN-001-A
+  kind: leaf
+  parent: R1-TRN-001
+  order: 230
+  title: Create Draft tournaments and delegate scoped staff authority
+  status: blocked
+  owner: tournaments
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-SCH-002-B
+  gates: []
+  requirements: *id012
+  spec: docs/implementation/items/R1-TRN-001-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-TRN-001-B
+  kind: leaf
+  parent: R1-TRN-001
+  order: 240
+  title: Transfer and recover tournament ownership
+  status: blocked
+  owner: tournaments
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-TRN-001-A
+  gates: []
+  requirements: *id012
+  spec: docs/implementation/items/R1-TRN-001-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-TRN-002-A
+  kind: leaf
+  parent: R1-TRN-002
+  order: 250
+  title: Adopt immutable Rulesets and allowlisted overrides
+  status: blocked
+  owner: tournaments
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-TRN-001-B
+  gates:
+  - GATE-RULESET
+  requirements: *id013
+  spec: docs/implementation/items/R1-TRN-002-A.md
+  blocking_reason: Explicit prerequisite decision unresolved.
+  completion: null
+- id: R1-TRN-002-B
+  kind: leaf
+  parent: R1-TRN-002
+  order: 260
+  title: Govern Ruleset migration and emergency amendments
+  status: blocked
+  owner: tournaments
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-TRN-002-A
+  gates: []
+  requirements: *id013
+  spec: docs/implementation/items/R1-TRN-002-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-TRN-003-A
+  kind: leaf
+  parent: R1-TRN-003
+  order: 270
+  title: Publish versioned Invitation Pages and safe cancellation
+  status: blocked
+  owner: publication
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-TRN-002-B
+  gates: []
+  requirements: *id014
+  spec: docs/implementation/items/R1-TRN-003-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-TRN-003-B
+  kind: leaf
+  parent: R1-TRN-003
+  order: 280
+  title: Browse the active directory with accessible search and paging
+  status: blocked
+  owner: publication
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-TRN-003-A
+  gates: []
+  requirements: *id014
+  spec: docs/implementation/items/R1-TRN-003-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-002-A
+  kind: leaf
+  parent: R1-REG-002
+  order: 290
+  title: Publish coherent registration and admission policies
+  status: blocked
+  owner: registration
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-TRN-003-B
+  gates: []
+  requirements: *id015
+  spec: docs/implementation/items/R1-REG-002-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-002-B
+  kind: leaf
+  parent: R1-REG-002
+  order: 300
+  title: Collect versioned, minimized additional Entry fields
+  status: blocked
+  owner: registration
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-REG-002-A
+  gates: []
+  requirements: *id015
+  spec: docs/implementation/items/R1-REG-002-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-001-A
+  kind: leaf
+  parent: R1-REG-001
+  order: 310
+  title: Submit one valid Entry through the complete delivery path
+  status: blocked
+  owner: registration
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-REG-002-B
+  gates: []
+  requirements: *id016
+  spec: docs/implementation/items/R1-REG-001-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-003-A
+  kind: leaf
+  parent: R1-REG-003
+  order: 320
+  title: Operate roster and six-state Entry lifecycle
+  status: blocked
+  owner: registration
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-REG-001-A
+  gates: []
+  requirements: *id017
+  spec: docs/implementation/items/R1-REG-003-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-003-B
+  kind: leaf
+  parent: R1-REG-003
+  order: 330
+  title: Resolve Entry Error Reports and governed late registration
+  status: blocked
+  owner: registration
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-REG-003-A
+  gates: []
+  requirements: *id017
+  spec: docs/implementation/items/R1-REG-003-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-004-B
+  kind: leaf
+  parent: R1-REG-004
+  order: 340
+  title: Confirm deterministic admission and waitlist recommendations
+  status: blocked
+  owner: registration
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-REG-003-B
+  gates: []
+  requirements: *id010
+  spec: docs/implementation/items/R1-REG-004-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-004-C
+  kind: leaf
+  parent: R1-REG-004
+  order: 350
+  title: Review Accommodation Requests through scoped decisions
+  status: blocked
+  owner: registration
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-REG-004-B
+  gates: []
+  requirements: *id010
+  spec: docs/implementation/items/R1-REG-004-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-004-D
+  kind: leaf
+  parent: R1-REG-004
+  order: 360
+  title: Disclose and revoke minimal accommodation instructions
+  status: blocked
+  owner: registration
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-REG-004-C
+  gates: []
+  requirements: *id010
+  spec: docs/implementation/items/R1-REG-004-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-002-A
+  kind: leaf
+  parent: R1-CMP-002
+  order: 370
+  title: Authorize assessment attempts and verify provider deliveries
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-REG-004-D
+  gates: []
+  requirements: *id018
+  spec: docs/implementation/items/R1-CMP-002-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-002-B
+  kind: leaf
+  parent: R1-CMP-002
+  order: 380
+  title: Calculate versioned qualifications, retakes, and tier test-outs
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-002-A
+  gates: []
+  requirements: *id018
+  spec: docs/implementation/items/R1-CMP-002-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-002-C
+  kind: leaf
+  parent: R1-CMP-002
+  order: 390
+  title: Operate Quick Assessments and tournament-local tier grants
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-002-B
+  gates: []
+  requirements: *id018
+  spec: docs/implementation/items/R1-CMP-002-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-002-D
+  kind: leaf
+  parent: R1-CMP-002
+  order: 400
+  title: Publish Judge profiles and minimize assessment access and retention
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-002-C
+  gates: []
+  requirements: *id018
+  spec: docs/implementation/items/R1-CMP-002-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-003-A
+  kind: leaf
+  parent: R1-CMP-003
+  order: 410
+  title: Accept and project the current Judge Pool
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-002-D
+  gates: []
+  requirements: *id019
+  spec: docs/implementation/items/R1-CMP-003-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-003-B
+  kind: leaf
+  parent: R1-CMP-003
+  order: 420
+  title: Account for School-supplied Judges and obligation deficits
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-003-A
+  gates: []
+  requirements: *id019
+  spec: docs/implementation/items/R1-CMP-003-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-003-C
+  kind: leaf
+  parent: R1-CMP-003
+  order: 430
+  title: Withdraw Judges and retain restricted reliability outcomes
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-003-B
+  gates: []
+  requirements: *id019
+  spec: docs/implementation/items/R1-CMP-003-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-004-A
+  kind: leaf
+  parent: R1-CMP-004
+  order: 440
+  title: Validate Judge conflicts and publish the striking policy
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-003-C
+  gates: []
+  requirements: *id020
+  spec: docs/implementation/items/R1-CMP-004-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-004-B
+  kind: leaf
+  parent: R1-CMP-004
+  order: 450
+  title: Approve timed Judge strikes and governed outage exceptions
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-004-A
+  gates: []
+  requirements: *id020
+  spec: docs/implementation/items/R1-CMP-004-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-012-A
+  kind: leaf
+  parent: R1-CMP-012
+  order: 460
+  title: Validate and preview declarative standings policies
+  status: blocked
+  owner: competition
+  stage: 06 Standings and eliminations
+  depends_on:
+  - R1-CMP-004-B
+  gates: []
+  requirements: *id021
+  spec: docs/implementation/items/R1-CMP-012-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-013-A
+  kind: leaf
+  parent: R1-CMP-013
+  order: 470
+  title: Validate and preview advancement policy and cut ties
+  status: blocked
+  owner: competition
+  stage: 06 Standings and eliminations
+  depends_on:
+  - R1-CMP-012-A
+  gates: []
+  requirements: *id022
+  spec: docs/implementation/items/R1-CMP-013-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-015-A
+  kind: leaf
+  parent: R1-CMP-015
+  order: 480
+  title: Validate and accept the two supported award families
+  status: blocked
+  owner: competition
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-CMP-013-A
+  gates: []
+  requirements: *id023
+  spec: docs/implementation/items/R1-CMP-015-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-006-A
+  kind: leaf
+  parent: R1-CMP-006
+  order: 490
+  title: Configure per-round pairing methods and lockable policy
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-015-A
+  gates: []
+  requirements: *id024
+  spec: docs/implementation/items/R1-CMP-006-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-001-A
+  kind: leaf
+  parent: R1-CMP-001
+  order: 500
+  title: Generate reproducible native schedule candidates
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-006-A
+  gates: []
+  requirements: *id025
+  spec: docs/implementation/items/R1-CMP-001-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-001-B
+  kind: leaf
+  parent: R1-CMP-001
+  order: 510
+  title: Select and publish a schedule with the pairing-policy lock
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-001-A
+  gates: []
+  requirements: *id025
+  spec: docs/implementation/items/R1-CMP-001-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-001-C
+  kind: leaf
+  parent: R1-CMP-001
+  order: 520
+  title: Provide Event Workspaces and the personal tournament agenda
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-001-B
+  gates: []
+  requirements: *id025
+  spec: docs/implementation/items/R1-CMP-001-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-005-A
+  kind: leaf
+  parent: R1-CMP-005
+  order: 530
+  title: Recommend and sign off eligible Judge and room assignments
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-001-C
+  gates: []
+  requirements: *id026
+  spec: docs/implementation/items/R1-CMP-005-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-006-B
+  kind: leaf
+  parent: R1-CMP-006
+  order: 540
+  title: Generate random, preset, seeded and round-robin preliminaries
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-005-A
+  gates: []
+  requirements: *id024
+  spec: docs/implementation/items/R1-CMP-006-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-006-C
+  kind: leaf
+  parent: R1-CMP-006
+  order: 550
+  title: Calculate internal standings and power pairings
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-006-B
+  gates: []
+  requirements: *id024
+  spec: docs/implementation/items/R1-CMP-006-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-006-D
+  kind: leaf
+  parent: R1-CMP-006
+  order: 560
+  title: Construct fully manual pairings through the same validator
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-006-C
+  gates: []
+  requirements: *id024
+  spec: docs/implementation/items/R1-CMP-006-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-007-A
+  kind: leaf
+  parent: R1-CMP-007
+  order: 570
+  title: Approve and publish exact pairings with atomic policy locks
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-006-D
+  gates: []
+  requirements: *id027
+  spec: docs/implementation/items/R1-CMP-007-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-007-B
+  kind: leaf
+  parent: R1-CMP-007
+  order: 580
+  title: Correct unstarted pairings and emergency pre-start policy errors
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-007-A
+  gates: []
+  requirements: *id027
+  spec: docs/implementation/items/R1-CMP-007-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REG-003-C
+  kind: leaf
+  parent: R1-REG-003
+  order: 590
+  title: Restore Entries without bypassing admission or pairing history
+  status: blocked
+  owner: registration
+  stage: 03 Configuration and registration
+  depends_on:
+  - R1-CMP-007-B
+  gates: []
+  requirements: *id017
+  spec: docs/implementation/items/R1-REG-003-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-001-D
+  kind: leaf
+  parent: R1-CMP-001
+  order: 600
+  title: Publish and acknowledge schedule revisions and reversals
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-REG-003-C
+  gates: []
+  requirements: *id025
+  spec: docs/implementation/items/R1-CMP-001-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-001-E
+  kind: leaf
+  parent: R1-CMP-001
+  order: 610
+  title: Apply accommodations and cross-entry holds to live schedules
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-001-D
+  gates: []
+  requirements: *id025
+  spec: docs/implementation/items/R1-CMP-001-E.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-005-B
+  kind: leaf
+  parent: R1-CMP-005
+  order: 620
+  title: Confirm changed and emergency assignments without proxy acknowledgment
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-CMP-001-E
+  gates: []
+  requirements: *id026
+  spec: docs/implementation/items/R1-CMP-005-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-009-A
+  kind: leaf
+  parent: R1-CMP-009
+  order: 630
+  title: Author and review platform ballot rubrics
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-005-B
+  gates: []
+  requirements: *id028
+  spec: docs/implementation/items/R1-CMP-009-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-009-B
+  kind: leaf
+  parent: R1-CMP-009
+  order: 640
+  title: Pin rubric versions at the first authorized cohort start
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-009-A
+  gates: []
+  requirements: *id028
+  spec: docs/implementation/items/R1-CMP-009-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-008-A
+  kind: leaf
+  parent: R1-CMP-008
+  order: 650
+  title: Run round check-in and immutable start and completion transitions
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-009-B
+  gates: []
+  requirements: *id029
+  spec: docs/implementation/items/R1-CMP-008-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-008-B
+  kind: leaf
+  parent: R1-CMP-008
+  order: 660
+  title: Classify Competitor and Judge No-Shows with contact evidence
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-008-A
+  gates: []
+  requirements: *id029
+  spec: docs/implementation/items/R1-CMP-008-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-008-C
+  kind: leaf
+  parent: R1-CMP-008
+  order: 670
+  title: Resolve timely Competitor No-Show disputes
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-008-B
+  gates: []
+  requirements: *id029
+  spec: docs/implementation/items/R1-CMP-008-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-008-D
+  kind: leaf
+  parent: R1-CMP-008
+  order: 680
+  title: Sign off replacements and administrative No-Show outcomes
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-008-C
+  gates: []
+  requirements: *id029
+  spec: docs/implementation/items/R1-CMP-008-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-009-C
+  kind: leaf
+  parent: R1-CMP-009
+  order: 690
+  title: Submit and lock competitive ballots with retry safety
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-008-D
+  gates: []
+  requirements: *id028
+  spec: docs/implementation/items/R1-CMP-009-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-009-D
+  kind: leaf
+  parent: R1-CMP-009
+  order: 700
+  title: Escalate missing ballots and maintain local assignment holds
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-009-C
+  gates: []
+  requirements: *id028
+  spec: docs/implementation/items/R1-CMP-009-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-010-A
+  kind: leaf
+  parent: R1-CMP-010
+  order: 710
+  title: Resolve independent panel ballots and scoring provenance
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-009-D
+  gates: []
+  requirements: *id030
+  spec: docs/implementation/items/R1-CMP-010-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-010-B
+  kind: leaf
+  parent: R1-CMP-010
+  order: 720
+  title: Draft and publish feedback under the hard seven-day deadline
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-010-A
+  gates: []
+  requirements: *id030
+  spec: docs/implementation/items/R1-CMP-010-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-010-C
+  kind: leaf
+  parent: R1-CMP-010
+  order: 730
+  title: Project historical School feedback and calculation dashboards
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-010-B
+  gates: []
+  requirements: *id030
+  spec: docs/implementation/items/R1-CMP-010-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-010-D
+  kind: leaf
+  parent: R1-CMP-010
+  order: 740
+  title: Restrict unsafe feedback with independent reconsideration
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-010-C
+  gates: []
+  requirements: *id030
+  spec: docs/implementation/items/R1-CMP-010-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-011-A
+  kind: leaf
+  parent: R1-CMP-011
+  order: 750
+  title: Reopen results with Judge or evidenced staff attribution
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-010-D
+  gates: []
+  requirements: *id031
+  spec: docs/implementation/items/R1-CMP-011-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-011-B
+  kind: leaf
+  parent: R1-CMP-011
+  order: 760
+  title: Correct completed decisions and apply scoped disqualification
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-011-A
+  gates: []
+  requirements: *id031
+  spec: docs/implementation/items/R1-CMP-011-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-011-C
+  kind: leaf
+  parent: R1-CMP-011
+  order: 770
+  title: Resolve downstream conflicts without rewriting played rounds
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-011-B
+  gates: []
+  requirements: *id031
+  spec: docs/implementation/items/R1-CMP-011-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-011-D
+  kind: leaf
+  parent: R1-CMP-011
+  order: 780
+  title: Resolve pinned-rubric defects through governed rulings
+  status: blocked
+  owner: competition
+  stage: 05 Preliminary competition
+  depends_on:
+  - R1-CMP-011-C
+  gates: []
+  requirements: *id031
+  spec: docs/implementation/items/R1-CMP-011-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-012-B
+  kind: leaf
+  parent: R1-CMP-012
+  order: 790
+  title: Publish checkpointed standings with School-only breakdowns
+  status: blocked
+  owner: competition
+  stage: 06 Standings and eliminations
+  depends_on:
+  - R1-CMP-011-D
+  gates: []
+  requirements: *id021
+  spec: docs/implementation/items/R1-CMP-012-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-012-C
+  kind: leaf
+  parent: R1-CMP-012
+  order: 800
+  title: Govern emergency standings amendments
+  status: blocked
+  owner: competition
+  stage: 06 Standings and eliminations
+  depends_on:
+  - R1-CMP-012-B
+  gates: []
+  requirements: *id021
+  spec: docs/implementation/items/R1-CMP-012-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-013-B
+  kind: leaf
+  parent: R1-CMP-013
+  order: 810
+  title: Approve and publish the actual Advancement Field
+  status: blocked
+  owner: competition
+  stage: 06 Standings and eliminations
+  depends_on:
+  - R1-CMP-012-C
+  gates: []
+  requirements: *id022
+  spec: docs/implementation/items/R1-CMP-013-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-013-C
+  kind: leaf
+  parent: R1-CMP-013
+  order: 820
+  title: Correct advancement before and after elimination starts
+  status: blocked
+  owner: competition
+  stage: 06 Standings and eliminations
+  depends_on:
+  - R1-CMP-013-B
+  gates: []
+  requirements: *id022
+  spec: docs/implementation/items/R1-CMP-013-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-014-A
+  kind: leaf
+  parent: R1-CMP-014
+  order: 830
+  title: Build canonical seeded elimination brackets and sides
+  status: blocked
+  owner: competition
+  stage: 06 Standings and eliminations
+  depends_on:
+  - R1-CMP-013-C
+  gates: []
+  requirements: *id032
+  spec: docs/implementation/items/R1-CMP-014-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-014-B
+  kind: leaf
+  parent: R1-CMP-014
+  order: 840
+  title: Enforce the versioned two-person elimination start gate
+  status: blocked
+  owner: competition
+  stage: 06 Standings and eliminations
+  depends_on:
+  - R1-CMP-014-A
+  gates: []
+  requirements: *id032
+  spec: docs/implementation/items/R1-CMP-014-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-014-C
+  kind: leaf
+  parent: R1-CMP-014
+  order: 850
+  title: Handle documented gate exceptions and escaped starts
+  status: blocked
+  owner: competition
+  stage: 06 Standings and eliminations
+  depends_on:
+  - R1-CMP-014-B
+  gates: []
+  requirements: *id032
+  spec: docs/implementation/items/R1-CMP-014-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-015-B
+  kind: leaf
+  parent: R1-CMP-015
+  order: 860
+  title: Calculate auditable placement and preliminary Speaker awards
+  status: blocked
+  owner: competition
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-CMP-014-C
+  gates: []
+  requirements: *id023
+  spec: docs/implementation/items/R1-CMP-015-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-015-C
+  kind: leaf
+  parent: R1-CMP-015
+  order: 870
+  title: Amend awards with versioned impact and final-publication coupling
+  status: blocked
+  owner: competition
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-CMP-015-B
+  gates: []
+  requirements: *id023
+  spec: docs/implementation/items/R1-CMP-015-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-016-A
+  kind: leaf
+  parent: R1-CMP-016
+  order: 880
+  title: Assess Final Results readiness across all competitive inputs
+  status: blocked
+  owner: competition
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-CMP-015-C
+  gates: []
+  requirements: *id033
+  spec: docs/implementation/items/R1-CMP-016-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-016-B
+  kind: leaf
+  parent: R1-CMP-016
+  order: 890
+  title: Approve and publish unified Final Results
+  status: blocked
+  owner: competition
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-CMP-016-A
+  gates: []
+  requirements: *id033
+  spec: docs/implementation/items/R1-CMP-016-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-TRN-004-A
+  kind: leaf
+  parent: R1-TRN-004
+  order: 900
+  title: Preview and execute Owner-only Tournament Closure
+  status: blocked
+  owner: tournaments
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-CMP-016-B
+  gates: []
+  requirements: *id034
+  spec: docs/implementation/items/R1-TRN-004-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-TRN-004-B
+  kind: leaf
+  parent: R1-TRN-004
+  order: 910
+  title: Guard every Closed-state mutation boundary
+  status: blocked
+  owner: tournaments
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-TRN-004-A
+  gates: []
+  requirements: *id034
+  spec: docs/implementation/items/R1-TRN-004-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-PUB-001-A
+  kind: leaf
+  parent: R1-PUB-001
+  order: 920
+  title: Serve permanent public archives and authorized restricted history
+  status: blocked
+  owner: publication
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-TRN-004-B
+  gates: []
+  requirements: *id035
+  spec: docs/implementation/items/R1-PUB-001-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-PUB-001-B
+  kind: leaf
+  parent: R1-PUB-001
+  order: 930
+  title: Apply objective post-Closure No-Show corrections within 168 hours
+  status: blocked
+  owner: publication
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-PUB-001-A
+  gates: []
+  requirements: *id035
+  spec: docs/implementation/items/R1-PUB-001-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-PUB-001-C
+  kind: leaf
+  parent: R1-PUB-001
+  order: 940
+  title: Correct mistaken represented-School attribution with preserved history
+  status: blocked
+  owner: publication
+  stage: 07 Awards and closure
+  depends_on:
+  - R1-PUB-001-B
+  gates:
+  - GATE-ATTRIBUTION
+  requirements: *id035
+  spec: docs/implementation/items/R1-PUB-001-C.md
+  blocking_reason: Explicit prerequisite decision unresolved.
+  completion: null
+- id: R1-IDA-001-C
+  kind: leaf
+  parent: R1-IDA-001
+  order: 950
+  title: Recover Clerk linkage with independent evidence and review
+  status: blocked
+  owner: identity-access
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-PUB-001-C
+  gates: []
+  requirements: *id006
+  spec: docs/implementation/items/R1-IDA-001-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-IDA-001-D
+  kind: leaf
+  parent: R1-IDA-001
+  order: 960
+  title: Suspend Accounts with independent review and bounded extensions
+  status: blocked
+  owner: identity-access
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-IDA-001-C
+  gates: []
+  requirements: *id006
+  spec: docs/implementation/items/R1-IDA-001-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-IDA-001-E
+  kind: leaf
+  parent: R1-IDA-001
+  order: 970
+  title: Deactivate Accounts without abandoning duties or rewriting identity
+  status: blocked
+  owner: identity-access
+  stage: 02 Walking skeleton
+  depends_on:
+  - R1-IDA-001-D
+  gates: []
+  requirements: *id006
+  spec: docs/implementation/items/R1-IDA-001-E.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-GOV-001-A
+  kind: leaf
+  parent: R1-GOV-001
+  order: 980
+  title: Operate dual-approved scoped Legal Holds
+  status: blocked
+  owner: governance
+  stage: 08 Governance and release
+  depends_on:
+  - R1-IDA-001-E
+  gates: []
+  requirements: *id036
+  spec: docs/implementation/items/R1-GOV-001-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-GOV-001-B
+  kind: leaf
+  parent: R1-GOV-001
+  order: 990
+  title: Enforce class-specific deletion across storage and projections
+  status: blocked
+  owner: governance
+  stage: 08 Governance and release
+  depends_on:
+  - R1-GOV-001-A
+  gates: []
+  requirements: *id036
+  spec: docs/implementation/items/R1-GOV-001-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-GOV-001-C
+  kind: leaf
+  parent: R1-GOV-001
+  order: 1000
+  title: Make backup expiry and restoration honor privacy deadlines
+  status: blocked
+  owner: governance
+  stage: 08 Governance and release
+  depends_on:
+  - R1-GOV-001-B
+  gates: []
+  requirements: *id036
+  spec: docs/implementation/items/R1-GOV-001-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-GOV-001-D
+  kind: leaf
+  parent: R1-GOV-001
+  order: 1010
+  title: Verify tamper-evident attributed audit and audience retention
+  status: blocked
+  owner: governance
+  stage: 08 Governance and release
+  depends_on:
+  - R1-GOV-001-C
+  gates: []
+  requirements: *id036
+  spec: docs/implementation/items/R1-GOV-001-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-GOV-002-A
+  kind: leaf
+  parent: R1-GOV-002
+  order: 1020
+  title: Expose only typed, evidenced support operations
+  status: blocked
+  owner: governance
+  stage: 08 Governance and release
+  depends_on:
+  - R1-GOV-001-D
+  gates: []
+  requirements: *id037
+  spec: docs/implementation/items/R1-GOV-002-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-GOV-002-B
+  kind: leaf
+  parent: R1-GOV-002
+  order: 1030
+  title: Review identity and assessment integrity without rewriting scores
+  status: blocked
+  owner: governance
+  stage: 08 Governance and release
+  depends_on:
+  - R1-GOV-002-A
+  gates: []
+  requirements: *id037
+  spec: docs/implementation/items/R1-GOV-002-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-GOV-002-C
+  kind: leaf
+  parent: R1-GOV-002
+  order: 1040
+  title: Enforce security boundaries and degraded-service behavior
+  status: blocked
+  owner: governance
+  stage: 08 Governance and release
+  depends_on:
+  - R1-GOV-002-B
+  gates: []
+  requirements: *id037
+  spec: docs/implementation/items/R1-GOV-002-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-CMP-002-E
+  kind: leaf
+  parent: R1-CMP-002
+  order: 1050
+  title: Validate the real assessment provider and approved scoring policy
+  status: blocked
+  owner: competition
+  stage: 04 Scheduling and Judge operations
+  depends_on:
+  - R1-GOV-002-C
+  gates:
+  - GATE-ASSESSMENT
+  requirements: *id018
+  spec: docs/implementation/items/R1-CMP-002-E.md
+  blocking_reason: Explicit prerequisite decision unresolved.
+  completion: null
+- id: R1-REL-001-A
+  kind: leaf
+  parent: R1-REL-001
+  order: 1060
+  title: Verify the full multi-actor tournament journey
+  status: blocked
+  owner: workflows
+  stage: 08 Governance and release
+  depends_on:
+  - R1-CMP-002-E
+  gates: []
+  requirements: *id038
+  spec: docs/implementation/items/R1-REL-001-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REL-001-B
+  kind: leaf
+  parent: R1-REL-001
+  order: 1070
+  title: Verify corrections, recovery and privacy across the whole tournament
+  status: blocked
+  owner: workflows
+  stage: 08 Governance and release
+  depends_on:
+  - R1-REL-001-A
+  gates: []
+  requirements: *id038
+  spec: docs/implementation/items/R1-REL-001-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REL-001-C
+  kind: leaf
+  parent: R1-REL-001
+  order: 1080
+  title: Verify supported browsers and accessible actor experiences
+  status: blocked
+  owner: workflows
+  stage: 08 Governance and release
+  depends_on:
+  - R1-REL-001-B
+  gates:
+  - GATE-REVIEW
+  requirements: *id038
+  spec: docs/implementation/items/R1-REL-001-C.md
+  blocking_reason: Explicit prerequisite decision unresolved.
+  completion: null
+- id: R1-REL-002-A
+  kind: leaf
+  parent: R1-REL-002
+  order: 1090
+  title: Provision isolated AWS and Vercel environments through Terraform
+  status: blocked
+  owner: runtime
+  stage: 08 Governance and release
+  depends_on:
+  - R1-REL-001-C
+  gates:
+  - GATE-ENVIRONMENTS
+  requirements: *id039
+  spec: docs/implementation/items/R1-REL-002-A.md
+  blocking_reason: Explicit prerequisite decision unresolved.
+  completion: null
+- id: R1-REL-002-B
+  kind: leaf
+  parent: R1-REL-002
+  order: 1100
+  title: Deploy immutable artifacts with migration and rollback controls
+  status: blocked
+  owner: runtime
+  stage: 08 Governance and release
+  depends_on:
+  - R1-REL-002-A
+  gates: []
+  requirements: *id039
+  spec: docs/implementation/items/R1-REL-002-B.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REL-002-C
+  kind: leaf
+  parent: R1-REL-002
+  order: 1110
+  title: Operate telemetry, actionable alerts and delivery recovery
+  status: blocked
+  owner: runtime
+  stage: 08 Governance and release
+  depends_on:
+  - R1-REL-002-B
+  gates: []
+  requirements: *id039
+  spec: docs/implementation/items/R1-REL-002-C.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REL-002-D
+  kind: leaf
+  parent: R1-REL-002
+  order: 1120
+  title: Prove representative capacity and burst recovery
+  status: blocked
+  owner: runtime
+  stage: 08 Governance and release
+  depends_on:
+  - R1-REL-002-C
+  gates: []
+  requirements: *id039
+  spec: docs/implementation/items/R1-REL-002-D.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REL-002-E
+  kind: leaf
+  parent: R1-REL-002
+  order: 1130
+  title: Rehearse disaster recovery and continuity objectives
+  status: blocked
+  owner: runtime
+  stage: 08 Governance and release
+  depends_on:
+  - R1-REL-002-D
+  gates: []
+  requirements: *id039
+  spec: docs/implementation/items/R1-REL-002-E.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REL-003-A
+  kind: leaf
+  parent: R1-REL-003
+  order: 1140
+  title: Assemble the current release evidence and operator handoff
+  status: blocked
+  owner: workflows
+  stage: 08 Governance and release
+  depends_on:
+  - R1-REL-002-E
+  gates: []
+  requirements: *id040
+  spec: docs/implementation/items/R1-REL-003-A.md
+  blocking_reason: Predecessor has not been implemented and verified.
+  completion: null
+- id: R1-REL-003-B
+  kind: leaf
+  parent: R1-REL-003
+  order: 1150
+  title: Record the explicit production go or no-go decision
+  status: blocked
+  owner: workflows
+  stage: 08 Governance and release
+  depends_on:
+  - R1-REL-003-A
+  gates:
+  - GATE-RELEASE
+  requirements: *id040
+  spec: docs/implementation/items/R1-REL-003-B.md
+  blocking_reason: Explicit prerequisite decision unresolved.
+  completion: null

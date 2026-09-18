@@ -8,6 +8,8 @@ The Release 1 work graph is the authoritative implementation queue. Its YAML sou
 
 An agent selects the lowest-order `ready` item. An item is `ready` only when every dependency is `done`, its governing decisions and requirement links resolve, its named inputs exist, and no contradiction affects its scope. If more than one item is ready, the lower numeric order wins unless the graph explicitly declares a safe parallel group.
 
+Schema version 2 distinguishes non-runnable `groups`, runnable leaf `items`, and decision/external `gates`. Preserve each original objective as a group when split. Only leaves participate in selection. A group rolls up its required children; a closed decision issue does not resolve a gate without the reviewed decision/evidence in the graph. The execution projection in `queue-contract.json` must match the authoritative YAML hash and content. The eight milestones are thematic, not an alternate execution order.
+
 Starting a blocked item or a later lifecycle capability because it appears easier is prohibited. Discovery of a missing material decision changes the item to `blocked`, records the exact question, and prevents implementation inference.
 
 ## Status vocabulary
@@ -54,3 +56,5 @@ An item becomes `done` only when:
 5. the traceability manifest maps every affected requirement and artifact;
 6. documentation and the readable roadmap match the YAML graph; and
 7. no unresolved decision or unowned follow-up remains inside the item's accepted objective.
+
+For GitHub delivery, `done` additionally means the actual tested PR head has passed the complete required checks and independent current-head review, its verified change is integrated into `main`, and the controller has reconciled the merge evidence. A PR may propose this state; it is not authoritative completion before integration. Follow the [verification protocol](verification-protocol.md). The [foundation integration decision](gates/GATE-BOOTSTRAP.md) must be resolved before the first leaf can run; no bootstrap exception is currently effective.

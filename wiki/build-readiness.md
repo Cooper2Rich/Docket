@@ -4,7 +4,7 @@
 
 On September 9, 2026, the owner requested deletion of the existing implementation and organization of the requirements and build instructions, without building Docket. Application code, tests, generated contracts, migrations, CI implementation, deployment configuration, dependency installations, caches, and run output have been removed. No application command exists.
 
-The [work graph](../docs/implementation/work-graph.yaml) contains 40 unchanged objectives: zero done, `R1-FND-001` ready, and 39 dependent items blocked. Readiness here means eligible for a separately authorized implementation task, not a running build or proof of completion.
+The [work graph](../docs/implementation/work-graph.yaml) preserves 40 objectives as tracking groups and defines 115 implementation leaves, 460 acceptance IDs and eight decision/external gates. Zero leaves are done or ready. `R1-FND-001-A` is first but blocked by the foundation integration decision. Readiness means eligibility for a separately authorized build, not authorization or proof of completion.
 
 ## Product-document completeness
 
@@ -21,14 +21,16 @@ The owner clarified on September 9, 2026 that PRD means Project Resource Documen
 
 The [previous-build archive](../docs/archive/previous-build/README.md) retains superseded reports and implementation notes. Earlier entries in [[log]] describe that removed implementation. Their passing checks and done statuses do not apply to this reset checkout.
 
-## Implementation issue setup proposal
+## Implementation issue setup
 
-On September 18, 2026, the owner requested recommendations for preparing implementation issues before choosing the setup approach. The [issue setup proposal](../docs/implementation/issue-setup-proposal.md) recommends auditing all 40 objectives, splitting oversized objectives into bounded runnable children, and synchronizing GitHub issues with the authoritative graph. This recommendation is not yet an accepted decomposition.
+On September 18, 2026, the owner chose option B in the [issue setup proposal](../docs/implementation/issue-setup-proposal.md): audit and prepare the whole Release 1 queue, publish its issues and repair the external launcher. This authorizes setup, not application implementation.
 
-The GitHub connector returned no open issues for `Cooper2Rich/Docket` during the audit. The installed external queue runner needs reconciliation with Docket's high-reasoning, no-coding-subagents, concise-output, graph-selection, and CI-evidence requirements. Its existing receipt validation is useful but does not independently ensure that every expected criterion was reported. The proposal records those findings and the bootstrap, review, and coverage work required before execution.
+The [source audit](../docs/implementation/source-audit.md) classifies 2,201 clauses from 63 sources. Detailed leaf specifications, source hashes, exact expected acceptance/check sets, staged command prerequisites and the [verification protocol](../docs/implementation/verification-protocol.md) are now generated. Source ownership is not executed application-test coverage.
 
-No GitHub issues were published and no graph status, application implementation, or external runner was changed. The [Release 1 PRD](../docs/releases/release-1.md) retains its product-only boundary; detailed verification belongs in engineering issue contracts.
+The external launcher now accepts explicit reasoning, subagent-disable and quiet-output parameters. The Docket controller enforces Sol/high, one leaf, complete evidence, exact-head CI/review, protected integration and restart-safe issue reconciliation. Thirty-nine controller/fake-worker tests passed. No real Codex worker or application command ran. All 163 issues, 115 parent links and 122 blocking relationships were published and read back against the local contracts. The [setup report](../docs/implementation/setup-report.md) and [evidence record](../docs/implementation/setup-evidence.json) record the completed setup and its limits.
 
 ## Next concrete objective
 
-The owner selects an issue-setup approach from the proposal, then the selected setup is completed and audited. Only after an explicit build request may the first eligible foundation leaf run under the Sol-only orchestration contract and collect fresh implementation evidence.
+Resolve the protected foundation integration decision and private-repository protection prerequisite, review and integrate the setup change, then obtain an explicit application-build instruction. Read the [launch guide](../docs/implementation/launch-guide.md) before activation. Later gates remain attached to the affected leaves.
+
+The authenticated GitHub API reports this repository is private and rejects both ruleset and branch-protection access with an account-plan upgrade requirement. This is an external build prerequisite; setup must not change repository visibility or weaken the required review and CI policy. A source inventory and an immutable starting-state snapshot are stored outside the repository in the local Docket setup tools directory. They distinguish setup edits from pre-existing uncommitted documentation changes.

@@ -2062,3 +2062,20 @@ The owner clarified that PRD means Project Resource Document: scope, design, req
 - Added the [issue setup proposal](../docs/implementation/issue-setup-proposal.md) with three owner-selectable approaches and a recommendation to audit and decompose the complete release before publishing runnable leaf issues.
 - Recorded the runner's hard-coded extra-high reasoning, permitted subagents, raw output streaming, and completion-receipt limitations, plus the need to reconcile staged bootstrap evidence and protected-branch CI/review before execution.
 - Updated [[build-readiness]] and the index. The recommendation awaits owner selection; no issues were published, runner files changed, work-graph statuses changed, or application implementation started.
+
+## [2026-09-18] operation | Issue setup authorization checkpoint
+
+- The owner selected option B from the [setup proposal](../docs/implementation/issue-setup-proposal.md), authorizing the full audit, decomposition, publication, and external runner repair while retaining the specification-only boundary.
+- Captured the starting revision, current documents, original graph, and 63-source clause inventory outside the repository to preserve pre-existing changes and support an auditable coverage map.
+- Verified GitHub repository administration access. Both ruleset and main-branch protection queries returned an account-plan upgrade requirement for the private repository; recorded this external prerequisite without changing visibility or policy.
+- The next work is to complete the source-to-issue mapping and establish bounded leaf contracts and staged evidence. No implementation run has started.
+
+## [2026-09-18] operation | Implementation issue contracts and controller checkpoint
+
+The owner-selected option B now has 40 preserved groups, 115 leaf specifications, 460 acceptance IDs and eight explicit gates. The engineering source index classifies 2,201 clauses from 63 sources and distinguishes included behavior, mixed/deferred scope, governing references and historical context. Product PRD contents remain unchanged. The external Ralph parameters and Docket controller passed 33 offline and fake-process tests; no real worker or application command ran. GitHub publication is underway with restart-safe mappings. Immediate activation is blocked by the unresolved foundation integration policy and private-repository protection availability. Remaining setup work is publication/read-back, final documentation and a reviewable artifact.
+
+## [2026-09-18] checkpoint | Implementation issue setup complete
+
+Completed owner-selected option B: 115 implementation leaves under all 40 preserved objectives, eight decision/external gates, 460 acceptance IDs, and 2,201 classified source clauses. Published and read back all 163 GitHub issues, 115 native parent links and 122 blocking links across eight milestones. The external Sol/high controller passed 39 tests; no real worker or application command ran. Product PRD and raw sources remain unchanged. See [setup report](../docs/implementation/setup-report.md), [evidence](../docs/implementation/setup-evidence.json), and [[build-readiness]].
+
+Next: resolve the foundation integration policy and private-repository protection restriction, review/integrate the setup, then obtain explicit build authorization. Other decisions and external gates remain on their affected leaves. [Setup review branch](https://github.com/Cooper2Rich/Docket/tree/codex/release-1-issue-setup) preserves pre-existing cleanup separately from the setup changes; the original index/checkout and Obsidian junction are preserved.

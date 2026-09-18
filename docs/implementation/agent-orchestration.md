@@ -19,7 +19,7 @@ One Ralph run owns one runnable work item. A run may not start a later item, bro
 3. Change the selected item from `ready` to `in_progress` and synchronize the readable roadmap.
 4. Implement its complete vertical slice, including code, tests, generated artifacts, documentation, and operational surfaces named by the item.
 5. Change it to `verification`, run every declared evidence command, and repair failures within scope.
-6. Change it to `done` only when the Work Item Contract's done rule is satisfied. Promote only newly unblocked immediate dependents to `ready`.
+6. Propose completion in the item's PR using the external controller. Change the integrated queue to `done` only when the Work Item Contract and independent controller checks confirm the exact tested head, required CI, current-head review and merge. Promote only newly unblocked immediate dependents to `ready`.
 7. Synchronize the roadmap and, once its generator exists, traceability, update relevant durable wiki knowledge, update `wiki/index.md` when its content map changes, and append one dated entry to `wiki/log.md`.
 
 A failed, blocked, or iteration-exhausted run stops the queue. Do not skip ahead.
@@ -37,6 +37,8 @@ A failed, blocked, or iteration-exhausted run stops the queue. Do not skip ahead
 ## Completion signal
 
 `RALPH_LOOP_COMPLETE` is valid only after every declared output and acceptance check passes and the queue, roadmap, traceability, and required wiki checkpoint agree. `RALPH_LOOP_BLOCKED` returns control to the owner with one concrete blocker. Otherwise the run continues within its iteration cap.
+
+The marker hands control to independent verification; it never closes a GitHub issue or proves integration by itself. Use the [verification protocol](verification-protocol.md) and [launch guide](launch-guide.md). Tracking groups and decision issues are never passed to a generic open-issue loop. A stopped item must resume or reconcile before any later leaf starts.
 
 ## Start parameters
 

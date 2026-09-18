@@ -1,0 +1,64 @@
+{
+  "recorded_date": "2026-09-18",
+  "scope": "Owner-selected option B: issue and launcher setup only",
+  "publication": {
+    "issues": 163,
+    "parent_links": 115,
+    "dependency_links": 122,
+    "milestones": 8,
+    "body_hashes_verified": true,
+    "native_relationships_verified": true,
+    "verified_at_utc": "2026-09-18T06:59:55.473657+00:00"
+  },
+  "validation": {
+    "leaves": 115,
+    "groups": 40,
+    "gates": 8,
+    "criteria": 460,
+    "source_rows": 2201,
+    "build_launched": false,
+    "controller_tests": 39,
+    "relative_links_checked": 357,
+    "release_prd_unchanged": true,
+    "application_commands_run": false,
+    "group_ids_preserved": true,
+    "requirements": [
+      "R1-AUTH-001",
+      "R1-COMP-001",
+      "R1-CONS-001",
+      "R1-DATA-001",
+      "R1-LIFE-001",
+      "R1-MSG-001",
+      "R1-OPS-001",
+      "R1-PRIV-001"
+    ],
+    "skill_validation": "passed",
+    "tool_sha256": {
+      "docket_ralph.py": "0b6b9c56ea9561a30d5dd4b719b04dd012140da351e68ac5b24319a4d6481102",
+      "generate_queue.py": "3db89560c8f03de634cd268988235d4c5da1d44563015ce91f4bde1228d69ae3",
+      "publish_queue.py": "b3f52a3e8043cc3be25510ab9338c80d8da7942e04ed5b093f9c777030772051",
+      "ralph-loop.ps1": "501f8256154976510931d56746c85ded7b6b01bbb468d9b0535dffbee4de08e3",
+      "SKILL.md": "a278acf52409336f371dbf805ee4b97efabd77399f488617ff62f4b32c41d61d",
+      "test_docket_ralph.py": "94f49a31d929fbabf706397b5e0017dcb94046c370c24936a968416add457cae",
+      "controller-test-results.txt": "0c1ba3c3e6431b20dd4500346c6efee662e2792f7b4b9e124816be5a83fddf8c"
+    }
+  },
+  "python_version": "3.12.14",
+  "git_version": "git version 2.54.0.windows.1",
+  "review_pr": null,
+  "first_leaf": "R1-FND-001-A",
+  "first_blocker": "GATE-BOOTSTRAP",
+  "immediate_activation_gates": [
+    "GATE-BOOTSTRAP",
+    "GATE-GITHUB"
+  ],
+  "application_implementation_started": false,
+  "real_codex_worker_started": false,
+  "local_tools_directory": "C:\\Users\\CooperRich\\.codex\\tools\\docket-setup",
+  "artifact_sha256": {
+    "queue-contract.json": "060d6a6b50e127f80889eb6a1d3c879119092994ea1f53422fbd560bf6ae22ae",
+    "source-coverage.json": "3134d350d6c57c03b5c940eed01258bdd3d2f07301a2a6c888df8ca7623759d4",
+    "github-issues.json": "f5f53c080799001f7e7f6d4c04437fe1573eaba9afaf9bb4f0e4006450d4cd77",
+    "work-graph.yaml": "acefb68ed7b80492f533793124205f5d6dff34903925188bd07a8e9526b2dfc0"
+  }
+}
