@@ -89,40 +89,40 @@ An explicit pre-lock replacement of a tournament's adopted Ruleset with a differ
 _Avoid_: Automatic update, rules refresh
 
 **Docket Account**:
-An authenticated platform identity linked to exactly one current verified Google Identity Subject, capable of holding independently scoped roles but carrying no authority merely because the Account exists.
-_Avoid_: Google account, user role, School account
+An authenticated platform identity linked to exactly one current Clerk Identity, capable of holding independently scoped roles but carrying no authority merely because the Account exists.
+_Avoid_: Clerk user, Google account, user role, School account
 
 **Docket Display Name**:
-The Account holder's governed public-facing name, distinct from the restricted Google profile name and preserved in a historical publication when used there.
-_Avoid_: Google name, legal name, mutable historical label
+The Account holder's governed public-facing name, distinct from the restricted authentication-profile name and preserved in a historical publication when used there.
+_Avoid_: Clerk profile name, Google name, legal name, mutable historical label
 
 **Basic Docket Account**:
-A self-enrolled Docket Account available to a verified Google user for Competitor, Coach, or Judge onboarding before any School, tournament, assignment, or platform authority is granted.
+A self-enrolled Docket Account available to a verified Clerk user for Competitor, Coach, or Judge onboarding before any School, tournament, assignment, or platform authority is granted.
 _Avoid_: Active Coach, School Membership, staff account
 
-**Google Identity Subject**:
-The accepted Google token issuer plus stable subject identifier used as the authoritative external key for one Docket Account.
-_Avoid_: Email address, display name, hosted domain
+**Clerk Identity**:
+The stable Clerk user identifier accepted as the external authentication key for one Docket Account.
+_Avoid_: Email address, social-provider subject, display name, organization domain
 
 **Docket Session**:
-A time-limited authenticated Docket context established after server validation of a Google identity and governed by ordinary or platform-privileged inactivity and absolute limits.
-_Avoid_: Google session, permanent login, authority grant
+A time-limited authenticated Docket context bound to a server-validated Clerk user and session and governed by ordinary or platform-privileged inactivity and absolute limits.
+_Avoid_: Clerk session alone, Google session, permanent login, authority grant
 
 **Active Role Context**:
 The School, tournament, Judge, or platform role currently selected by an authenticated Account and persistently displayed to determine its visible workspace and authorized command scope.
 _Avoid_: Separate account, combined permissions, impersonation
 
-**Google Reauthentication**:
-A fresh Google-managed sign-in or security challenge required by Docket before a sensitive command, without Docket storing or administering an additional factor.
+**Clerk Reverification**:
+A recent Clerk-verified authentication factor required by Docket before a sensitive command, without Docket storing or administering the factor.
 _Avoid_: Docket MFA, account recovery, role approval
 
-**Google Identity Link Replacement**:
-An evidence-backed replacement of an inaccessible Docket Account's current Google Identity Subject after Google recovery fails, preserving every prior action and grant under the same Docket Account.
-_Avoid_: Google recovery, new account, history transfer
+**Clerk Identity Link Replacement**:
+An evidence-backed replacement of an inaccessible Docket Account's current Clerk Identity after Clerk recovery fails, preserving every prior action and grant under the same Docket Account.
+_Avoid_: Clerk recovery, new account, history transfer
 
 **Platform Identity Review**:
-A restricted evidence and impact-review process for replacing a Google identity link or deactivating a duplicate Docket Account without automatically merging records or rewriting historical actor attribution.
-_Avoid_: Account merge, support edit, Google account recovery
+A restricted evidence and impact-review process for replacing a Clerk identity link or deactivating a duplicate Docket Account without automatically merging records or rewriting historical actor attribution.
+_Avoid_: Account merge, support edit, Clerk account recovery
 
 **Platform Identity Review Decision Record**:
 The content-free retained outcome of an Identity Review after its submitted evidence is deleted, identifying its scope, authority class, reviewers, outcome, and timestamps without preserving identity evidence.
@@ -133,7 +133,7 @@ The affected Account holder's single time-limited request for a new immutable Id
 _Avoid_: Appeal, edited decision, repeated review
 
 **Access Offer**:
-A time-limited private authority offer bound to one verified Google email and one exact School, tournament, or platform scope and placed in the separate Access Inbox, granting nothing until explicit acceptance.
+A time-limited private authority offer bound to any exact email address that Clerk recognizes as verified and to one exact School, tournament, or platform scope, placed in the separate Access Inbox, and granting nothing until explicit acceptance; the address need not be associated with Google social sign-in.
 _Avoid_: Tournament Invitation Page, Invitations section, login link, automatic role
 
 **Access Inbox**:
@@ -193,12 +193,12 @@ The Account holder's self-service package of their own Docket profile, authority
 _Avoid_: Database export, School export, security evidence
 
 **Account Security History**:
-The Account holder's two-year view of sign-ins across devices, Google Reauthentication, suspension status, and completed Account exports.
+The Account holder's two-year view of sign-ins across devices, Clerk Reverification, suspension status, and completed Account exports.
 _Avoid_: Full audit log, session log, identity evidence
 
 **Voluntary Account Deactivation**:
 An Account holder's seven-day-cancellable request for an irreversible end of future Docket access after every exclusive duty is transferred, while independently retained tournament history and actor attribution remain intact.
-_Avoid_: Record deletion, suspension, Google account deletion
+_Avoid_: Record deletion, suspension, Clerk account deletion
 
 **Platform Administrator**:
 A Docket operator with cross-tournament authority for platform support and governance.
@@ -385,7 +385,7 @@ The current restricted operational summary of a valid Event Qualification used f
 _Avoid_: Qualification History Summary, assessment transcript, Effective Tournament Tier
 
 **Tournament Tier Grant**:
-An attributed discretionary authorization by a Tournament Director or Judge-and-room-authorized Tabulation Staff member that gives a Judge any higher assignment tier only for the current tournament and event, even after a nonpassing assessment or failed Critical Competency Item.
+An attributed discretionary authorization available only after a verified assessment attempt that gives a Judge any higher assignment tier for the current tournament and event, even after a nonpassing result or failed Critical Competency Item.
 _Avoid_: Event Qualification edit, platform score change
 
 **Effective Tournament Tier**:
@@ -600,6 +600,10 @@ _Avoid_: Automatic rewrite, warning only
 A human-readable public notice stating the previous and corrected public values, competitive or operational effect, and required participant action while withholding internal versions, fingerprints, actors, exact timestamps, evidence, notes, and audit details.
 _Avoid_: Full correction record, silent update, deleted history
 
+**Public Publication Withdrawal**:
+An authorized privacy, safety, or legal removal of published material from current discovery that preserves restricted provenance, audit, and any independently retained competitive history.
+_Avoid_: Ordinary edit, silent deletion, outcome rewrite
+
 **Final Results Draft**:
 An immutable, validated calculation of tournament placements and awards whose placement- and award-affecting competitive sources are complete and versioned but which is not yet approved or public.
 _Avoid_: Published results, editable award list, standings snapshot
@@ -797,7 +801,7 @@ A private, tournament-independent, event-specific Docket area whose mock rounds,
 _Avoid_: Event Workspace, unpublished official round, test fixture
 
 **Practice Invitation**:
-An email-link invitation granting its exact Google-authenticated Account recipient access to one Practice Workspace session without School approval, School affiliation, or tournament authority. It expires after seven days or when the session ends, whichever occurs first.
+An email-link invitation granting the Docket Account with the exact invited verified email address access to one Practice Workspace session without School approval, School affiliation, or tournament authority. The recipient must authenticate through Clerk before acceptance. It expires after seven days or when the session ends, whichever occurs first.
 _Avoid_: Competitor School Invitation, Access Offer, tournament Entry
 
 **Practice Session Owner**:
@@ -893,7 +897,7 @@ The historical Entry, roster-as-operated, Pairing, School-directed notice, autho
 _Avoid_: Competitor's complete personal history, opponent-private record, School investigation file
 
 **Represented-School Data Export**:
-A Docket-generated, School-scoped set of CSV or PDF files built from an authorized actor's explicit checklist of retained represented-School records; ZIP is only a container for multiple files or oversized output.
+A later-release Docket-generated, School-scoped set of CSV or PDF files built from an authorized actor's explicit checklist of retained represented-School records; ZIP is only a container for multiple files or oversized output.
 _Avoid_: Requested packet, Account Data Export, public tournament archive, unrestricted School dump
 
 **School Export Selection**:
@@ -901,7 +905,7 @@ The saved choice of record categories, filters, date range, and CSV or PDF forma
 _Avoid_: Packet request, database query, public report configuration
 
 **School Data Export Permission**:
-The single School-scoped authority held by the School Manager by default and grantable only by that Manager to selected current Coaching Staff for creating and downloading already-authorized Represented-School Data Exports.
+The later-release School-scoped authority design held by the School Manager by default and grantable only by that Manager to selected current Coaching Staff for creating and downloading already-authorized Represented-School Data Exports.
 _Avoid_: General Coaching Staff access, School Manager transfer, tournament export authority
 
 **School Export Grant**:
@@ -949,7 +953,7 @@ The School-scoped view that organizes retained Represented-School Tournament Rec
 _Avoid_: Public results search, Competitor personal history, private Feedback index
 
 **School Export History**:
-The two-year metadata view in which a School Manager sees all School exports and an export-permissioned Coaching Staff member sees only their own generation and delivery activity, with separate governed privacy and audit access.
+The later-release two-year metadata-view design in which a School Manager sees all School exports and an export-permissioned Coaching Staff member sees only their own generation and delivery activity, with separate governed privacy and audit access.
 _Avoid_: Export contents, unrestricted Coaching Staff activity feed, public download log
 
 **Practice Panel Result**:
@@ -986,7 +990,7 @@ _Avoid_: Entry withdrawal, historical deletion, School Transfer
 
 **Minor Participation Authorization**:
 A one-school-year School attestation that every applicable School, tournament, and jurisdictional permission and consent requirement is satisfied before a minor Competitor accepts affiliation or participates.
-_Avoid_: Google authentication, guardian dossier, full birth date
+_Avoid_: Authentication, guardian dossier, full birth date
 
 **Judge Conflict**:
 A verified hard Judge-assignment constraint submitted for a Competitor or Entry only by that Competitor's Coach.

@@ -1728,3 +1728,317 @@ This file is append-only. Each entry records a completed wiki operation.
 - Recommended capability-based packages and one working registration path before extending the tournament lifecycle.
 - Clarified that module-owned writes can share one PostgreSQL transaction; the earlier unanswered separate-commit-only proposal is not an accepted requirement.
 - Distinguished compile-time ownership aids from runtime permissions and retained idempotent handling of external effects.
+
+## [2026-09-07] query | Build determinism readiness
+
+- Audited the tracked repository from the wiki index through the product context, backend architecture, roadmap, ADRs, and current build surfaces.
+- Determined that Docket has extensive domain decisions but lacks one authoritative requirement-to-interface-to-test path, an accepted concrete stack, executable contracts, a reproducible workspace, and deployment runbooks.
+- Recorded stale and contradictory decision markers, including the cross-module transaction rule, and identified unresolved release questions that must be accepted or explicitly deferred.
+- Flagged the untracked `.reference/` and `osbuild/` trees as provenance and search-noise risks until the repository classifies or excludes them.
+- Added [[build-readiness]] with the minimum authoritative build packet, recommended implementation order, and deterministic readiness gate.
+
+## [2026-09-07] decision | Build authority, Release 1, stack, and reference policy
+
+- Accepted `BUILD.md` as the build entry point and fixed subject-specific source authority, explicit supersession, and conflict-blocking rules.
+- Scoped Release 1 to the smallest operable United States high-school Lincoln-Douglas tournament lifecycle and explicitly deferred adjacent products.
+- Accepted Node.js 24 LTS, strict ESM TypeScript, pnpm, Nx, Fastify with TypeBox and generated OpenAPI, Kysely with `pg`, pg-boss, Vitest with Testcontainers, and Playwright in ADR 0032.
+- Reaffirmed module-local cross-module commits with orchestration, durable events, and compensation, superseding the contradictory shared-transaction activity-log sentence.
+- Required immutable public corrections, governed privacy/safety/legal discovery withdrawal, verified assessment attempts before local tier grants, and preaccepted same-role Practice Standbys for live vacancies.
+- Classified `.reference/Tabroomv4` as immutable nonnormative research, recorded its provenance and checksum, excluded it from routine searches, and classified `osbuild/` as disposable generated output.
+
+## [2026-09-07] decision | Development, product experience, and AWS operations
+
+- Accepted a Corepack and pinned-pnpm development contract with one bootstrap command, Docker Compose PostgreSQL, MinIO, and Mailpit, a production-rejected fixed identity adapter, deterministic fixtures, Testcontainers, runtime environment validation, and GitHub Actions parity.
+- Selected server-rendered React with React Router framework mode and Vite, generated OpenAPI clients, Docket-owned design tokens, accessible headless primitives, WCAG 2.2 AA, required failure and recovery states, and current-plus-previous evergreen browser support.
+- Selected Terraform-managed AWS with CloudFront, WAF, an Application Load Balancer, independently scaled ECS Fargate processes, Multi-AZ RDS PostgreSQL, encrypted versioned S3, SES, Secrets Manager, KMS, and OpenTelemetry into CloudWatch.
+- Required GitHub Actions deployment through short-lived AWS OIDC credentials and separate development, staging, and production environments.
+- Added ADRs 0033 and 0034 plus the Development, Product Experience, and Release 1 Operations contracts; deferred actual scaffolding until the complete design interview is confirmed.
+
+## [2026-09-07] decision | Repository and module map
+
+- Accepted separate web, API, worker, and migration applications plus deep identity-access, Schools, tournaments, registration, competition, publication, communications, governance, and workflow modules.
+- Kept scheduling, Judge Pool, assignment, Pairing, Ballot, standings, advancement, award, and result behavior as internal competition modules until a real independent interface or adapter justifies extraction.
+- Added domain-agnostic contracts, database, runtime, observability, and testkit foundations with explicit dependency direction and one authoritative data owner per table and artifact.
+- Required one deliberate public interface per domain module and prohibited cycles, cross-module implementation imports, foreign table writes, framework types in domain interfaces, and generic shared/common/utils packages.
+- Added ADR 0035 and the accepted [Repository and Module Map](../docs/architecture/repository-map.md).
+
+## [2026-09-07] decision | Executable contracts and Release 1 quality gates
+
+- Made each owning module's TypeBox and TypeScript definitions authoritative for commands, queries, outcomes, events, errors, authorization, projections, and transitions while keeping PostgreSQL migrations and constraints authoritative for persistence.
+- Required generated checked-in OpenAPI, JSON Schema, clients, matrices, diagrams, and documentation; versioned JSON golden vectors; and a machine-readable requirement traceability manifest.
+- Made generated drift, untraced requirements, untested transitions or authorization cells, incompatible contract evolution, and missing stored-payload migration or upcasting CI blockers.
+- Accepted a reference profile of 100 active tournaments, 20,000 Sessions, 1,000 requests per second, 100 critical writes per second, a 30-minute sustained run, and a five-minute two-times burst.
+- Fixed read and command latency, outbox and notification timing, active and ordinary availability, recovery, security, accessibility, compatibility, queue-drain, and data-integrity gates.
+- Added ADRs 0036 and 0037, the [Executable Domain Contract](../docs/contracts/executable-contracts.md), and the [Release 1 Quality Gates](../docs/quality/release-1-gates.md).
+
+## [2026-09-07] decision | Agent-runnable Release 1 work graph
+
+- Accepted one machine-readable dependency graph with a deterministic lowest-order-ready selection rule and only blocked, ready, in-progress, verification, and done states.
+- Decomposed Release 1 into forty ordered vertical slices from monorepo scaffolding through production promotion, with one ready item and explicit dependencies for every later item.
+- Required every item to name requirements, ownership, inputs, outputs, interfaces, schemas, tables, events, errors, audiences, risks, and exact acceptance evidence.
+- Required one bounded Codex session and reviewable change per runnable item, mandatory decomposition when that limit is exceeded, and complete traceability and verification before done.
+- Added [the authoritative YAML work graph](../docs/implementation/work-graph.yaml), its [readable roadmap](../docs/implementation/work-graph.md), and the [Work Item Contract](../docs/implementation/work-item-contract.md).
+- Marked `R1-FND-001` as the sole ready implementation item and left actual scaffolding gated on final shared-understanding confirmation.
+
+## [2026-09-07] decision | shadcn/ui frontend foundation
+
+- Required shadcn/ui for the Docket frontend while retaining the accepted React Router framework-mode and Vite delivery model.
+- Fixed the initial configuration to Base UI, `base-nova`, Tailwind CSS v4, a neutral base, semantic CSS variables, Lucide icons, TypeScript, and no React Server Components.
+- Required checked-in Docket-owned component source and `components.json`, a pinned CLI, reviewed registry updates, and continued WCAG 2.2 AA verification.
+- Updated ADR 0033, the Product Experience and Development contracts, the repository map, and `R1-FND-001` so the scaffold cannot substitute another UI foundation or invoke an unpinned generator.
+
+## [2026-09-07] checkpoint | Budgeted multi-agent build setup
+
+- Added project-scoped Codex configuration with two concurrent subagent slots and a low-effort Luna default.
+- Added bounded scout, builder, verifier, and high-risk reviewer profiles with concise evidence handoffs and explicit write boundaries.
+- Added a single-writer orchestration contract that defaults to one builder, caps ordinary delegation at two subagents, and escalates model strength only for named risk or repeated failure.
+- Recorded that subagents protect coordinator context and can route work to lower-cost models but do not guarantee lower total token consumption.
+- Left `R1-FND-001` ready and implementation unstarted pending owner confirmation of this draft.
+
+## [2026-09-07] decision | Sol coordinator with five Luna coders
+
+- Superseded the scout, Spark builder, Luna verifier, and Terra reviewer draft with one GPT-5.6 Sol coordinator at high reasoning and five separate GPT-5.6 Luna coding agents at medium reasoning.
+- Raised the project subagent concurrency setting to five and required Sol to assign exclusive paths, concrete outputs, checks, dependencies, and completion checklists before dispatch.
+- Required every Luna to write its assigned code and tests, run assigned checks, and report checked and unchecked items to Sol.
+- Kept work-graph status, wiki state, shared lockfiles, integration, approvals, and final acceptance under Sol's sole authority.
+- Added initial five-lane ownership for `R1-FND-001` while allowing dependency waves when simultaneous execution is unsafe or the active client exposes fewer than five subagent slots.
+
+## [2026-09-07] decision | Sol-only Ralph implementation
+
+- Superseded the five-Luna coding plan before implementation began.
+- Disabled project subagents and selected GPT-5.6 Sol at high reasoning as the sole implementation and verification model.
+- Required one dependency-ordered work-graph item per bounded Ralph run, with queue progression stopping on a blocker, failure, or exhausted iteration cap.
+- Recorded the owner's authorization to begin Release 1 with `R1-FND-001`.
+
+## [2026-09-07] decision | Ralph context ceiling
+
+- Raised the reusable Ralph session context window ceiling from 200,000 to 275,000 tokens.
+- Set automatic compaction at 250,000 tokens to preserve a 25,000-token completion margin.
+- Applied the same limits to Docket's project configuration and repaired the Ralph runner's incompatible approval and sandbox flag combination.
+
+## [2026-09-07] correction | Ralph context ceiling
+
+- Superseded the temporary 275,000-token setting before the first work item completed.
+- Restored the Ralph hard context ceiling to 200,000 tokens and automatic compaction threshold to 180,000 tokens.
+- Retained the runner compatibility repair that allows automatic review to select its workspace-write sandbox.
+
+## [2026-09-07] correction | Non-compacting Ralph sessions
+
+- Superseded the 200,000-token Ralph window before the first work item completed.
+- Set each fresh Ralph session to a 180,000-token hard context window.
+- Set the automatic-compaction trigger to an unreachable 200,000 tokens so a session ends instead of compacting, while durable progress remains available to the next fresh iteration.
+
+## [2026-09-07] checkpoint | R1-FND-001 scaffold blocked on registry access
+
+- Added the pinned pnpm/Nx strict-ESM workspace configuration, four required application shells, fourteen deliberate package export seams, formatting and linting configuration, dependency enforcement, and the mandatory shadcn/ui Base UI `base-nova` web foundation.
+- Verified offline that the workspace topology and ADR 0033 `components.json` assertions pass, the current production import scan passes, the prohibited foundation-to-domain fixture is rejected, and the non-web TypeScript shells compile strictly.
+- Recorded that bundled pnpm dependency installation and direct HTTPS checks could not connect to npm registries, preventing deterministic lockfile generation and the required frozen install, Nx build/check, and UI render/accessibility evidence.
+- Kept `R1-FND-001` in progress and `R1-FND-002` blocked; the next action is to restore registry connectivity and complete every named acceptance check before advancing the work graph.
+
+## [2026-09-07] checkpoint | R1-FND-001 scaffold completed
+
+- Replaced invalid or incompatible pins with published, mutually compatible `@eslint/js@10.0.1` and TypeScript 6.0.2 while retaining `typescript-eslint@8.69.0`; generated the pnpm 11.19.0 lockfile and exact dependency build-script allowlist.
+- Verified the frozen dependency reconstruction without lockfile drift, successful strict workspace and server-rendered web builds, byte-identical output across two clean uncached builds, and the complete `pnpm check` chain.
+- Verified that the prohibited foundation-to-domain fixture fails, `components.json` matches ADR 0033, and the checked-in shadcn Base UI button passes render and WCAG 2.2 AA automated accessibility smoke evidence.
+- Verified the Windows-safe `pnpm bootstrap` implementation and the documented `pnpm ui:add -- <component>` separator path to the pinned local shadcn CLI.
+- Marked `R1-FND-001` done, promoted only `R1-FND-002` to ready, synchronized the readable roadmap and build guide, and retained all later work as blocked by dependency order.
+
+## [2026-09-07] checkpoint | R1-FND-002 infrastructure implementation blocked on Docker Desktop
+
+- Implemented exact-version PostgreSQL, MinIO, and Mailpit Compose services with health checks, named volumes, reset/status commands, and idempotent local bucket initialization.
+- Added fail-fast TypeBox runtime configuration, safe stable errors, nonproduction adapter guards, ordered lifecycle and graceful shutdown, dependency readiness and process liveness, and deterministic clock and UUIDv7 test adapters.
+- Verified frozen installation, build, daemon-independent Compose configuration, full repository checks, environment negative paths, production fixed-identity rejection, and all 15 unit/accessibility tests across 6 files.
+- Recorded that Docker Desktop 4.87.0 crashes on an inaccessible stale `sailor-ingest.sock` reparse point before starting its Linux engine, which prevents the required live Compose bootstrap evidence.
+- Marked `R1-FND-002` blocked, kept `R1-FND-003` blocked, and recorded the exact continuation in [the item evidence](../docs/archive/previous-build/evidence/R1-FND-002.md).
+
+## [2026-09-07] checkpoint | R1-FND-002 infrastructure completed
+
+- Verified Docker Desktop's Linux engine, then passed `pnpm bootstrap` through frozen install, runtime validation, healthy PostgreSQL, MinIO, and Mailpit startup, idempotent bucket initialization, migration, and fixture seams.
+- Confirmed all three pinned services healthy on their documented ports and stopped them with `pnpm infra:down` while preserving named volumes.
+- Re-ran the production build, full repository check, and all test tiers; formatting, lint, strict types, boundary checks, configuration assertions, and all 15 tests passed.
+- Marked `R1-FND-002` done, promoted only `R1-FND-003` to ready, and synchronized the work graph, build guide, development contract, item evidence, and build-readiness checkpoint.
+
+## [2026-09-07] checkpoint | R1-FND-003 migration infrastructure completed
+
+- Added one globally ordered forward migration plan assembled from package-owned declarations, with checksummed metadata, SQL target ownership validation, and adjacent-release compatibility enforcement.
+- Added the transactional PostgreSQL runner, advisory lock, append-only `platform_migration_journal`, durable `MigrationApplied` records, and stable `MIGRATION_OWNER_INVALID`, `MIGRATION_ORDER_INVALID`, and `SCHEMA_INCOMPATIBLE` failures.
+- Added the isolated `TestDatabase` Testcontainers harness and passed empty-to-head, previous-to-head, forbidden-owner, and repeat-execution evidence; the live release entry point also applied two then skipped two migrations.
+- Passed frozen installation, build, full check, and all declared test tiers; marked `R1-FND-003` done, promoted only `R1-FND-004` to ready, and synchronized build, development, roadmap, evidence, and wiki state.
+
+## [2026-09-07] checkpoint | R1-FND-004 contract generation completed
+
+- Added the `@docket/contracts` source model and one deterministic generator seam for OpenAPI, JSON Schema, TypeScript client, matrices, diagrams, errors, field references, vector indexes, artifact ownership, and release-wide traceability.
+- Added stable drift, missing-trace, unowned-artifact, and compatibility failures plus negative evidence for each enforcement boundary and two-run byte identity.
+- Passed frozen installation, build, full check, 23 unit/accessibility tests, 2 isolated PostgreSQL integration tests, and the reserved end-to-end tier.
+- Marked `R1-FND-004` done, promoted only `R1-FND-005` to ready, and synchronized generated traceability, build, development, roadmap, evidence, and wiki state.
+
+## [2026-09-07] checkpoint | R1-FND-005 required GitHub checks completed
+
+- Added eleven stable GitHub branch-protection contexts with frozen installation and exact local-command parity for build, checks, all test tiers, contracts, migrations, security, accessibility, and immutable build artifacts.
+- Added executable CI policy enforcement with missing-job and command-drift negatives for every check, immutable action pins, read-only workflow permissions, exact Node and pnpm versions, lockfile-keyed pnpm-store caching, and seven-day artifact retention.
+- Cleared all dependency findings through the compatible Nx 23.2.0 update and patched `qs` resolution; the final audit reported no known vulnerabilities.
+- Passed the complete `pnpm ci:full` sequence, including 29 unit tests, 2 Docker-backed PostgreSQL integration tests, the reserved end-to-end tier, one dedicated accessibility test, and deterministic hashing of 135 deployable files.
+- Marked `R1-FND-005` done, promoted only `R1-IDA-001` to ready, and synchronized branch-protection documentation, evidence, build guidance, generated traceability, roadmap, and wiki state.
+
+## [2026-09-07] checkpoint | R1-IDA-001 identity implementation awaiting PostgreSQL verification
+
+- Implemented server-validated Google OIDC and production-forbidden fixed identities, stable Docket Accounts, opaque hashed Sessions with expiry and concurrency policies, secure Fastify cookie routes, generated contracts and client, and live accessible sign-in and session-management screens.
+- Passed frozen installation, production build, the full repository check with 55 unit tests, six dedicated accessibility tests, the security high-severity threshold, the reserved end-to-end tier, and hashing of 176 production artifacts.
+- Added PostgreSQL persistence and concurrency tests, but confirmed this host has no Docker CLI, Docker Desktop, Podman, nerdctl, or compatible Testcontainers runtime; the four integration tests cannot start.
+- Kept `R1-IDA-001` in verification and `R1-IDA-002` blocked. The next action is to install and start a compatible container runtime, then pass `pnpm test:integration` and `pnpm ci:full` before advancing the work graph.
+
+## [2026-09-07] checkpoint | R1-IDA-001 identity and Session slice completed
+
+- Reproduced PostgreSQL's rejection of the NUL-delimited advisory-lock text and replaced it with deterministic, boundary-safe, NUL-free namespaced tuple encoding.
+- Added focused encoding invariants and passed all 56 unit tests plus all four Docker-backed PostgreSQL persistence, concurrency, and migration tests.
+- Passed the complete `pnpm ci:full` sequence, including contracts, migrations, the configured security threshold, six accessibility tests, and verification of 176 production artifacts.
+- Marked `R1-IDA-001` done, promoted only `R1-IDA-002` to ready, and synchronized evidence, build guidance, roadmap, traceability inputs, and durable wiki state.
+
+## [2026-09-07] checkpoint | R1-IDA-002 Active Role Context and authorization core completed
+
+- Added versioned scoped Authority Grants, independent per-tab Active Role Contexts, current server-side authorization without permission blending, durable stale and revoked context destruction, and attributed authority audit events.
+- Added one-at-a-time privileged Sessions with 30-minute inactivity and 12-hour absolute limits, identity-matched ten-minute reauthentication evidence, generic denial errors, and PostgreSQL concurrency coverage.
+- Added Fastify context and reauthentication routes, generated client operations, stable tab identifiers, persistent accessible role and scope UI, unsaved-work blocking, context-cache destruction, and immediate privileged-session termination.
+- Passed the final full CI-equivalent gate with two 79-test unit passes, five Docker-backed integration tests, seven accessibility checks, four migrations, 30 generated contract artifacts, security policy, and 178 production artifacts; coverage includes nonreviving grants and terminated-context cleanup.
+- Marked `R1-IDA-002` done, promoted only `R1-SCH-001` to ready, and synchronized evidence, build guidance, roadmap, traceability, and durable wiki state.
+
+## [2026-09-07] checkpoint | R1-SCH-001 School authority awaiting PostgreSQL verification
+
+- Implemented canonical and Provisional Schools, normalized aliases, explicit Membership authority, one-Manager enforcement, exact-email seven-day offers, first-terminal-action concurrency, atomic accepted Manager succession, API routes, generated contracts/client, and accessible Manager and recipient flows.
+- Passed 84 unit tests, nine accessibility tests, formatting, lint, type, boundary, configuration, migration-plan, contract, production-build, reserved end-to-end, and 205-artifact checks. Added PostgreSQL Manager and offer race evidence, but this host currently exposes no working Docker/Testcontainers strategy.
+- Kept `R1-SCH-001` in verification and `R1-SCH-002` blocked. The next action is to restore a container runtime and pass `pnpm test:integration` plus `pnpm ci:full`.
+
+## [2026-09-07] checkpoint | R1-SCH-001 School authority completed
+
+- Restored Docker-backed Testcontainers execution and corrected the shared migration harness to include the fifth School migration in empty-to-head, previous-to-head, repeat, and journal expectations.
+- Passed six isolated PostgreSQL tests across three files, including exactly-one-Manager and first-terminal offer races, then passed the complete `pnpm ci:full` gate with 84 unit tests, nine accessibility tests, five migrations, 43 contract artifacts, the configured security threshold, and 205 build artifacts.
+- Marked `R1-SCH-001` done, promoted only `R1-SCH-002` to ready, and synchronized evidence, build guidance, roadmap, generated traceability, and durable wiki state.
+
+## [2026-09-07] review | R1-SCH-001 strict code-quality hold
+
+- A parallel Standards and Spec review found that Manager succession is not atomic across the separately committed Identity grant and School Membership transactions, contradicting the completion evidence.
+- Found missing or partial durable-event contracts, idempotency, authorization and audience matrices, duplicate and domain-inference tests, School creation and verification web flows, keyboard behavior evidence, and package-interface encapsulation.
+- Recorded a review hold in [[build-readiness]] without changing implementation code or the authoritative work graph; the implementation owner must repair, reverify, and reconcile item status before later-item eligibility is trusted.
+
+## [2026-09-07] checkpoint | R1-SCH-002 Competitor School Affiliation
+
+- Implemented exact-email seven-day affiliation invitations, exact-recipient first-terminal acceptance, one-current-affiliation transfer history, same-tournament conflict rejection, deferred termination, stable events/errors, audience-safe projections, migration 000006, Fastify routes, generated contracts/client, fixture Accounts, and an accessible web flow.
+- Passed `pnpm check` with 93 unit tests across 21 files plus the production build, 10-test accessibility gate, reserved end-to-end tier, source-security scan, and 206-artifact check; repaired the contract generator fixture and six-migration TestDatabase expectations.
+- Kept `R1-SCH-002` in verification and `R1-TRN-001` blocked because this host has no Testcontainers-compatible runtime and the registry-backed dependency audit requires explicit approval for dependency-metadata egress. The separate `R1-SCH-001` review hold remains unresolved.
+
+## [2026-09-08] repair and reverify | R1-SCH-001 canonical Schools and Membership authority
+
+- Replaced split Identity/School Manager updates with a role-neutral Identity School selector and transaction-authoritative School Membership roles; added late-failure and PostgreSQL concurrency evidence for atomic exactly-one-Manager succession.
+- Added durable contracts and transactional persistence for `SchoolCreated`, `SchoolVerified`, `SchoolMembershipGranted`, and `SchoolManagerChanged`, plus client-stable command receipts with replay, conflict, concurrency, and bearer-token non-replay guarantees.
+- Completed Platform-administrator, School staff, Manager, exact-recipient, audit, foreign-School, non-member, normalized-duplicate, and domain-inference evidence; added the governed creation/verification UI and keyboard/WCAG coverage for every R1-SCH-001 flow.
+- Restored the deliberate package boundary, retaining only the checked contract-source tooling seam outside the runtime root API, and generated 58 deterministic artifacts against seven migrations.
+- Passed `pnpm ci:full`: frozen install, build, all static and policy checks, two 108-test unit passes, 8 PostgreSQL tests, reserved e2e, security with two moderate and no high findings, 17 accessibility tests, and 219 immutable artifacts. Restored `R1-SCH-001` to done while leaving `R1-SCH-002` in verification and every later item blocked.
+
+## [2026-09-08] repair and complete | R1-SCH-002 Competitor School Affiliation
+
+- Added client-stable idempotency receipts to every affiliation mutation, executable contracts for all three affiliation events, and PostgreSQL lock ordering that serializes acceptance and revocation without cross-resource deadlock.
+- Kept pending termination visible and finalizable, minimized Manager mutation responses to the authorized School, and required explicit keyboard-accessible confirmation for affiliation transfer and termination.
+- Passed `pnpm ci:full`: frozen install, build, all static and policy checks, two 111-test unit passes, 8 PostgreSQL tests, reserved e2e, 62 contracts, security with two moderate and no high findings, 18 accessibility tests, and 219 immutable artifacts.
+- Marked `R1-SCH-002` done, promoted only `R1-TRN-001` to ready, and synchronized evidence, build guidance, roadmap, generated traceability, and durable wiki state.
+
+## [2026-09-08] checkpoint | R1-TRN-001 authorized Tournament creation
+
+- Implemented UUIDv7 Draft Tournament creation with IANA timezone validation and an atomically matching sole Owner, plus exact-email Director and staff offers and explicit delegated permission bundles.
+- Added migration 000008, transactional events and client-stable receipts, PostgreSQL and in-memory adapters, Fastify routes, generated contracts and client methods, and accessible creation, management, delegation, and offer screens.
+- Passed `pnpm ci:full` with two 120-test unit runs, 10 isolated PostgreSQL tests, 21 accessibility tests, 78 deterministic contracts, eight migrations, security policy, and 246-artifact verification.
+- Marked `R1-TRN-001` done, promoted only `R1-COM-001` to ready, and synchronized evidence, build guidance, roadmap, traceability, and durable wiki state.
+
+## [2026-09-08] operation | R1-COM-001 transactional notification delivery
+
+- Implemented source-owned transactional outboxes for School and Tournament access offers, leased pg-boss dispatch, idempotent communications persistence, Mailpit and SES delivery, three retry cycles over 24 hours, escalation, and restricted Account inbox projection and UI.
+- Added migrations 000009 through 000011, executable schemas, events, operations, authorization and error contracts, Fastify and generated-client seams, worker production composition, and privacy-safe context routing.
+- Passed `pnpm ci:full`: two 129-test unit passes, 11 PostgreSQL tests, 22 accessibility tests, 90 deterministic contracts, 11 migrations, security with two moderate and no high findings, reserved e2e, and 291 immutable artifacts.
+- Marked `R1-COM-001` done, promoted only `R1-REG-001` to ready, and synchronized evidence, build guidance, roadmap, traceability, index, and durable Ralph state.
+## [2026-09-08] repair | Ralph context isolation
+
+- Added a repository-owned Ralph skill whose wrapper launches a fresh child process per iteration and enforces context rotation with event-volume, completed-event, elapsed-time, and checkpoint-grace boundaries.
+- Moved raw JSON and stderr into per-iteration run logs so supervising Codex tasks receive only concise lifecycle messages.
+- Routed the Release 1 sequencer and project instructions to the repository wrapper, superseding the stale user-level runner for Docket builds.
+
+## [2026-09-09] checkpoint | Repository navigation and implementation skill readiness
+
+- Audited the current folder, build entry points, authoritative queue, package interfaces, repository-owned Ralph workflow, and relevant installed skill assumptions; saved the findings in [[repository-navigation]].
+- Verified four applications and fourteen packages with the topology check and 104 deterministic generated artifacts with the contract check. Full release verification and child-session execution were not run.
+- Reconciled stale build-guide and wiki summaries with both work-graph files and the R1-REG-001 evidence record: registration is in verification, with 11 items done and 28 later items blocked. Resume its verification and required repair before promoting another item.
+- Added build navigation to README.md and recorded the generic PRD/review workflow mismatches, untracked implementation files, and dependency-cache ignore gap. Preserved the existing working tree and the Obsidian junction.
+- Verified all 100 checked local navigation links. Recorded a package-manager executable-resolution issue: `pnpm exec prettier` failed, while its direct Node entry point ran; full build-environment readiness remains unverified.
+
+
+## [2026-09-09] reset and organize | Requirements-only Docket repository
+
+- The owner requested deletion of the existing implementation while preserving requirements and build instructions, and explicitly directed that Docket not be built.
+- Removed application code, tests, generated contracts, migrations, manifests and lockfile, infrastructure and CI implementation, caches, dependency installations, old run output, cached comparison code, and obsolete Luna profiles. A rejected bulk permanent-deletion command made no changes; recoverable Recycle Bin deletion was used instead.
+- Preserved the curated raw source, Release 1 requirements, all ADRs, domain vocabulary and model decisions, build and quality contracts, repository-owned skill tooling, Sol-only configuration, Git metadata, and the Obsidian junction. Retained former dependency pins as bootstrap instructions.
+- Reset the unchanged 40 work objectives to R1-FND-001 ready and 39 dependents blocked. Earlier done states and passing checks describe the deleted implementation and are superseded for current readiness.
+- Consolidated local skills under .agents/skills/, added a documentation map and skill reading path, moved prior evidence to the marked previous-build archive, and repaired affected navigation links. Historical log prose remains intact; relocated evidence links now point to the archive.
+- Updated the vault home and index to link directly into Docket's repository-owned start page and knowledge index. All Docket Markdown remains inside the repository. No application was scaffolded, installed, built, tested, deployed, or launched.
+- Next concrete objective, only after a separate build request: implement R1-FND-001 through the repository-owned Sol/Ralph workflow and collect fresh evidence.
+- Final verification: all 35 removal targets are absent; the graph and roadmap agree on 40 items with one ready and 39 blocked; 201 relative document links and 726 wiki links resolve; every wiki page is indexed; all 37 ADRs and 11 superseded evidence reports remain; curated-source and Ralph-launcher hashes are unchanged; the original junction and vault links resolve. Temporary cleanup utilities were removed after verification.
+
+
+## [2026-09-09] checkpoint | Project Resource Document boundary
+
+The owner clarified that PRD means Project Resource Document: scope, design, required behavior, and capacity/capability targets. Removed testing procedures, software-test implementation requirements, test-evidence completion criteria, and testing-tool prescriptions from the release resource document and its active product-design summaries. Recast the quality document as capability targets while retaining the quantitative workload, latency, availability, and recovery thresholds. Updated the experience contract, project context, wiki index, build-readiness distinction, and agent/skill routing so generic PRD runnable-test conventions do not recur. Separate engineering instructions remain outside the PRD. Historical decision records and immutable raw sources were preserved. No application or testing software was built or run; product design remains the current work.
+
+## [2026-09-12] research | Tabroom architecture investigation
+
+- Inspected pinned legacy Tabroom and Tabroomv4 revisions across schema, models, queries, routes, authentication, authorization, storage, queues, API generation, and frontend integration.
+- Recorded the evidence-backed architecture, entity and API inventories, Clone/Emulate/Restructure comparison, compatibility boundary, risks, and phased strategy in the [full investigation](../docs/research/tabroom-architecture-investigation.md).
+- Added [[tabroom-reference-architecture]] as the durable nonnormative synthesis. Recommended Restructure with bounded Emulation, consistent with existing Docket ADRs; no requirement, ADR, work-graph item, or implementation was changed.
+
+## [2026-09-12] research | Tabroom data clone capacity and workload
+
+- Measured both source checkouts, the 108-table schema, and the checked-in Tabroomv4 test database; distinguished fixture rows and cumulative identity counters from unknowable live production row and byte counts.
+- Recorded relational and object-storage sizing methods, cloud-versus-local guidance, accessibility and retrieval boundaries, source-acquisition requirements, migration architecture, staffing, workload ranges, and phased feasibility gates in the [capacity and workload report](../docs/research/tabroom-data-clone-capacity-and-workload.md).
+- Added [[tabroom-data-clone-capacity]] as the durable nonnormative synthesis. Confirmed the accepted managed-cloud production topology and specification-only state; no implementation, ADR, requirement, retention rule, or work-graph item changed.
+
+## [2026-09-12] clarification | AI-assisted Tabroom migration workload
+
+- Clarified that the capacity report's original person-week and team estimates assumed modern tooling and ordinary AI assistance rather than manual typing, but did not assume autonomous AI ownership of production decisions or evidence.
+- Added AI-adjusted solo-owner ranges and explained that mechanical work may accelerate substantially while source access, domain/privacy decisions, anomaly adjudication, performance and recovery exercises, and cutover remain human-constrained.
+
+## [2026-09-12] query | progressive backend launch before Tabroom migration
+
+- Recorded that Docket can launch on a production-quality canonical data slice before importing Tabroom history or implementing the complete legacy-shaped data surface.
+- Distinguished safe progressive schema evolution and edge-based historical backfill from postponing stable identity, authority, audit, retention, migration, provenance, backup, and recovery foundations.
+- Added AI-assisted full-time and half-time estimates for first use, broad Docket-native capability, and later live historical migration, including the earlier-launch benefit and total-effort premium.
+
+## [2026-09-12] planning | 4.5-month Texas selective-migration pilot
+
+- Recorded the owner's provisional 4.5-month target for a production-usable backend pilot with a selective, live-safe Tabroom importer focused first on Texas Schools.
+- Bounded Texas School History v1 to canonical School setup, aliases, participation, and published-result history; separated named Competitors, Pairings, Ballots, Scores, Judge-linked evidence, private feedback, billing, and files into later tiers.
+- Added a twenty-week, approximately 800-owner-hour plan, source and privacy gates, dependency-closure rules, part-time alternatives, and the distinction between repeatable delta batches and real-time replication.
+- Preserved the specification-only state and existing Release 1 scope and work graph; no implementation was authorized or started.
+
+## [2026-09-12] architecture audit | 4.5-month Texas statewide launch
+
+- Rechecked the accepted application stack, module map, executable contracts, AWS operations, Release 1 capability targets, forty-item work graph, work-item contract, and sequential Sol-only orchestration.
+- Confirmed that the modular monolith, PostgreSQL/S3 storage, API/worker separation, and AWS topology can support Texas and should remain; identified the linear graph, sequential execution rule, and absence of Tabroom import work items as delivery blockers rather than storage blockers.
+- Defined the proposed Texas Statewide Launch as complete Lincoln-Douglas Release 1 availability plus selective T1 School setup and T2 public-history migration, while deferring private historical tiers.
+- Added [[texas-statewide-launch-plan]] with the deep import-module seam, conservative capacity reservations, approximately 150–200 person-week estimate, eight-to-ten-person staffing requirement, parallel twenty-week delivery lanes, and non-negotiable source, integration, recovery, security, accessibility, and data-integrity gates.
+- Preserved the specification-only state. No application implementation, accepted ADR, Release 1 requirement, work-graph dependency, or orchestration rule was changed.
+
+## [2026-09-17] architecture | Clerk authentication and Vercel web deployment
+
+- Revised ADR 0029 so Clerk owns authentication and session issuance, Google remains a Clerk social sign-in connection, verified email code supports Clerk Reverification, and PostgreSQL remains authoritative for Docket Accounts, roles, scoped authorization, domain data, and audit.
+- Revised ADR 0034 so Vercel hosts the React Router web application, static assets, previews, CDN delivery, and bounded SSR functions while AWS retains the persistent Fastify API, pg-boss worker, migrations, RDS PostgreSQL, S3 objects, email, keys, secrets, and backend telemetry.
+- Reconciled the active access model, backend architecture, operations contract, repository map, Release 1 scope, development contract, and implementation work graph while preserving historical decision records and marking the earlier architecture research as superseded where applicable.
+- Preserved the specification-only state; no application implementation or deployment was started.
+
+## [2026-09-17] operation | Backend wiki ADR contradiction cleanup
+
+- Removed active direct-Google authentication language from [[backend-architecture]] and [[backend-roadmap]] and aligned the narrative with Clerk-managed identity, sessions, profile data, and Reverification under ADR 0029.
+- Removed deployment hosting from the roadmap's open decisions and recorded the accepted Vercel web and Terraform-managed AWS durable-service split from ADR 0034.
+- Preserved the historical decision-record entries in both backend wiki pages and reran the ADR structure and scoped contradiction checks.
+
+## [2026-09-18] operation | Clerk email and deferred School export ADR cleanup
+
+- Added accepted status to ADR 0031, renamed ADR 0029 for Clerk-managed authentication, and clarified that any exact email address Clerk recognizes as verified may match an invitation or Access Offer without requiring Google social sign-in.
+- Corrected ADR 0027 to point Judge Assessment retention to ADR 0028 and created accepted ADR 0038 to defer School Data Export while preserving its detailed design as later-release Project Resource Document input.
+- Removed the extensive export specification from ADR 0030, marked the remaining active wiki export material as later-release design, and retained Release 1 represented-School history, privacy, retention, and access boundaries.
+- Preserved the specification-only repository state; no application code, dependency installation, Release 1 scope, or work-graph status changed.

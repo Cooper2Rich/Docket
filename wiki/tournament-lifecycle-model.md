@@ -1,5 +1,11 @@
 # Tournament Lifecycle Model
 
+## Initial Draft creation
+
+An authenticated Account holder may create a Tournament with a name and official IANA timezone. Docket assigns a UUIDv7 identifier, enters the Tournament in **Draft**, and atomically creates one active Owner assignment for the creating Account. The Tournament and matching Owner cannot commit independently, and a concurrent write cannot create a second active Owner.
+
+The Owner may appoint multiple Directors and explicit operational staff through seven-day Access Offers bound to any exact email address that Clerk recognizes as verified. The address need not be associated with Google social sign-in. Directors govern Tournament staff but cannot create another Owner. Staff receive only named permission bundles and may delegate only a permission they currently hold. Every protected action resolves the active Tournament role context and current assignment server-side; a supplied Tournament identifier never proves scope. This required starting point feeds later configuration, publication, registration, competition, and closure states. See [[access-model]], [ADR 0006](../docs/adr/0006-delegate-tabulation-permissions.md), [ADR 0007](../docs/adr/0007-single-owner-multiple-directors.md).
+
 ## Competitive completion
 
 Publishing one exact approved Final Results Draft transitions the tournament to **Competitive Completion**. This state means the scheduled competition and its current public results are complete. It does not perform Tournament Closure and does not require Ballot Feedback or other outcome-irrelevant post-round work to be finished.

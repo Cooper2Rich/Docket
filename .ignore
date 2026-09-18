@@ -1,0 +1,3 @@
+# Historical build reports are opt-in during source discovery.
+# Read an explicit archive path or use rg --no-ignore for history questions.
+docs/archive/previous-build/

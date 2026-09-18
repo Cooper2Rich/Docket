@@ -1,0 +1,22 @@
+# Future application dependencies and generated output
+node_modules/
+.pnpm-store/
+.nx/
+dist/
+apps/web/build/
+apps/web/.react-router/
+coverage/
+build-artifacts/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Local research, disposable comparisons, and bounded-run output
+.reference/
+osbuild/
+.ralph/
+
+# Local environment files
+.env
+.env.*
+!.env.example

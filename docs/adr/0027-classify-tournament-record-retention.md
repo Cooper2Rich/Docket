@@ -16,6 +16,6 @@ Docket uses explicit retention classes anchored to Tournament Closure so permane
 - Expired restricted records and telemetry are deleted automatically unless an active Legal Hold applies.
 - Restricted-record expiry never deletes or changes the permanent public tournament projection.
 - Accommodation Request content and stubs follow their shorter accepted rules.
-- Judge Assessment data remains under a separate future retention decision.
+- Judge Assessment data follows the accepted raw-evidence, qualification-history, and Judging Profile retention rules in [ADR 0028](0028-retain-minimal-judge-qualification-history.md).
 - Retention duration never grants or expands access authority.
 - The TypeScript backend uses explicit classes, Closure anchors, idempotent deletion, exact Legal Hold checks, and runtime-validated audience-separated storage and serializers.
