@@ -55,6 +55,7 @@
     "pull_requests_required": true,
     "pull_request_enforcement": "active branch ruleset with no bypass actors",
     "bootstrap_ruleset_id": 23919605,
+    "main_ruleset_id": 23919958,
     "conversation_resolution_required": true,
     "administrators_enforced": true,
     "force_pushes_allowed": false,
@@ -72,7 +73,7 @@
   "artifact_sha256": {
     "queue-contract.json": "fda2ba68817fc6fae5ee3582a556c836b537a6f669c20e92d888fbb76597c6c9",
     "source-coverage.json": "68daa124c6b2a24c85f00a167d06c2cb8391ecbde8adbea3fd6186ff2a2c52c2",
-    "github-issues.json": "90cede7652bacfcd18c7dd7909325d2704c5f8eca16d6093af4ec46e010f04fd",
+    "github-issues.json": "b1a1a7725c9c205eaf6c1fe05913f886286532fed1e5bf2aed8719f01ae07631",
     "work-graph.yaml": "349f4008cd65d885830dbc47cfa262aa058b413b2f2f448e83d1f92aaa6f66b8"
   }
 }

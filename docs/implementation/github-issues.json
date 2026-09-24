@@ -343,805 +343,805 @@
       "id": 5496538543,
       "url": "https://github.com/Cooper2Rich/Docket/issues/49",
       "kind": "implementation",
-      "body_sha256": "2e927eca376ac0a409f214258b3442d738f065458ace11f41546a5dceb9f7347"
+      "body_sha256": "c5cde03221e8a7115b6f5b7025b598640d05a94dd202a39b0081020d61ea9179"
     },
     "R1-FND-001-B": {
       "number": 50,
       "id": 5496538861,
       "url": "https://github.com/Cooper2Rich/Docket/issues/50",
       "kind": "implementation",
-      "body_sha256": "55a97d2e606a1320089b31de2818d5f43ef1a0da7663697d1639ed4ed5e8c271"
+      "body_sha256": "4d3afc4f148bbdb74d4b25686b4e473b0a955f9db2391ab273e57fe21520aab5"
     },
     "R1-FND-002-A": {
       "number": 51,
       "id": 5496539436,
       "url": "https://github.com/Cooper2Rich/Docket/issues/51",
       "kind": "implementation",
-      "body_sha256": "0c5b91c49c482c3a544d97aaef08ebb4b4bad14788a61308b95f8b8430b6e115"
+      "body_sha256": "aeab3ffc504f56d5effc5da9f9d4d99ceb5b8912f5ceeb028e4c7dc298595f3e"
     },
     "R1-FND-002-B": {
       "number": 52,
       "id": 5496539854,
       "url": "https://github.com/Cooper2Rich/Docket/issues/52",
       "kind": "implementation",
-      "body_sha256": "f6fe94118fda2f7076a91f045dac813f77736da632a781e388e5ea375d8873a8"
+      "body_sha256": "777bfe09a624fd53d957fff01304e82682ff93967a450553c5db1d79c7e8ef96"
     },
     "R1-FND-003-A": {
       "number": 53,
       "id": 5496540205,
       "url": "https://github.com/Cooper2Rich/Docket/issues/53",
       "kind": "implementation",
-      "body_sha256": "e0c448f5cbad175af00f5c8f6b074097d4f08f082758a90267fa348fe674b851"
+      "body_sha256": "f149b1ede77ba65b30f7ebbcf87a8e651fe7feaafc483f91d87b4fbe0e811da6"
     },
     "R1-FND-003-B": {
       "number": 54,
       "id": 5496540559,
       "url": "https://github.com/Cooper2Rich/Docket/issues/54",
       "kind": "implementation",
-      "body_sha256": "7f12c15cafc01feaa03f1d45d0f5d3899587583e7afe5d7ca17246b20ae87cab"
+      "body_sha256": "9d3499c0980fc307d872c26c8394a75cb035fe8c17735d97799a80204b7a6879"
     },
     "R1-FND-004-A": {
       "number": 55,
       "id": 5496540995,
       "url": "https://github.com/Cooper2Rich/Docket/issues/55",
       "kind": "implementation",
-      "body_sha256": "3d69d2a9dd968325bfbc305b11919993152a19c68069ccfab9bb3e014ef91bf8"
+      "body_sha256": "1125d8ab6df242c88e369c9a8d3b0080f0e4294b5cce214216736708a118b09b"
     },
     "R1-FND-004-B": {
       "number": 56,
       "id": 5496541475,
       "url": "https://github.com/Cooper2Rich/Docket/issues/56",
       "kind": "implementation",
-      "body_sha256": "f2e164c6fa88c2d44185b7194cb65b856fa05e4d1c53236733da91804e4ca460"
+      "body_sha256": "5e5f23b5c6355076a8b3d4c72c8461d54975f2651fea539a7ae7b7476b745276"
     },
     "R1-FND-005-A": {
       "number": 57,
       "id": 5496541911,
       "url": "https://github.com/Cooper2Rich/Docket/issues/57",
       "kind": "implementation",
-      "body_sha256": "6d2ef6880f31c49a1913274065b5bd24e69c20ea28059e9ff5db390f9fba9937"
+      "body_sha256": "c5fbe084c3cab29c9900c840ecfb567a250776a847b4a461577bfe31d1e4d425"
     },
     "R1-FND-005-B": {
       "number": 58,
       "id": 5496542333,
       "url": "https://github.com/Cooper2Rich/Docket/issues/58",
       "kind": "implementation",
-      "body_sha256": "eb9835881b96590843984bf69e82b9beaab42908e18a8a446919ede12a3de641"
+      "body_sha256": "0b277a7938a26368c7639c48622e7c2bedf85368612de9a0dec0bf856740a49d"
     },
     "R1-IDA-001-A": {
       "number": 59,
       "id": 5496542717,
       "url": "https://github.com/Cooper2Rich/Docket/issues/59",
       "kind": "implementation",
-      "body_sha256": "c084d7c87bf0923f441e6dda094f752ed72b584b4c8c843b3c8538f01f91428b"
+      "body_sha256": "dafbdc2c5f1234440d07184b6185876796739069e44518d2e2ec87a62b2288f6"
     },
     "R1-IDA-001-B": {
       "number": 60,
       "id": 5496543116,
       "url": "https://github.com/Cooper2Rich/Docket/issues/60",
       "kind": "implementation",
-      "body_sha256": "6c73fb62a013a8d1c04a3cc899573053f37113ba8ab09e8440d0e851bf472b89"
+      "body_sha256": "fa775b41a4793739b4042d5af0623f6f0ecfd0fa91fe7b11d4e63dc6fe3e14cd"
     },
     "R1-IDA-002-A": {
       "number": 61,
       "id": 5496543485,
       "url": "https://github.com/Cooper2Rich/Docket/issues/61",
       "kind": "implementation",
-      "body_sha256": "a87baed0216f24896f013938c905286a827a47272bc1cffe0f79011459c89a34"
+      "body_sha256": "2e40ba6ad8e27ee3c35bc113110676100fd27e76e8571cf094470718a5c33029"
     },
     "R1-COM-001-A": {
       "number": 62,
       "id": 5496543791,
       "url": "https://github.com/Cooper2Rich/Docket/issues/62",
       "kind": "implementation",
-      "body_sha256": "000d57e99410b2aacf334615e48e1f1e79ef106eb81f6fd293796507448ecfa9"
+      "body_sha256": "2944bff87e418801de670f3cf2f6712da39addf2a7cf5f31d0446d17f796fdab"
     },
     "R1-COM-001-B": {
       "number": 63,
       "id": 5496544554,
       "url": "https://github.com/Cooper2Rich/Docket/issues/63",
       "kind": "implementation",
-      "body_sha256": "ffbc7263689082f893d72d54fb8ffb93c4aa5caacbca8b0ac15ba1c362c53533"
+      "body_sha256": "36224fb1db0a6983a3b8c3cbb6d455e4e795ac67ae2cbe327596c6b1f59df64a"
     },
     "R1-IDA-002-B": {
       "number": 64,
       "id": 5496544897,
       "url": "https://github.com/Cooper2Rich/Docket/issues/64",
       "kind": "implementation",
-      "body_sha256": "4428e162f2f28ce04fd400e82b9f79ec6960170006bd158eb7c598e9af8ed1f1"
+      "body_sha256": "4eab3c44f048da8ca3d9c84b54c77ea0f491e9cd73c333d1b21ac9a3503e5e40"
     },
     "R1-SCH-001-A": {
       "number": 65,
       "id": 5496545317,
       "url": "https://github.com/Cooper2Rich/Docket/issues/65",
       "kind": "implementation",
-      "body_sha256": "c060886be3151054e0074887d63049304a18824541688353c131cf6c47317a02"
+      "body_sha256": "2f6b8cd6029adff4ea5b008bfc12ac7dc27476d4992af5905bb605bcc99c91d8"
     },
     "R1-SCH-001-B": {
       "number": 66,
       "id": 5496545745,
       "url": "https://github.com/Cooper2Rich/Docket/issues/66",
       "kind": "implementation",
-      "body_sha256": "3889cf65f44138c5aa234611224443d9805f388b5538f1640b9cfab774fd8d68"
+      "body_sha256": "52368a0ec073cd2172f29a593c47efe0a9e53cf0203016956d06f9be8760bdf3"
     },
     "R1-SCH-001-C": {
       "number": 67,
       "id": 5496546048,
       "url": "https://github.com/Cooper2Rich/Docket/issues/67",
       "kind": "implementation",
-      "body_sha256": "0ae2a5ba514afe2b456d934c2ed8eb5afe0807a97c25e37a73ccbc87fed8ec9a"
+      "body_sha256": "ab01cbcb037addaeba2e2085abdc23064e7c6f4472910e0be5772186ef35bab3"
     },
     "R1-REG-004-A": {
       "number": 68,
       "id": 5496546342,
       "url": "https://github.com/Cooper2Rich/Docket/issues/68",
       "kind": "implementation",
-      "body_sha256": "eaff56f151fec68b65a104f5951bf459c28476241adb2c401cf561e5272d02b0"
+      "body_sha256": "29d5702068faafb9e6c3e90a5f95d4d1f40e887fbf1c0fa4993a7abefb1def38"
     },
     "R1-SCH-002-A": {
       "number": 69,
       "id": 5496546922,
       "url": "https://github.com/Cooper2Rich/Docket/issues/69",
       "kind": "implementation",
-      "body_sha256": "6eea507f59b1a3888553d7126a2a062e66782e8c662e3cb5124adb0bb04f811e"
+      "body_sha256": "7a324bf0a4d5aad5bd412bdc650d2cdda74990da5142ba57558ad0bf007a78b3"
     },
     "R1-SCH-002-B": {
       "number": 70,
       "id": 5496547249,
       "url": "https://github.com/Cooper2Rich/Docket/issues/70",
       "kind": "implementation",
-      "body_sha256": "9ac4cdf4360409d93c3b047ad93f042033dfcc60f07fb3665e70176ce86179ba"
+      "body_sha256": "40a2ef49be6eb9e3e1cf4d054db5b61b01bb1d047bf7b87d5d6fbf24fa19e8e8"
     },
     "R1-TRN-001-A": {
       "number": 71,
       "id": 5496547686,
       "url": "https://github.com/Cooper2Rich/Docket/issues/71",
       "kind": "implementation",
-      "body_sha256": "687f5d1e51c2f695211d709a1d4a7fe05d20f7be7264eb2587e0acb760dde680"
+      "body_sha256": "bf5310e25882d4d0a3863ecd4b007b304ff6a93dbb6f37091dfb52b0562242ac"
     },
     "R1-TRN-001-B": {
       "number": 72,
       "id": 5496548137,
       "url": "https://github.com/Cooper2Rich/Docket/issues/72",
       "kind": "implementation",
-      "body_sha256": "09d4bf768764e068db1c2f659095c918551ae4e494a2e2326eb869b6fb422435"
+      "body_sha256": "dc56ab121e1029a26bca49d06cacdf7b22cec3b9ab18aee6d0b4746537ea3f98"
     },
     "R1-TRN-002-A": {
       "number": 73,
       "id": 5496548577,
       "url": "https://github.com/Cooper2Rich/Docket/issues/73",
       "kind": "implementation",
-      "body_sha256": "be5bfdb6e89b803e76dc1ce809c1c56b3020ea90a105e32d6c29f81566b58c50"
+      "body_sha256": "787d72d07edffdba7db9daa6a340c72148b1fcd1f5a4e5ba622ec201b45f9e81"
     },
     "R1-TRN-002-B": {
       "number": 74,
       "id": 5496548959,
       "url": "https://github.com/Cooper2Rich/Docket/issues/74",
       "kind": "implementation",
-      "body_sha256": "02c4eb6f7dae0d861234b731e472b6ced949a38ec40c74b5258df93bec228896"
+      "body_sha256": "bc09bd5201d01804e9e19b67998b4141a3976affa89e2b70d1b4b8cd62cebbdf"
     },
     "R1-TRN-003-A": {
       "number": 75,
       "id": 5496549275,
       "url": "https://github.com/Cooper2Rich/Docket/issues/75",
       "kind": "implementation",
-      "body_sha256": "0a97624f6b098384afb1100c8d6cc5f80dea79c436443eadd1b3b61f322d3491"
+      "body_sha256": "d4005de0315a051b4ae7b819dc99674dd84198bc94d2fadf3d1e0b72e6a57451"
     },
     "R1-TRN-003-B": {
       "number": 76,
       "id": 5496549720,
       "url": "https://github.com/Cooper2Rich/Docket/issues/76",
       "kind": "implementation",
-      "body_sha256": "ed398d575c79e90008292937a427b140a94be17bc180b608972357f8678b72bf"
+      "body_sha256": "4a4b06810cff16caba9c14c74a3407528ac2fc2a4f606aed2cbf01e8a7992125"
     },
     "R1-REG-002-A": {
       "number": 77,
       "id": 5496550187,
       "url": "https://github.com/Cooper2Rich/Docket/issues/77",
       "kind": "implementation",
-      "body_sha256": "7916f11a13ccaf7817ed31b6cf7bf85407c6e6b63078dff23f009e70aa6f9668"
+      "body_sha256": "85314af8f8e60cbe1a3747b4b240eed667401172574376c602540ec46832b020"
     },
     "R1-REG-002-B": {
       "number": 78,
       "id": 5496550540,
       "url": "https://github.com/Cooper2Rich/Docket/issues/78",
       "kind": "implementation",
-      "body_sha256": "5b8b7012958ef71d18ef7d02f14af44c3f0a3f1dba7aa3d2f07ef237abaf9ef3"
+      "body_sha256": "9335cf837f5107e3a5371f97173d68a7d66b66572e3210329635c99fff6816ab"
     },
     "R1-REG-001-A": {
       "number": 79,
       "id": 5496551129,
       "url": "https://github.com/Cooper2Rich/Docket/issues/79",
       "kind": "implementation",
-      "body_sha256": "3af4fa07165b1e1667cf6495ffa2de24bd6720346ec61ea4378b3c09dfa50b41"
+      "body_sha256": "23ebb18ce37695433cb17fbc72af73608f8c49b46b757a442a161efa40dbc880"
     },
     "R1-REG-003-A": {
       "number": 80,
       "id": 5496551641,
       "url": "https://github.com/Cooper2Rich/Docket/issues/80",
       "kind": "implementation",
-      "body_sha256": "cc2618b7859f5322990e3d5ed0485728bc2b3fbc181e5f0a9e10cf7f42ef90a1"
+      "body_sha256": "f28374866882d26754de15807fb91705ee736da2f530b56d19654f7359b48a8c"
     },
     "R1-REG-003-B": {
       "number": 81,
       "id": 5496551964,
       "url": "https://github.com/Cooper2Rich/Docket/issues/81",
       "kind": "implementation",
-      "body_sha256": "8e853169881eedd163f2761585c1b8134bceb6fd4f0e2dfa0b69156971aef548"
+      "body_sha256": "36bff64a35b60620c85d2402c397c80b6c571c31311589f70eb7eb3868ded700"
     },
     "R1-REG-004-B": {
       "number": 82,
       "id": 5496552248,
       "url": "https://github.com/Cooper2Rich/Docket/issues/82",
       "kind": "implementation",
-      "body_sha256": "76f598a7108fb6b1ed2f6a02303ea55fee90a185142da3e86fdc644762f0e87a"
+      "body_sha256": "5c97adc8630077b79592f7e1dda1963dede873d37f1f4958a316330678210d73"
     },
     "R1-REG-004-C": {
       "number": 83,
       "id": 5496552854,
       "url": "https://github.com/Cooper2Rich/Docket/issues/83",
       "kind": "implementation",
-      "body_sha256": "712a2c40eca07d793c8fc86700e5eb2a5b78db2365490c68ee211c1aa14eb58c"
+      "body_sha256": "ccf777afeda10d381d8dc731a2cc54e34a24a147a904684fedb66277be9ca38d"
     },
     "R1-REG-004-D": {
       "number": 84,
       "id": 5496553333,
       "url": "https://github.com/Cooper2Rich/Docket/issues/84",
       "kind": "implementation",
-      "body_sha256": "4bb6a6a286e5dcd9e974abf417f3473ebbec649b6c9d024e0ddddaa8ff004895"
+      "body_sha256": "0562eb994d5ff300e99a8fb096d9494caf59ba41efe9a682436a14b1477603e7"
     },
     "R1-CMP-002-A": {
       "number": 85,
       "id": 5496553800,
       "url": "https://github.com/Cooper2Rich/Docket/issues/85",
       "kind": "implementation",
-      "body_sha256": "f4c5b86c342534c65d8e84910577cbb6dd675b8aed14dd15e42fdaa82aa9c06a"
+      "body_sha256": "9649bba2453c4cb5641c7a8147abb0e141485de56514945009ee96aa2ba1bcf8"
     },
     "R1-CMP-002-B": {
       "number": 86,
       "id": 5496554181,
       "url": "https://github.com/Cooper2Rich/Docket/issues/86",
       "kind": "implementation",
-      "body_sha256": "99575631d85b637b647c72ae858939c9bcb56ad26212ae1783459c2c4a04e8d6"
+      "body_sha256": "f366e183480208ef2d69e9264ac7f3afa3809ac0071c8e0633c86960947de671"
     },
     "R1-CMP-002-C": {
       "number": 87,
       "id": 5496554484,
       "url": "https://github.com/Cooper2Rich/Docket/issues/87",
       "kind": "implementation",
-      "body_sha256": "4ef763036465ee48b20fa76946c2438aed1d0396200e80d1c23cbae5f842da5d"
+      "body_sha256": "4d510eebfdf012b6a6dee71a066ccad3751473718820eb2ca1cb5ead74fc94d7"
     },
     "R1-CMP-002-D": {
       "number": 88,
       "id": 5496554769,
       "url": "https://github.com/Cooper2Rich/Docket/issues/88",
       "kind": "implementation",
-      "body_sha256": "95f13c0359c2f24ccb42533a5dba8c12d0b6c74d5434065c11f3926f8d53b939"
+      "body_sha256": "ca78ceb69f847be82c528c305982bbe4c314980f21449492ea2ff176846b4750"
     },
     "R1-CMP-003-A": {
       "number": 89,
       "id": 5496555211,
       "url": "https://github.com/Cooper2Rich/Docket/issues/89",
       "kind": "implementation",
-      "body_sha256": "529efe1926df5e915f9d7233e1478a854475de8cd77a54d5a4b7885f1c8ab3f7"
+      "body_sha256": "eaae835a2159300e7d2759266733899675ed2b2e8e18636d13f33d3cd6066e49"
     },
     "R1-CMP-003-B": {
       "number": 90,
       "id": 5496555691,
       "url": "https://github.com/Cooper2Rich/Docket/issues/90",
       "kind": "implementation",
-      "body_sha256": "5124ba912a554f67061a614108fb3d640fcdc64d71064af95ac135c797e5a7e7"
+      "body_sha256": "3e5ff74e181da290f74e0a7c450ed6d8d462b3ed5fb157b5719bdddad90ff778"
     },
     "R1-CMP-003-C": {
       "number": 91,
       "id": 5496555950,
       "url": "https://github.com/Cooper2Rich/Docket/issues/91",
       "kind": "implementation",
-      "body_sha256": "26decff1bada90a5d6327a26de7ddfa47af59809be87061a2a9e34ff0681b3c4"
+      "body_sha256": "3259e12fd0e5e9d80c5959b13c95dffe001f552a91124e3543514e1adac59908"
     },
     "R1-CMP-004-A": {
       "number": 92,
       "id": 5496556247,
       "url": "https://github.com/Cooper2Rich/Docket/issues/92",
       "kind": "implementation",
-      "body_sha256": "2beb1f5b760102192b759b39da33a5cc37c474ac98a6c6228a5c0cb99c0cb464"
+      "body_sha256": "62df8e8cbb6371a033c3e76bdd4f2b95bd39f16ca9d8d5ee8dbac56c1d24f987"
     },
     "R1-CMP-004-B": {
       "number": 93,
       "id": 5496556532,
       "url": "https://github.com/Cooper2Rich/Docket/issues/93",
       "kind": "implementation",
-      "body_sha256": "cc0100970983b851323d102c1217af63d09835cfb8f018864b43a9d4e683c6ff"
+      "body_sha256": "eb27f173c413226e1450dc111bab9116eb02c9cb96a7cec4787682d7375d3a74"
     },
     "R1-CMP-012-A": {
       "number": 94,
       "id": 5496557051,
       "url": "https://github.com/Cooper2Rich/Docket/issues/94",
       "kind": "implementation",
-      "body_sha256": "41f79cd876d7d1a084058d6bc2344134a1256529b689aa28b50e8df7681f5018"
+      "body_sha256": "af4d6c0f6a68dbded027353b4a474dcab8d51a6543ca0696d32cbf24979c46ce"
     },
     "R1-CMP-013-A": {
       "number": 95,
       "id": 5496557345,
       "url": "https://github.com/Cooper2Rich/Docket/issues/95",
       "kind": "implementation",
-      "body_sha256": "a894d89da7c35e1935c545dbda39c68e16a6d29d4e371a7e8a5440cf1017660c"
+      "body_sha256": "1b6810401f0e63f692eabdd0514553c224939fc1da41128cd256e153e2107d4e"
     },
     "R1-CMP-015-A": {
       "number": 96,
       "id": 5496557664,
       "url": "https://github.com/Cooper2Rich/Docket/issues/96",
       "kind": "implementation",
-      "body_sha256": "cc0bcace7ad86a2c1658301692f6ea479acfbe31b6ea27f31c55ad0df95f3862"
+      "body_sha256": "341d9f7c593234f462bd93e6c64a5f6f6b0abb3a52dbf74d1b0e8f86117396cd"
     },
     "R1-CMP-006-A": {
       "number": 97,
       "id": 5496557971,
       "url": "https://github.com/Cooper2Rich/Docket/issues/97",
       "kind": "implementation",
-      "body_sha256": "cb854a49fe4a9677a421c369ac99f003d611f767baec8fccb7865d95cf723c85"
+      "body_sha256": "fbd2d67a309c2dc5f6f6551ff708501d14db46ab89326521b40f054297c71cdf"
     },
     "R1-CMP-001-A": {
       "number": 98,
       "id": 5496558291,
       "url": "https://github.com/Cooper2Rich/Docket/issues/98",
       "kind": "implementation",
-      "body_sha256": "b29dda4f096752ed90b7d3f04c2444bc528e927cfb33b25974f6540748195853"
+      "body_sha256": "6d5ceccaae170e3bcbb4af45bfba0f79eaa02c671cbf3b67b557998c663cfa3d"
     },
     "R1-CMP-001-B": {
       "number": 99,
       "id": 5496558736,
       "url": "https://github.com/Cooper2Rich/Docket/issues/99",
       "kind": "implementation",
-      "body_sha256": "4d8f3f06387bb4cb91eaf20938b21827ea5119d23102b2ef0df0f8504d64c81c"
+      "body_sha256": "6fae890b35cde4696771fcbb688e5016357dbea0347015161b1ee14677634bf5"
     },
     "R1-CMP-001-C": {
       "number": 100,
       "id": 5496559013,
       "url": "https://github.com/Cooper2Rich/Docket/issues/100",
       "kind": "implementation",
-      "body_sha256": "79abfb1ba55fa5a630222a67bd6bb00d7746ede73e437ce7fa80ec50fcb9b572"
+      "body_sha256": "0cf3a09c7357f9cf3c3889941f3094fc033b3fbb55a24dc99046a57f33cb9182"
     },
     "R1-CMP-005-A": {
       "number": 101,
       "id": 5496559286,
       "url": "https://github.com/Cooper2Rich/Docket/issues/101",
       "kind": "implementation",
-      "body_sha256": "b1070395e8c9b5eac7c3aa536db532fb05d32ce6752df38338d533d1d33c491f"
+      "body_sha256": "76c2a7737ef72c11b5117ea1aa4bda159239fd8389c9e8bfba81dacd989bf429"
     },
     "R1-CMP-006-B": {
       "number": 102,
       "id": 5496559582,
       "url": "https://github.com/Cooper2Rich/Docket/issues/102",
       "kind": "implementation",
-      "body_sha256": "b5a4bbb7b2052f90a15af0b828db1c1e25bd4b816acbca09e9acaa799d4e7fa5"
+      "body_sha256": "2535b2a363964e479f20e4edd9a4b25976acf2dffa68ae53033e1fda63a7378b"
     },
     "R1-CMP-006-C": {
       "number": 103,
       "id": 5496559851,
       "url": "https://github.com/Cooper2Rich/Docket/issues/103",
       "kind": "implementation",
-      "body_sha256": "1d28ef9143ccd32171884992f32f569535c9a4bebdcb07b6606b4af644229fc1"
+      "body_sha256": "54d7d8c27c618d0afcca8e8d19b0e61fab32d74bd0c6243007c4c85a81c1c80c"
     },
     "R1-CMP-006-D": {
       "number": 104,
       "id": 5496560119,
       "url": "https://github.com/Cooper2Rich/Docket/issues/104",
       "kind": "implementation",
-      "body_sha256": "751aa2768d46686a6ad583a026a110e8356995858b7000dace212d94b4757131"
+      "body_sha256": "b7a3bce9223c18a20a830df53964a2cbf724b25052b8c3cebbb5c42f061eeff7"
     },
     "R1-CMP-007-A": {
       "number": 105,
       "id": 5496560567,
       "url": "https://github.com/Cooper2Rich/Docket/issues/105",
       "kind": "implementation",
-      "body_sha256": "d0c24ea1bd634ad834cef3d80b273e60f7c7d4fea9661024661ba20e124ad76b"
+      "body_sha256": "9ddb99b41bada11a84dbf4c9c2e8729c8659c0fe491c539c8062c755683dedd1"
     },
     "R1-CMP-007-B": {
       "number": 106,
       "id": 5496560888,
       "url": "https://github.com/Cooper2Rich/Docket/issues/106",
       "kind": "implementation",
-      "body_sha256": "9ee4563065f1c3837aedea56aebb9f07331facc8fd6e5aa95b14282da9ce3dbb"
+      "body_sha256": "62d9e7bb8b72f62565921467d3b6fbf20c48aedd837e7a5c08ea8ee27de6b192"
     },
     "R1-REG-003-C": {
       "number": 107,
       "id": 5496561197,
       "url": "https://github.com/Cooper2Rich/Docket/issues/107",
       "kind": "implementation",
-      "body_sha256": "b3fff82c1fbed259b348f38a78458ad8628ad9e8357112d421acc62b65f34d9e"
+      "body_sha256": "758067ea0d6e19895c44e803ca5f5c90ce98006165ebe99848effd02d5b30631"
     },
     "R1-CMP-001-D": {
       "number": 108,
       "id": 5496561457,
       "url": "https://github.com/Cooper2Rich/Docket/issues/108",
       "kind": "implementation",
-      "body_sha256": "9dfa91bdc9caf38b67dc5c62d910858b961bbd73e43db129226a43590da4b29e"
+      "body_sha256": "fa3aed5fa918dab8981998eae5aa02ec5a581c12ddfdfda70e2628f773a8ba3a"
     },
     "R1-CMP-001-E": {
       "number": 109,
       "id": 5496561872,
       "url": "https://github.com/Cooper2Rich/Docket/issues/109",
       "kind": "implementation",
-      "body_sha256": "d61b86424ce5ca74d2cfac142ffd0ea7727d85f482b0848121f5c0244df0b9b6"
+      "body_sha256": "73e2beeb73c12c4c298b75460f7f4d5fddc43626dca283fd8834f09ee4a507c2"
     },
     "R1-CMP-005-B": {
       "number": 110,
       "id": 5496562156,
       "url": "https://github.com/Cooper2Rich/Docket/issues/110",
       "kind": "implementation",
-      "body_sha256": "3c7ec90221278ede996d218091932542d8ee85f97014128de84098d8e4ffe74e"
+      "body_sha256": "606f52dcb8e703ec84aa4b601e3b766830cd2562a927f9d90be314c873da1d79"
     },
     "R1-CMP-009-A": {
       "number": 111,
       "id": 5496562465,
       "url": "https://github.com/Cooper2Rich/Docket/issues/111",
       "kind": "implementation",
-      "body_sha256": "a23833973751e967216e974b6640cb9c8cdeb72d949212e0a7b2e391072c258e"
+      "body_sha256": "177077307a87a685648b26411c598218e90b3b10fea3ff7082decd27a95effe4"
     },
     "R1-CMP-009-B": {
       "number": 112,
       "id": 5496562769,
       "url": "https://github.com/Cooper2Rich/Docket/issues/112",
       "kind": "implementation",
-      "body_sha256": "12272031986207563029c66e7944b3821623725b827e393a61cf9202df12723b"
+      "body_sha256": "71c5a9f183cb943ff9b34cef3391823736c8b707b04643b52b14950ebefb3201"
     },
     "R1-CMP-008-A": {
       "number": 113,
       "id": 5496563249,
       "url": "https://github.com/Cooper2Rich/Docket/issues/113",
       "kind": "implementation",
-      "body_sha256": "efd36685d10156437d0da69b95d70a37fd5b164d1eedc5342b2d9b2512680afe"
+      "body_sha256": "cec4bb0acdcde37354cabe3941260273e7b24805924d437eadfd4b16b2a457ac"
     },
     "R1-CMP-008-B": {
       "number": 114,
       "id": 5496563547,
       "url": "https://github.com/Cooper2Rich/Docket/issues/114",
       "kind": "implementation",
-      "body_sha256": "98e8dea12ffeaea9babcbc37d40bd1f6afd65955a81c2f9db09153e548e394fe"
+      "body_sha256": "7d5e3753de9b8771250ac9db32cbcb5f714ac13e029aa80a8231e919309fb873"
     },
     "R1-CMP-008-C": {
       "number": 115,
       "id": 5496563816,
       "url": "https://github.com/Cooper2Rich/Docket/issues/115",
       "kind": "implementation",
-      "body_sha256": "342b75dd2e222dfeb22cf1fe0474582a5213f94ff22c20476e083ac7a94f25a3"
+      "body_sha256": "44231e6368613c53dc3dfb96e49e5402d5ea047454e36af5f4d028eca121db52"
     },
     "R1-CMP-008-D": {
       "number": 116,
       "id": 5496564098,
       "url": "https://github.com/Cooper2Rich/Docket/issues/116",
       "kind": "implementation",
-      "body_sha256": "528975fe54f0a01f85fc0750484b174b9de131f1f5ac6650f188d8400837d064"
+      "body_sha256": "bd043db569064cfb75959eeedc578fb4a724e344eba49a51178f92c8273b1a8c"
     },
     "R1-CMP-009-C": {
       "number": 117,
       "id": 5496564527,
       "url": "https://github.com/Cooper2Rich/Docket/issues/117",
       "kind": "implementation",
-      "body_sha256": "c070dae915cf4ab736dc37621895311ca29ba861a92ccf115a6b3c9ebdbd4bf7"
+      "body_sha256": "ada4c3d8d0e8a3b07da92a5071d3ed4c4b6eab49f5ddcfe5b6a0c7b34ca9d6af"
     },
     "R1-CMP-009-D": {
       "number": 118,
       "id": 5496564802,
       "url": "https://github.com/Cooper2Rich/Docket/issues/118",
       "kind": "implementation",
-      "body_sha256": "e5a9f821be811faed737e5966b192af2e1cce9f5c3438660472dc507728df8c9"
+      "body_sha256": "19600b9a97a0b203ff90fddd93854b11876200475b3df86699ca4da74405b7eb"
     },
     "R1-CMP-010-A": {
       "number": 119,
       "id": 5496565105,
       "url": "https://github.com/Cooper2Rich/Docket/issues/119",
       "kind": "implementation",
-      "body_sha256": "39392eedf156c4922b730b3aac53bbbe171403989b80486e0d31aceade1777d4"
+      "body_sha256": "65ef6fae008611499fd2acd15aa0a8e4cd2442b70f9424b1d86ff6ce03dbcf72"
     },
     "R1-CMP-010-B": {
       "number": 120,
       "id": 5496565384,
       "url": "https://github.com/Cooper2Rich/Docket/issues/120",
       "kind": "implementation",
-      "body_sha256": "ce85f65cdc5f6f1619a3bd45d123d44c3dc71457952b394bf4d43a8676f10fce"
+      "body_sha256": "7ca2cafb342340e20ec910150ff5ce9376772ab4051626a37dfdf1b7748e5611"
     },
     "R1-CMP-010-C": {
       "number": 121,
       "id": 5496565838,
       "url": "https://github.com/Cooper2Rich/Docket/issues/121",
       "kind": "implementation",
-      "body_sha256": "5249dd0527e6d338c5ff2218a92ebb49612ca7372c4536c222db1ad1fbbef21b"
+      "body_sha256": "93c1297b2804c692c6879eb4653ebfdfe3c74b3486c486531d042efe42a11351"
     },
     "R1-CMP-010-D": {
       "number": 122,
       "id": 5496566142,
       "url": "https://github.com/Cooper2Rich/Docket/issues/122",
       "kind": "implementation",
-      "body_sha256": "7e317c9a3fe7f6875b83a9b983d3d156b4a1d727a23902e48113b557be04b408"
+      "body_sha256": "e6825c55fe9a318e713112a5f8313f6da92b609053087711a79e60a2f0dc9f70"
     },
     "R1-CMP-011-A": {
       "number": 123,
       "id": 5496566417,
       "url": "https://github.com/Cooper2Rich/Docket/issues/123",
       "kind": "implementation",
-      "body_sha256": "48987670b20a8900d6783fcad14df59730edbba982f067b5558f6b79fa3bb831"
+      "body_sha256": "fc13d913c5c8fdcf4a4f9eb165eac49d197cf59ebe1325540d1e705e95e4df1d"
     },
     "R1-CMP-011-B": {
       "number": 124,
       "id": 5496566713,
       "url": "https://github.com/Cooper2Rich/Docket/issues/124",
       "kind": "implementation",
-      "body_sha256": "eede50eb4193ab93f9faa7248f261f2a177ca274bd3e3db9a143b8e8bad69f83"
+      "body_sha256": "717134a233147ca0f3aa5d64128f2ae336305733349ce52bda8a1c0d332dedd9"
     },
     "R1-CMP-011-C": {
       "number": 125,
       "id": 5496567146,
       "url": "https://github.com/Cooper2Rich/Docket/issues/125",
       "kind": "implementation",
-      "body_sha256": "d5246878baa5304b6dd5c4bcbc1842d4c6b617c9ce52361ba1f916a3d82e8897"
+      "body_sha256": "6f56cd4682f267f2cd0b6328c430a19525473b343b95206106afffe10b0c1374"
     },
     "R1-CMP-011-D": {
       "number": 126,
       "id": 5496567418,
       "url": "https://github.com/Cooper2Rich/Docket/issues/126",
       "kind": "implementation",
-      "body_sha256": "f7d8e426454f6d00165b1cbbc9d81503f3b6345f887d132da98ec21f0d5325a9"
+      "body_sha256": "d154be3385161eca5f8db7ac22b47a451ca32667e7fac66c1d7d3fe4fbdd31d6"
     },
     "R1-CMP-012-B": {
       "number": 127,
       "id": 5496567872,
       "url": "https://github.com/Cooper2Rich/Docket/issues/127",
       "kind": "implementation",
-      "body_sha256": "afa7c9106baf352ed65cace52c8ab0689c61ddbafe7a98275870000ca426a8d1"
+      "body_sha256": "89569af612c4373f72b1fef93eb8ab31e66ccfaf6c3d1f800de3a5fc1f2d31a1"
     },
     "R1-CMP-012-C": {
       "number": 128,
       "id": 5496568281,
       "url": "https://github.com/Cooper2Rich/Docket/issues/128",
       "kind": "implementation",
-      "body_sha256": "1f14ff5a3915f2f785c828bb877ee4bc0513532c83a4b530f68ea8f53537b813"
+      "body_sha256": "89b17b2f4a6e48f50301f16f83b017104ffcf8d0e26a1dd308eead17b93a2ea5"
     },
     "R1-CMP-013-B": {
       "number": 129,
       "id": 5496568548,
       "url": "https://github.com/Cooper2Rich/Docket/issues/129",
       "kind": "implementation",
-      "body_sha256": "6ee1fdd2d6a6cb51920e9ebd338597d8967e3ca58dacafdf579674ab821a340a"
+      "body_sha256": "91e66bfcf5cdefb4f42b144495b3991c80822c84b55d0f8248ae84837fb640ad"
     },
     "R1-CMP-013-C": {
       "number": 130,
       "id": 5496568975,
       "url": "https://github.com/Cooper2Rich/Docket/issues/130",
       "kind": "implementation",
-      "body_sha256": "b787c06244145fd54173fc16dcade3f903ef08069278b70be5811cf3eb15c18c"
+      "body_sha256": "6e102120787b375d2b3a3e1b2b6229e353bbccd394236a718b1e82b904201d62"
     },
     "R1-CMP-014-A": {
       "number": 131,
       "id": 5496569274,
       "url": "https://github.com/Cooper2Rich/Docket/issues/131",
       "kind": "implementation",
-      "body_sha256": "7f405cb25414e8d227a90afa5ba30970f3f8f2ae3db782d26d43e33148d04c3a"
+      "body_sha256": "3b7712fc9140db8cd17201546a459570399ec9824b8bf924778c330d9329fde7"
     },
     "R1-CMP-014-B": {
       "number": 132,
       "id": 5496569562,
       "url": "https://github.com/Cooper2Rich/Docket/issues/132",
       "kind": "implementation",
-      "body_sha256": "2dae95c2d828371d098ea0f17df3445951595d3536b456cfe728f458db15c1c1"
+      "body_sha256": "0de719be66ed6bd52217e97ead2e1e4ef162dcf43d133b047523166ec87a144f"
     },
     "R1-CMP-014-C": {
       "number": 133,
       "id": 5496569869,
       "url": "https://github.com/Cooper2Rich/Docket/issues/133",
       "kind": "implementation",
-      "body_sha256": "ed48d6d29c44d8341e29d6f8936cc96d17c7d3e287cfdaf76160b16a277b0378"
+      "body_sha256": "ffd248376c1fd09eef11465a30ce99521b35eef326a3c3c889a4c25114f45885"
     },
     "R1-CMP-015-B": {
       "number": 134,
       "id": 5496570304,
       "url": "https://github.com/Cooper2Rich/Docket/issues/134",
       "kind": "implementation",
-      "body_sha256": "3f8fcda32d176b1a88f8edfae691277506fe9aec9f4bf4b74b7ab5985f66d50b"
+      "body_sha256": "ef7b331f156a407af338f74a7c529825e049d876508d8cd1d82baf23cf7cfa49"
     },
     "R1-CMP-015-C": {
       "number": 135,
       "id": 5496570564,
       "url": "https://github.com/Cooper2Rich/Docket/issues/135",
       "kind": "implementation",
-      "body_sha256": "7cb43389450ce96454afa4fa003d841d13598d89e0295889402e233b978cbafe"
+      "body_sha256": "cca1f41b49bd4252ab43e433a57cf6e3f56c78ef1b2f0d202a0681cc7efc3add"
     },
     "R1-CMP-016-A": {
       "number": 136,
       "id": 5496570866,
       "url": "https://github.com/Cooper2Rich/Docket/issues/136",
       "kind": "implementation",
-      "body_sha256": "ee357889fcd87712577abce5f0284e903269c0b44d8b53a58d122f0787e39347"
+      "body_sha256": "585f1a31717a51c9438262fef926b7748ac9fc43b0fde305d44a3166d313bc33"
     },
     "R1-CMP-016-B": {
       "number": 137,
       "id": 5496571338,
       "url": "https://github.com/Cooper2Rich/Docket/issues/137",
       "kind": "implementation",
-      "body_sha256": "1cff7b0ec64c1b414273c788432919819c0f3a507e42da26bb3563035ffc573f"
+      "body_sha256": "1f2855017624cf2353ba284f7575878ead2a142fc98abac4d609fc98baa40ea8"
     },
     "R1-TRN-004-A": {
       "number": 138,
       "id": 5496571673,
       "url": "https://github.com/Cooper2Rich/Docket/issues/138",
       "kind": "implementation",
-      "body_sha256": "cfc16cc93e140b54f157ae639e27a867d793c069da9928beb70f80246d2206a5"
+      "body_sha256": "c60de8f14d9358d3c7deaf2ae423dac7b2273205db06d9dbf151f4a76bf75ebd"
     },
     "R1-TRN-004-B": {
       "number": 139,
       "id": 5496571965,
       "url": "https://github.com/Cooper2Rich/Docket/issues/139",
       "kind": "implementation",
-      "body_sha256": "255e366d3cfdad03f95b97a7e709624923119c24fd95f7be3c56db62d32af587"
+      "body_sha256": "86594fb3bb131b16739587bfe84b435ece9d27f08cca18c9e5197729f5ed2ea9"
     },
     "R1-PUB-001-A": {
       "number": 140,
       "id": 5496572271,
       "url": "https://github.com/Cooper2Rich/Docket/issues/140",
       "kind": "implementation",
-      "body_sha256": "30b87fca7281c8e5a8c6e0b3a7215fbfea90f08d35c352716f39b6c6c0052fe3"
+      "body_sha256": "46065bf54c308a22d8a15f647a5f0484925796e8c2e7bf63391955902eda1bac"
     },
     "R1-PUB-001-B": {
       "number": 141,
       "id": 5496572711,
       "url": "https://github.com/Cooper2Rich/Docket/issues/141",
       "kind": "implementation",
-      "body_sha256": "771cb885a007201d02161b63b1a7c1b7fbe474a40d409ba710aa0d118314b8e0"
+      "body_sha256": "d091a78ec03c24a4d401a317d1a501b40234598caa989af5508aa812ec96c40a"
     },
     "R1-PUB-001-C": {
       "number": 142,
       "id": 5496572998,
       "url": "https://github.com/Cooper2Rich/Docket/issues/142",
       "kind": "implementation",
-      "body_sha256": "1b7c7344fc6eefd02172a4df8443923e221602af1c3b39780bbc082fc697da80"
+      "body_sha256": "3c3b29b77e0b7573c623172be32dc1964794596d5dfadd1711b6d2414da28a16"
     },
     "R1-IDA-001-C": {
       "number": 143,
       "id": 5496573296,
       "url": "https://github.com/Cooper2Rich/Docket/issues/143",
       "kind": "implementation",
-      "body_sha256": "ffe1e96aeda26ab1ddecf5b4d81d5344efe226d42533bc68375f4fc7543431ca"
+      "body_sha256": "4af0d75d12e03b32d82a00bd7c3625cf363d967540f44cd740d7623d528cde50"
     },
     "R1-IDA-001-D": {
       "number": 144,
       "id": 5496573584,
       "url": "https://github.com/Cooper2Rich/Docket/issues/144",
       "kind": "implementation",
-      "body_sha256": "ba96db2ba7c5e587e43e69327a5e1d6fe2ad24830d0e20f27bc3e0c4a1b32c61"
+      "body_sha256": "fb7722eb599ceb48c09dbb6211d742fb020e2e8f0d267046d2c0b7e2bd64c5f8"
     },
     "R1-IDA-001-E": {
       "number": 145,
       "id": 5496574029,
       "url": "https://github.com/Cooper2Rich/Docket/issues/145",
       "kind": "implementation",
-      "body_sha256": "3053809790d7dae8452c8e81281f9a49cc0798054f2c401225b536fca6a11ba2"
+      "body_sha256": "ee13bd1e466e879b04b7b2e0e06d65acccbc0dd43c3caf1d5f899bd789496b45"
     },
     "R1-GOV-001-A": {
       "number": 146,
       "id": 5496574295,
       "url": "https://github.com/Cooper2Rich/Docket/issues/146",
       "kind": "implementation",
-      "body_sha256": "ce8e5dfde2848ee3eff0f2a4711b3ba61ff7d6f6114425f95dd3996a1e1246bb"
+      "body_sha256": "4b11c455e6b36dd3a60917692209322275d9e10e520e14b44641471a806fbdad"
     },
     "R1-GOV-001-B": {
       "number": 147,
       "id": 5496574579,
       "url": "https://github.com/Cooper2Rich/Docket/issues/147",
       "kind": "implementation",
-      "body_sha256": "4675a558585007844f42d88bec08f1a6bf3ec5dea57c8c126ecfde7c3830e9d3"
+      "body_sha256": "20d2438224cf6086025abd018e1b837f54d67457a807a94da5d60d8c5b8facd4"
     },
     "R1-GOV-001-C": {
       "number": 148,
       "id": 5496574859,
       "url": "https://github.com/Cooper2Rich/Docket/issues/148",
       "kind": "implementation",
-      "body_sha256": "34da07d5ed540b171bceca4bc68dfe85fd1fe40bcf3e5fcce34947deef310bc1"
+      "body_sha256": "4a24975b812914b33ffd8b995447d0809f7acaa4407c96c19946bbb8e8c63d68"
     },
     "R1-GOV-001-D": {
       "number": 149,
       "id": 5496575286,
       "url": "https://github.com/Cooper2Rich/Docket/issues/149",
       "kind": "implementation",
-      "body_sha256": "c53f934a93b8e3c80b1c384011d460f3d2b4301fc71bcc10effb527cbc544753"
+      "body_sha256": "f2c6a27a4e26007b721a89ba815cde492314710e264f3b283544f0b65ae14484"
     },
     "R1-GOV-002-A": {
       "number": 150,
       "id": 5496575574,
       "url": "https://github.com/Cooper2Rich/Docket/issues/150",
       "kind": "implementation",
-      "body_sha256": "69b692179ed422910426eb0f31794107e26539f3adfd04086a05e2a4fbbde95f"
+      "body_sha256": "74c247277ec65d4c8b15b979c0f01592744f0b70453716eda58735910c4508a0"
     },
     "R1-GOV-002-B": {
       "number": 151,
       "id": 5496575876,
       "url": "https://github.com/Cooper2Rich/Docket/issues/151",
       "kind": "implementation",
-      "body_sha256": "607333518edf902e90f9ba296350987f02c975a035d382f60b62d42d9e691c3e"
+      "body_sha256": "ab67c53f4212bab2c82aeef98b5d22ab6c510c93ad37314c60b8b866224cf6ba"
     },
     "R1-GOV-002-C": {
       "number": 152,
       "id": 5496576168,
       "url": "https://github.com/Cooper2Rich/Docket/issues/152",
       "kind": "implementation",
-      "body_sha256": "c7a81e794740fc64d8ad4f80600fc188c81a4b75ba762428b6fed575d702c3ed"
+      "body_sha256": "e264da6d2b62da5df93af80e6e0a64a8e564bdce4ec0142e837aa79da8eff93e"
     },
     "R1-CMP-002-E": {
       "number": 153,
       "id": 5496576595,
       "url": "https://github.com/Cooper2Rich/Docket/issues/153",
       "kind": "implementation",
-      "body_sha256": "ad9a0850e9251c8f8325ac23448843441219805943cca9d780f5ae04e73dd240"
+      "body_sha256": "9656a58d3efcd5e6f24021a53749b48469790d27a5091d927711308f88471d8e"
     },
     "R1-REL-001-A": {
       "number": 154,
       "id": 5496576872,
       "url": "https://github.com/Cooper2Rich/Docket/issues/154",
       "kind": "implementation",
-      "body_sha256": "87afd5a9c891984b07989c6e28e22f3ec2f9b71fd57140e2e689a8dcd81dd4e3"
+      "body_sha256": "daf0844c4134a867ef00e632d72c355079b59a2977d591192100dd2178460f9e"
     },
     "R1-REL-001-B": {
       "number": 155,
       "id": 5496577144,
       "url": "https://github.com/Cooper2Rich/Docket/issues/155",
       "kind": "implementation",
-      "body_sha256": "e0b9ce9c603a1e5d42e54fe771ce66c8a586f5147bb5870743d908865f27a14f"
+      "body_sha256": "9ce1e24cd8f51b9f596f290348aeddeb05393c3915ff1d95faf359d9c6220d79"
     },
     "R1-REL-001-C": {
       "number": 156,
       "id": 5496577415,
       "url": "https://github.com/Cooper2Rich/Docket/issues/156",
       "kind": "implementation",
-      "body_sha256": "b8971cffa333b34fdd2c75b160fe52d9c1184903d4070b4d85eefddb52afa0f8"
+      "body_sha256": "6a91fa95c2a081101033380221f90bbfb1ba09bfa6552f9450e6a14570fbfb35"
     },
     "R1-REL-002-A": {
       "number": 157,
       "id": 5496577835,
       "url": "https://github.com/Cooper2Rich/Docket/issues/157",
       "kind": "implementation",
-      "body_sha256": "c8d3e6bff8017611dbb79cfedf10ef1c289e20652acb12a729a3ee252b399102"
+      "body_sha256": "b2d6c7086be383de346a8a1d674d9718300d92db7addd282b16d17d3244c3ba8"
     },
     "R1-REL-002-B": {
       "number": 158,
       "id": 5496578215,
       "url": "https://github.com/Cooper2Rich/Docket/issues/158",
       "kind": "implementation",
-      "body_sha256": "8f921a7de7e7f13e09ffb7447c663c8c1fe3ea6377d75a44882d133f371bc4ca"
+      "body_sha256": "5ba04f4adb1a4c9205e7ea959293b5b0d3dd5813abe1ab7260fbf99ddffa5dd1"
     },
     "R1-REL-002-C": {
       "number": 159,
       "id": 5496578484,
       "url": "https://github.com/Cooper2Rich/Docket/issues/159",
       "kind": "implementation",
-      "body_sha256": "d44247128376a0a035c4320078aeb090bb64e6177cda5172cefef9e07cfc16ea"
+      "body_sha256": "8dc1a44a149e2ca5dd3dbdfa0c1e64462c8dda790151c775b520cc13d514f0fc"
     },
     "R1-REL-002-D": {
       "number": 160,
       "id": 5496578780,
       "url": "https://github.com/Cooper2Rich/Docket/issues/160",
       "kind": "implementation",
-      "body_sha256": "0379e2aaaa4aa4ce73f25920e9aaadfb9b19a0d4ce4632d3d086e12a51bbe8f6"
+      "body_sha256": "ab899670ac261fafa3a6d2fee381e78327d8e848a986bf5c2085614f7886d227"
     },
     "R1-REL-002-E": {
       "number": 161,
       "id": 5496579220,
       "url": "https://github.com/Cooper2Rich/Docket/issues/161",
       "kind": "implementation",
-      "body_sha256": "0911fc2cdfac9467a24370475f7fb0ffef543ca1444ad371fa266074d71e5b51"
+      "body_sha256": "5de968532c8c64435ca765a692f584e0fba370279bb056f65b833f2f71882bca"
     },
     "R1-REL-003-A": {
       "number": 162,
       "id": 5496579479,
       "url": "https://github.com/Cooper2Rich/Docket/issues/162",
       "kind": "implementation",
-      "body_sha256": "3e39d80907be240dec04cef42e84c34b1c17173dc76c106edb5e12b572c935d8"
+      "body_sha256": "5537a4c77b07f768cef703292f10e715120f8f1ce0b623c901089a3342ade3c2"
     },
     "R1-REL-003-B": {
       "number": 163,
       "id": 5496579773,
       "url": "https://github.com/Cooper2Rich/Docket/issues/163",
       "kind": "implementation",
-      "body_sha256": "3f7095792b6d5fd19cf39d675d61e0545be3a38417770428d54994ebc9608072"
+      "body_sha256": "27c761008f31ba7ddf3a47a90f69406581354687b115ccb7d90950955ba38ac6"
     }
   },
   "milestones": {
