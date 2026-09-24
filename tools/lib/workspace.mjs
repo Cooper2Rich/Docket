@@ -15,6 +15,13 @@ export async function sha256File(filePath) {
   return sha256(await readFile(filePath));
 }
 
+export function applicationEnvironment(environment) {
+  const childEnvironment = { ...environment };
+  delete childEnvironment.DOCKET_PR_NUMBER;
+  delete childEnvironment.DOCKET_VERIFY_ITEM;
+  return childEnvironment;
+}
+
 export function gitHead(workspaceRoot) {
   return execFileSync("git", ["rev-parse", "HEAD"], {
     cwd: workspaceRoot,

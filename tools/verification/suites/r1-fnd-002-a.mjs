@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
-import { readJson } from "../../lib/workspace.mjs";
+import { applicationEnvironment, readJson } from "../../lib/workspace.mjs";
 
 const execFileAsync = promisify(execFile);
 const itemId = "R1-FND-002-A";
@@ -28,6 +28,7 @@ async function command(workspaceRoot, executable, arguments_, options = {}) {
       windowsHide: true,
       maxBuffer: 20 * 1024 * 1024,
       shell: process.platform === "win32" && executable.endsWith(".cmd"),
+      env: applicationEnvironment(process.env),
       ...options,
     });
     return {
