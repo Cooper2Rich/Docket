@@ -10,7 +10,7 @@ status_values:
 - verification
 - done
 execution_authorized: true
-next_item: R1-FND-001-A
+next_item: R1-FND-001-B
 first_item: R1-FND-001-A
 bootstrap_gate: GATE-BOOTSTRAP
 groups:
@@ -20,7 +20,7 @@ groups:
   status: blocked
   owner: runtime
   depends_on: []
-  requirements: &id001
+  requirements:
   - R1-LIFE-001
   objective: Create the pnpm and Nx workspace, package exports, strict ESM TypeScript configuration, root commands, formatting,
     linting, empty application and package shells, and the pinned Clerk-enabled, Vercel-deployable shadcn/ui web foundation
@@ -85,7 +85,7 @@ groups:
   status: blocked
   owner: runtime
   depends_on: []
-  requirements: &id002
+  requirements:
   - R1-LIFE-001
   - R1-OPS-001
   objective: Implement Docker Compose PostgreSQL, MinIO, and Mailpit; runtime environment schemas; process lifecycle; deterministic
@@ -137,7 +137,7 @@ groups:
   status: blocked
   owner: database
   depends_on: []
-  requirements: &id003
+  requirements:
   - R1-DATA-001
   - R1-CONS-001
   - R1-OPS-001
@@ -191,7 +191,7 @@ groups:
   status: blocked
   owner: contracts
   depends_on: []
-  requirements: &id004
+  requirements:
   - R1-AUTH-001
   - R1-COMP-001
   - R1-PRIV-001
@@ -245,7 +245,7 @@ groups:
   status: blocked
   owner: runtime
   depends_on: []
-  requirements: &id005
+  requirements:
   - R1-OPS-001
   objective: Run frozen installation, build, check, unit, integration, end-to-end, contract, migration, security, accessibility,
     and artifact checks using documented root commands.
@@ -290,7 +290,7 @@ groups:
   status: blocked
   owner: identity-access
   depends_on: []
-  requirements: &id006
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-PRIV-001
@@ -358,7 +358,7 @@ groups:
   status: blocked
   owner: identity-access
   depends_on: []
-  requirements: &id007
+  requirements:
   - R1-AUTH-001
   - R1-PRIV-001
   - R1-CONS-001
@@ -421,7 +421,7 @@ groups:
   status: blocked
   owner: schools
   depends_on: []
-  requirements: &id009
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-CONS-001
@@ -495,7 +495,7 @@ groups:
   status: blocked
   owner: schools
   depends_on: []
-  requirements: &id011
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-CONS-001
@@ -553,7 +553,7 @@ groups:
   status: blocked
   owner: tournaments
   depends_on: []
-  requirements: &id012
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-CONS-001
@@ -617,7 +617,7 @@ groups:
   status: blocked
   owner: communications
   depends_on: []
-  requirements: &id008
+  requirements:
   - R1-MSG-001
   - R1-CONS-001
   - R1-PRIV-001
@@ -683,7 +683,7 @@ groups:
   status: blocked
   owner: registration
   depends_on: []
-  requirements: &id016
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-DATA-001
@@ -745,7 +745,7 @@ groups:
   status: blocked
   owner: tournaments
   depends_on: []
-  requirements: &id013
+  requirements:
   - R1-LIFE-001
   - R1-CONS-001
   objective: Adopt, validate, version, migrate, lock, and exceptionally amend the Release 1 Lincoln-Douglas Ruleset and allowed
@@ -812,7 +812,7 @@ groups:
   status: blocked
   owner: publication
   depends_on: []
-  requirements: &id014
+  requirements:
   - R1-LIFE-001
   - R1-PRIV-001
   - R1-CONS-001
@@ -874,7 +874,7 @@ groups:
   status: blocked
   owner: registration
   depends_on: []
-  requirements: &id015
+  requirements:
   - R1-LIFE-001
   - R1-PRIV-001
   - R1-CONS-001
@@ -939,7 +939,7 @@ groups:
   status: blocked
   owner: registration
   depends_on: []
-  requirements: &id017
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-CONS-001
@@ -1009,7 +1009,7 @@ groups:
   status: blocked
   owner: registration
   depends_on: []
-  requirements: &id010
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-PRIV-001
@@ -1082,7 +1082,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id025
+  requirements:
   - R1-LIFE-001
   - R1-CONS-001
   - R1-PRIV-001
@@ -1154,7 +1154,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id018
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-PRIV-001
@@ -1226,7 +1226,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id019
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-PRIV-001
@@ -1290,7 +1290,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id020
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-PRIV-001
@@ -1352,7 +1352,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id026
+  requirements:
   - R1-LIFE-001
   - R1-COMP-001
   - R1-CONS-001
@@ -1412,7 +1412,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id024
+  requirements:
   - R1-LIFE-001
   - R1-COMP-001
   - R1-CONS-001
@@ -1473,7 +1473,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id027
+  requirements:
   - R1-LIFE-001
   - R1-CONS-001
   - R1-PRIV-001
@@ -1536,7 +1536,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id029
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-CONS-001
@@ -1610,7 +1610,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id028
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-CONS-001
@@ -1681,7 +1681,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id030
+  requirements:
   - R1-LIFE-001
   - R1-COMP-001
   - R1-CONS-001
@@ -1747,7 +1747,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id031
+  requirements:
   - R1-CONS-001
   - R1-PRIV-001
   - R1-MSG-001
@@ -1815,7 +1815,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id021
+  requirements:
   - R1-LIFE-001
   - R1-COMP-001
   - R1-CONS-001
@@ -1881,7 +1881,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id022
+  requirements:
   - R1-LIFE-001
   - R1-COMP-001
   - R1-CONS-001
@@ -1944,7 +1944,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id032
+  requirements:
   - R1-LIFE-001
   - R1-COMP-001
   - R1-CONS-001
@@ -2009,7 +2009,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id023
+  requirements:
   - R1-LIFE-001
   - R1-COMP-001
   - R1-CONS-001
@@ -2070,7 +2070,7 @@ groups:
   status: blocked
   owner: competition
   depends_on: []
-  requirements: &id033
+  requirements:
   - R1-LIFE-001
   - R1-CONS-001
   - R1-PRIV-001
@@ -2130,7 +2130,7 @@ groups:
   status: blocked
   owner: tournaments
   depends_on: []
-  requirements: &id034
+  requirements:
   - R1-LIFE-001
   - R1-CONS-001
   - R1-PRIV-001
@@ -2190,7 +2190,7 @@ groups:
   status: blocked
   owner: publication
   depends_on: []
-  requirements: &id035
+  requirements:
   - R1-LIFE-001
   - R1-CONS-001
   - R1-PRIV-001
@@ -2255,7 +2255,7 @@ groups:
   status: blocked
   owner: governance
   depends_on: []
-  requirements: &id036
+  requirements:
   - R1-AUTH-001
   - R1-CONS-001
   - R1-PRIV-001
@@ -2326,7 +2326,7 @@ groups:
   status: blocked
   owner: governance
   depends_on: []
-  requirements: &id037
+  requirements:
   - R1-AUTH-001
   - R1-PRIV-001
   - R1-OPS-001
@@ -2393,7 +2393,7 @@ groups:
   status: blocked
   owner: workflows
   depends_on: []
-  requirements: &id038
+  requirements:
   - R1-LIFE-001
   - R1-AUTH-001
   - R1-DATA-001
@@ -2448,7 +2448,7 @@ groups:
   status: blocked
   owner: runtime
   depends_on: []
-  requirements: &id039
+  requirements:
   - R1-OPS-001
   - R1-CONS-001
   - R1-MSG-001
@@ -2505,7 +2505,7 @@ groups:
   status: blocked
   owner: workflows
   depends_on: []
-  requirements: &id040
+  requirements:
   - R1-LIFE-001
   - R1-OPS-001
   objective: Verify every requirement and gate, produce immutable release artifacts and manifests, exercise production-safe
@@ -2629,30 +2629,34 @@ items:
   parent: R1-FND-001
   order: 10
   title: Create the pinned workspace and executable item-verification entry point
-  status: ready
+  status: done
   owner: runtime
   stage: 01 Foundations
   depends_on: []
   gates:
   - GATE-BOOTSTRAP
-  requirements: *id001
+  requirements:
+  - R1-LIFE-001
   spec: docs/implementation/items/R1-FND-001-A.md
   blocking_reason: null
-  completion: null
+  completion:
+    contract_sha256: 46620829f2d8e73bdd1c9dae66ed18c4de511ee2c0a185c9490bf8ed4994979e
+    verification: controller-must-confirm-integration
 - id: R1-FND-001-B
   kind: leaf
   parent: R1-FND-001
   order: 20
   title: Deliver the server-rendered shadcn web foundation
-  status: blocked
+  status: ready
   owner: runtime
   stage: 01 Foundations
   depends_on:
   - R1-FND-001-A
   gates: []
-  requirements: *id001
+  requirements:
+  - R1-LIFE-001
   spec: docs/implementation/items/R1-FND-001-B.md
-  blocking_reason: Predecessor has not been implemented and verified.
+  blocking_reason: null
   completion: null
 - id: R1-FND-002-A
   kind: leaf
@@ -2665,7 +2669,9 @@ items:
   depends_on:
   - R1-FND-001-B
   gates: []
-  requirements: *id002
+  requirements:
+  - R1-LIFE-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-FND-002-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2680,7 +2686,9 @@ items:
   depends_on:
   - R1-FND-002-A
   gates: []
-  requirements: *id002
+  requirements:
+  - R1-LIFE-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-FND-002-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2695,7 +2703,10 @@ items:
   depends_on:
   - R1-FND-002-B
   gates: []
-  requirements: *id003
+  requirements:
+  - R1-DATA-001
+  - R1-CONS-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-FND-003-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2710,7 +2721,10 @@ items:
   depends_on:
   - R1-FND-003-A
   gates: []
-  requirements: *id003
+  requirements:
+  - R1-DATA-001
+  - R1-CONS-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-FND-003-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2725,7 +2739,10 @@ items:
   depends_on:
   - R1-FND-003-B
   gates: []
-  requirements: *id004
+  requirements:
+  - R1-AUTH-001
+  - R1-COMP-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-FND-004-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2740,7 +2757,10 @@ items:
   depends_on:
   - R1-FND-004-A
   gates: []
-  requirements: *id004
+  requirements:
+  - R1-AUTH-001
+  - R1-COMP-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-FND-004-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2755,7 +2775,8 @@ items:
   depends_on:
   - R1-FND-004-B
   gates: []
-  requirements: *id005
+  requirements:
+  - R1-OPS-001
   spec: docs/implementation/items/R1-FND-005-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2771,7 +2792,8 @@ items:
   - R1-FND-005-A
   gates:
   - GATE-GITHUB
-  requirements: *id005
+  requirements:
+  - R1-OPS-001
   spec: docs/implementation/items/R1-FND-005-B.md
   blocking_reason: Explicit prerequisite decision unresolved.
   completion: null
@@ -2786,7 +2808,10 @@ items:
   depends_on:
   - R1-FND-005-B
   gates: []
-  requirements: *id006
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-IDA-001-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2801,7 +2826,10 @@ items:
   depends_on:
   - R1-IDA-001-A
   gates: []
-  requirements: *id006
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-IDA-001-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2816,7 +2844,10 @@ items:
   depends_on:
   - R1-IDA-001-B
   gates: []
-  requirements: *id007
+  requirements:
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-IDA-002-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2831,7 +2862,10 @@ items:
   depends_on:
   - R1-IDA-002-A
   gates: []
-  requirements: *id008
+  requirements:
+  - R1-MSG-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-COM-001-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2846,7 +2880,10 @@ items:
   depends_on:
   - R1-COM-001-A
   gates: []
-  requirements: *id008
+  requirements:
+  - R1-MSG-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-COM-001-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2861,7 +2898,10 @@ items:
   depends_on:
   - R1-COM-001-B
   gates: []
-  requirements: *id007
+  requirements:
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-IDA-002-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2876,7 +2916,10 @@ items:
   depends_on:
   - R1-IDA-002-B
   gates: []
-  requirements: *id009
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-SCH-001-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2891,7 +2934,10 @@ items:
   depends_on:
   - R1-SCH-001-A
   gates: []
-  requirements: *id009
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-SCH-001-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2906,7 +2952,10 @@ items:
   depends_on:
   - R1-SCH-001-B
   gates: []
-  requirements: *id009
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-SCH-001-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2921,7 +2970,11 @@ items:
   depends_on:
   - R1-SCH-001-C
   gates: []
-  requirements: *id010
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-REG-004-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2936,7 +2989,10 @@ items:
   depends_on:
   - R1-REG-004-A
   gates: []
-  requirements: *id011
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-SCH-002-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2951,7 +3007,10 @@ items:
   depends_on:
   - R1-SCH-002-A
   gates: []
-  requirements: *id011
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-SCH-002-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2966,7 +3025,10 @@ items:
   depends_on:
   - R1-SCH-002-B
   gates: []
-  requirements: *id012
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-TRN-001-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2981,7 +3043,10 @@ items:
   depends_on:
   - R1-TRN-001-A
   gates: []
-  requirements: *id012
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-TRN-001-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -2997,7 +3062,9 @@ items:
   - R1-TRN-001-B
   gates:
   - GATE-RULESET
-  requirements: *id013
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-TRN-002-A.md
   blocking_reason: Explicit prerequisite decision unresolved.
   completion: null
@@ -3012,7 +3079,9 @@ items:
   depends_on:
   - R1-TRN-002-A
   gates: []
-  requirements: *id013
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-TRN-002-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3027,7 +3096,10 @@ items:
   depends_on:
   - R1-TRN-002-B
   gates: []
-  requirements: *id014
+  requirements:
+  - R1-LIFE-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-TRN-003-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3042,7 +3114,10 @@ items:
   depends_on:
   - R1-TRN-003-A
   gates: []
-  requirements: *id014
+  requirements:
+  - R1-LIFE-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-TRN-003-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3057,7 +3132,10 @@ items:
   depends_on:
   - R1-TRN-003-B
   gates: []
-  requirements: *id015
+  requirements:
+  - R1-LIFE-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-REG-002-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3072,7 +3150,10 @@ items:
   depends_on:
   - R1-REG-002-A
   gates: []
-  requirements: *id015
+  requirements:
+  - R1-LIFE-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-REG-002-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3087,7 +3168,11 @@ items:
   depends_on:
   - R1-REG-002-B
   gates: []
-  requirements: *id016
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-DATA-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-REG-001-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3102,7 +3187,10 @@ items:
   depends_on:
   - R1-REG-001-A
   gates: []
-  requirements: *id017
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-REG-003-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3117,7 +3205,10 @@ items:
   depends_on:
   - R1-REG-003-A
   gates: []
-  requirements: *id017
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-REG-003-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3132,7 +3223,11 @@ items:
   depends_on:
   - R1-REG-003-B
   gates: []
-  requirements: *id010
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-REG-004-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3147,7 +3242,11 @@ items:
   depends_on:
   - R1-REG-004-B
   gates: []
-  requirements: *id010
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-REG-004-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3162,7 +3261,11 @@ items:
   depends_on:
   - R1-REG-004-C
   gates: []
-  requirements: *id010
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-REG-004-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3177,7 +3280,10 @@ items:
   depends_on:
   - R1-REG-004-D
   gates: []
-  requirements: *id018
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-002-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3192,7 +3298,10 @@ items:
   depends_on:
   - R1-CMP-002-A
   gates: []
-  requirements: *id018
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-002-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3207,7 +3316,10 @@ items:
   depends_on:
   - R1-CMP-002-B
   gates: []
-  requirements: *id018
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-002-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3222,7 +3334,10 @@ items:
   depends_on:
   - R1-CMP-002-C
   gates: []
-  requirements: *id018
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-002-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3237,7 +3352,10 @@ items:
   depends_on:
   - R1-CMP-002-D
   gates: []
-  requirements: *id019
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-003-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3252,7 +3370,10 @@ items:
   depends_on:
   - R1-CMP-003-A
   gates: []
-  requirements: *id019
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-003-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3267,7 +3388,10 @@ items:
   depends_on:
   - R1-CMP-003-B
   gates: []
-  requirements: *id019
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-003-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3282,7 +3406,10 @@ items:
   depends_on:
   - R1-CMP-003-C
   gates: []
-  requirements: *id020
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-004-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3297,7 +3424,10 @@ items:
   depends_on:
   - R1-CMP-004-A
   gates: []
-  requirements: *id020
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-004-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3312,7 +3442,11 @@ items:
   depends_on:
   - R1-CMP-004-B
   gates: []
-  requirements: *id021
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-012-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3327,7 +3461,11 @@ items:
   depends_on:
   - R1-CMP-012-A
   gates: []
-  requirements: *id022
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-013-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3342,7 +3480,11 @@ items:
   depends_on:
   - R1-CMP-013-A
   gates: []
-  requirements: *id023
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-015-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3357,7 +3499,10 @@ items:
   depends_on:
   - R1-CMP-015-A
   gates: []
-  requirements: *id024
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-CMP-006-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3372,7 +3517,10 @@ items:
   depends_on:
   - R1-CMP-006-A
   gates: []
-  requirements: *id025
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-001-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3387,7 +3535,10 @@ items:
   depends_on:
   - R1-CMP-001-A
   gates: []
-  requirements: *id025
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-001-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3402,7 +3553,10 @@ items:
   depends_on:
   - R1-CMP-001-B
   gates: []
-  requirements: *id025
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-001-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3417,7 +3571,10 @@ items:
   depends_on:
   - R1-CMP-001-C
   gates: []
-  requirements: *id026
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-CMP-005-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3432,7 +3589,10 @@ items:
   depends_on:
   - R1-CMP-005-A
   gates: []
-  requirements: *id024
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-CMP-006-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3447,7 +3607,10 @@ items:
   depends_on:
   - R1-CMP-006-B
   gates: []
-  requirements: *id024
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-CMP-006-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3462,7 +3625,10 @@ items:
   depends_on:
   - R1-CMP-006-C
   gates: []
-  requirements: *id024
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-CMP-006-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3477,7 +3643,10 @@ items:
   depends_on:
   - R1-CMP-006-D
   gates: []
-  requirements: *id027
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-007-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3492,7 +3661,10 @@ items:
   depends_on:
   - R1-CMP-007-A
   gates: []
-  requirements: *id027
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-007-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3507,7 +3679,10 @@ items:
   depends_on:
   - R1-CMP-007-B
   gates: []
-  requirements: *id017
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-REG-003-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3522,7 +3697,10 @@ items:
   depends_on:
   - R1-REG-003-C
   gates: []
-  requirements: *id025
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-001-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3537,7 +3715,10 @@ items:
   depends_on:
   - R1-CMP-001-D
   gates: []
-  requirements: *id025
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-001-E.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3552,7 +3733,10 @@ items:
   depends_on:
   - R1-CMP-001-E
   gates: []
-  requirements: *id026
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-CMP-005-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3567,7 +3751,11 @@ items:
   depends_on:
   - R1-CMP-005-B
   gates: []
-  requirements: *id028
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-009-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3582,7 +3770,11 @@ items:
   depends_on:
   - R1-CMP-009-A
   gates: []
-  requirements: *id028
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-009-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3597,7 +3789,11 @@ items:
   depends_on:
   - R1-CMP-009-B
   gates: []
-  requirements: *id029
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-008-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3612,7 +3808,11 @@ items:
   depends_on:
   - R1-CMP-008-A
   gates: []
-  requirements: *id029
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-008-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3627,7 +3827,11 @@ items:
   depends_on:
   - R1-CMP-008-B
   gates: []
-  requirements: *id029
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-008-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3642,7 +3846,11 @@ items:
   depends_on:
   - R1-CMP-008-C
   gates: []
-  requirements: *id029
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-008-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3657,7 +3865,11 @@ items:
   depends_on:
   - R1-CMP-008-D
   gates: []
-  requirements: *id028
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-009-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3672,7 +3884,11 @@ items:
   depends_on:
   - R1-CMP-009-C
   gates: []
-  requirements: *id028
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-009-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3687,7 +3903,11 @@ items:
   depends_on:
   - R1-CMP-009-D
   gates: []
-  requirements: *id030
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-010-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3702,7 +3922,11 @@ items:
   depends_on:
   - R1-CMP-010-A
   gates: []
-  requirements: *id030
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-010-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3717,7 +3941,11 @@ items:
   depends_on:
   - R1-CMP-010-B
   gates: []
-  requirements: *id030
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-010-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3732,7 +3960,11 @@ items:
   depends_on:
   - R1-CMP-010-C
   gates: []
-  requirements: *id030
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-010-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3747,7 +3979,10 @@ items:
   depends_on:
   - R1-CMP-010-D
   gates: []
-  requirements: *id031
+  requirements:
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-CMP-011-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3762,7 +3997,10 @@ items:
   depends_on:
   - R1-CMP-011-A
   gates: []
-  requirements: *id031
+  requirements:
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-CMP-011-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3777,7 +4015,10 @@ items:
   depends_on:
   - R1-CMP-011-B
   gates: []
-  requirements: *id031
+  requirements:
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-CMP-011-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3792,7 +4033,10 @@ items:
   depends_on:
   - R1-CMP-011-C
   gates: []
-  requirements: *id031
+  requirements:
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-CMP-011-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3807,7 +4051,11 @@ items:
   depends_on:
   - R1-CMP-011-D
   gates: []
-  requirements: *id021
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-012-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3822,7 +4070,11 @@ items:
   depends_on:
   - R1-CMP-012-B
   gates: []
-  requirements: *id021
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-012-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3837,7 +4089,11 @@ items:
   depends_on:
   - R1-CMP-012-C
   gates: []
-  requirements: *id022
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-013-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3852,7 +4108,11 @@ items:
   depends_on:
   - R1-CMP-013-B
   gates: []
-  requirements: *id022
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-013-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3867,7 +4127,10 @@ items:
   depends_on:
   - R1-CMP-013-C
   gates: []
-  requirements: *id032
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-CMP-014-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3882,7 +4145,10 @@ items:
   depends_on:
   - R1-CMP-014-A
   gates: []
-  requirements: *id032
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-CMP-014-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3897,7 +4163,10 @@ items:
   depends_on:
   - R1-CMP-014-B
   gates: []
-  requirements: *id032
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
   spec: docs/implementation/items/R1-CMP-014-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3912,7 +4181,11 @@ items:
   depends_on:
   - R1-CMP-014-C
   gates: []
-  requirements: *id023
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-015-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3927,7 +4200,11 @@ items:
   depends_on:
   - R1-CMP-015-B
   gates: []
-  requirements: *id023
+  requirements:
+  - R1-LIFE-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-015-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3942,7 +4219,10 @@ items:
   depends_on:
   - R1-CMP-015-C
   gates: []
-  requirements: *id033
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-016-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3957,7 +4237,10 @@ items:
   depends_on:
   - R1-CMP-016-A
   gates: []
-  requirements: *id033
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-016-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3972,7 +4255,10 @@ items:
   depends_on:
   - R1-CMP-016-B
   gates: []
-  requirements: *id034
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-TRN-004-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -3987,7 +4273,10 @@ items:
   depends_on:
   - R1-TRN-004-A
   gates: []
-  requirements: *id034
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-TRN-004-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4002,7 +4291,11 @@ items:
   depends_on:
   - R1-TRN-004-B
   gates: []
-  requirements: *id035
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-PUB-001-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4017,7 +4310,11 @@ items:
   depends_on:
   - R1-PUB-001-A
   gates: []
-  requirements: *id035
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-PUB-001-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4033,7 +4330,11 @@ items:
   - R1-PUB-001-B
   gates:
   - GATE-ATTRIBUTION
-  requirements: *id035
+  requirements:
+  - R1-LIFE-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-PUB-001-C.md
   blocking_reason: Explicit prerequisite decision unresolved.
   completion: null
@@ -4048,7 +4349,10 @@ items:
   depends_on:
   - R1-PUB-001-C
   gates: []
-  requirements: *id006
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-IDA-001-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4063,7 +4367,10 @@ items:
   depends_on:
   - R1-IDA-001-C
   gates: []
-  requirements: *id006
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-IDA-001-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4078,7 +4385,10 @@ items:
   depends_on:
   - R1-IDA-001-D
   gates: []
-  requirements: *id006
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-IDA-001-E.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4093,7 +4403,11 @@ items:
   depends_on:
   - R1-IDA-001-E
   gates: []
-  requirements: *id036
+  requirements:
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-GOV-001-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4108,7 +4422,11 @@ items:
   depends_on:
   - R1-GOV-001-A
   gates: []
-  requirements: *id036
+  requirements:
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-GOV-001-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4123,7 +4441,11 @@ items:
   depends_on:
   - R1-GOV-001-B
   gates: []
-  requirements: *id036
+  requirements:
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-GOV-001-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4138,7 +4460,11 @@ items:
   depends_on:
   - R1-GOV-001-C
   gates: []
-  requirements: *id036
+  requirements:
+  - R1-AUTH-001
+  - R1-CONS-001
+  - R1-PRIV-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-GOV-001-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4153,7 +4479,10 @@ items:
   depends_on:
   - R1-GOV-001-D
   gates: []
-  requirements: *id037
+  requirements:
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-GOV-002-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4168,7 +4497,10 @@ items:
   depends_on:
   - R1-GOV-002-A
   gates: []
-  requirements: *id037
+  requirements:
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-GOV-002-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4183,7 +4515,10 @@ items:
   depends_on:
   - R1-GOV-002-B
   gates: []
-  requirements: *id037
+  requirements:
+  - R1-AUTH-001
+  - R1-PRIV-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-GOV-002-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4199,7 +4534,10 @@ items:
   - R1-GOV-002-C
   gates:
   - GATE-ASSESSMENT
-  requirements: *id018
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-CMP-002-E.md
   blocking_reason: Explicit prerequisite decision unresolved.
   completion: null
@@ -4214,7 +4552,14 @@ items:
   depends_on:
   - R1-CMP-002-E
   gates: []
-  requirements: *id038
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-DATA-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-MSG-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-REL-001-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4229,7 +4574,14 @@ items:
   depends_on:
   - R1-REL-001-A
   gates: []
-  requirements: *id038
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-DATA-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-MSG-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-REL-001-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4245,7 +4597,14 @@ items:
   - R1-REL-001-B
   gates:
   - GATE-REVIEW
-  requirements: *id038
+  requirements:
+  - R1-LIFE-001
+  - R1-AUTH-001
+  - R1-DATA-001
+  - R1-COMP-001
+  - R1-CONS-001
+  - R1-MSG-001
+  - R1-PRIV-001
   spec: docs/implementation/items/R1-REL-001-C.md
   blocking_reason: Explicit prerequisite decision unresolved.
   completion: null
@@ -4261,7 +4620,10 @@ items:
   - R1-REL-001-C
   gates:
   - GATE-ENVIRONMENTS
-  requirements: *id039
+  requirements:
+  - R1-OPS-001
+  - R1-CONS-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-REL-002-A.md
   blocking_reason: Explicit prerequisite decision unresolved.
   completion: null
@@ -4276,7 +4638,10 @@ items:
   depends_on:
   - R1-REL-002-A
   gates: []
-  requirements: *id039
+  requirements:
+  - R1-OPS-001
+  - R1-CONS-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-REL-002-B.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4291,7 +4656,10 @@ items:
   depends_on:
   - R1-REL-002-B
   gates: []
-  requirements: *id039
+  requirements:
+  - R1-OPS-001
+  - R1-CONS-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-REL-002-C.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4306,7 +4674,10 @@ items:
   depends_on:
   - R1-REL-002-C
   gates: []
-  requirements: *id039
+  requirements:
+  - R1-OPS-001
+  - R1-CONS-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-REL-002-D.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4321,7 +4692,10 @@ items:
   depends_on:
   - R1-REL-002-D
   gates: []
-  requirements: *id039
+  requirements:
+  - R1-OPS-001
+  - R1-CONS-001
+  - R1-MSG-001
   spec: docs/implementation/items/R1-REL-002-E.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4336,7 +4710,9 @@ items:
   depends_on:
   - R1-REL-002-E
   gates: []
-  requirements: *id040
+  requirements:
+  - R1-LIFE-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-REL-003-A.md
   blocking_reason: Predecessor has not been implemented and verified.
   completion: null
@@ -4352,7 +4728,9 @@ items:
   - R1-REL-003-A
   gates:
   - GATE-RELEASE
-  requirements: *id040
+  requirements:
+  - R1-LIFE-001
+  - R1-OPS-001
   spec: docs/implementation/items/R1-REL-003-B.md
   blocking_reason: Explicit prerequisite decision unresolved.
   completion: null

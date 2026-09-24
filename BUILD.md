@@ -4,7 +4,7 @@ Read [AGENTS.md](AGENTS.md) and [wiki/index.md](wiki/index.md) first. This file 
 
 ## Current state
 
-The owner requested removal of the prior implementation on September 9, 2026. The repository remains specification-only until the first authorized item is implemented; launch tooling stays in the user's local installation and no application command exists yet. The September 18 option-B setup preserves 40 objectives as tracking groups and defines 115 implementation leaves plus eight decision/external gates. On September 23 the owner authorized the build, approved the protected bootstrap policy, and made the repository public so protection could be enforced. `R1-FND-001-A` is now ready; no leaf is done. Earlier passing tests and completion records describe the removed build and cannot establish completion now.
+The owner requested removal of the prior implementation on September 9, 2026. On September 23 the owner authorized the build, approved the protected bootstrap policy, and made the repository public so protection could be enforced. `R1-FND-001-A` now has a workspace implementation and controller-prepared candidate transition in [PR #168](https://github.com/Cooper2Rich/Docket/pull/168). That branch-local proposal is not completion: exact-head evidence, `Bootstrap / Verify`, and controller-verified protected integration are still required. The September 18 option-B setup preserves 40 objectives as tracking groups and defines 115 implementation leaves plus eight decision/external gates. Earlier passing tests and completion records describe the removed build and cannot establish completion now.
 
 ## Source authority
 

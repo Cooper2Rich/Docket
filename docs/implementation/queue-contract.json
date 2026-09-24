@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "349f4008cd65d885830dbc47cfa262aa058b413b2f2f448e83d1f92aaa6f66b8",
+  "graph_sha256": "dbfb1f894109d114c626d8fbefb3aa43aad2211a5bf20c56f2a0399d7d184ff4",
   "execution_graph": {
     "items": [
       {
@@ -15892,7 +15892,7 @@
         "parent": "R1-FND-001",
         "order": 10,
         "title": "Create the pinned workspace and executable item-verification entry point",
-        "status": "ready",
+        "status": "done",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [],
@@ -15904,7 +15904,10 @@
         ],
         "spec": "docs/implementation/items/R1-FND-001-A.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "46620829f2d8e73bdd1c9dae66ed18c4de511ee2c0a185c9490bf8ed4994979e",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-FND-001-B",
@@ -15912,7 +15915,7 @@
         "parent": "R1-FND-001",
         "order": 20,
         "title": "Deliver the server-rendered shadcn web foundation",
-        "status": "blocked",
+        "status": "ready",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [
@@ -15923,7 +15926,7 @@
           "R1-LIFE-001"
         ],
         "spec": "docs/implementation/items/R1-FND-001-B.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {
