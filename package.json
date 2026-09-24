@@ -23,7 +23,7 @@
     "infra:reset": "node tools/infra-reset.mjs",
     "dev": "node tools/unavailable-command.mjs dev R1-FND-005-A",
     "test": "node tools/unavailable-command.mjs test R1-FND-005-B",
-    "test:integration": "node tools/unavailable-command.mjs test:integration R1-FND-002-B",
+    "test:integration": "node tools/run-check.mjs integration pnpm exec vitest run --config vitest.integration.config.mts --reporter=verbose",
     "test:e2e": "node tools/run-check.mjs e2e pnpm exec playwright test",
     "ci:check": "node tools/unavailable-command.mjs ci:check R1-FND-005-B",
     "ci:full": "node tools/unavailable-command.mjs ci:full R1-FND-005-B",

@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "191dbd1078390c77896f7bc2441c181da881574ccee00578492bc0f60beeebac",
+  "graph_sha256": "6b4050e4951a28a2a033b11ef3f7614f26f074da7c033173a286c7b92d1f3dc1",
   "execution_graph": {
     "items": [
       {
@@ -16011,7 +16011,7 @@
         "parent": "R1-FND-003",
         "order": 60,
         "title": "Isolate database integration fixtures and compatibility checks",
-        "status": "ready",
+        "status": "done",
         "owner": "database",
         "stage": "01 Foundations",
         "depends_on": [
@@ -16025,7 +16025,10 @@
         ],
         "spec": "docs/implementation/items/R1-FND-003-B.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "2af039fc3a8f3e930a9b8644fdae68b781b0c8645eb7e165950c7890685ec63b",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-FND-004-A",
@@ -16033,7 +16036,7 @@
         "parent": "R1-FND-004",
         "order": 70,
         "title": "Generate contracts from module-owned definitions",
-        "status": "blocked",
+        "status": "ready",
         "owner": "contracts",
         "stage": "01 Foundations",
         "depends_on": [
@@ -16046,7 +16049,7 @@
           "R1-PRIV-001"
         ],
         "spec": "docs/implementation/items/R1-FND-004-A.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {
@@ -18597,7 +18600,7 @@
           "R1-FND-003-A",
           "R1-FND-003-B"
         ],
-        "status": "blocked"
+        "status": "done"
       },
       {
         "id": "R1-FND-004",

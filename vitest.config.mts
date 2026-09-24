@@ -17,7 +17,8 @@ export default defineConfig({
     exclude: [
       ...configDefaults.exclude,
       "apps/web/e2e/**",
-      "**/*.integration.test.ts",
+      "**/dist/**",
+      "**/*.integration.test.{js,ts}",
     ],
     passWithNoTests: false,
   },
