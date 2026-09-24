@@ -10,7 +10,7 @@ status_values:
 - verification
 - done
 execution_authorized: true
-next_item: R1-FND-002-A
+next_item: R1-FND-002-B
 first_item: R1-FND-001-A
 bootstrap_gate: GATE-BOOTSTRAP
 groups:
@@ -2665,7 +2665,7 @@ items:
   parent: R1-FND-002
   order: 30
   title: Bootstrap local services and validate runtime configuration
-  status: ready
+  status: done
   owner: runtime
   stage: 01 Foundations
   depends_on:
@@ -2676,13 +2676,15 @@ items:
   - R1-OPS-001
   spec: docs/implementation/items/R1-FND-002-A.md
   blocking_reason: null
-  completion: null
+  completion:
+    contract_sha256: 18298c20e64ec99bfb6e30945f03de2ae122830835652b32cc461b1290d813cc
+    verification: controller-must-confirm-integration
 - id: R1-FND-002-B
   kind: leaf
   parent: R1-FND-002
   order: 40
   title: Provide deterministic clocks, identifiers, and guarded adapters
-  status: blocked
+  status: ready
   owner: runtime
   stage: 01 Foundations
   depends_on:
@@ -2692,7 +2694,7 @@ items:
   - R1-LIFE-001
   - R1-OPS-001
   spec: docs/implementation/items/R1-FND-002-B.md
-  blocking_reason: Predecessor has not been implemented and verified.
+  blocking_reason: null
   completion: null
 - id: R1-FND-003-A
   kind: leaf

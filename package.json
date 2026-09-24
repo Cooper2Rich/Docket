@@ -15,7 +15,12 @@
     "test:unit": "node tools/run-check.mjs unit pnpm exec vitest run --reporter=verbose",
     "verify:item": "node tools/verification/verify-item.mjs",
     "ui:add": "pnpm --dir apps/web exec shadcn add",
-    "bootstrap": "node tools/unavailable-command.mjs bootstrap R1-FND-005-A",
+    "bootstrap": "node tools/bootstrap.mjs",
+    "config:validate": "pnpm --filter @docket/runtime build && node packages/runtime/dist/cli.js config:validate",
+    "health:check": "pnpm --filter @docket/runtime build && node packages/runtime/dist/cli.js health:check",
+    "infra:up": "docker compose --project-name docket-local --file compose.yaml up -d --wait",
+    "infra:down": "docker compose --project-name docket-local --file compose.yaml down",
+    "infra:reset": "node tools/infra-reset.mjs",
     "dev": "node tools/unavailable-command.mjs dev R1-FND-005-A",
     "test": "node tools/unavailable-command.mjs test R1-FND-005-B",
     "test:integration": "node tools/unavailable-command.mjs test:integration R1-FND-002-B",
@@ -27,8 +32,8 @@
     "artifacts:check": "node tools/unavailable-command.mjs artifacts:check R1-FND-005-B",
     "contracts:generate": "node tools/unavailable-command.mjs contracts:generate R1-FND-003-A",
     "contracts:check": "node tools/unavailable-command.mjs contracts:check R1-FND-003-A",
-    "migration:check": "node tools/unavailable-command.mjs migration:check R1-FND-002-A",
-    "migrate": "node tools/unavailable-command.mjs migrate R1-FND-002-A"
+    "migration:check": "node tools/unavailable-command.mjs migration:check R1-FND-003-A",
+    "migrate": "node tools/unavailable-command.mjs migrate R1-FND-003-A"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

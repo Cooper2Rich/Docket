@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "42ed1e1df09b556ce6d82df50209fa23d08dad8487c89a4f346bc70498a950d9",
+  "graph_sha256": "8ded167cda2f0f612ac2d17fa7b26c532d5c40b804bd3f71278da8fb9b3c8552",
   "execution_graph": {
     "items": [
       {
@@ -15938,7 +15938,7 @@
         "parent": "R1-FND-002",
         "order": 30,
         "title": "Bootstrap local services and validate runtime configuration",
-        "status": "ready",
+        "status": "done",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [
@@ -15951,7 +15951,10 @@
         ],
         "spec": "docs/implementation/items/R1-FND-002-A.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "18298c20e64ec99bfb6e30945f03de2ae122830835652b32cc461b1290d813cc",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-FND-002-B",
@@ -15959,7 +15962,7 @@
         "parent": "R1-FND-002",
         "order": 40,
         "title": "Provide deterministic clocks, identifiers, and guarded adapters",
-        "status": "blocked",
+        "status": "ready",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [
@@ -15971,7 +15974,7 @@
           "R1-OPS-001"
         ],
         "spec": "docs/implementation/items/R1-FND-002-B.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {
