@@ -49,6 +49,63 @@ function failingPlan(base: MigrationPlan): MigrationPlan {
   };
 }
 
+function additiveHeadPlan(base: MigrationPlan): MigrationPlan {
+  const metadata: MigrationMetadata = {
+    schema_version: 1,
+    id: "0002_platform_compatibility_probe",
+    order: 2,
+    owner: "database",
+    description: "Prove adjacent application compatibility",
+    sql_file: "0002_platform_compatibility_probe.sql",
+    verify_sql:
+      "select count(*)::integer as probe_columns from information_schema.columns where table_schema = 'public' and table_name = 'platform_compatibility_probe' having count(*) = 2",
+    compatibility: "additive",
+    requirements: ["R1-DATA-001", "R1-CONS-001", "R1-OPS-001"],
+  };
+  const sql =
+    "create table platform_compatibility_probe (id text primary key, note text);";
+  const migration = {
+    ...metadata,
+    sql,
+    checksum: calculateMigrationChecksum(metadata, sql),
+    source: "synthetic/0002_platform_compatibility_probe.migration.json",
+  };
+  return {
+    migrations: [...base.migrations, migration],
+    owners: base.owners,
+    digest: calculateMigrationChecksum(metadata, sql),
+    head: migration.id,
+  };
+}
+
+function adjacentIncompatiblePlan(base: MigrationPlan): MigrationPlan {
+  const metadata: MigrationMetadata = {
+    schema_version: 1,
+    id: "0002_platform_break_previous_reader",
+    order: 2,
+    owner: "database",
+    description: "A forbidden change that breaks the previous application",
+    sql_file: "0002_platform_break_previous_reader.sql",
+    verify_sql: "select 1",
+    compatibility: "additive",
+    requirements: ["R1-DATA-001", "R1-CONS-001", "R1-OPS-001"],
+  };
+  const sql =
+    "alter table platform_migration_journal alter column owner type integer using 0;";
+  const migration = {
+    ...metadata,
+    sql,
+    checksum: calculateMigrationChecksum(metadata, sql),
+    source: "synthetic/0002_platform_break_previous_reader.migration.json",
+  };
+  return {
+    migrations: [...base.migrations, migration],
+    owners: base.owners,
+    digest: calculateMigrationChecksum(metadata, sql),
+    head: migration.id,
+  };
+}
+
 afterEach(async () => {
   await Promise.all(databases.splice(0).map((database) => database.stop()));
 });
@@ -82,6 +139,71 @@ describe("PostgreSQL migration boundary", () => {
     expect(retry).toMatchObject({ status: "noop", applied: [] });
     expect(journal.rows[0]?.applied).toBe(1);
   }, 120_000);
+
+  it("migrates the previous schema to head while preserving the previous application read", async () => {
+    const database = await emptyDatabase();
+    const previous = await plan();
+    await runMigrations({
+      databaseUrl: database.databaseUrl,
+      plan: previous,
+      authority: { actor: "release-operator", authorityVersion: 1 },
+    });
+
+    const head = additiveHeadPlan(previous);
+    const result = await runMigrations({
+      databaseUrl: database.databaseUrl,
+      plan: head,
+      authority: {
+        actor: "release-operator",
+        authorityVersion: 1,
+        expectedHead: previous.head,
+      },
+    });
+    const previousApplicationRead = await database.query<{
+      migration_id: string;
+      owner: string;
+      outcome: string;
+    }>(
+      "select migration_id, owner, outcome from platform_migration_journal order by migration_order",
+    );
+    const newSchemaRead = await database.query<{ relation: string | null }>(
+      "select to_regclass('public.platform_compatibility_probe')::text as relation",
+    );
+
+    expect(result).toMatchObject({
+      status: "applied",
+      previousHead: previous.head,
+      head: "0002_platform_compatibility_probe",
+    });
+    expect(result.applied).toHaveLength(1);
+    expect(previousApplicationRead.rows).toEqual([
+      {
+        migration_id: "0001_platform_migration_journal",
+        owner: "database",
+        outcome: "applied",
+      },
+      {
+        migration_id: "0002_platform_compatibility_probe",
+        owner: "database",
+        outcome: "applied",
+      },
+    ]);
+    expect(newSchemaRead.rows).toEqual([
+      { relation: "platform_compatibility_probe" },
+    ]);
+  }, 120_000);
+
+  it("rejects an adjacent-incompatible schema change before it can break the previous application", async () => {
+    const previous = await plan();
+
+    await expect(
+      runMigrations({
+        databaseUrl: "postgresql://unused.invalid/docket",
+        plan: adjacentIncompatiblePlan(previous),
+        authority: { actor: "release-operator", authorityVersion: 1 },
+      }),
+    ).rejects.toMatchObject({ code: "SCHEMA_INCOMPATIBLE" });
+  });
 
   it("serializes equivalent concurrent migration attempts without double application", async () => {
     const database = await emptyDatabase();

@@ -35,10 +35,16 @@ export interface TestQueryResult<
 }
 
 export class TestDatabase {
+  private stopPromise: Promise<void> | undefined;
+
   private constructor(
     private readonly container: StartedPostgreSqlContainer,
     readonly databaseUrl: string,
   ) {}
+
+  get stopped(): boolean {
+    return this.stopPromise !== undefined;
+  }
 
   static async start(options: TestDatabaseOptions = {}): Promise<TestDatabase> {
     const container = await new PostgreSqlContainer(
@@ -71,6 +77,7 @@ export class TestDatabase {
     text: string,
     values?: readonly unknown[],
   ): Promise<TestQueryResult<R>> {
+    if (this.stopped) throw new Error("TEST_DATABASE_STOPPED");
     const session = await connectMigrationSession(this.databaseUrl);
     try {
       const result = await session.query<R>(text, values);
@@ -81,7 +88,20 @@ export class TestDatabase {
   }
 
   async stop(): Promise<void> {
-    await this.container.stop();
+    this.stopPromise ??= this.container.stop().then(() => undefined);
+    await this.stopPromise;
+  }
+}
+
+export async function withTestDatabase<Result>(
+  options: TestDatabaseOptions,
+  run: (database: TestDatabase) => Promise<Result>,
+): Promise<Result> {
+  const database = await TestDatabase.start(options);
+  try {
+    return await run(database);
+  } finally {
+    await database.stop();
   }
 }
 
