@@ -1,0 +1,8 @@
+{
+  "files": {
+    "packages/schools/package.json": "{\"name\":\"@docket/schools\",\"type\":\"module\",\"exports\":{\".\":{\"types\":\"./dist/index.d.ts\",\"import\":\"./dist/index.js\"}}}",
+    "packages/schools/src/index.ts": "export const publicSchool = true;",
+    "packages/registration/package.json": "{\"name\":\"@docket/registration\",\"type\":\"module\",\"exports\":{\".\":{\"types\":\"./dist/index.d.ts\",\"import\":\"./dist/index.js\"}},\"dependencies\":{\"@docket/schools\":\"workspace:*\"}}",
+    "packages/registration/src/index.ts": "import { secret } from '@docket/schools/src/internal.js'; export { secret };"
+  }
+}

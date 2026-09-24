@@ -1,0 +1,44 @@
+{
+  "name": "docket",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
+  "packageManager": "pnpm@11.19.0",
+  "scripts": {
+    "build": "node tools/run-check.mjs build pnpm exec nx run-many -t build --all",
+    "check": "node tools/run-check.mjs check pnpm run check:workspace",
+    "check:workspace": "pnpm run format:check && pnpm exec nx run-many -t typecheck --all && pnpm exec eslint apps packages tools && node tools/check-boundaries.mjs",
+    "format:check": "prettier --check \"{apps,packages,tools}/**/*.{css,json,mjs,ts,tsx}\" \"*.{json,yaml}\"",
+    "test:unit": "node tools/run-check.mjs unit pnpm exec vitest run --reporter=verbose",
+    "verify:item": "node tools/verification/verify-item.mjs",
+    "ui:add": "pnpm --dir apps/web exec shadcn add",
+    "bootstrap": "node tools/unavailable-command.mjs bootstrap R1-FND-005-A",
+    "dev": "node tools/unavailable-command.mjs dev R1-FND-005-A",
+    "test": "node tools/unavailable-command.mjs test R1-FND-005-B",
+    "test:integration": "node tools/unavailable-command.mjs test:integration R1-FND-002-B",
+    "test:e2e": "node tools/unavailable-command.mjs test:e2e R1-FND-005-A",
+    "ci:check": "node tools/unavailable-command.mjs ci:check R1-FND-005-B",
+    "ci:full": "node tools/unavailable-command.mjs ci:full R1-FND-005-B",
+    "security:check": "node tools/unavailable-command.mjs security:check R1-FND-004-A",
+    "accessibility:check": "node tools/unavailable-command.mjs accessibility:check R1-FND-005-A",
+    "artifacts:check": "node tools/unavailable-command.mjs artifacts:check R1-FND-005-B",
+    "contracts:generate": "node tools/unavailable-command.mjs contracts:generate R1-FND-003-A",
+    "contracts:check": "node tools/unavailable-command.mjs contracts:check R1-FND-003-A",
+    "migration:check": "node tools/unavailable-command.mjs migration:check R1-FND-002-A",
+    "migrate": "node tools/unavailable-command.mjs migrate R1-FND-002-A"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.10.1",
+    "eslint": "10.9.1",
+    "jsdom": "27.0.1",
+    "nx": "23.2.0",
+    "prettier": "3.6.2",
+    "typescript": "6.0.2",
+    "typescript-eslint": "8.69.0",
+    "vitest": "4.1.11"
+  }
+}
