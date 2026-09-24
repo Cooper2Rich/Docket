@@ -2084,6 +2084,14 @@ Next: resolve the foundation integration policy and private-repository protectio
 
 Verified all 163 work issues against the graph: the 115 implementation issues (#49–#163), all 115 native child positions and 122 blocking relationships already match the intended sequence. Every prerequisite precedes its dependent; no issue was unclassified. Published and pinned [navigation issue #165](https://github.com/Cooper2Rich/Docket/issues/165) with the complete numbered queue, group and gate indexes, and oldest-first filtered views. See [order audit](../docs/implementation/issue-order.json) and [[build-readiness]]. Existing issue contracts and graph status are unchanged; no application build ran.
 
+## [2026-09-18] operation | Remove blocked labels from GitHub issues
+
+At the owner's request, removed the `status:blocked` label from all 163 Docket work issues and verified that none of the repository's 164 issues retains it. Preserved the label definition, issue bodies, 122 native blocking relationships, graph statuses, decision gates and specification-only build boundary. This label-only operation does not make a leaf ready or authorize implementation; see [[build-readiness]].
+
+## [2026-09-18] operation | Re-block GitHub issues except issue 1
+
+At the owner's request, restored `status:blocked` to every GitHub issue except #1. Verified 163 blocked issues and one unblocked issue: #1, `[R1-FND-001] Scaffold the pinned monorepo`. Preserved issue bodies, native blocking relationships, graph statuses, decision gates and the specification-only build boundary; #1 remains a non-runnable tracking group rather than a ready implementation leaf. See [[build-readiness]].
+
 ## [2026-09-23] checkpoint | Build authorization and bootstrap direction
 
 The owner requested the Release 1 application build using GPT-5.6 Sol and approved the proposed protected bootstrap branch policy. The owner plans to enable private-repository protection and independent review. The controller's read-only plan still reports `GATE-BOOTSTRAP`, and GitHub still returns a plan restriction for branch protection. The setup PR is draft without review or CI. The exact bootstrap policy, controller behavior, tests and protected branch read-back remain required before the first leaf can run. All 164 repository issues are assigned to `Cooper2Rich`; this changes no graph status or issue scope.
