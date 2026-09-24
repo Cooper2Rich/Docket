@@ -30,7 +30,7 @@ Completion requires the complete independently captured criterion/check set, act
 
 The 42 tests exercise graph selection and blocker handling, bootstrap/promotion routing, single-owner review policy, omitted/skipped evidence, stale heads/contracts, invalid candidate graph changes, PR review/check boundaries, process failure stops, repeat reconciliation, and real PowerShell/native-command argument forwarding with a fake Codex worker. These do not establish live provider access or real application correctness.
 
-All launcher code, tests, generators, API payloads and local skill changes remain outside the Docket repository. Installed tool hashes and runtime details are in the evidence record. The controller currently expects the documented branch-protection API representation; a ruleset-only equivalent needs an explicitly reviewed implementation and fixtures.
+All launcher code, tests, generators, API payloads and local skill changes remain outside the Docket repository. Installed tool hashes and runtime details are in the evidence record. The controller validates the effective policy across classic branch protection and active branch rulesets; the owner-only zero-approval pull-request path has a dedicated fixture and rejects bypass actors.
 
 ## Decisions and external prerequisites
 
