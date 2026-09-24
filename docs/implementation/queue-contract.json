@@ -102,15 +102,15 @@
         }
       ],
       "sources": {
-        "docs/adr/0016-use-typescript-across-docket.md": "1bf9e608fdc714c85587eda6b74ad2262a32ecab461b5f1e1f2bde80c069873a",
-        "docs/adr/0031-start-with-a-modular-typescript-monolith.md": "a7516dfbeaf67c2300aceb1e2972789d1e2f108f66f88971a0a1b1f9a5aa1570",
-        "docs/adr/0032-adopt-the-initial-application-stack.md": "e5d9f76cc162e60f18137a85da2f394e030f7d79c97aebfa466739e5186c119c",
-        "docs/adr/0035-organize-the-monolith-by-deep-domain-modules.md": "9bcccbe1e238a4fbf8ec1d192a6b3e85961728db8b5b4e5cbbe38ac2cefd8380",
-        "docs/architecture/repository-map.md": "b4f3b14bb6f9997636eaaba214d570f7233c66f9e47dbccf77d4e649f8950a4b",
-        "docs/development.md": "e3cd1acb5bad67550185c2f8556d151c4d1b074fa7434d5bc9d9ebbe56b160fc",
-        "docs/implementation/bootstrap-baseline.md": "05d7f4b89b68bf54ef7e83e5fb9ca6f26447fb5c92071400e19738fb00112fa1",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed"
+        "docs/adr/0016-use-typescript-across-docket.md": "e9f041ffe670c86b9cee5fcb9658fcdff30232066b6823115cdcccfa37cbacac",
+        "docs/adr/0031-start-with-a-modular-typescript-monolith.md": "a530cac875acef7cc21df0c580811192d339da08cf0b3183646bcdfe4a77065c",
+        "docs/adr/0032-adopt-the-initial-application-stack.md": "517a148fe27d2f663809ef67ea1256940b21df8953e6c0184548d51219096283",
+        "docs/adr/0035-organize-the-monolith-by-deep-domain-modules.md": "6cdd5179e184c65b31615147df66d445012987d029b9a965c340308449f66502",
+        "docs/architecture/repository-map.md": "36d512054fecdbbfc57ea1f6deea871e8fb27ad40c21d26476e9dd7372ef56da",
+        "docs/development.md": "1e635778fdc33c7030d68018039339c452bf7eb56b85e118858564f55f767666",
+        "docs/implementation/bootstrap-baseline.md": "3a98db794b02596675643407313b3c725b9e389aa0b047f3bf83ed84243d309c",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735"
       },
       "source_ids": [
         "SRC-48cf8fc8-001",
@@ -255,8 +255,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "64e55a419f8b8dd9e11dfc756b34069245db7bae49b30aa024e465e2695fe1b6",
-      "issue_body_sha256": "2e927eca376ac0a409f214258b3442d738f065458ace11f41546a5dceb9f7347"
+      "contract_sha256": "46620829f2d8e73bdd1c9dae66ed18c4de511ee2c0a185c9490bf8ed4994979e",
+      "issue_body_sha256": "c5cde03221e8a7115b6f5b7025b598640d05a94dd202a39b0081020d61ea9179"
     },
     "R1-FND-001-B": {
       "id": "R1-FND-001-B",
@@ -312,11 +312,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0032-adopt-the-initial-application-stack.md": "e5d9f76cc162e60f18137a85da2f394e030f7d79c97aebfa466739e5186c119c",
-        "docs/adr/0033-use-server-rendered-react-for-the-web-application.md": "ea11ef0d880f3e32a9f5e1066d7e5a982f6f3d6e5ec8a342aa8c63ccd7be20b3",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/product/experience-contract.md": "d2e81181c09040952061dccc26d6bf32476baf4840bde96f056e5a5f9f9e6df3"
+        "docs/adr/0032-adopt-the-initial-application-stack.md": "517a148fe27d2f663809ef67ea1256940b21df8953e6c0184548d51219096283",
+        "docs/adr/0033-use-server-rendered-react-for-the-web-application.md": "2d36658063210167de2646da61d4335b29f96d380ad13e84378d058e51fa8199",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/product/experience-contract.md": "e7793193e27417cf2e083e18b45f93abc933424c13118ce7e1e6252cb21dddc0"
       },
       "source_ids": [
         "SRC-5e539b16-001",
@@ -365,8 +365,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "ba4a64666c07ff0498ecdb17f35366f99fcc91a8f79cadd671fcb1afc1f2bfca",
-      "issue_body_sha256": "55a97d2e606a1320089b31de2818d5f43ef1a0da7663697d1639ed4ed5e8c271"
+      "contract_sha256": "50bca3acb9c07622afb4021c7d02c4c78bd9c680fd7cbee4ba4b588df3c1c9ca",
+      "issue_body_sha256": "4d3afc4f148bbdb74d4b25686b4e473b0a955f9db2391ab273e57fe21520aab5"
     },
     "R1-FND-002-A": {
       "id": "R1-FND-002-A",
@@ -422,10 +422,10 @@
         }
       ],
       "sources": {
-        "docs/development.md": "e3cd1acb5bad67550185c2f8556d151c4d1b074fa7434d5bc9d9ebbe56b160fc",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/backend-architecture.md": "6d7b4e934afee7ea5801eda9b7c0a99ec1d4f00c7f496c87a96f9fff8d950cb1"
+        "docs/development.md": "1e635778fdc33c7030d68018039339c452bf7eb56b85e118858564f55f767666",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/backend-architecture.md": "aa76fc1f39a8932716034a513eaab6fa70cbf6050a64df751d50a9ed4e57e8f3"
       },
       "source_ids": [
         "SRC-3a042821-024",
@@ -490,8 +490,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "33710948d4bf4b8008460565ba79afd973521557f0412a223a1f79c27cc98816",
-      "issue_body_sha256": "0c5b91c49c482c3a544d97aaef08ebb4b4bad14788a61308b95f8b8430b6e115"
+      "contract_sha256": "18298c20e64ec99bfb6e30945f03de2ae122830835652b32cc461b1290d813cc",
+      "issue_body_sha256": "aeab3ffc504f56d5effc5da9f9d4d99ceb5b8912f5ceeb028e4c7dc298595f3e"
     },
     "R1-FND-002-B": {
       "id": "R1-FND-002-B",
@@ -547,11 +547,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0029-use-clerk-for-managed-authentication.md": "69cc264728928f9c7d467d2ae7095ee43fe71715af2f894c6f2cc2b92312b9c0",
-        "docs/development.md": "e3cd1acb5bad67550185c2f8556d151c4d1b074fa7434d5bc9d9ebbe56b160fc",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/backend-architecture.md": "6d7b4e934afee7ea5801eda9b7c0a99ec1d4f00c7f496c87a96f9fff8d950cb1"
+        "docs/adr/0029-use-clerk-for-managed-authentication.md": "6b731e4a2963482eac401727f5b475e24fbfb0975d463d1ca323dc0ade5c1681",
+        "docs/development.md": "1e635778fdc33c7030d68018039339c452bf7eb56b85e118858564f55f767666",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/backend-architecture.md": "aa76fc1f39a8932716034a513eaab6fa70cbf6050a64df751d50a9ed4e57e8f3"
       },
       "source_ids": [
         "SRC-3a042821-020",
@@ -647,8 +647,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "e025a4f6db3902ef68674fedf56d74af058ed8983a6eb75612b0fa76dc8e0778",
-      "issue_body_sha256": "f6fe94118fda2f7076a91f045dac813f77736da632a781e388e5ea375d8873a8"
+      "contract_sha256": "ec1d2a241a8fd5db446d1090240ec2041c6a8c3b9cd5101da3b37622bb3ffe5a",
+      "issue_body_sha256": "777bfe09a624fd53d957fff01304e82682ff93967a450553c5db1d79c7e8ef96"
     },
     "R1-FND-003-A": {
       "id": "R1-FND-003-A",
@@ -704,10 +704,10 @@
         }
       ],
       "sources": {
-        "docs/architecture/repository-map.md": "b4f3b14bb6f9997636eaaba214d570f7233c66f9e47dbccf77d4e649f8950a4b",
-        "docs/contracts/executable-contracts.md": "d79c66f1c58276499fba3b82f6b3020ca51053f9a36d3f6e6bd4769775d69bc5",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed"
+        "docs/architecture/repository-map.md": "36d512054fecdbbfc57ea1f6deea871e8fb27ad40c21d26476e9dd7372ef56da",
+        "docs/contracts/executable-contracts.md": "e8ac072df5a2e839e5d381f8e2d77e021d44d8a6b942d7f85264f76d05e31ff6",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735"
       },
       "source_ids": [
         "SRC-8483f98a-001",
@@ -832,8 +832,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "9ab5235fe56d8b05fae6ab69e7af167355b71bf31de53ba554cd20257d852b01",
-      "issue_body_sha256": "e0c448f5cbad175af00f5c8f6b074097d4f08f082758a90267fa348fe674b851"
+      "contract_sha256": "a5fc52bdb4b38b533bc68e4fc9fdde1f7f398ad218fb2ee0a58b544e89da39d9",
+      "issue_body_sha256": "f149b1ede77ba65b30f7ebbcf87a8e651fe7feaafc483f91d87b4fbe0e811da6"
     },
     "R1-FND-003-B": {
       "id": "R1-FND-003-B",
@@ -895,10 +895,10 @@
         }
       ],
       "sources": {
-        "docs/contracts/executable-contracts.md": "d79c66f1c58276499fba3b82f6b3020ca51053f9a36d3f6e6bd4769775d69bc5",
-        "docs/development.md": "e3cd1acb5bad67550185c2f8556d151c4d1b074fa7434d5bc9d9ebbe56b160fc",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed"
+        "docs/contracts/executable-contracts.md": "e8ac072df5a2e839e5d381f8e2d77e021d44d8a6b942d7f85264f76d05e31ff6",
+        "docs/development.md": "1e635778fdc33c7030d68018039339c452bf7eb56b85e118858564f55f767666",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735"
       },
       "source_ids": [
         "SRC-97db29a7-001",
@@ -1006,8 +1006,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "603b3c113f4963c20133c640a5867094f14175e5aeb735c14b1b83ee1b1e12c6",
-      "issue_body_sha256": "7f12c15cafc01feaa03f1d45d0f5d3899587583e7afe5d7ca17246b20ae87cab"
+      "contract_sha256": "2af039fc3a8f3e930a9b8644fdae68b781b0c8645eb7e165950c7890685ec63b",
+      "issue_body_sha256": "9d3499c0980fc307d872c26c8394a75cb035fe8c17735d97799a80204b7a6879"
     },
     "R1-FND-004-A": {
       "id": "R1-FND-004-A",
@@ -1075,10 +1075,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0036-use-module-owned-executable-contracts.md": "bcc01afe08ed211f88b183331a9ca734624f0d828b0c6b289182a21789798540",
-        "docs/contracts/executable-contracts.md": "d79c66f1c58276499fba3b82f6b3020ca51053f9a36d3f6e6bd4769775d69bc5",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed"
+        "docs/adr/0036-use-module-owned-executable-contracts.md": "e1c1f34b4388850d9bbb6eabe0ff52c504f7c9c2aea62bee72f7b093e00d326b",
+        "docs/contracts/executable-contracts.md": "e8ac072df5a2e839e5d381f8e2d77e021d44d8a6b942d7f85264f76d05e31ff6",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735"
       },
       "source_ids": [
         "SRC-3a9c8c1b-001",
@@ -1150,8 +1150,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "c800245a380799025d25aa73d76600bf98ecb092772154790baf3726f0e049ac",
-      "issue_body_sha256": "3d69d2a9dd968325bfbc305b11919993152a19c68069ccfab9bb3e014ef91bf8"
+      "contract_sha256": "140045e4387d14bb8892246bc3c36cbaaf32efadc4661f96b27c84acb6c9b3de",
+      "issue_body_sha256": "1125d8ab6df242c88e369c9a8d3b0080f0e4294b5cce214216736708a118b09b"
     },
     "R1-FND-004-B": {
       "id": "R1-FND-004-B",
@@ -1219,10 +1219,10 @@
         }
       ],
       "sources": {
-        "docs/contracts/executable-contracts.md": "d79c66f1c58276499fba3b82f6b3020ca51053f9a36d3f6e6bd4769775d69bc5",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/releases/release-1.md": "2858a995e96d96433e811df0627ef5c3f219541e2b3cab06998417cdc0e1659e"
+        "docs/contracts/executable-contracts.md": "e8ac072df5a2e839e5d381f8e2d77e021d44d8a6b942d7f85264f76d05e31ff6",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/releases/release-1.md": "f670859f577fbecc9f85bb3c26bde923089759f6415cc4543951e6f54f8f3c9c"
       },
       "source_ids": [
         "SRC-aa1bb991-001",
@@ -1351,8 +1351,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "5d42824d88fc1fd651068506a9ccde9b6a7eddba3cf8062567b973b0d49e32dd",
-      "issue_body_sha256": "f2e164c6fa88c2d44185b7194cb65b856fa05e4d1c53236733da91804e4ca460"
+      "contract_sha256": "74378f5ed74e3ffc9f81ab0e591bac64258f01317cfe36c5ce6f78114f941116",
+      "issue_body_sha256": "5e5f23b5c6355076a8b3d4c72c8461d54975f2651fea539a7ae7b7476b745276"
     },
     "R1-FND-005-A": {
       "id": "R1-FND-005-A",
@@ -1426,10 +1426,10 @@
         }
       ],
       "sources": {
-        "docs/development.md": "e3cd1acb5bad67550185c2f8556d151c4d1b074fa7434d5bc9d9ebbe56b160fc",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/github-branch-protection.md": "58de116a41c4aa4ae13687998fc051fb10c6c31ce0c5463731dbfa6d99bbe614"
+        "docs/development.md": "1e635778fdc33c7030d68018039339c452bf7eb56b85e118858564f55f767666",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/github-branch-protection.md": "21016f5da31559efd470cc4167b1d900a86c8db6a5995d2704712a375b4cc833"
       },
       "source_ids": [
         "SRC-4485609c-001",
@@ -1511,8 +1511,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "4593d5e86ddcc1750e5eb669c271b50b4b34a1ad853028138976459560869fd2",
-      "issue_body_sha256": "6d2ef6880f31c49a1913274065b5bd24e69c20ea28059e9ff5db390f9fba9937"
+      "contract_sha256": "5f08bd5b75c24475fe2e621d4cc02c3cc501ccfd6fc7613422c71cafb95a3d6a",
+      "issue_body_sha256": "c5fbe084c3cab29c9900c840ecfb567a250776a847b4a461577bfe31d1e4d425"
     },
     "R1-FND-005-B": {
       "id": "R1-FND-005-B",
@@ -1588,9 +1588,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/github-branch-protection.md": "58de116a41c4aa4ae13687998fc051fb10c6c31ce0c5463731dbfa6d99bbe614"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/github-branch-protection.md": "21016f5da31559efd470cc4167b1d900a86c8db6a5995d2704712a375b4cc833"
       },
       "source_ids": [
         "SRC-4485609c-001",
@@ -1633,8 +1633,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "015a8366ee365e2b41566b3b34ce594f0e988c8b3b654cb5a60b7e5cae2c9b28",
-      "issue_body_sha256": "eb9835881b96590843984bf69e82b9beaab42908e18a8a446919ede12a3de641"
+      "contract_sha256": "492416336522b7c5191200288233da81b6ddbd8c6cbd9c2219bebb2cae1fb251",
+      "issue_body_sha256": "0b277a7938a26368c7639c48622e7c2bedf85368612de9a0dec0bf856740a49d"
     },
     "R1-IDA-001-A": {
       "id": "R1-IDA-001-A",
@@ -1708,10 +1708,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0029-use-clerk-for-managed-authentication.md": "69cc264728928f9c7d467d2ae7095ee43fe71715af2f894c6f2cc2b92312b9c0",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89"
+        "docs/adr/0029-use-clerk-for-managed-authentication.md": "6b731e4a2963482eac401727f5b475e24fbfb0975d463d1ca323dc0ade5c1681",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a"
       },
       "source_ids": [
         "SRC-3aa2b898-012",
@@ -1772,8 +1772,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "f96e26cfba70110c259f8cf15a5417ad43cb3546c4bd5188e708d45b2dfaea57",
-      "issue_body_sha256": "c084d7c87bf0923f441e6dda094f752ed72b584b4c8c843b3c8538f01f91428b"
+      "contract_sha256": "4289a9651290c09d8f9fa90988a57ce2b1dc1a1c82011a0baa8964f6abb930a4",
+      "issue_body_sha256": "dafbdc2c5f1234440d07184b6185876796739069e44518d2e2ec87a62b2288f6"
     },
     "R1-IDA-001-B": {
       "id": "R1-IDA-001-B",
@@ -1847,9 +1847,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a"
       },
       "source_ids": [
         "SRC-3aa2b898-025",
@@ -1880,8 +1880,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "b964047103b68660b221671ae92f9c6db7572cc11f23b48050ec54a9477886c0",
-      "issue_body_sha256": "6c73fb62a013a8d1c04a3cc899573053f37113ba8ab09e8440d0e851bf472b89"
+      "contract_sha256": "dd65941fbcafe1b108c9a56434efc5cc7ce2fc3a7943353e5b68569c0d16d991",
+      "issue_body_sha256": "fa775b41a4793739b4042d5af0623f6f0ecfd0fa91fe7b11d4e63dc6fe3e14cd"
     },
     "R1-IDA-002-A": {
       "id": "R1-IDA-002-A",
@@ -1955,9 +1955,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a"
       },
       "source_ids": [
         "SRC-3aa2b898-001",
@@ -2005,8 +2005,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "8d7b41c23ce45847c83c72b5fe9eee0f9f5f6cd7305356d927cfb3f335ff3681",
-      "issue_body_sha256": "a87baed0216f24896f013938c905286a827a47272bc1cffe0f79011459c89a34"
+      "contract_sha256": "d9dab3c323f4172290e01cb7cc7ace9a0d14ef3d8ead09342e0f21506adf3913",
+      "issue_body_sha256": "2e40ba6ad8e27ee3c35bc113110676100fd27e76e8571cf094470718a5c33029"
     },
     "R1-COM-001-A": {
       "id": "R1-COM-001-A",
@@ -2080,10 +2080,10 @@
         }
       ],
       "sources": {
-        "docs/architecture/repository-map.md": "b4f3b14bb6f9997636eaaba214d570f7233c66f9e47dbccf77d4e649f8950a4b",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/backend-architecture.md": "6d7b4e934afee7ea5801eda9b7c0a99ec1d4f00c7f496c87a96f9fff8d950cb1"
+        "docs/architecture/repository-map.md": "36d512054fecdbbfc57ea1f6deea871e8fb27ad40c21d26476e9dd7372ef56da",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/backend-architecture.md": "aa76fc1f39a8932716034a513eaab6fa70cbf6050a64df751d50a9ed4e57e8f3"
       },
       "source_ids": [
         "SRC-3a042821-007",
@@ -2160,8 +2160,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "20f9c5b8ace3ca3be4bd21f79e60ad1a083f732b0400123377ca702fa185091c",
-      "issue_body_sha256": "000d57e99410b2aacf334615e48e1f1e79ef106eb81f6fd293796507448ecfa9"
+      "contract_sha256": "1dc2b89e2dd3ce8a642b1a85be242f6a1c3ba1295fd6d69057f03dcc3f973076",
+      "issue_body_sha256": "2944bff87e418801de670f3cf2f6712da39addf2a7cf5f31d0446d17f796fdab"
     },
     "R1-COM-001-B": {
       "id": "R1-COM-001-B",
@@ -2235,11 +2235,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/backend-architecture.md": "6d7b4e934afee7ea5801eda9b7c0a99ec1d4f00c7f496c87a96f9fff8d950cb1",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/backend-architecture.md": "aa76fc1f39a8932716034a513eaab6fa70cbf6050a64df751d50a9ed4e57e8f3",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-3a042821-007",
@@ -2273,8 +2273,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "f26539ce05d82ed513d92dbe2c640c58371f7effac60c4652baac28bbcf0077a",
-      "issue_body_sha256": "ffbc7263689082f893d72d54fb8ffb93c4aa5caacbca8b0ac15ba1c362c53533"
+      "contract_sha256": "a1e1e98649ea68d66459211791dd0d19f7fbc698251cc16bf4f7dff637dcd6c4",
+      "issue_body_sha256": "36224fb1db0a6983a3b8c3cbb6d455e4e795ac67ae2cbe327596c6b1f59df64a"
     },
     "R1-IDA-002-B": {
       "id": "R1-IDA-002-B",
@@ -2348,9 +2348,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a"
       },
       "source_ids": [
         "SRC-3aa2b898-039",
@@ -2379,8 +2379,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "601c3286be6bd6e2ae2d7f8f9e70163513d299241666a1091e9a567d1b1f983e",
-      "issue_body_sha256": "4428e162f2f28ce04fd400e82b9f79ec6960170006bd158eb7c598e9af8ed1f1"
+      "contract_sha256": "e5924d3395a49d1a78b3619747040712eab0406ff3b2d42d5f0b2f9d8607a28b",
+      "issue_body_sha256": "4eab3c44f048da8ca3d9c84b54c77ea0f491e9cd73c333d1b21ac9a3503e5e40"
     },
     "R1-SCH-001-A": {
       "id": "R1-SCH-001-A",
@@ -2454,11 +2454,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0004-canonical-platform-schools.md": "8bc3363becb45205578e9c8e4e74d18f631a48e0368ee7ae057442e02387664a",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/adr/0004-canonical-platform-schools.md": "c60b592bd44c473a3dc1a00869ce4585cff9a3cdf5134fea682253147d3ba19b",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-158",
@@ -2497,8 +2497,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "020da82bc2565d0740a7de2b07325cf4b53f8817ef214e6c68a40c63b8750c2d",
-      "issue_body_sha256": "c060886be3151054e0074887d63049304a18824541688353c131cf6c47317a02"
+      "contract_sha256": "73fbd34fa77da8543f17014088f3236efbc4cf7622c93116a6530e73c2b88992",
+      "issue_body_sha256": "2f6b8cd6029adff4ea5b008bfc12ac7dc27476d4992af5905bb605bcc99c91d8"
     },
     "R1-SCH-001-B": {
       "id": "R1-SCH-001-B",
@@ -2572,11 +2572,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0008-single-school-manager-with-composable-roles.md": "3165f105bff9dbb22d3d11e92c2b88522a53a2322df35bb34ca98328a356e9b9",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/adr/0008-single-school-manager-with-composable-roles.md": "058f0d27bab6b252c3982d667e6dd47ec8cbb6501cc2b36d1ef0d6df6370b5f8",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-277a9422-001",
@@ -2626,8 +2626,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "f4e4744925041712119c2ff297e6beb0f1cb61f830880934de3bd7e153dd297d",
-      "issue_body_sha256": "3889cf65f44138c5aa234611224443d9805f388b5538f1640b9cfab774fd8d68"
+      "contract_sha256": "e624a75b3f5a6926ab5855179caa3fbd5ac132d2f7c490638a914bb47ef4ad09",
+      "issue_body_sha256": "52368a0ec073cd2172f29a593c47efe0a9e53cf0203016956d06f9be8760bdf3"
     },
     "R1-SCH-001-C": {
       "id": "R1-SCH-001-C",
@@ -2701,10 +2701,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0008-single-school-manager-with-composable-roles.md": "3165f105bff9dbb22d3d11e92c2b88522a53a2322df35bb34ca98328a356e9b9",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89"
+        "docs/adr/0008-single-school-manager-with-composable-roles.md": "058f0d27bab6b252c3982d667e6dd47ec8cbb6501cc2b36d1ef0d6df6370b5f8",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a"
       },
       "source_ids": [
         "SRC-277a9422-001",
@@ -2736,8 +2736,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "b26dd716052e6e1d926432f72b1a0627c26e5b21653ce3f964d5d3f172bfd83b",
-      "issue_body_sha256": "0ae2a5ba514afe2b456d934c2ed8eb5afe0807a97c25e37a73ccbc87fed8ec9a"
+      "contract_sha256": "98c5be2e27058f40457a9917f111822840277c01c896d51531304bb51352b29c",
+      "issue_body_sha256": "ab01cbcb037addaeba2e2085abdc23064e7c6f4472910e0be5772186ef35bab3"
     },
     "R1-REG-004-A": {
       "id": "R1-REG-004-A",
@@ -2811,10 +2811,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-103",
@@ -2836,8 +2836,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "2a6d192b057c5a5f0202d206b4ac26191016f7ba881eecae6456a9dffb200354",
-      "issue_body_sha256": "eaff56f151fec68b65a104f5951bf459c28476241adb2c401cf561e5272d02b0"
+      "contract_sha256": "ae4d4613ce42bdb4a8243a799a39ff258660b58417e8286c79c4c65321ab6bc2",
+      "issue_body_sha256": "29d5702068faafb9e6c3e90a5f95d4d1f40e887fbf1c0fa4993a7abefb1def38"
     },
     "R1-SCH-002-A": {
       "id": "R1-SCH-002-A",
@@ -2911,11 +2911,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0030-use-individual-competitor-accounts.md": "0744a5a4b799836ebf43ad63c026510fba45152e987fbdcaeb3c3762de48a85f",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/adr/0030-use-individual-competitor-accounts.md": "98e9355052f8182c7c51efef3497b18b24eb818a5920a4fdc56ca9235a51965a",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-082",
@@ -2956,8 +2956,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "492464d4f6098c31ff4285198d2d3d855479c58ab547773c87f7177a054c59e5",
-      "issue_body_sha256": "6eea507f59b1a3888553d7126a2a062e66782e8c662e3cb5124adb0bb04f811e"
+      "contract_sha256": "db0c4bb4a080050319bc6fc24d6a9bb3b73e65bae8731f2b31e14194c8b461c1",
+      "issue_body_sha256": "7a324bf0a4d5aad5bd412bdc650d2cdda74990da5142ba57558ad0bf007a78b3"
     },
     "R1-SCH-002-B": {
       "id": "R1-SCH-002-B",
@@ -3031,10 +3031,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-084",
@@ -3060,8 +3060,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "9cb4873b171f048602f8683e2eca0c4734afcc04963d0c5bd522db3a142559ca",
-      "issue_body_sha256": "9ac4cdf4360409d93c3b047ad93f042033dfcc60f07fb3665e70176ce86179ba"
+      "contract_sha256": "6e55030eca619922afb75174da5abf0526597a34de94e2ea3f41d3e2256e53ba",
+      "issue_body_sha256": "40a2ef49be6eb9e3e1cf4d054db5b61b01bb1d047bf7b87d5d6fbf24fa19e8e8"
     },
     "R1-TRN-001-A": {
       "id": "R1-TRN-001-A",
@@ -3135,12 +3135,12 @@
         }
       ],
       "sources": {
-        "docs/adr/0006-delegate-tabulation-permissions.md": "6d89bd6bd5644e230cfb93820d135fabda7ba9b1e6aeacc307ef7e93b0285797",
-        "docs/adr/0007-single-owner-multiple-directors.md": "8816c88abb44157fe4414df4adc543255824fecd90c4a9ab9d88e78ec458f31f",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/tournament-lifecycle-model.md": "376282793499ebd88a7ee15234797b78e819167451e4beae825e2a8674961e92"
+        "docs/adr/0006-delegate-tabulation-permissions.md": "7b1900846e0752a184a36e245bd2f342d61dfaec17b72fbdfbc8263ae79b7d16",
+        "docs/adr/0007-single-owner-multiple-directors.md": "01a55bcdf5fef2b48bb40acadbe5a42767288b4afc4fb0e98e9b883f4055cd2d",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/tournament-lifecycle-model.md": "9a4065209fb49353018b2d90e45f721641b4e0ab2595556fc972a09cf75e53e2"
       },
       "source_ids": [
         "SRC-2fda530d-001",
@@ -3197,8 +3197,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "fd3be3f4c36367d42e0c3daf300d61814e123a5ea972ecfbc103d9792f1e4101",
-      "issue_body_sha256": "687f5d1e51c2f695211d709a1d4a7fe05d20f7be7264eb2587e0acb760dde680"
+      "contract_sha256": "622f2584ec15e83b9c0ff2e68d27c4245e2a04054dcfde61c7bb3ace6c3b2fa0",
+      "issue_body_sha256": "bf5310e25882d4d0a3863ecd4b007b304ff6a93dbb6f37091dfb52b0562242ac"
     },
     "R1-TRN-001-B": {
       "id": "R1-TRN-001-B",
@@ -3272,10 +3272,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0007-single-owner-multiple-directors.md": "8816c88abb44157fe4414df4adc543255824fecd90c4a9ab9d88e78ec458f31f",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89"
+        "docs/adr/0007-single-owner-multiple-directors.md": "01a55bcdf5fef2b48bb40acadbe5a42767288b4afc4fb0e98e9b883f4055cd2d",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a"
       },
       "source_ids": [
         "SRC-3aa2b898-208",
@@ -3316,8 +3316,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "b9808777b826aa4a83ad219a4405000e65bc10ca46d54ce040e8395b0b48b952",
-      "issue_body_sha256": "09d4bf768764e068db1c2f659095c918551ae4e494a2e2326eb869b6fb422435"
+      "contract_sha256": "dd0d9d176d65cab28720891385b7e136f0f60179384650190c42d631811519b3",
+      "issue_body_sha256": "dc56ab121e1029a26bca49d06cacdf7b22cec3b9ab18aee6d0b4746537ea3f98"
     },
     "R1-TRN-002-A": {
       "id": "R1-TRN-002-A",
@@ -3393,10 +3393,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0001-versioned-rulesets-with-audited-overrides.md": "56e260593d5430a180313003a6f92609f959fecb81d571104ba5f8c21c8a215e",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/backend-roadmap.md": "e395e5c3da51286210b9149a02369ee937b43b18ce0e4118035800f9d4ffca8a"
+        "docs/adr/0001-versioned-rulesets-with-audited-overrides.md": "7fcbfd319f8c1373feb71aa2ddffa7dfac33cf109c7717c079249e66a446c9dc",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/backend-roadmap.md": "541eee714e221fcd07b0ced8945f8ec936bf9bb8d4548c91fe5fbaa8e47df4da"
       },
       "source_ids": [
         "SRC-e9849887-114",
@@ -3434,8 +3434,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "5eb5da3bce6cb621e7b3329e355649646bd65935a2de99427a85bce3dc46f07e",
-      "issue_body_sha256": "be5bfdb6e89b803e76dc1ce809c1c56b3020ea90a105e32d6c29f81566b58c50"
+      "contract_sha256": "12f4a0caafea63bf3e33fb8693c5120aa6370e2e04002cb85c9f12d2252175cf",
+      "issue_body_sha256": "787d72d07edffdba7db9daa6a340c72148b1fcd1f5a4e5ba622ec201b45f9e81"
     },
     "R1-TRN-002-B": {
       "id": "R1-TRN-002-B",
@@ -3509,9 +3509,9 @@
         }
       ],
       "sources": {
-        "docs/adr/0001-versioned-rulesets-with-audited-overrides.md": "56e260593d5430a180313003a6f92609f959fecb81d571104ba5f8c21c8a215e",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed"
+        "docs/adr/0001-versioned-rulesets-with-audited-overrides.md": "7fcbfd319f8c1373feb71aa2ddffa7dfac33cf109c7717c079249e66a446c9dc",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735"
       },
       "source_ids": [
         "SRC-fc3898f8-001",
@@ -3543,8 +3543,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "6d66510bb71cd9963c5316a3ad932222f7a351242faed007a8e36bff793ad240",
-      "issue_body_sha256": "02c4eb6f7dae0d861234b731e472b6ced949a38ec40c74b5258df93bec228896"
+      "contract_sha256": "21e3f9b40f518351857916786df626e46efc84db3467df06d9d2522dc9f9cd66",
+      "issue_body_sha256": "bc09bd5201d01804e9e19b67998b4141a3976affa89e2b70d1b4b8cd62cebbdf"
     },
     "R1-TRN-003-A": {
       "id": "R1-TRN-003-A",
@@ -3618,10 +3618,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-3aa2b898-242",
@@ -3648,8 +3648,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "de10d8538dff71d490d32f8a126bc9cd581384a3108499a13af556a9590b9dea",
-      "issue_body_sha256": "0a97624f6b098384afb1100c8d6cc5f80dea79c436443eadd1b3b61f322d3491"
+      "contract_sha256": "90beb27db56aa1560e597b6d21c123d3bd0e0ff37224a6212c916f80ad020cc1",
+      "issue_body_sha256": "d4005de0315a051b4ae7b819dc99674dd84198bc94d2fadf3d1e0b72e6a57451"
     },
     "R1-TRN-003-B": {
       "id": "R1-TRN-003-B",
@@ -3723,10 +3723,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/product/experience-contract.md": "d2e81181c09040952061dccc26d6bf32476baf4840bde96f056e5a5f9f9e6df3",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/product/experience-contract.md": "e7793193e27417cf2e083e18b45f93abc933424c13118ce7e1e6252cb21dddc0",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-b67853a4-001",
@@ -3777,8 +3777,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "03dc6aae5d9828aa3eb3c62c6bfe4d1f2ad854df73e55873855e7c4e775838e6",
-      "issue_body_sha256": "ed398d575c79e90008292937a427b140a94be17bc180b608972357f8678b72bf"
+      "contract_sha256": "ff6195082ed9b4ac904b10cbb991ad723a8de5a67755c9a2f9093f5520b43814",
+      "issue_body_sha256": "4a4b06810cff16caba9c14c74a3407528ac2fc2a4f606aed2cbf01e8a7992125"
     },
     "R1-REG-002-A": {
       "id": "R1-REG-002-A",
@@ -3852,10 +3852,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0022-use-a-published-tournament-registration-policy.md": "aa342ca5f748a168239b1e34d617be5c2ed1abe60b3c458873c28e5c00158254",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/adr/0022-use-a-published-tournament-registration-policy.md": "e3bd4edc5ca95b12f9c32fd21ff1dd0599d6d33af533a60027ce603d943c5bb4",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-36b1de95-001",
@@ -3907,8 +3907,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "0ed13cc7aa8341a44ecfdc063701f9e944804f99214083578041e3f9abb3c77f",
-      "issue_body_sha256": "7916f11a13ccaf7817ed31b6cf7bf85407c6e6b63078dff23f009e70aa6f9668"
+      "contract_sha256": "08e8b871e80cb20d5002526f9b6dcf2e6bd543b00598f1efa42745c9371f4297",
+      "issue_body_sha256": "85314af8f8e60cbe1a3747b4b240eed667401172574376c602540ec46832b020"
     },
     "R1-REG-002-B": {
       "id": "R1-REG-002-B",
@@ -3982,11 +3982,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0024-govern-additional-registration-fields.md": "e00bd321624a56d6e4249731677f5a7a997a314ba6c7bee2003acf0fd389dd0b",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357",
-        "wiki/retention-model.md": "a7f3e5fbc64359df4e777b64aa3fd1f2627caff01b909e2ef49c1a0a72c27b99"
+        "docs/adr/0024-govern-additional-registration-fields.md": "ebb673adde4e1ad3a26df61c42035bd8e0b871e995c53edc2f2969f85fc57789",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb",
+        "wiki/retention-model.md": "473c95b28914211ea39f23c02fde16e9cab0f6825f9ff000c4f5fcc89f03630c"
       },
       "source_ids": [
         "SRC-272e4825-038",
@@ -4043,8 +4043,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "64728122075dd4f8302e7d4d31bc45e70da63d750371ebda2daec1e5540321e6",
-      "issue_body_sha256": "5b8b7012958ef71d18ef7d02f14af44c3f0a3f1dba7aa3d2f07ef237abaf9ef3"
+      "contract_sha256": "1cda9c72fed9ecdd66d8351a6f0104b6697a70b4102138bf0e967e5b9dc28713",
+      "issue_body_sha256": "9335cf837f5107e3a5371f97173d68a7d66b66572e3210329635c99fff6816ab"
     },
     "R1-REG-001-A": {
       "id": "R1-REG-001-A",
@@ -4118,11 +4118,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0023-minimize-core-entry-data.md": "1fd2ebebdacd02ce69fc5406f2d93a3772fa1c9b6520309e818b546bdb12e244",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/adr/0023-minimize-core-entry-data.md": "5e703e5d8484e698a1ab19616e0936c2c4cd11a43871f51f5a656d67efb56f97",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-089",
@@ -4192,8 +4192,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "a1c2f7cd454ca78dffef5790186a3cebe5ac17cbcf8bb8e37554c231d340e0a4",
-      "issue_body_sha256": "3af4fa07165b1e1667cf6495ffa2de24bd6720346ec61ea4378b3c09dfa50b41"
+      "contract_sha256": "78bcb7f92e0db8224c8bd21207db05a1e847f90b3795e4fd400325fd79d84506",
+      "issue_body_sha256": "23ebb18ce37695433cb17fbc72af73608f8c49b46b757a442a161efa40dbc880"
     },
     "R1-REG-003-A": {
       "id": "R1-REG-003-A",
@@ -4267,10 +4267,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0021-separate-entry-registration-from-eligibility.md": "f8744ed104f3f4f0711e7a26d415cc38c2e9acb4755750f9e949d930c477af1a",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/adr/0021-separate-entry-registration-from-eligibility.md": "a34e792633c44fc109f9c4546f25a87b60fe88ce183195fc392bd6b031989363",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-05c354d1-001",
@@ -4340,8 +4340,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "8361c6f4c7ad3247885e23ac5f14884f2b3bf2ef5bf07f5d1f2273e084b99a09",
-      "issue_body_sha256": "cc2618b7859f5322990e3d5ed0485728bc2b3fbc181e5f0a9e10cf7f42ef90a1"
+      "contract_sha256": "dd7e6bdb2dacfd079368af306e53659c13671b8d57cb7bd23c774c47099123e1",
+      "issue_body_sha256": "f28374866882d26754de15807fb91705ee736da2f530b56d19654f7359b48a8c"
     },
     "R1-REG-003-B": {
       "id": "R1-REG-003-B",
@@ -4415,10 +4415,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-151",
@@ -4443,8 +4443,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "88285e3430ca6c55fc8f8bc99b591e185bcc07f9ccd9971353c9c913ceb2867a",
-      "issue_body_sha256": "8e853169881eedd163f2761585c1b8134bceb6fd4f0e2dfa0b69156971aef548"
+      "contract_sha256": "2a5a924ac813f4c336f7c17754ae819d2ff9e5559ad92c9fad08eb5210621848",
+      "issue_body_sha256": "36bff64a35b60620c85d2402c397c80b6c571c31311589f70eb7eb3868ded700"
     },
     "R1-REG-004-B": {
       "id": "R1-REG-004-B",
@@ -4518,10 +4518,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-153",
@@ -4549,8 +4549,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "5630f9300fcd0ae7c2ec070c7aade45e879a45561633a83e43c2d6fec2b5cd3e",
-      "issue_body_sha256": "76f598a7108fb6b1ed2f6a02303ea55fee90a185142da3e86fdc644762f0e87a"
+      "contract_sha256": "e9102f8ebf2afd1bee814716e61b9aafdfc19e5d9d561060d2ea940c60580969",
+      "issue_body_sha256": "5c97adc8630077b79592f7e1dda1963dede873d37f1f4958a316330678210d73"
     },
     "R1-REG-004-C": {
       "id": "R1-REG-004-C",
@@ -4624,11 +4624,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0025-restrict-accommodation-request-access.md": "77934a687badb688d4d3a1ba266bf3123808cf4abdd5878c2b0b7916b67461b2",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/adr/0025-restrict-accommodation-request-access.md": "a783503564ee8a287d0e3021830483ca98dae11978d11044c7e66809b75f86ab",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-143",
@@ -4699,8 +4699,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "ab152b324a2b39a2df70e107b9ddc7a1757b2f1c5bb0aedd3a78656c0623d736",
-      "issue_body_sha256": "712a2c40eca07d793c8fc86700e5eb2a5b78db2365490c68ee211c1aa14eb58c"
+      "contract_sha256": "9b57a115f0971c8890722677c6ffa624f553c2c4cf2bb196582dd349149cfb26",
+      "issue_body_sha256": "ccf777afeda10d381d8dc731a2cc54e34a24a147a904684fedb66277be9ca38d"
     },
     "R1-REG-004-D": {
       "id": "R1-REG-004-D",
@@ -4774,10 +4774,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-147",
@@ -4809,8 +4809,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "cd76c3dd1674852ae9df7f81645513c37768b3f9a802bfd00dd04ea3f7ec3936",
-      "issue_body_sha256": "4bb6a6a286e5dcd9e974abf417f3473ebbec649b6c9d024e0ddddaa8ff004895"
+      "contract_sha256": "1d6f7fdd22a5853dd17108456ee588772d803674671ba719dfa51a4ae18c52aa",
+      "issue_body_sha256": "0562eb994d5ff300e99a8fb096d9494caf59ba41efe9a682436a14b1477603e7"
     },
     "R1-CMP-002-A": {
       "id": "R1-CMP-002-A",
@@ -4884,10 +4884,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0013-import-results-from-an-external-assessment-provider.md": "4c8cae9076470c0a962262c154a60c629fcced2c6086f93264a6fbae18ae8c74",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a"
+        "docs/adr/0013-import-results-from-an-external-assessment-provider.md": "a485efcab4a49358c4134b8ca47c287604fbf9f51d87f860f017a0193e1db647",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1"
       },
       "source_ids": [
         "SRC-12b08e9d-044",
@@ -4932,8 +4932,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "db14790ee00e7c3d9ad61ab9078fd6635a744eeb76eaf4ed0ded86de29b93f18",
-      "issue_body_sha256": "f4c5b86c342534c65d8e84910577cbb6dd675b8aed14dd15e42fdaa82aa9c06a"
+      "contract_sha256": "474dff103b02f03974c4ac577d32f855142148c5601cc50d9d65e4ef07668c3f",
+      "issue_body_sha256": "9649bba2453c4cb5641c7a8147abb0e141485de56514945009ee96aa2ba1bcf8"
     },
     "R1-CMP-002-B": {
       "id": "R1-CMP-002-B",
@@ -5007,10 +5007,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0012-separate-judge-competency-from-judging-profile.md": "59464ec76beae65aba45fc6fe84b024eff238e77a178c5f173c26cd84996c2ad",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a"
+        "docs/adr/0012-separate-judge-competency-from-judging-profile.md": "5ecaca4503056e74f198638f55415044c241bb5c08432bf2932034a84ef349a0",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1"
       },
       "source_ids": [
         "SRC-12b08e9d-009",
@@ -5097,8 +5097,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "43009b633e91ee6978d4f46d9eda6ce0a03ee45fc095b1bcd9ed5f4b9f3f32c1",
-      "issue_body_sha256": "99575631d85b637b647c72ae858939c9bcb56ad26212ae1783459c2c4a04e8d6"
+      "contract_sha256": "0b292bda465241d55e67cda3a50fa32a79ced1ce084acb5e0ecc31b47963d6f1",
+      "issue_body_sha256": "f366e183480208ef2d69e9264ac7f3afa3809ac0071c8e0633c86960947de671"
     },
     "R1-CMP-002-C": {
       "id": "R1-CMP-002-C",
@@ -5172,10 +5172,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1"
       },
       "source_ids": [
         "SRC-12b08e9d-026",
@@ -5212,8 +5212,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "4d6806bec98b40a100f03f3b0931ee23026b4cb340be55a69122f4a290835ac3",
-      "issue_body_sha256": "4ef763036465ee48b20fa76946c2438aed1d0396200e80d1c23cbae5f842da5d"
+      "contract_sha256": "384732cbb0021ce6e5c3407ecaf3aa07c3a73c1c4fd07b2f38455079c206f4f9",
+      "issue_body_sha256": "4d510eebfdf012b6a6dee71a066ccad3751473718820eb2ca1cb5ead74fc94d7"
     },
     "R1-CMP-002-D": {
       "id": "R1-CMP-002-D",
@@ -5287,11 +5287,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0028-retain-minimal-judge-qualification-history.md": "0100d4b72f10b3fb614cafdaa1143a2996ab1a68178bbc76b05a1ea9cbabb54f",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a"
+        "docs/adr/0028-retain-minimal-judge-qualification-history.md": "b8e56e81e7aa1331c6ab98a6f24a88492a29cee7734c427ef5131c52c4da9060",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1"
       },
       "source_ids": [
         "SRC-12b08e9d-017",
@@ -5335,8 +5335,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "1815585e730b9115628f6ec4b4ce50d50f26080c0dd768755dc7cabce7c875c4",
-      "issue_body_sha256": "95f13c0359c2f24ccb42533a5dba8c12d0b6c74d5434065c11f3926f8d53b939"
+      "contract_sha256": "7c593599a83c951ae7a2ac8172ff3e6932a264fc8b530506a14b0d4ce99545df",
+      "issue_body_sha256": "ca78ceb69f847be82c528c305982bbe4c314980f21449492ea2ff176846b4750"
     },
     "R1-CMP-003-A": {
       "id": "R1-CMP-003-A",
@@ -5410,11 +5410,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-12b08e9d-001",
@@ -5443,8 +5443,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "6abaff4e72b868ce571322fa9f28b17bb7a85706db08d352733fba1411aaa4e8",
-      "issue_body_sha256": "529efe1926df5e915f9d7233e1478a854475de8cd77a54d5a4b7885f1c8ab3f7"
+      "contract_sha256": "e2bf0672c35b41497de691971fd4c7fa81d4951f75d102b84d40b2c433d94da6",
+      "issue_body_sha256": "eaae835a2159300e7d2759266733899675ed2b2e8e18636d13f33d3cd6066e49"
     },
     "R1-CMP-003-B": {
       "id": "R1-CMP-003-B",
@@ -5518,11 +5518,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-12b08e9d-004",
@@ -5546,8 +5546,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "54613026308f3843a2628e3d7f9039ff98e13ebb6a6c01d6732aef66c0f55990",
-      "issue_body_sha256": "5124ba912a554f67061a614108fb3d640fcdc64d71064af95ac135c797e5a7e7"
+      "contract_sha256": "8daea7aa90c2efac4383385d6002e4e0f5d24616ffb9af0d4b347586992f8c74",
+      "issue_body_sha256": "3e5ff74e181da290f74e0a7c450ed6d8d462b3ed5fb157b5719bdddad90ff778"
     },
     "R1-CMP-003-C": {
       "id": "R1-CMP-003-C",
@@ -5621,12 +5621,12 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a",
-        "wiki/retention-model.md": "a7f3e5fbc64359df4e777b64aa3fd1f2627caff01b909e2ef49c1a0a72c27b99",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1",
+        "wiki/retention-model.md": "473c95b28914211ea39f23c02fde16e9cab0f6825f9ff000c4f5fcc89f03630c",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-12b08e9d-006",
@@ -5655,8 +5655,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "6ad62f278713b3c88f97795ea4827d0883e5475642d092aa9fb0bd851c7126af",
-      "issue_body_sha256": "26decff1bada90a5d6327a26de7ddfa47af59809be87061a2a9e34ff0681b3c4"
+      "contract_sha256": "723f006c60dea9783c1221ffea6602496f41352463a2285b2618942d4564c77a",
+      "issue_body_sha256": "3259e12fd0e5e9d80c5959b13c95dffe001f552a91124e3543514e1adac59908"
     },
     "R1-CMP-004-A": {
       "id": "R1-CMP-004-A",
@@ -5730,12 +5730,12 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-480fc114-014",
@@ -5757,8 +5757,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "c0d9ebd14129be72fbb0ffe80f1d926454d70c8219f02b7b3a7193703c0a3c48",
-      "issue_body_sha256": "2beb1f5b760102192b759b39da33a5cc37c474ac98a6c6228a5c0cb99c0cb464"
+      "contract_sha256": "2ddd798180d71adfe3a1986166c188115923924600d0adcece895d8a3f7c4691",
+      "issue_body_sha256": "62df8e8cbb6371a033c3e76bdd4f2b95bd39f16ca9d8d5ee8dbac56c1d24f987"
     },
     "R1-CMP-004-B": {
       "id": "R1-CMP-004-B",
@@ -5832,10 +5832,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426"
       },
       "source_ids": [
         "SRC-3aa2b898-100",
@@ -5855,8 +5855,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "1139914ff17c514e4484b5bc2d2125c243dc26d20533ec4564c203210c2b04c9",
-      "issue_body_sha256": "cc0100970983b851323d102c1217af63d09835cfb8f018864b43a9d4e683c6ff"
+      "contract_sha256": "72ef1bb8e9ce9328840919e2b353707b4da5b8ef1b22bce0790b5c5b270b78a9",
+      "issue_body_sha256": "eb27f173c413226e1450dc111bab9116eb02c9cb96a7cec4787682d7375d3a74"
     },
     "R1-CMP-012-A": {
       "id": "R1-CMP-012-A",
@@ -5930,10 +5930,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0015-use-director-uploaded-standings-rules.md": "57138fe7eb8f1a6e835a9ea5201b9a48c4d0b1b5c087cefce7901ec9807695d9",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/standings-model.md": "2f5c70485c5b23305cc8d202b6c665247109269e1f9b8ce56e4d71eb28a61d9f"
+        "docs/adr/0015-use-director-uploaded-standings-rules.md": "2ed26d042fa90d4a45d1ad420d111dfd799c7943d6e7702b8afba08ad92aecfa",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/standings-model.md": "d36c0acbe167b9c5de1f177bffadf98d7b71cddb3c1ff28b9d6223fcefef69a1"
       },
       "source_ids": [
         "SRC-1ad5279c-001",
@@ -6013,8 +6013,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "6e3349fb3b71bb36f3133ab94aff335793188780817c88bccd8843482b19b502",
-      "issue_body_sha256": "41f79cd876d7d1a084058d6bc2344134a1256529b689aa28b50e8df7681f5018"
+      "contract_sha256": "d098607cfc3c73a5c8ed8aa87aee59f07569fc5afa5701258af89cd72901cd81",
+      "issue_body_sha256": "af4d6c0f6a68dbded027353b4a474dcab8d51a6543ca0696d32cbf24979c46ce"
     },
     "R1-CMP-013-A": {
       "id": "R1-CMP-013-A",
@@ -6088,10 +6088,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0017-separate-standings-from-advancement.md": "a847f38dd1bc708759927ea73fed6ccef48cde2f6ad867adca19e06193ae0506",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/advancement-model.md": "74c6c22a2b05446fb5b3bb5094ab0fdfe332664024c09c7bcb1949e22d5d3e86"
+        "docs/adr/0017-separate-standings-from-advancement.md": "9908ff1b2fd339f1ca3c14b30382dbfc910fe4641ff77b400f7aa47d8ac937eb",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/advancement-model.md": "a54cf6b429e4c02bd1ce6e1da35ddd456a0302fec8c910fe247a4883e9a0b501"
       },
       "source_ids": [
         "SRC-0831430f-001",
@@ -6170,8 +6170,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "72a85a0187f90db587eedd37d8a04fd7f252f8e1d6b214fabd77f63b4ead6dbd",
-      "issue_body_sha256": "a894d89da7c35e1935c545dbda39c68e16a6d29d4e371a7e8a5440cf1017660c"
+      "contract_sha256": "24fa971e63baaf2443d9a6a0bdca0fbf20f7e42ea013c374b8f56d2b6fff2cd1",
+      "issue_body_sha256": "1b6810401f0e63f692eabdd0514553c224939fc1da41128cd256e153e2107d4e"
     },
     "R1-CMP-015-A": {
       "id": "R1-CMP-015-A",
@@ -6245,11 +6245,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0019-use-a-separate-award-plan.md": "497a3020c80209fe374ec7aa3bc94acf94d1e6e446d469fb2273215388cac6f5",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/award-model.md": "074173d1df8f9ea7ca7a179460119018b654eb36764f585b28ddc3d0251fe62a"
+        "docs/adr/0019-use-a-separate-award-plan.md": "1234a651a9b1ffd1653150f31a3a9af0e710f6e328dbfd93133f0193f7a11bc1",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/award-model.md": "c5784e65d365168866f1ce0434ef90ada6ae13e7649cfef5bf24494f22827d46"
       },
       "source_ids": [
         "SRC-353e0648-001",
@@ -6307,8 +6307,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "a81bdb782f1f3bdabc1b43198b5eb7d67274e0199d90b299b9de0834f48173ca",
-      "issue_body_sha256": "cc0bcace7ad86a2c1658301692f6ea479acfbe31b6ea27f31c55ad0df95f3862"
+      "contract_sha256": "db7b871b380ef4776c74acdfa989ca68a38b44550e21b36f8f20a222f4558b09",
+      "issue_body_sha256": "341d9f7c593234f462bd93e6c64a5f6f6b0abb3a52dbf74d1b0e8f86117396cd"
     },
     "R1-CMP-006-A": {
       "id": "R1-CMP-006-A",
@@ -6382,10 +6382,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0014-use-tournament-defined-pairing-plans.md": "c364644514b38cf3bceb917ecf2d027a880f4cd32b3a9fb076b9617987f5715d",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61"
+        "docs/adr/0014-use-tournament-defined-pairing-plans.md": "0ffbc952fc7b6e38531f14ffed7e6aaa0c33cea304cf3f839812dca986c62ad7",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426"
       },
       "source_ids": [
         "SRC-5312731b-001",
@@ -6460,8 +6460,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "04ba4dff667fe08bc4995b9652036dabbd7cd1c384fc951210ece0aa94853cb0",
-      "issue_body_sha256": "cb854a49fe4a9677a421c369ac99f003d611f767baec8fccb7865d95cf723c85"
+      "contract_sha256": "dd063b7f6656670394c96ed7f7728d84aaedf0c295d854b270f904e567f49ab7",
+      "issue_body_sha256": "fbd2d67a309c2dc5f6f6551ff708501d14db46ab89326521b40f054297c71cdf"
     },
     "R1-CMP-001-A": {
       "id": "R1-CMP-001-A",
@@ -6535,10 +6535,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0011-generate-objective-specific-schedule-candidates.md": "2bb12fc986ca1148565ba51a2ad2a2ab655576de6886801bf6e097bd31be63e2",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/adr/0011-generate-objective-specific-schedule-candidates.md": "de0c595a574ae26d427e19e80d92a02df60e17fa7806820ae2a065c481ed8511",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-480fc114-001",
@@ -6610,8 +6610,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "0733237abcb2c773427cb6bfa06193fc0813626833a393e7c809520f5760a345",
-      "issue_body_sha256": "b29dda4f096752ed90b7d3f04c2444bc528e927cfb33b25974f6540748195853"
+      "contract_sha256": "48f415c85fd0488bbdc00800cf0e01643a74a1adf5161a188e29ddecf0902f8f",
+      "issue_body_sha256": "6d5ceccaae170e3bcbb4af45bfba0f79eaa02c671cbf3b67b557998c663cfa3d"
     },
     "R1-CMP-001-B": {
       "id": "R1-CMP-001-B",
@@ -6685,10 +6685,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-3aa2b898-194",
@@ -6722,8 +6722,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "529f44c3092a6d63bc34d13c1b21837bed4126f969dba11ed127ac5cff5a84a5",
-      "issue_body_sha256": "4d8f3f06387bb4cb91eaf20938b21827ea5119d23102b2ef0df0f8504d64c81c"
+      "contract_sha256": "e4d20867fd7ce9830872cc8ddd6e33d0f90b18ea0ee31bc75d426a6eb665bf0b",
+      "issue_body_sha256": "6fae890b35cde4696771fcbb688e5016357dbea0347015161b1ee14677634bf5"
     },
     "R1-CMP-001-C": {
       "id": "R1-CMP-001-C",
@@ -6797,10 +6797,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/product/experience-contract.md": "d2e81181c09040952061dccc26d6bf32476baf4840bde96f056e5a5f9f9e6df3",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/product/experience-contract.md": "e7793193e27417cf2e083e18b45f93abc933424c13118ce7e1e6252cb21dddc0",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-480fc114-024",
@@ -6840,8 +6840,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "a6c1ba1d7181e7ca09cbb6db39e131f7eb140401c2d47c13c643113dcd294f5b",
-      "issue_body_sha256": "79abfb1ba55fa5a630222a67bd6bb00d7746ede73e437ce7fa80ec50fcb9b572"
+      "contract_sha256": "83cd94cc1a383e4b41a9b0097c01472948b3b1d4703ed5c4c219941193469a65",
+      "issue_body_sha256": "0cf3a09c7357f9cf3c3889941f3094fc033b3fbb55a24dc99046a57f33cb9182"
     },
     "R1-CMP-005-A": {
       "id": "R1-CMP-005-A",
@@ -6915,11 +6915,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-12b08e9d-052",
@@ -6960,8 +6960,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "64b40fd8466b52dd36ebd02c4bfb7b2abd71784a5d1bffc6de048414175c4fd0",
-      "issue_body_sha256": "b1070395e8c9b5eac7c3aa536db532fb05d32ce6752df38338d533d1d33c491f"
+      "contract_sha256": "e1c922a70b905c26c9b999c6e73432344ddb28022a276cb7091988f7d441d463",
+      "issue_body_sha256": "76c2a7737ef72c11b5117ea1aa4bda159239fd8389c9e8bfba81dacd989bf429"
     },
     "R1-CMP-006-B": {
       "id": "R1-CMP-006-B",
@@ -7035,9 +7035,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426"
       },
       "source_ids": [
         "SRC-5312731b-008",
@@ -7070,8 +7070,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "25c7e5ce73b9c733ddef8686c289fcb0a2e7f6e1fa8a3f045050b9c5e863c1cd",
-      "issue_body_sha256": "b5a4bbb7b2052f90a15af0b828db1c1e25bd4b816acbca09e9acaa799d4e7fa5"
+      "contract_sha256": "9a679de034308e3518decee9367ffefc2102f4ed90a103aae28f871d007ce60e",
+      "issue_body_sha256": "2535b2a363964e479f20e4edd9a4b25976acf2dffa68ae53033e1fda63a7378b"
     },
     "R1-CMP-006-C": {
       "id": "R1-CMP-006-C",
@@ -7145,10 +7145,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61",
-        "wiki/standings-model.md": "2f5c70485c5b23305cc8d202b6c665247109269e1f9b8ce56e4d71eb28a61d9f"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426",
+        "wiki/standings-model.md": "d36c0acbe167b9c5de1f177bffadf98d7b71cddb3c1ff28b9d6223fcefef69a1"
       },
       "source_ids": [
         "SRC-5312731b-016",
@@ -7174,8 +7174,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "38da13171022a94241f28c9c35844a5bd12bc8149b2d08d49a641e07b3f7bb0e",
-      "issue_body_sha256": "1d28ef9143ccd32171884992f32f569535c9a4bebdcb07b6606b4af644229fc1"
+      "contract_sha256": "2d45d60926a8448745a006376db6de01c19e2dfca9965288935a64d2e863c09f",
+      "issue_body_sha256": "54d7d8c27c618d0afcca8e8d19b0e61fab32d74bd0c6243007c4c85a81c1c80c"
     },
     "R1-CMP-006-D": {
       "id": "R1-CMP-006-D",
@@ -7249,9 +7249,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426"
       },
       "source_ids": [
         "SRC-5312731b-020",
@@ -7283,8 +7283,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "41dfc515acbdfdb9c644c530e30919de315b4c15a7742781886b084649d0c2fe",
-      "issue_body_sha256": "751aa2768d46686a6ad583a026a110e8356995858b7000dace212d94b4757131"
+      "contract_sha256": "e65cb28f39475c960a828a362594f79fcbc329fda979a4d1458af6d361f473e7",
+      "issue_body_sha256": "b7a3bce9223c18a20a830df53964a2cbf724b25052b8c3cebbb5c42f061eeff7"
     },
     "R1-CMP-007-A": {
       "id": "R1-CMP-007-A",
@@ -7358,12 +7358,12 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/advancement-model.md": "74c6c22a2b05446fb5b3bb5094ab0fdfe332664024c09c7bcb1949e22d5d3e86",
-        "wiki/award-model.md": "074173d1df8f9ea7ca7a179460119018b654eb36764f585b28ddc3d0251fe62a",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/advancement-model.md": "a54cf6b429e4c02bd1ce6e1da35ddd456a0302fec8c910fe247a4883e9a0b501",
+        "wiki/award-model.md": "c5784e65d365168866f1ce0434ef90ada6ae13e7649cfef5bf24494f22827d46",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426"
       },
       "source_ids": [
         "SRC-17086540-034",
@@ -7404,8 +7404,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "c22cbff71fedaa4e2ba271c8d44c37b24760d3d7e3fd194446c220858d043f18",
-      "issue_body_sha256": "d0c24ea1bd634ad834cef3d80b273e60f7c7d4fea9661024661ba20e124ad76b"
+      "contract_sha256": "0977ca7f77583f7379185c2c316ac9458341701a3b4438edcfd17896c36b8dcf",
+      "issue_body_sha256": "9ddb99b41bada11a84dbf4c9c2e8729c8659c0fe491c539c8062c755683dedd1"
     },
     "R1-CMP-007-B": {
       "id": "R1-CMP-007-B",
@@ -7479,10 +7479,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426"
       },
       "source_ids": [
         "SRC-3aa2b898-199",
@@ -7521,8 +7521,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "b1ff655f650c9f935ce1dd136ea0450e78cc3cd21d6846c007191c09abd86bf8",
-      "issue_body_sha256": "9ee4563065f1c3837aedea56aebb9f07331facc8fd6e5aa95b14282da9ce3dbb"
+      "contract_sha256": "f5ab71234a8844fb962b5b200942aaa2c4e6a3774205322e73e4c9b4507227b7",
+      "issue_body_sha256": "62d9e7bb8b72f62565921467d3b6fbf20c48aedd837e7a5c08ea8ee27de6b192"
     },
     "R1-REG-003-C": {
       "id": "R1-REG-003-C",
@@ -7596,10 +7596,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-5312731b-067",
@@ -7622,8 +7622,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "67d4fc0c99faa6f16132fc0b8f2d228fb04a02046c4197a734e3a30feb8ddc0c",
-      "issue_body_sha256": "b3fff82c1fbed259b348f38a78458ad8628ad9e8357112d421acc62b65f34d9e"
+      "contract_sha256": "4130540c0d7b77b26145144f96a075c0d4314771b667b44724a3826e3726ef49",
+      "issue_body_sha256": "758067ea0d6e19895c44e803ca5f5c90ce98006165ebe99848effd02d5b30631"
     },
     "R1-CMP-001-D": {
       "id": "R1-CMP-001-D",
@@ -7697,10 +7697,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-3aa2b898-201",
@@ -7743,8 +7743,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "112bf8e7242150c6dab9148bcdbee027e0889f3ac2164df1253586fcf92a2b12",
-      "issue_body_sha256": "9dfa91bdc9caf38b67dc5c62d910858b961bbd73e43db129226a43590da4b29e"
+      "contract_sha256": "25c47b5481e2e5d8720b5eff8359e0c9cae433a7de21d085e011eea2c2499134",
+      "issue_body_sha256": "fa3aed5fa918dab8981998eae5aa02ec5a581c12ddfdfda70e2628f773a8ba3a"
     },
     "R1-CMP-001-E": {
       "id": "R1-CMP-001-E",
@@ -7818,11 +7818,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-3aa2b898-090",
@@ -7849,8 +7849,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "fb1f17d3655f9b82fcb3edbd5f8c49671ff228124bc7f6007879f4ddbe9a19ef",
-      "issue_body_sha256": "d61b86424ce5ca74d2cfac142ffd0ea7727d85f482b0848121f5c0244df0b9b6"
+      "contract_sha256": "78c32c0add7adc3c10d39469b8e26edccf02662866e326278f5ff51ba65bf568",
+      "issue_body_sha256": "73e2beeb73c12c4c298b75460f7f4d5fddc43626dca283fd8834f09ee4a507c2"
     },
     "R1-CMP-005-B": {
       "id": "R1-CMP-005-B",
@@ -7924,13 +7924,13 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-3aa2b898-101",
@@ -7953,8 +7953,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "4a1c6aa028c300f85c7729929409f80611bbbbea3237db53aedb07fafaac7407",
-      "issue_body_sha256": "3c7ec90221278ede996d218091932542d8ee85f97014128de84098d8e4ffe74e"
+      "contract_sha256": "c35326765a877bc6e15f9e35ac33536c935b58de7a953cdf1fc62f14ecfaa7fd",
+      "issue_body_sha256": "606f52dcb8e703ec84aa4b601e3b766830cd2562a927f9d90be314c873da1d79"
     },
     "R1-CMP-009-A": {
       "id": "R1-CMP-009-A",
@@ -8028,12 +8028,12 @@
         }
       ],
       "sources": {
-        "docs/adr/0009-separate-results-from-feedback.md": "aea838fbfeca5b169cadaaf8c96138ddc2288c5d8415496ea5c4c8be6e158231",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/adr/0009-separate-results-from-feedback.md": "1a0fb362b40703ab72929bb40e9a142e63f8978962c777d7404e2ec7984e53c0",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-1491b3b2-001",
@@ -8178,8 +8178,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "8b1344548986eebfa7dbe83d99acd874fcd4f2e4f32f1b15425877015afc4636",
-      "issue_body_sha256": "a23833973751e967216e974b6640cb9c8cdeb72d949212e0a7b2e391072c258e"
+      "contract_sha256": "5eef593f3c0d3bf6f3bca0df72314894755724b502871e68ddfe2479e6da8bf4",
+      "issue_body_sha256": "177077307a87a685648b26411c598218e90b3b10fea3ff7082decd27a95effe4"
     },
     "R1-CMP-009-B": {
       "id": "R1-CMP-009-B",
@@ -8253,10 +8253,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-43f3ef1f-024",
@@ -8287,8 +8287,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "6858c3115b4d228b1dd13b275a9c9ed43c18b588003292317e4690a620ec7fae",
-      "issue_body_sha256": "12272031986207563029c66e7944b3821623725b827e393a61cf9202df12723b"
+      "contract_sha256": "4914ad4e1187d13f161104bbebc21824a18c7be156bfb914044c35679138d55a",
+      "issue_body_sha256": "71c5a9f183cb943ff9b34cef3391823736c8b707b04643b52b14950ebefb3201"
     },
     "R1-CMP-008-A": {
       "id": "R1-CMP-008-A",
@@ -8362,11 +8362,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0014-use-tournament-defined-pairing-plans.md": "c364644514b38cf3bceb917ecf2d027a880f4cd32b3a9fb076b9617987f5715d",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/adr/0014-use-tournament-defined-pairing-plans.md": "0ffbc952fc7b6e38531f14ffed7e6aaa0c33cea304cf3f839812dca986c62ad7",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-480fc114-024",
@@ -8427,8 +8427,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "a573b65c43c5bc000f7ce29fadd2e3d9e152c7280fb73f10d6fa5a7bb0664ab6",
-      "issue_body_sha256": "efd36685d10156437d0da69b95d70a37fd5b164d1eedc5342b2d9b2512680afe"
+      "contract_sha256": "f5043963294f9b06ba092d70eb2136f81799a7b01d59d56e2f9c6ddd82be9f94",
+      "issue_body_sha256": "cec4bb0acdcde37354cabe3941260273e7b24805924d437eadfd4b16b2a457ac"
     },
     "R1-CMP-008-B": {
       "id": "R1-CMP-008-B",
@@ -8502,11 +8502,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0015-use-director-uploaded-standings-rules.md": "57138fe7eb8f1a6e835a9ea5201b9a48c4d0b1b5c087cefce7901ec9807695d9",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/adr/0015-use-director-uploaded-standings-rules.md": "2ed26d042fa90d4a45d1ad420d111dfd799c7943d6e7702b8afba08ad92aecfa",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-1ad5279c-001",
@@ -8568,8 +8568,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "3fb8860ed4db6376a808e2c11b5a23549a904b648f9057c99824362ae14f24c0",
-      "issue_body_sha256": "98e8dea12ffeaea9babcbc37d40bd1f6afd65955a81c2f9db09153e548e394fe"
+      "contract_sha256": "cc256995fd726107192c4f06c9e1e00bb6faa4c48ccb1be20fb8a325879b0b15",
+      "issue_body_sha256": "7d5e3753de9b8771250ac9db32cbcb5f714ac13e029aa80a8231e919309fb873"
     },
     "R1-CMP-008-C": {
       "id": "R1-CMP-008-C",
@@ -8643,10 +8643,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-43f3ef1f-075",
@@ -8666,8 +8666,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "7aa231eabc9817a45bbf5dffa34024cb37cdf64ef71fafb0a36f979f6b332680",
-      "issue_body_sha256": "342b75dd2e222dfeb22cf1fe0474582a5213f94ff22c20476e083ac7a94f25a3"
+      "contract_sha256": "b51f8cee40cf5e919b2d4c9d78e09a20b935ae7acdc310f2d98ebc8882052911",
+      "issue_body_sha256": "44231e6368613c53dc3dfb96e49e5402d5ea047454e36af5f4d028eca121db52"
     },
     "R1-CMP-008-D": {
       "id": "R1-CMP-008-D",
@@ -8741,12 +8741,12 @@
         }
       ],
       "sources": {
-        "docs/adr/0015-use-director-uploaded-standings-rules.md": "57138fe7eb8f1a6e835a9ea5201b9a48c4d0b1b5c087cefce7901ec9807695d9",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61",
-        "wiki/tournament-directory-model.md": "0fa30b00d5550315e99abf6eed109cbf709eaff25cf0724df1c74d997475cec2"
+        "docs/adr/0015-use-director-uploaded-standings-rules.md": "2ed26d042fa90d4a45d1ad420d111dfd799c7943d6e7702b8afba08ad92aecfa",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426",
+        "wiki/tournament-directory-model.md": "ac7b0a9331d369d465221de304ac408387e3b60ab98587686743772dd6e43d2c"
       },
       "source_ids": [
         "SRC-1ad5279c-001",
@@ -8813,8 +8813,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "1e62e99d3725aa2726334805ed62c486fa6fd846ee0cca84aab67e8fbe9a0738",
-      "issue_body_sha256": "528975fe54f0a01f85fc0750484b174b9de131f1f5ac6650f188d8400837d064"
+      "contract_sha256": "efc0de715a33a2b2c7526764d2fce6efd56775dc040ae994c9af8f34490ead5b",
+      "issue_body_sha256": "bd043db569064cfb75959eeedc578fb4a724e344eba49a51178f92c8273b1a8c"
     },
     "R1-CMP-009-C": {
       "id": "R1-CMP-009-C",
@@ -8888,10 +8888,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e"
       },
       "source_ids": [
         "SRC-3aa2b898-234",
@@ -8926,8 +8926,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "65cfda235bce513e01c3cfdbf56298b3cf121d2f0442bd247cfd44a3315111ba",
-      "issue_body_sha256": "c070dae915cf4ab736dc37621895311ca29ba861a92ccf115a6b3c9ebdbd4bf7"
+      "contract_sha256": "a7821c06c084faddcaf156f3185e2e4b266e751176f05eb50d3e83a396a74b86",
+      "issue_body_sha256": "ada4c3d8d0e8a3b07da92a5071d3ed4c4b6eab49f5ddcfe5b6a0c7b34ca9d6af"
     },
     "R1-CMP-009-D": {
       "id": "R1-CMP-009-D",
@@ -9001,10 +9001,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e"
       },
       "source_ids": [
         "SRC-3aa2b898-236",
@@ -9034,8 +9034,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "af0132484e758c7494fb303a98ab59526dfdeeafa54c90cf442ff208cc82223f",
-      "issue_body_sha256": "e5a9f821be811faed737e5966b192af2e1cce9f5c3438660472dc507728df8c9"
+      "contract_sha256": "8aa2b12c65b87240a0689fbcb2cc1471149ba4a7225e6e85d630ef6af95fc638",
+      "issue_body_sha256": "19600b9a97a0b203ff90fddd93854b11876200475b3df86699ca4da74405b7eb"
     },
     "R1-CMP-010-A": {
       "id": "R1-CMP-010-A",
@@ -9109,10 +9109,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e"
       },
       "source_ids": [
         "SRC-3aa2b898-235",
@@ -9142,8 +9142,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "051a41cde39821e790ef3643c90f07f35e33832e524b262ed370824dd7fd9496",
-      "issue_body_sha256": "39392eedf156c4922b730b3aac53bbbe171403989b80486e0d31aceade1777d4"
+      "contract_sha256": "9bd28feeb119a7884307c55c2e52cb15040c25385b1f40bb22c92fc396aae046",
+      "issue_body_sha256": "65ef6fae008611499fd2acd15aa0a8e4cd2442b70f9424b1d86ff6ce03dbcf72"
     },
     "R1-CMP-010-B": {
       "id": "R1-CMP-010-B",
@@ -9217,11 +9217,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0009-separate-results-from-feedback.md": "aea838fbfeca5b169cadaaf8c96138ddc2288c5d8415496ea5c4c8be6e158231",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352"
+        "docs/adr/0009-separate-results-from-feedback.md": "1a0fb362b40703ab72929bb40e9a142e63f8978962c777d7404e2ec7984e53c0",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e"
       },
       "source_ids": [
         "SRC-1491b3b2-001",
@@ -9355,8 +9355,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "6aa3b7b04ce978ec5511492771116d80c1e54a3fcb8682342ba8cb4b89285602",
-      "issue_body_sha256": "ce85f65cdc5f6f1619a3bd45d123d44c3dc71457952b394bf4d43a8676f10fce"
+      "contract_sha256": "626e60d34eed81e854ea4a70634d9880cf6ceff577fdaedb103132d723462a20",
+      "issue_body_sha256": "7ca2cafb342340e20ec910150ff5ce9376772ab4051626a37dfdf1b7748e5611"
     },
     "R1-CMP-010-C": {
       "id": "R1-CMP-010-C",
@@ -9430,11 +9430,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-3aa2b898-102",
@@ -9485,8 +9485,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "6133cbbac9bcd82a66b42642dc29e4c8bfaeb65556b82513c7ac5c346e959086",
-      "issue_body_sha256": "5249dd0527e6d338c5ff2218a92ebb49612ca7372c4536c222db1ad1fbbef21b"
+      "contract_sha256": "6e636f8c1a591c23f93c44a3ea25b944adecfbd2cc13fb5cbda5298fa3e2e505",
+      "issue_body_sha256": "93c1297b2804c692c6879eb4653ebfdfe3c74b3486c486531d042efe42a11351"
     },
     "R1-CMP-010-D": {
       "id": "R1-CMP-010-D",
@@ -9560,11 +9560,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0009-separate-results-from-feedback.md": "aea838fbfeca5b169cadaaf8c96138ddc2288c5d8415496ea5c4c8be6e158231",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352"
+        "docs/adr/0009-separate-results-from-feedback.md": "1a0fb362b40703ab72929bb40e9a142e63f8978962c777d7404e2ec7984e53c0",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e"
       },
       "source_ids": [
         "SRC-1491b3b2-001",
@@ -9699,8 +9699,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "72d48703154570e02cc17cc2b5863829fa6257735e5c8615e83eeec65ee72b8d",
-      "issue_body_sha256": "7e317c9a3fe7f6875b83a9b983d3d156b4a1d727a23902e48113b557be04b408"
+      "contract_sha256": "a91ca3594967facf455d895fdfa6a07da51e3071557c15d4c744a037cdb61422",
+      "issue_body_sha256": "e6825c55fe9a318e713112a5f8313f6da92b609053087711a79e60a2f0dc9f70"
     },
     "R1-CMP-011-A": {
       "id": "R1-CMP-011-A",
@@ -9774,10 +9774,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0010-version-results-and-surface-downstream-conflicts.md": "ec8d1c0258141f5b1fcec241a6b2471b2dec774d40faca573ad0513bb6e80e15",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352"
+        "docs/adr/0010-version-results-and-surface-downstream-conflicts.md": "4ff217bba15f4392391459558c3b8ae077a7b5a0ab38a0cc134c1c303c17c4f5",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e"
       },
       "source_ids": [
         "SRC-43f3ef1f-096",
@@ -9833,8 +9833,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "23ada87c436de12fa1ef7bd436eb1759bf71df69e2e2318be09ba6fa19068379",
-      "issue_body_sha256": "48987670b20a8900d6783fcad14df59730edbba982f067b5558f6b79fa3bb831"
+      "contract_sha256": "6e94443be1af9e5ff6609c2092e714d7f621d98e6932b94a2336582abdfd085a",
+      "issue_body_sha256": "fc13d913c5c8fdcf4a4f9eb165eac49d197cf59ebe1325540d1e705e95e4df1d"
     },
     "R1-CMP-011-B": {
       "id": "R1-CMP-011-B",
@@ -9908,9 +9908,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e"
       },
       "source_ids": [
         "SRC-43f3ef1f-100",
@@ -9939,8 +9939,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "707a0bfb371f7b50e92936b5374d8402d3f0170e40ec5c25601ca59b6175c25f",
-      "issue_body_sha256": "eede50eb4193ab93f9faa7248f261f2a177ca274bd3e3db9a143b8e8bad69f83"
+      "contract_sha256": "3a6810e48f8a460a9ce6e41a251f2b5bdbdc4e2d1b848e5d42eeeb1f7414ed84",
+      "issue_body_sha256": "717134a233147ca0f3aa5d64128f2ae336305733349ce52bda8a1c0d332dedd9"
     },
     "R1-CMP-011-C": {
       "id": "R1-CMP-011-C",
@@ -10014,11 +10014,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0010-version-results-and-surface-downstream-conflicts.md": "ec8d1c0258141f5b1fcec241a6b2471b2dec774d40faca573ad0513bb6e80e15",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352"
+        "docs/adr/0010-version-results-and-surface-downstream-conflicts.md": "4ff217bba15f4392391459558c3b8ae077a7b5a0ab38a0cc134c1c303c17c4f5",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e"
       },
       "source_ids": [
         "SRC-3aa2b898-193",
@@ -10081,8 +10081,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "f584298d3c02f5f24c563ee677749196aeeef86471908da73324c292b968702d",
-      "issue_body_sha256": "d5246878baa5304b6dd5c4bcbc1842d4c6b617c9ce52361ba1f916a3d82e8897"
+      "contract_sha256": "4959506505ac2e519296c8e73e14180b83860fab0308191c9ea3075f3d6f9114",
+      "issue_body_sha256": "6f56cd4682f267f2cd0b6328c430a19525473b343b95206106afffe10b0c1374"
     },
     "R1-CMP-011-D": {
       "id": "R1-CMP-011-D",
@@ -10156,10 +10156,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0009-separate-results-from-feedback.md": "aea838fbfeca5b169cadaaf8c96138ddc2288c5d8415496ea5c4c8be6e158231",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/ballot-model.md": "b5f1e2bd9ee67f0e22471b11703f4f96cebceeacadb7ee5252b0fe38073cb352"
+        "docs/adr/0009-separate-results-from-feedback.md": "1a0fb362b40703ab72929bb40e9a142e63f8978962c777d7404e2ec7984e53c0",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/ballot-model.md": "9cebe110c9995e7562e3e2f1770697975bfad86f3883a1df671968e40987195e"
       },
       "source_ids": [
         "SRC-1491b3b2-001",
@@ -10278,8 +10278,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "c6eda6141128a6fa881916ea2b3cf25e6969ebb5e36d0cf9f1412f28b7ff7dd9",
-      "issue_body_sha256": "f7d8e426454f6d00165b1cbbc9d81503f3b6345f887d132da98ec21f0d5325a9"
+      "contract_sha256": "c10d6463c2d5445c775efb3dff8c7bb32df482b664bddbe554f7ffe2c5d38b51",
+      "issue_body_sha256": "d154be3385161eca5f8db7ac22b47a451ca32667e7fac66c1d7d3fe4fbdd31d6"
     },
     "R1-CMP-012-B": {
       "id": "R1-CMP-012-B",
@@ -10353,9 +10353,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/standings-model.md": "2f5c70485c5b23305cc8d202b6c665247109269e1f9b8ce56e4d71eb28a61d9f"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/standings-model.md": "d36c0acbe167b9c5de1f177bffadf98d7b71cddb3c1ff28b9d6223fcefef69a1"
       },
       "source_ids": [
         "SRC-f868e346-026",
@@ -10392,8 +10392,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "8cf141476c28f6c624d49af0fa7eb583bbca8006a607117eaf6332acc6915dc6",
-      "issue_body_sha256": "afa7c9106baf352ed65cace52c8ab0689c61ddbafe7a98275870000ca426a8d1"
+      "contract_sha256": "796835df41e82226a62443e58b723c34aea953fe437a1a1035d3446790e116e4",
+      "issue_body_sha256": "89569af612c4373f72b1fef93eb8ab31e66ccfaf6c3d1f800de3a5fc1f2d31a1"
     },
     "R1-CMP-012-C": {
       "id": "R1-CMP-012-C",
@@ -10467,9 +10467,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/standings-model.md": "2f5c70485c5b23305cc8d202b6c665247109269e1f9b8ce56e4d71eb28a61d9f"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/standings-model.md": "d36c0acbe167b9c5de1f177bffadf98d7b71cddb3c1ff28b9d6223fcefef69a1"
       },
       "source_ids": [
         "SRC-f868e346-045",
@@ -10495,8 +10495,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "58bb48b14ca46fa7edcd22e9f3235d0ce891260e8c2ccc0abecebc1416bdf1e0",
-      "issue_body_sha256": "1f14ff5a3915f2f785c828bb877ee4bc0513532c83a4b530f68ea8f53537b813"
+      "contract_sha256": "f11d765907f07491296793bd00d02d539ad6e48891b0b816ec775379e846191b",
+      "issue_body_sha256": "89b17b2f4a6e48f50301f16f83b017104ffcf8d0e26a1dd308eead17b93a2ea5"
     },
     "R1-CMP-013-B": {
       "id": "R1-CMP-013-B",
@@ -10570,11 +10570,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/advancement-model.md": "74c6c22a2b05446fb5b3bb5094ab0fdfe332664024c09c7bcb1949e22d5d3e86",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/advancement-model.md": "a54cf6b429e4c02bd1ce6e1da35ddd456a0302fec8c910fe247a4883e9a0b501",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-17086540-023",
@@ -10608,8 +10608,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "f287aa04a9cfc3794ba782e57a33de033d628631d000e7d334aca3173878c764",
-      "issue_body_sha256": "6ee1fdd2d6a6cb51920e9ebd338597d8967e3ca58dacafdf579674ab821a340a"
+      "contract_sha256": "119b688be1d3819967bcfe5c165be64a57ff6e929f015049abc2341eb209fee7",
+      "issue_body_sha256": "91e66bfcf5cdefb4f42b144495b3991c80822c84b55d0f8248ae84837fb640ad"
     },
     "R1-CMP-013-C": {
       "id": "R1-CMP-013-C",
@@ -10683,11 +10683,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/advancement-model.md": "74c6c22a2b05446fb5b3bb5094ab0fdfe332664024c09c7bcb1949e22d5d3e86",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/advancement-model.md": "a54cf6b429e4c02bd1ce6e1da35ddd456a0302fec8c910fe247a4883e9a0b501",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-17086540-036",
@@ -10728,8 +10728,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "24e7674c2b371bf6116362d5f90f809fde2b8cf0d80cbae9e8c1f1b2f22a9d42",
-      "issue_body_sha256": "b787c06244145fd54173fc16dcade3f903ef08069278b70be5811cf3eb15c18c"
+      "contract_sha256": "211d7168a1418b99e50da2dacdc81a752a782a48d2fc6567d1d451dd29e06157",
+      "issue_body_sha256": "6e102120787b375d2b3a3e1b2b6229e353bbccd394236a718b1e82b904201d62"
     },
     "R1-CMP-014-A": {
       "id": "R1-CMP-014-A",
@@ -10803,12 +10803,12 @@
         }
       ],
       "sources": {
-        "docs/adr/0017-separate-standings-from-advancement.md": "a847f38dd1bc708759927ea73fed6ccef48cde2f6ad867adca19e06193ae0506",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/advancement-model.md": "74c6c22a2b05446fb5b3bb5094ab0fdfe332664024c09c7bcb1949e22d5d3e86",
-        "wiki/pairing-model.md": "663fc3e159b65a49e4d5f457d13f0e1039a77d44dc3b1d0bf20b13b30a2b3d61",
-        "wiki/scheduling-model.md": "ed87f28cbaba7d821f0028b9b89116cd42a3b0bd7e7d9598b95bbb03939281db"
+        "docs/adr/0017-separate-standings-from-advancement.md": "9908ff1b2fd339f1ca3c14b30382dbfc910fe4641ff77b400f7aa47d8ac937eb",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/advancement-model.md": "a54cf6b429e4c02bd1ce6e1da35ddd456a0302fec8c910fe247a4883e9a0b501",
+        "wiki/pairing-model.md": "6503312ae08e6c06e4f7385b1c12b2ddc299c610dd0d003c45ef0afa60a70426",
+        "wiki/scheduling-model.md": "ded5c4d5d97e3be1b640b5f9823e34b16ac68dbbb37d6bf09a88641aec61ef90"
       },
       "source_ids": [
         "SRC-0831430f-001",
@@ -10887,8 +10887,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "5a85e9e070ac694fbae7238c937d1934944a6e2e5aa844219df45a6b4e665e79",
-      "issue_body_sha256": "7f405cb25414e8d227a90afa5ba30970f3f8f2ae3db782d26d43e33148d04c3a"
+      "contract_sha256": "deb873e312b87a6900afbb340480160f55a9bdcb714a369381c1667797244001",
+      "issue_body_sha256": "3b7712fc9140db8cd17201546a459570399ec9824b8bf924778c330d9329fde7"
     },
     "R1-CMP-014-B": {
       "id": "R1-CMP-014-B",
@@ -10962,11 +10962,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0017-separate-standings-from-advancement.md": "a847f38dd1bc708759927ea73fed6ccef48cde2f6ad867adca19e06193ae0506",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/advancement-model.md": "74c6c22a2b05446fb5b3bb5094ab0fdfe332664024c09c7bcb1949e22d5d3e86"
+        "docs/adr/0017-separate-standings-from-advancement.md": "9908ff1b2fd339f1ca3c14b30382dbfc910fe4641ff77b400f7aa47d8ac937eb",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/advancement-model.md": "a54cf6b429e4c02bd1ce6e1da35ddd456a0302fec8c910fe247a4883e9a0b501"
       },
       "source_ids": [
         "SRC-0831430f-001",
@@ -11043,8 +11043,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "f261b10ec3978aa128ffbae5a0d225678a75f0f2a2094e78d3e5383e8f449782",
-      "issue_body_sha256": "2dae95c2d828371d098ea0f17df3445951595d3536b456cfe728f458db15c1c1"
+      "contract_sha256": "409fc96e0ebc633166fafa36653454c03e8156b1464da01a7b99fbc9f059c168",
+      "issue_body_sha256": "0de719be66ed6bd52217e97ead2e1e4ef162dcf43d133b047523166ec87a144f"
     },
     "R1-CMP-014-C": {
       "id": "R1-CMP-014-C",
@@ -11118,10 +11118,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0017-separate-standings-from-advancement.md": "a847f38dd1bc708759927ea73fed6ccef48cde2f6ad867adca19e06193ae0506",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/advancement-model.md": "74c6c22a2b05446fb5b3bb5094ab0fdfe332664024c09c7bcb1949e22d5d3e86"
+        "docs/adr/0017-separate-standings-from-advancement.md": "9908ff1b2fd339f1ca3c14b30382dbfc910fe4641ff77b400f7aa47d8ac937eb",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/advancement-model.md": "a54cf6b429e4c02bd1ce6e1da35ddd456a0302fec8c910fe247a4883e9a0b501"
       },
       "source_ids": [
         "SRC-0831430f-001",
@@ -11196,8 +11196,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "f232e0db53e911dbc7cd08e7f15980bca2d23901ac566f5f0f20ce5697d9a878",
-      "issue_body_sha256": "ed48d6d29c44d8341e29d6f8936cc96d17c7d3e287cfdaf76160b16a277b0378"
+      "contract_sha256": "7ca66d4541d2d85f5e31dcc2421440ec822ff1ae31b82c62c0b27531eae613a2",
+      "issue_body_sha256": "ffd248376c1fd09eef11465a30ce99521b35eef326a3c3c889a4c25114f45885"
     },
     "R1-CMP-015-B": {
       "id": "R1-CMP-015-B",
@@ -11271,9 +11271,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/award-model.md": "074173d1df8f9ea7ca7a179460119018b654eb36764f585b28ddc3d0251fe62a"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/award-model.md": "c5784e65d365168866f1ce0434ef90ada6ae13e7649cfef5bf24494f22827d46"
       },
       "source_ids": [
         "SRC-353e0648-014",
@@ -11305,8 +11305,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "7d534c94168e34c5b4c79ce11b59893a7f505cee2799f3239aecb66690f9c59e",
-      "issue_body_sha256": "3f8fcda32d176b1a88f8edfae691277506fe9aec9f4bf4b74b7ab5985f66d50b"
+      "contract_sha256": "d862a43ada0585d7a2b6ed7bf97aca4d8e2afe7b4c958fe38e208e89674c2de7",
+      "issue_body_sha256": "ef7b331f156a407af338f74a7c529825e049d876508d8cd1d82baf23cf7cfa49"
     },
     "R1-CMP-015-C": {
       "id": "R1-CMP-015-C",
@@ -11380,10 +11380,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/award-model.md": "074173d1df8f9ea7ca7a179460119018b654eb36764f585b28ddc3d0251fe62a"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/award-model.md": "c5784e65d365168866f1ce0434ef90ada6ae13e7649cfef5bf24494f22827d46"
       },
       "source_ids": [
         "SRC-353e0648-014",
@@ -11416,8 +11416,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "0902bf1fc54291d77499b15f57073ea8aad0bacaba6188130804ff5e5ea3b9cd",
-      "issue_body_sha256": "7cb43389450ce96454afa4fa003d841d13598d89e0295889402e233b978cbafe"
+      "contract_sha256": "6beb58a782df1354359a8f3f52b95d47718319ecbd3908d08d97852893a94161",
+      "issue_body_sha256": "cca1f41b49bd4252ab43e433a57cf6e3f56c78ef1b2f0d202a0681cc7efc3add"
     },
     "R1-CMP-016-A": {
       "id": "R1-CMP-016-A",
@@ -11491,9 +11491,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/final-results-model.md": "4a9d5b87bfe1ba3ebea6e2326029ddd82f5ae59292ff10d24c41e85b50acfce8"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/final-results-model.md": "dcf32e5be98085fea82762d65a74bbbfc3a203d4ebb0b75dcfe84703850cf3a1"
       },
       "source_ids": [
         "SRC-0475ebc0-001",
@@ -11546,8 +11546,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "0a01adbee31c424afb79612cfad2ff0906bfefe6fdfdc6de8dd5bc2d9a8dbd6e",
-      "issue_body_sha256": "ee357889fcd87712577abce5f0284e903269c0b44d8b53a58d122f0787e39347"
+      "contract_sha256": "fb09f79476288326b01a48d33f7a7ec20638c43d05f739c95174a4296e9da2cc",
+      "issue_body_sha256": "585f1a31717a51c9438262fef926b7748ac9fc43b0fde305d44a3166d313bc33"
     },
     "R1-CMP-016-B": {
       "id": "R1-CMP-016-B",
@@ -11621,11 +11621,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0018-gate-and-version-final-results.md": "997b302ef4905e3b89d2f6430c9d99c5e1cc7a2fd1724cdc356c76a45a05c177",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/final-results-model.md": "4a9d5b87bfe1ba3ebea6e2326029ddd82f5ae59292ff10d24c41e85b50acfce8"
+        "docs/adr/0018-gate-and-version-final-results.md": "c574c423b90509db2fb1c5eadf0c67311333f4840dea89ec22caa119a51d4148",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/final-results-model.md": "dcf32e5be98085fea82762d65a74bbbfc3a203d4ebb0b75dcfe84703850cf3a1"
       },
       "source_ids": [
         "SRC-0475ebc0-001",
@@ -11707,8 +11707,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "8c72c5c81c9b65987315d13a474a4db6cb3b0754e2e0da829dd51598897a24d6",
-      "issue_body_sha256": "1cff7b0ec64c1b414273c788432919819c0f3a507e42da26bb3563035ffc573f"
+      "contract_sha256": "db5a73edf351e2db4e813fe887c0e8a2f66d22ca028c0569d45ec3ba749b9c38",
+      "issue_body_sha256": "1f2855017624cf2353ba284f7575878ead2a142fc98abac4d609fc98baa40ea8"
     },
     "R1-TRN-004-A": {
       "id": "R1-TRN-004-A",
@@ -11782,10 +11782,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0020-separate-competitive-completion-from-closure.md": "1147fda349dceee795408f5604c577c82748c437d1be4d732b14690e7c1256a9",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/tournament-lifecycle-model.md": "376282793499ebd88a7ee15234797b78e819167451e4beae825e2a8674961e92"
+        "docs/adr/0020-separate-competitive-completion-from-closure.md": "7377ffeb53c93b684672dc7c0182caaa81c56e716792246ee927a744cb4df726",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/tournament-lifecycle-model.md": "9a4065209fb49353018b2d90e45f721641b4e0ab2595556fc972a09cf75e53e2"
       },
       "source_ids": [
         "SRC-9867cf56-001",
@@ -11856,8 +11856,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "b39e09f79c263cfc6799d0a81084e850abeb979b2797cf038042951e274aada9",
-      "issue_body_sha256": "cfc16cc93e140b54f157ae639e27a867d793c069da9928beb70f80246d2206a5"
+      "contract_sha256": "bb35052a0286c898d3ce26e1a09bd7e8fb240847a1c1845c4588db789df73cd8",
+      "issue_body_sha256": "c60de8f14d9358d3c7deaf2ae423dac7b2273205db06d9dbf151f4a76bf75ebd"
     },
     "R1-TRN-004-B": {
       "id": "R1-TRN-004-B",
@@ -11931,10 +11931,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/tournament-lifecycle-model.md": "376282793499ebd88a7ee15234797b78e819167451e4beae825e2a8674961e92"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/tournament-lifecycle-model.md": "9a4065209fb49353018b2d90e45f721641b4e0ab2595556fc972a09cf75e53e2"
       },
       "source_ids": [
         "SRC-3aa2b898-166",
@@ -12007,8 +12007,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "6cbd4b9422e28f360d22b92c1e7d9bd271e63d4ba86e57b68ef37f63ee218975",
-      "issue_body_sha256": "255e366d3cfdad03f95b97a7e709624923119c24fd95f7be3c56db62d32af587"
+      "contract_sha256": "a7d4376b6f5174c5fcb21fb082d89404bb5405e1a04c844ce61fe3e8371fb690",
+      "issue_body_sha256": "86594fb3bb131b16739587bfe84b435ece9d27f08cca18c9e5197729f5ed2ea9"
     },
     "R1-PUB-001-A": {
       "id": "R1-PUB-001-A",
@@ -12082,10 +12082,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/final-results-model.md": "4a9d5b87bfe1ba3ebea6e2326029ddd82f5ae59292ff10d24c41e85b50acfce8",
-        "wiki/retention-model.md": "a7f3e5fbc64359df4e777b64aa3fd1f2627caff01b909e2ef49c1a0a72c27b99"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/final-results-model.md": "dcf32e5be98085fea82762d65a74bbbfc3a203d4ebb0b75dcfe84703850cf3a1",
+        "wiki/retention-model.md": "473c95b28914211ea39f23c02fde16e9cab0f6825f9ff000c4f5fcc89f03630c"
       },
       "source_ids": [
         "SRC-0475ebc0-001",
@@ -12185,8 +12185,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "e99ed0c7d56ae5a12a907069cf520ab78ab5d9bcb402dc57faa8d853e5de761b",
-      "issue_body_sha256": "30b87fca7281c8e5a8c6e0b3a7215fbfea90f08d35c352716f39b6c6c0052fe3"
+      "contract_sha256": "a687ec6180830b47349043ae4edf15455a6ed7401c0f3fd98bff166d74448c39",
+      "issue_body_sha256": "46065bf54c308a22d8a15f647a5f0484925796e8c2e7bf63391955902eda1bac"
     },
     "R1-PUB-001-B": {
       "id": "R1-PUB-001-B",
@@ -12260,9 +12260,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/tournament-lifecycle-model.md": "376282793499ebd88a7ee15234797b78e819167451e4beae825e2a8674961e92"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/tournament-lifecycle-model.md": "9a4065209fb49353018b2d90e45f721641b4e0ab2595556fc972a09cf75e53e2"
       },
       "source_ids": [
         "SRC-9867cf56-001",
@@ -12318,8 +12318,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "cce392844ba82d626e6b64d39f5b6a3cbcb4c6ad9311754aed5f030d9938d44c",
-      "issue_body_sha256": "771cb885a007201d02161b63b1a7c1b7fbe474a40d409ba710aa0d118314b8e0"
+      "contract_sha256": "306d4dd9eafb0dd973070685ad48195798c6419153f4ba72f5fbd2a06a9c62be",
+      "issue_body_sha256": "d091a78ec03c24a4d401a317d1a501b40234598caa989af5508aa812ec96c40a"
     },
     "R1-PUB-001-C": {
       "id": "R1-PUB-001-C",
@@ -12395,10 +12395,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0030-use-individual-competitor-accounts.md": "0744a5a4b799836ebf43ad63c026510fba45152e987fbdcaeb3c3762de48a85f",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/adr/0030-use-individual-competitor-accounts.md": "98e9355052f8182c7c51efef3497b18b24eb818a5920a4fdc56ca9235a51965a",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3ab6754f-001",
@@ -12428,8 +12428,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "19a780b0f2f8e323294254af76f78214e66cb070f53772e0b29ff6bf2faeaaa4",
-      "issue_body_sha256": "1b7c7344fc6eefd02172a4df8443923e221602af1c3b39780bbc082fc697da80"
+      "contract_sha256": "b210fef2fd01e98141dcdc3a01d71642cb9e7319dce3293be75ff2a3ada34851",
+      "issue_body_sha256": "3c3b29b77e0b7573c623172be32dc1964794596d5dfadd1711b6d2414da28a16"
     },
     "R1-IDA-001-C": {
       "id": "R1-IDA-001-C",
@@ -12503,10 +12503,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0029-use-clerk-for-managed-authentication.md": "69cc264728928f9c7d467d2ae7095ee43fe71715af2f894c6f2cc2b92312b9c0",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89"
+        "docs/adr/0029-use-clerk-for-managed-authentication.md": "6b731e4a2963482eac401727f5b475e24fbfb0975d463d1ca323dc0ade5c1681",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a"
       },
       "source_ids": [
         "SRC-3aa2b898-033",
@@ -12565,8 +12565,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "7f547a6096ef261dab45ff6d5aa030c52307c7f4e376ee805052e9683737f59b",
-      "issue_body_sha256": "ffe1e96aeda26ab1ddecf5b4d81d5344efe226d42533bc68375f4fc7543431ca"
+      "contract_sha256": "c5dd72cfdcbacabfe79d71bcfa194112e890ed3fa284c12874185e1f83db429a",
+      "issue_body_sha256": "4af0d75d12e03b32d82a00bd7c3625cf363d967540f44cd740d7623d528cde50"
     },
     "R1-IDA-001-D": {
       "id": "R1-IDA-001-D",
@@ -12640,10 +12640,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb"
       },
       "source_ids": [
         "SRC-3aa2b898-050",
@@ -12670,8 +12670,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "8fd83dd67444d6487534bd1e2131f22bd7987711a6754e25423ce405d839b57e",
-      "issue_body_sha256": "ba96db2ba7c5e587e43e69327a5e1d6fe2ad24830d0e20f27bc3e0c4a1b32c61"
+      "contract_sha256": "040d5788abd70153d308d75cfb6edb3b8895d076193141722097c060f1ff2116",
+      "issue_body_sha256": "fb7722eb599ceb48c09dbb6211d742fb020e2e8f0d267046d2c0b7e2bd64c5f8"
     },
     "R1-IDA-001-E": {
       "id": "R1-IDA-001-E",
@@ -12745,9 +12745,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a"
       },
       "source_ids": [
         "SRC-3aa2b898-058",
@@ -12767,8 +12767,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "eeee4e5c0ba7d2b4641254affd8c09a21b5fbfb1d30f4c7ce6cfdaa9be0ec65f",
-      "issue_body_sha256": "3053809790d7dae8452c8e81281f9a49cc0798054f2c401225b536fca6a11ba2"
+      "contract_sha256": "e43ae5ad96a293fe1f9b76f0e297b189508426399119b5830b6f3d77a7899d3f",
+      "issue_body_sha256": "ee13bd1e466e879b04b7b2e0e06d65acccbc0dd43c3caf1d5f899bd789496b45"
     },
     "R1-GOV-001-A": {
       "id": "R1-GOV-001-A",
@@ -12842,11 +12842,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0026-require-two-person-legal-hold-control.md": "734a15a194fc86f1a275c71fb495d551f21490d10056cd5ef5054d394c14a952",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/retention-model.md": "a7f3e5fbc64359df4e777b64aa3fd1f2627caff01b909e2ef49c1a0a72c27b99"
+        "docs/adr/0026-require-two-person-legal-hold-control.md": "0b5a314b1c7bea608e16fec4c7705efff9f0ddab9817ca3b5c2d4af1ebc4a6c5",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/retention-model.md": "473c95b28914211ea39f23c02fde16e9cab0f6825f9ff000c4f5fcc89f03630c"
       },
       "source_ids": [
         "SRC-272e4825-030",
@@ -12900,8 +12900,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "7ebc80ca0484b214145a69f413aa5f64b98828382da7a0b3609cf7e3092bee30",
-      "issue_body_sha256": "ce8e5dfde2848ee3eff0f2a4711b3ba61ff7d6f6114425f95dd3996a1e1246bb"
+      "contract_sha256": "b4d4fc0c646a68300dcc882e2c638c056a243a6a831f9bcca29d7f3c353dc7af",
+      "issue_body_sha256": "4b11c455e6b36dd3a60917692209322275d9e10e520e14b44641471a806fbdad"
     },
     "R1-GOV-001-B": {
       "id": "R1-GOV-001-B",
@@ -12975,12 +12975,12 @@
         }
       ],
       "sources": {
-        "docs/adr/0027-classify-tournament-record-retention.md": "d454aabd89fd88eefea0e8f39b86092b268e411b80bed84f3efaf155f00e8a97",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a",
-        "wiki/registration-model.md": "c48581cf64f51e4c3767fa40f57cf527254453a81593a002cd9d309dc1710357",
-        "wiki/retention-model.md": "a7f3e5fbc64359df4e777b64aa3fd1f2627caff01b909e2ef49c1a0a72c27b99"
+        "docs/adr/0027-classify-tournament-record-retention.md": "5133e42aa5cdafd2803a20c94d4f6ab069e852108ddea8600b748d0fd89b6cc2",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1",
+        "wiki/registration-model.md": "b06d40ba0b960446ffb4a15abb48134ff85929ae27c6aa8235df95454a1b37fb",
+        "wiki/retention-model.md": "473c95b28914211ea39f23c02fde16e9cab0f6825f9ff000c4f5fcc89f03630c"
       },
       "source_ids": [
         "SRC-12b08e9d-066",
@@ -13079,8 +13079,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "79138ea5a1481d79b778d6ab3e6e6c245f04a7068bf944d10af021acb645cc60",
-      "issue_body_sha256": "4675a558585007844f42d88bec08f1a6bf3ec5dea57c8c126ecfde7c3830e9d3"
+      "contract_sha256": "7e985e9339f957feff721a966b7042443779a55322fec14b8a23f99ce8ba8772",
+      "issue_body_sha256": "20d2438224cf6086025abd018e1b837f54d67457a807a94da5d60d8c5b8facd4"
     },
     "R1-GOV-001-C": {
       "id": "R1-GOV-001-C",
@@ -13154,10 +13154,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/release-1.md": "e7e7d792ce610e4187f767d63ab3e0632686a29615f0d6dc7ff351727558f10e",
-        "wiki/retention-model.md": "a7f3e5fbc64359df4e777b64aa3fd1f2627caff01b909e2ef49c1a0a72c27b99"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/release-1.md": "c02e60310ba1b15fb5b79aee52f4535e474790a5bbee11e29c51fec1a2b07503",
+        "wiki/retention-model.md": "473c95b28914211ea39f23c02fde16e9cab0f6825f9ff000c4f5fcc89f03630c"
       },
       "source_ids": [
         "SRC-272e4825-001",
@@ -13249,8 +13249,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "4f9d494123d800e8d4b6327b7d0b66ab33ff9194ce128c3eb1821df12e5e817d",
-      "issue_body_sha256": "34da07d5ed540b171bceca4bc68dfe85fd1fe40bcf3e5fcce34947deef310bc1"
+      "contract_sha256": "aa0556d7a3bd47809bb19af97b6aed23915bce806ac988c265a17bfe59e0a6b9",
+      "issue_body_sha256": "4a24975b812914b33ffd8b995447d0809f7acaa4407c96c19946bbb8e8c63d68"
     },
     "R1-GOV-001-D": {
       "id": "R1-GOV-001-D",
@@ -13324,10 +13324,10 @@
         }
       ],
       "sources": {
-        "docs/contracts/executable-contracts.md": "d79c66f1c58276499fba3b82f6b3020ca51053f9a36d3f6e6bd4769775d69bc5",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/retention-model.md": "a7f3e5fbc64359df4e777b64aa3fd1f2627caff01b909e2ef49c1a0a72c27b99"
+        "docs/contracts/executable-contracts.md": "e8ac072df5a2e839e5d381f8e2d77e021d44d8a6b942d7f85264f76d05e31ff6",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/retention-model.md": "473c95b28914211ea39f23c02fde16e9cab0f6825f9ff000c4f5fcc89f03630c"
       },
       "source_ids": [
         "SRC-272e4825-001",
@@ -13443,8 +13443,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "77724491c05bec3ebfcf82e0841e866834c7b63b7916e601aaef05f311d9c487",
-      "issue_body_sha256": "c53f934a93b8e3c80b1c384011d460f3d2b4301fc71bcc10effb527cbc544753"
+      "contract_sha256": "113c0cdb5c760398ae859e9651d6ffbd3f1c7cb737002248b0f72ae3e83229f9",
+      "issue_body_sha256": "f2c6a27a4e26007b721a89ba815cde492314710e264f3b283544f0b65ae14484"
     },
     "R1-GOV-002-A": {
       "id": "R1-GOV-002-A",
@@ -13518,10 +13518,10 @@
         }
       ],
       "sources": {
-        "docs/adr/0005-prohibit-administrator-impersonation.md": "56221bdeca42700653a5f389191c9ea386ed39e7515832d0163a292419548e7c",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89"
+        "docs/adr/0005-prohibit-administrator-impersonation.md": "166a9f61028adfa6535ca57203c94a047cf3159d978f6bf06dce41f9dc41a41e",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a"
       },
       "source_ids": [
         "SRC-3aa2b898-072",
@@ -13564,8 +13564,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "ae787cb35044d35c23d860da93297a1fa35893ff0702c439e21c933a90f9d08c",
-      "issue_body_sha256": "69b692179ed422910426eb0f31794107e26539f3adfd04086a05e2a4fbbde95f"
+      "contract_sha256": "1c501bb229e3618a3a35f506174e25f22a67a7b5497cc47294f41b7152af76a0",
+      "issue_body_sha256": "74c247277ec65d4c8b15b979c0f01592744f0b70453716eda58735910c4508a0"
     },
     "R1-GOV-002-B": {
       "id": "R1-GOV-002-B",
@@ -13639,10 +13639,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1"
       },
       "source_ids": [
         "SRC-12b08e9d-017",
@@ -13720,8 +13720,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "61fe5ca3a68148b8dd7f161398d47432b788b06b9a70a305711c05f9b0199208",
-      "issue_body_sha256": "607333518edf902e90f9ba296350987f02c975a035d382f60b62d42d9e691c3e"
+      "contract_sha256": "bb5de4410b2c5a8ebda73f3cac5bd2d7b51c2263a75067d6f1071d94b3a8fda6",
+      "issue_body_sha256": "ab67c53f4212bab2c82aeef98b5d22ab6c510c93ad37314c60b8b866224cf6ba"
     },
     "R1-GOV-002-C": {
       "id": "R1-GOV-002-C",
@@ -13795,11 +13795,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/release-1.md": "e7e7d792ce610e4187f767d63ab3e0632686a29615f0d6dc7ff351727558f10e",
-        "wiki/access-model.md": "7842978a6fc72e20644f89c47cd7f6d06d833419d68d2fd1be09c33114178c89",
-        "wiki/backend-architecture.md": "6d7b4e934afee7ea5801eda9b7c0a99ec1d4f00c7f496c87a96f9fff8d950cb1"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/release-1.md": "c02e60310ba1b15fb5b79aee52f4535e474790a5bbee11e29c51fec1a2b07503",
+        "wiki/access-model.md": "def6ecce2e65a3384a25cde3727b4ea2887fafa32450f01026a872a5c41a6e4a",
+        "wiki/backend-architecture.md": "aa76fc1f39a8932716034a513eaab6fa70cbf6050a64df751d50a9ed4e57e8f3"
       },
       "source_ids": [
         "SRC-3a042821-001",
@@ -14094,8 +14094,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "bbc6f4f70d1bb8ac53f9a866eb2003b62e6d490eb15abf3ff2ced3297874dd1a",
-      "issue_body_sha256": "c7a81e794740fc64d8ad4f80600fc188c81a4b75ba762428b6fed575d702c3ed"
+      "contract_sha256": "3ce689e22753be248349a87bc93ff291674b6baf066cdfe76965271a47428de8",
+      "issue_body_sha256": "e264da6d2b62da5df93af80e6e0a64a8e564bdce4ec0142e837aa79da8eff93e"
     },
     "R1-CMP-002-E": {
       "id": "R1-CMP-002-E",
@@ -14171,9 +14171,9 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "wiki/judge-qualification-model.md": "5e296874fa7102eb1adf0245d8c35609b0fb21de3b9386ee22f1d744330d266a"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "wiki/judge-qualification-model.md": "c3f615d4377cd94159631d20052a6f13d5444ba35b18a3c3821442495ad0dac1"
       },
       "source_ids": [
         "SRC-12b08e9d-009",
@@ -14214,8 +14214,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "48bb708387912a6a7beacae17dab7f3dd34fff3085ffa1a4301400954e02f4c0",
-      "issue_body_sha256": "ad9a0850e9251c8f8325ac23448843441219805943cca9d780f5ae04e73dd240"
+      "contract_sha256": "c764ee8d777568a7cb0275e5e22cbfafe9a1f3a00456630128683abb01ddecb8",
+      "issue_body_sha256": "9656a58d3efcd5e6f24021a53749b48469790d27a5091d927711308f88471d8e"
     },
     "R1-REL-001-A": {
       "id": "R1-REL-001-A",
@@ -14289,11 +14289,11 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/product/experience-contract.md": "d2e81181c09040952061dccc26d6bf32476baf4840bde96f056e5a5f9f9e6df3",
-        "docs/quality/release-1-gates.md": "c2da157556e69335056597b7f03fcb49a4a7947cc0a6e51b4ac98d5430a19e24",
-        "docs/releases/release-1.md": "2858a995e96d96433e811df0627ef5c3f219541e2b3cab06998417cdc0e1659e"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/product/experience-contract.md": "e7793193e27417cf2e083e18b45f93abc933424c13118ce7e1e6252cb21dddc0",
+        "docs/quality/release-1-gates.md": "8614fdffdf4bf4cc6f18f78fa0faeb00a5b10a9ec924a3c55e7250f6bb218656",
+        "docs/releases/release-1.md": "f670859f577fbecc9f85bb3c26bde923089759f6415cc4543951e6f54f8f3c9c"
       },
       "source_ids": [
         "SRC-70917e75-001",
@@ -14418,8 +14418,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "305ad4790518841c7211568d4153322e03369f8b957692bf69c45147fe7cf146",
-      "issue_body_sha256": "87afd5a9c891984b07989c6e28e22f3ec2f9b71fd57140e2e689a8dcd81dd4e3"
+      "contract_sha256": "2d2f64e1c0361e1ac08c05a7869db81f45a22f600e12583b6166feeb66cf68db",
+      "issue_body_sha256": "daf0844c4134a867ef00e632d72c355079b59a2977d591192100dd2178460f9e"
     },
     "R1-REL-001-B": {
       "id": "R1-REL-001-B",
@@ -14493,10 +14493,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/product/experience-contract.md": "d2e81181c09040952061dccc26d6bf32476baf4840bde96f056e5a5f9f9e6df3",
-        "docs/quality/release-1-gates.md": "c2da157556e69335056597b7f03fcb49a4a7947cc0a6e51b4ac98d5430a19e24"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/product/experience-contract.md": "e7793193e27417cf2e083e18b45f93abc933424c13118ce7e1e6252cb21dddc0",
+        "docs/quality/release-1-gates.md": "8614fdffdf4bf4cc6f18f78fa0faeb00a5b10a9ec924a3c55e7250f6bb218656"
       },
       "source_ids": [
         "SRC-70917e75-001",
@@ -14561,8 +14561,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "d0276a30e6990962173e62245d94285f3b791bad1ce616bea82f1f75031d16a9",
-      "issue_body_sha256": "e0b9ce9c603a1e5d42e54fe771ce66c8a586f5147bb5870743d908865f27a14f"
+      "contract_sha256": "8f1ab19edd70857b874b4365b6b06730ece80b5709e7a41b1b95241acf8bfd5b",
+      "issue_body_sha256": "9ce1e24cd8f51b9f596f290348aeddeb05393c3915ff1d95faf359d9c6220d79"
     },
     "R1-REL-001-C": {
       "id": "R1-REL-001-C",
@@ -14638,10 +14638,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/product/experience-contract.md": "d2e81181c09040952061dccc26d6bf32476baf4840bde96f056e5a5f9f9e6df3",
-        "docs/quality/release-1-gates.md": "c2da157556e69335056597b7f03fcb49a4a7947cc0a6e51b4ac98d5430a19e24"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/product/experience-contract.md": "e7793193e27417cf2e083e18b45f93abc933424c13118ce7e1e6252cb21dddc0",
+        "docs/quality/release-1-gates.md": "8614fdffdf4bf4cc6f18f78fa0faeb00a5b10a9ec924a3c55e7250f6bb218656"
       },
       "source_ids": [
         "SRC-70917e75-001",
@@ -14706,8 +14706,8 @@
         "Required / Artifacts"
       ],
       "mode": "journey",
-      "contract_sha256": "385a08908b4c25e68b51976e71bb61f2e69f2c5e9c59bb337290807fc3c685ba",
-      "issue_body_sha256": "b8971cffa333b34fdd2c75b160fe52d9c1184903d4070b4d85eefddb52afa0f8"
+      "contract_sha256": "0f91c42ca6c559f1dcef16babeaa2e10d3b8f48678e571f694f619c8c7baf400",
+      "issue_body_sha256": "6a91fa95c2a081101033380221f90bbfb1ba09bfa6552f9450e6a14570fbfb35"
     },
     "R1-REL-002-A": {
       "id": "R1-REL-002-A",
@@ -14783,12 +14783,12 @@
         }
       ],
       "sources": {
-        "docs/adr/0034-deploy-release-1-on-aws.md": "893123a3f1b4dd52a087a967781d8efbaccf33b547340ed7d3631b11da06a039",
-        "docs/adr/0035-organize-the-monolith-by-deep-domain-modules.md": "9bcccbe1e238a4fbf8ec1d192a6b3e85961728db8b5b4e5cbbe38ac2cefd8380",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/release-1.md": "e7e7d792ce610e4187f767d63ab3e0632686a29615f0d6dc7ff351727558f10e",
-        "wiki/backend-architecture.md": "6d7b4e934afee7ea5801eda9b7c0a99ec1d4f00c7f496c87a96f9fff8d950cb1"
+        "docs/adr/0034-deploy-release-1-on-aws.md": "11a244bf6b33116a04ea119d4ccdbde86529b29b0db81cd59542dc42f956a8a9",
+        "docs/adr/0035-organize-the-monolith-by-deep-domain-modules.md": "6cdd5179e184c65b31615147df66d445012987d029b9a965c340308449f66502",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/release-1.md": "c02e60310ba1b15fb5b79aee52f4535e474790a5bbee11e29c51fec1a2b07503",
+        "wiki/backend-architecture.md": "aa76fc1f39a8932716034a513eaab6fa70cbf6050a64df751d50a9ed4e57e8f3"
       },
       "source_ids": [
         "SRC-04f5b474-001",
@@ -14886,8 +14886,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "859074add9a382f4c66e5aa5681cfcacf06f34cea05fd8e5abdef0e11e94c1b0",
-      "issue_body_sha256": "c8d3e6bff8017611dbb79cfedf10ef1c289e20652acb12a729a3ee252b399102"
+      "contract_sha256": "54b0f8d374d0d2ebd64ccdecf702af0e23d3e2028127376afc35d059ce2f4a35",
+      "issue_body_sha256": "b2d6c7086be383de346a8a1d674d9718300d92db7addd282b16d17d3244c3ba8"
     },
     "R1-REL-002-B": {
       "id": "R1-REL-002-B",
@@ -14961,11 +14961,11 @@
         }
       ],
       "sources": {
-        "docs/adr/0034-deploy-release-1-on-aws.md": "893123a3f1b4dd52a087a967781d8efbaccf33b547340ed7d3631b11da06a039",
-        "docs/adr/0035-organize-the-monolith-by-deep-domain-modules.md": "9bcccbe1e238a4fbf8ec1d192a6b3e85961728db8b5b4e5cbbe38ac2cefd8380",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/release-1.md": "e7e7d792ce610e4187f767d63ab3e0632686a29615f0d6dc7ff351727558f10e"
+        "docs/adr/0034-deploy-release-1-on-aws.md": "11a244bf6b33116a04ea119d4ccdbde86529b29b0db81cd59542dc42f956a8a9",
+        "docs/adr/0035-organize-the-monolith-by-deep-domain-modules.md": "6cdd5179e184c65b31615147df66d445012987d029b9a965c340308449f66502",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/release-1.md": "c02e60310ba1b15fb5b79aee52f4535e474790a5bbee11e29c51fec1a2b07503"
       },
       "source_ids": [
         "SRC-04f5b474-001",
@@ -15032,8 +15032,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "f1d59f04ef3687b64cc445ad61974ee861ae1013036d96b0d2c3725ade293515",
-      "issue_body_sha256": "8f921a7de7e7f13e09ffb7447c663c8c1fe3ea6377d75a44882d133f371bc4ca"
+      "contract_sha256": "56cb01caeb5454d1a4dbe126a648a54dd75d1d9b90fd62b1cd98ba757507c6a3",
+      "issue_body_sha256": "5ba04f4adb1a4c9205e7ea959293b5b0d3dd5813abe1ab7260fbf99ddffa5dd1"
     },
     "R1-REL-002-C": {
       "id": "R1-REL-002-C",
@@ -15107,10 +15107,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/release-1.md": "e7e7d792ce610e4187f767d63ab3e0632686a29615f0d6dc7ff351727558f10e",
-        "wiki/backend-architecture.md": "6d7b4e934afee7ea5801eda9b7c0a99ec1d4f00c7f496c87a96f9fff8d950cb1"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/release-1.md": "c02e60310ba1b15fb5b79aee52f4535e474790a5bbee11e29c51fec1a2b07503",
+        "wiki/backend-architecture.md": "aa76fc1f39a8932716034a513eaab6fa70cbf6050a64df751d50a9ed4e57e8f3"
       },
       "source_ids": [
         "SRC-3a042821-001",
@@ -15186,8 +15186,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "92fc221ff75d97facbee6b3ecae580b6335c12a665d10f17a4043edb111ef562",
-      "issue_body_sha256": "d44247128376a0a035c4320078aeb090bb64e6177cda5172cefef9e07cfc16ea"
+      "contract_sha256": "9b6b84092e8d0cc4d6942e70bbefbd24bea4bd2e80106ba184f1edab6c802ad5",
+      "issue_body_sha256": "8dc1a44a149e2ca5dd3dbdfa0c1e64462c8dda790151c775b520cc13d514f0fc"
     },
     "R1-REL-002-D": {
       "id": "R1-REL-002-D",
@@ -15261,10 +15261,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/release-1.md": "e7e7d792ce610e4187f767d63ab3e0632686a29615f0d6dc7ff351727558f10e",
-        "docs/quality/release-1-gates.md": "c2da157556e69335056597b7f03fcb49a4a7947cc0a6e51b4ac98d5430a19e24"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/release-1.md": "c02e60310ba1b15fb5b79aee52f4535e474790a5bbee11e29c51fec1a2b07503",
+        "docs/quality/release-1-gates.md": "8614fdffdf4bf4cc6f18f78fa0faeb00a5b10a9ec924a3c55e7250f6bb218656"
       },
       "source_ids": [
         "SRC-70917e75-001",
@@ -15337,8 +15337,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "9a7306d3f136970e186aae14abda204426bc03f58b0bcb1a66df5fc5bf1e650f",
-      "issue_body_sha256": "0379e2aaaa4aa4ce73f25920e9aaadfb9b19a0d4ce4632d3d086e12a51bbe8f6"
+      "contract_sha256": "e4a1ab571245e3d064b755c04b326c2514c55ad61f5ac3db2c501db33b7a51cc",
+      "issue_body_sha256": "ab899670ac261fafa3a6d2fee381e78327d8e848a986bf5c2085614f7886d227"
     },
     "R1-REL-002-E": {
       "id": "R1-REL-002-E",
@@ -15412,10 +15412,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/release-1.md": "e7e7d792ce610e4187f767d63ab3e0632686a29615f0d6dc7ff351727558f10e",
-        "wiki/retention-model.md": "a7f3e5fbc64359df4e777b64aa3fd1f2627caff01b909e2ef49c1a0a72c27b99"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/release-1.md": "c02e60310ba1b15fb5b79aee52f4535e474790a5bbee11e29c51fec1a2b07503",
+        "wiki/retention-model.md": "473c95b28914211ea39f23c02fde16e9cab0f6825f9ff000c4f5fcc89f03630c"
       },
       "source_ids": [
         "SRC-272e4825-001",
@@ -15507,8 +15507,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "44bf55f115be370e5f4118ad888a35914151ea9e6f0d7bf5a9f8b09c1776f189",
-      "issue_body_sha256": "0911fc2cdfac9467a24370475f7fb0ffef543ca1444ad371fa266074d71e5b51"
+      "contract_sha256": "65e7348fefed576f2ea4eebd26890018eccb42a1dd80859715464d1bd614e135",
+      "issue_body_sha256": "5de968532c8c64435ca765a692f584e0fba370279bb056f65b833f2f71882bca"
     },
     "R1-REL-003-A": {
       "id": "R1-REL-003-A",
@@ -15582,12 +15582,12 @@
         }
       ],
       "sources": {
-        "docs/adr/0037-set-release-1-quality-gates.md": "61ddd4cb7b9e92340fecc2332b137346dae422b58985a73afa7cd115ba7142fb",
-        "docs/adr/0038-defer-school-data-export-to-a-later-release.md": "685d8f60b54c6e44a82261315bc4c43b04ab6ecdea387b266fea504c38ef711f",
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/release-1.md": "e7e7d792ce610e4187f767d63ab3e0632686a29615f0d6dc7ff351727558f10e",
-        "docs/quality/release-1-gates.md": "c2da157556e69335056597b7f03fcb49a4a7947cc0a6e51b4ac98d5430a19e24"
+        "docs/adr/0037-set-release-1-quality-gates.md": "39902e14684b566b8410a482948226758531ac68efbe25ac744f78f146b221c7",
+        "docs/adr/0038-defer-school-data-export-to-a-later-release.md": "6e71282d64fae6b8b13e79fa7ca978bae1b1fe21c73a77e30324e2be585673c5",
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/release-1.md": "c02e60310ba1b15fb5b79aee52f4535e474790a5bbee11e29c51fec1a2b07503",
+        "docs/quality/release-1-gates.md": "8614fdffdf4bf4cc6f18f78fa0faeb00a5b10a9ec924a3c55e7250f6bb218656"
       },
       "source_ids": [
         "SRC-70917e75-001",
@@ -15669,8 +15669,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "c520bbfd122635cb57d6309c81fe250592eb80314edf2df3a5342d8283eacb8e",
-      "issue_body_sha256": "3e39d80907be240dec04cef42e84c34b1c17173dc76c106edb5e12b572c935d8"
+      "contract_sha256": "e426e969c8b311198d6e976c14272156379fe2b82b4920072391c55ca046f1e1",
+      "issue_body_sha256": "5537a4c77b07f768cef703292f10e715120f8f1ce0b623c901089a3342ade3c2"
     },
     "R1-REL-003-B": {
       "id": "R1-REL-003-B",
@@ -15746,10 +15746,10 @@
         }
       ],
       "sources": {
-        "docs/implementation/source-audit.md": "52a50e88381479a5e20c2680fdcab629737cdae71ec3100e4ae12b79652b681c",
-        "docs/implementation/verification-protocol.md": "41903f37e977fbb0a0e5971ed57baa50bdfc1ca152c7806c70102d17552217ed",
-        "docs/operations/release-1.md": "e7e7d792ce610e4187f767d63ab3e0632686a29615f0d6dc7ff351727558f10e",
-        "docs/quality/release-1-gates.md": "c2da157556e69335056597b7f03fcb49a4a7947cc0a6e51b4ac98d5430a19e24"
+        "docs/implementation/source-audit.md": "3510aa9566ad4a95f2b011c861aec2cfdcdbe28a51182cad6f511f6718e60a1b",
+        "docs/implementation/verification-protocol.md": "7ba1fb529e26f08af59064b170b92ea92ee01f83d28c3c3832dc6eaff2275735",
+        "docs/operations/release-1.md": "c02e60310ba1b15fb5b79aee52f4535e474790a5bbee11e29c51fec1a2b07503",
+        "docs/quality/release-1-gates.md": "8614fdffdf4bf4cc6f18f78fa0faeb00a5b10a9ec924a3c55e7250f6bb218656"
       },
       "source_ids": [
         "SRC-70917e75-001",
@@ -15822,8 +15822,8 @@
         "Required / Artifacts"
       ],
       "mode": "foundation",
-      "contract_sha256": "9ec209016fe10d875f1d949c68213cef16376e7d8e31468800e81656c6d14f97",
-      "issue_body_sha256": "3f7095792b6d5fd19cf39d675d61e0545be3a38417770428d54994ebc9608072"
+      "contract_sha256": "447aa90c41eb4d8afbd740e6213ec2e548d7d1929585efe8af382f52161c3269",
+      "issue_body_sha256": "27c761008f31ba7ddf3a47a90f69406581354687b115ccb7d90950955ba38ac6"
     }
   },
   "gates": {
