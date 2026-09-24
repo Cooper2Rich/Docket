@@ -8,6 +8,11 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@docket/database": "workspace:*",
     "@docket/runtime": "workspace:*"
+  },
+  "devDependencies": {
+    "@docket/testkit": "workspace:*",
+    "vitest": "4.1.11"
   }
 }

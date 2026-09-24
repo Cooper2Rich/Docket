@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "820a4f910117ce00f0051172f1c014753c8db8e8f6019903571df3cbbafa1ea8",
+  "graph_sha256": "191dbd1078390c77896f7bc2441c181da881574ccee00578492bc0f60beeebac",
   "execution_graph": {
     "items": [
       {
@@ -15986,7 +15986,7 @@
         "parent": "R1-FND-003",
         "order": 50,
         "title": "Run forward module-owned migrations",
-        "status": "ready",
+        "status": "done",
         "owner": "database",
         "stage": "01 Foundations",
         "depends_on": [
@@ -16000,7 +16000,10 @@
         ],
         "spec": "docs/implementation/items/R1-FND-003-A.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "a5fc52bdb4b38b533bc68e4fc9fdde1f7f398ad218fb2ee0a58b544e89da39d9",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-FND-003-B",
@@ -16008,7 +16011,7 @@
         "parent": "R1-FND-003",
         "order": 60,
         "title": "Isolate database integration fixtures and compatibility checks",
-        "status": "blocked",
+        "status": "ready",
         "owner": "database",
         "stage": "01 Foundations",
         "depends_on": [
@@ -16021,7 +16024,7 @@
           "R1-OPS-001"
         ],
         "spec": "docs/implementation/items/R1-FND-003-B.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {

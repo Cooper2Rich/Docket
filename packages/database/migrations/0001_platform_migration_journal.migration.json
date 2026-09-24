@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "0001_platform_migration_journal",
+  "order": 1,
+  "owner": "database",
+  "description": "Create the immutable ordered migration journal",
+  "sql_file": "0001_platform_migration_journal.sql",
+  "verify_sql": "select count(*)::integer as journal_columns from information_schema.columns where table_schema = 'public' and table_name = 'platform_migration_journal' having count(*) = 8",
+  "compatibility": "additive",
+  "requirements": ["R1-DATA-001", "R1-CONS-001", "R1-OPS-001"]
+}

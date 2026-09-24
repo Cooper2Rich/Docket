@@ -10,7 +10,7 @@ status_values:
 - verification
 - done
 execution_authorized: true
-next_item: R1-FND-003-A
+next_item: R1-FND-003-B
 first_item: R1-FND-001-A
 bootstrap_gate: GATE-BOOTSTRAP
 groups:
@@ -2703,7 +2703,7 @@ items:
   parent: R1-FND-003
   order: 50
   title: Run forward module-owned migrations
-  status: ready
+  status: done
   owner: database
   stage: 01 Foundations
   depends_on:
@@ -2715,13 +2715,15 @@ items:
   - R1-OPS-001
   spec: docs/implementation/items/R1-FND-003-A.md
   blocking_reason: null
-  completion: null
+  completion:
+    contract_sha256: a5fc52bdb4b38b533bc68e4fc9fdde1f7f398ad218fb2ee0a58b544e89da39d9
+    verification: controller-must-confirm-integration
 - id: R1-FND-003-B
   kind: leaf
   parent: R1-FND-003
   order: 60
   title: Isolate database integration fixtures and compatibility checks
-  status: blocked
+  status: ready
   owner: database
   stage: 01 Foundations
   depends_on:
@@ -2732,7 +2734,7 @@ items:
   - R1-CONS-001
   - R1-OPS-001
   spec: docs/implementation/items/R1-FND-003-B.md
-  blocking_reason: Predecessor has not been implemented and verified.
+  blocking_reason: null
   completion: null
 - id: R1-FND-004-A
   kind: leaf

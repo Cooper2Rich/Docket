@@ -7,8 +7,83 @@ import {
   type IdGenerator,
   type RuntimeEnvironment,
 } from "@docket/runtime";
+import {
+  connectMigrationSession,
+  loadMigrationPlan,
+  runMigrations,
+  type MigrationPlan,
+} from "@docket/database";
+import {
+  PostgreSqlContainer,
+  type StartedPostgreSqlContainer,
+} from "@testcontainers/postgresql";
 
 export const testkitPackage = "@docket/testkit" as const;
+
+export interface TestDatabaseOptions {
+  readonly image?: string;
+  readonly migrate?: boolean;
+  readonly migrationPlan?: MigrationPlan;
+  readonly workspaceRoot?: string;
+}
+
+export interface TestQueryResult<
+  Row extends Record<string, unknown> = Record<string, unknown>,
+> {
+  readonly rows: readonly Row[];
+  readonly rowCount: number | null;
+}
+
+export class TestDatabase {
+  private constructor(
+    private readonly container: StartedPostgreSqlContainer,
+    readonly databaseUrl: string,
+  ) {}
+
+  static async start(options: TestDatabaseOptions = {}): Promise<TestDatabase> {
+    const container = await new PostgreSqlContainer(
+      options.image ?? "postgres:17.6-alpine3.22",
+    )
+      .withDatabase("docket_test")
+      .withUsername("docket_test")
+      .withPassword("docket-test-only")
+      .start();
+    const harness = new TestDatabase(container, container.getConnectionUri());
+    try {
+      if (options.migrate !== false) {
+        const plan =
+          options.migrationPlan ??
+          (await loadMigrationPlan(options.workspaceRoot ?? process.cwd()));
+        await runMigrations({
+          databaseUrl: harness.databaseUrl,
+          plan,
+          authority: { actor: "release-operator", authorityVersion: 1 },
+        });
+      }
+    } catch (error) {
+      await container.stop();
+      throw error;
+    }
+    return harness;
+  }
+
+  async query<R extends Record<string, unknown> = Record<string, unknown>>(
+    text: string,
+    values?: readonly unknown[],
+  ): Promise<TestQueryResult<R>> {
+    const session = await connectMigrationSession(this.databaseUrl);
+    try {
+      const result = await session.query<R>(text, values);
+      return { rows: result.rows, rowCount: result.rowCount };
+    } finally {
+      await session.release();
+    }
+  }
+
+  async stop(): Promise<void> {
+    await this.container.stop();
+  }
+}
 
 export interface DeterministicClock extends Clock {
   advance(milliseconds: number): Date;
