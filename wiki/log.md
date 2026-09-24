@@ -2083,3 +2083,7 @@ Next: resolve the foundation integration policy and private-repository protectio
 ## [2026-09-18] operation | Verify and expose GitHub issue order
 
 Verified all 163 work issues against the graph: the 115 implementation issues (#49–#163), all 115 native child positions and 122 blocking relationships already match the intended sequence. Every prerequisite precedes its dependent; no issue was unclassified. Published and pinned [navigation issue #165](https://github.com/Cooper2Rich/Docket/issues/165) with the complete numbered queue, group and gate indexes, and oldest-first filtered views. See [order audit](../docs/implementation/issue-order.json) and [[build-readiness]]. Existing issue contracts and graph status are unchanged; no application build ran.
+
+## [2026-09-23] checkpoint | Build authorization and bootstrap direction
+
+The owner requested the Release 1 application build using GPT-5.6 Sol and approved the proposed protected bootstrap branch policy. The owner plans to enable private-repository protection and independent review. The controller's read-only plan still reports `GATE-BOOTSTRAP`, and GitHub still returns a plan restriction for branch protection. The setup PR is draft without review or CI. The exact bootstrap policy, controller behavior, tests and protected branch read-back remain required before the first leaf can run. All 164 repository issues are assigned to `Cooper2Rich`; this changes no graph status or issue scope.
