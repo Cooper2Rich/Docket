@@ -11,7 +11,7 @@
     "build": "node tools/run-check.mjs build pnpm exec nx run-many -t build --all",
     "check": "node tools/run-check.mjs check pnpm run check:workspace",
     "check:workspace": "pnpm run format:check && pnpm exec nx run-many -t typecheck --all && pnpm exec eslint apps packages tools && node tools/check-boundaries.mjs",
-    "format:check": "prettier --check \"{apps,packages,tools}/**/*.{css,json,mjs,ts,tsx}\" \"*.{json,yaml}\"",
+    "format:check": "prettier --check \"{apps,packages,tools}/**/*.{css,json,mjs,ts,tsx}\" \"*.{json,ts,yaml}\"",
     "test:unit": "node tools/run-check.mjs unit pnpm exec vitest run --reporter=verbose",
     "verify:item": "node tools/verification/verify-item.mjs",
     "ui:add": "pnpm --dir apps/web exec shadcn add",

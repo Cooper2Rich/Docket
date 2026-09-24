@@ -56,3 +56,21 @@ describe("R1-FND-002-A committed verification suite", () => {
     );
   });
 });
+
+describe("R1-FND-002-B committed verification suite", () => {
+  it("is registered against the exact independent contract", async () => {
+    const itemId = "R1-FND-002-B";
+    const { item } = await loadContract(
+      path.resolve("docs/implementation/queue-contract.json"),
+      itemId,
+    );
+    const suite = await loadRegisteredSuite(itemId);
+
+    expect(() => validateSuiteContract(item, suite)).not.toThrow();
+    expect(registeredItemIds()).toContain(itemId);
+    expect(suite.criteria.map(({ id }) => id)).toEqual(item.acceptance_ids);
+    expect(suite.criteria.every(({ scenarios }) => scenarios.length > 0)).toBe(
+      true,
+    );
+  });
+});

@@ -11,5 +11,8 @@
     "@clerk/fastify": "3.1.80",
     "@docket/runtime": "workspace:*",
     "fastify": "5.11.3"
+  },
+  "devDependencies": {
+    "vitest": "4.1.11"
   }
 }
