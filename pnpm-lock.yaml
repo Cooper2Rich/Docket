@@ -58,6 +58,10 @@ importers:
       fastify:
         specifier: 5.11.3
         version: 5.11.3
+    devDependencies:
+      vitest:
+        specifier: 4.1.11
+        version: 4.1.11(@types/node@24.10.1)(jsdom@27.0.1(supports-color@7.2.0))(vite@8.2.2(@types/node@24.10.1)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
 
   apps/migrate:
     dependencies:
@@ -177,7 +181,15 @@ importers:
 
   packages/schools: {}
 
-  packages/testkit: {}
+  packages/testkit:
+    dependencies:
+      "@docket/runtime":
+        specifier: workspace:*
+        version: link:../runtime
+    devDependencies:
+      vitest:
+        specifier: 4.1.11
+        version: 4.1.11(@types/node@24.10.1)(jsdom@27.0.1(supports-color@7.2.0))(vite@8.2.2(@types/node@24.10.1)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
 
   packages/tournaments: {}
 

@@ -1,5 +1,7 @@
 import { clerkPlugin, getAuth } from "@clerk/fastify";
 import {
+  assertNoFixtureAdapterRequestOverride,
+  ConfigValidationError,
   createProcessHealth,
   dependencyProbes,
   parseRuntimeConfig,
@@ -14,6 +16,23 @@ export async function buildApiApp(
   const app = Fastify({ logger: false });
 
   await app.register(clerkPlugin);
+
+  app.addHook("onRequest", async (request, reply) => {
+    try {
+      assertNoFixtureAdapterRequestOverride({
+        headers: request.headers,
+        query: request.query,
+      });
+    } catch (error) {
+      if (error instanceof ConfigValidationError) {
+        return reply.code(400).send({
+          code: error.code,
+          correlationId: request.id,
+        });
+      }
+      throw error;
+    }
+  });
 
   app.get("/health", () => health.liveness());
   app.get("/health/live", () => health.liveness());

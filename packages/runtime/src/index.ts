@@ -1,3 +1,4 @@
+import { randomBytes as secureRandomBytes } from "node:crypto";
 import { createConnection } from "node:net";
 import { Type, type Static } from "@sinclair/typebox";
 import { Value } from "@sinclair/typebox/value";
@@ -23,12 +24,42 @@ export const systemClock: Clock = {
   now: () => new Date(),
 };
 
-export function sequenceIdGenerator(prefix = "id"): IdGenerator {
-  let sequence = 0;
+export type RandomBytes = (size: number) => Uint8Array;
+
+export function createUuidV7Generator({
+  clock = systemClock,
+  randomBytes = secureRandomBytes,
+}: Readonly<{ clock?: Clock; randomBytes?: RandomBytes }> = {}): IdGenerator {
   return {
-    next: () => `${prefix}-${String(++sequence).padStart(6, "0")}`,
+    next: () => {
+      const milliseconds = clock.now().getTime();
+      if (
+        !Number.isSafeInteger(milliseconds) ||
+        milliseconds < 0 ||
+        milliseconds > 0xffff_ffff_ffff
+      ) {
+        throw new RangeError("UUIDV7_TIMESTAMP_OUT_OF_RANGE");
+      }
+      const bytes = randomBytes(16);
+      if (bytes.length !== 16) {
+        throw new RangeError("UUIDV7_RANDOM_BYTES_INVALID");
+      }
+      let timestamp = milliseconds;
+      for (let index = 5; index >= 0; index -= 1) {
+        bytes[index] = timestamp & 0xff;
+        timestamp = Math.floor(timestamp / 0x100);
+      }
+      bytes[6] = 0x70 | ((bytes[6] ?? 0) & 0x0f);
+      bytes[8] = 0x80 | ((bytes[8] ?? 0) & 0x3f);
+      const hexadecimal = [...bytes]
+        .map((value) => value.toString(16).padStart(2, "0"))
+        .join("");
+      return `${hexadecimal.slice(0, 8)}-${hexadecimal.slice(8, 12)}-${hexadecimal.slice(12, 16)}-${hexadecimal.slice(16, 20)}-${hexadecimal.slice(20)}`;
+    },
   };
 }
+
+export const systemIdGenerator: IdGenerator = createUuidV7Generator();
 
 const EnvironmentSchema = Type.Union([
   Type.Literal("development"),
@@ -82,7 +113,9 @@ export interface ConfigIssue {
     | "missing"
     | "malformed"
     | "unknown"
-    | "forbidden_in_environment";
+    | "forbidden_in_environment"
+    | "real_contact_forbidden"
+    | "test_authority_forbidden";
 }
 
 export class ConfigValidationError extends Error {
@@ -116,6 +149,14 @@ const knownKeys = new Set([
   "DOCKET_WORKER_CONCURRENCY",
   "CLERK_PUBLISHABLE_KEY",
   "CLERK_SECRET_KEY",
+]);
+
+const forbiddenIdentityAliasKeys = new Set([
+  "FIXED_IDENTITY",
+  "IDENTITY_ADAPTER",
+  "USE_FIXED_IDENTITY",
+  "DOCKET_FIXED_IDENTITY",
+  "DOCKET_TEST_IDENTITY",
 ]);
 
 const localDefaults: Readonly<Record<string, string>> = {
@@ -208,7 +249,11 @@ export function parseRuntimeConfig(
   const apiPort = integer(values.DOCKET_API_PORT);
   const workerConcurrency = integer(values.DOCKET_WORKER_CONCURRENCY);
   const unknown = Object.keys(source)
-    .filter((key) => key.startsWith("DOCKET_") && !knownKeys.has(key))
+    .filter(
+      (key) =>
+        forbiddenIdentityAliasKeys.has(key) ||
+        (key.startsWith("DOCKET_") && !knownKeys.has(key)),
+    )
     .map((key): ConfigIssue => ({ key, reason: "unknown" }));
   if (unknown.length > 0) {
     throw new ConfigValidationError("CONFIG_INVALID", unknown);
@@ -321,6 +366,146 @@ export function parseRuntimeConfig(
   }
 
   return candidate;
+}
+
+export type FixtureAdapterIdentity =
+  | "fixed-identity"
+  | "synthetic-competitor"
+  | "fake-mail"
+  | "provider-fixture";
+
+export interface FixtureDescriptor {
+  readonly adapter: FixtureAdapterIdentity;
+  readonly fixtureId: string;
+  readonly payload: unknown;
+}
+
+function isSyntheticEmail(value: string): boolean {
+  const domain = value.toLowerCase().split("@").at(-1);
+  return Boolean(
+    domain &&
+      (domain === "example.com" ||
+        domain === "example.net" ||
+        domain === "example.org" ||
+        domain.endsWith(".example") ||
+        domain.endsWith(".invalid") ||
+        domain.endsWith(".test")),
+  );
+}
+
+function fixturePayloadIssues(
+  value: unknown,
+  path = "fixture.payload",
+): ConfigIssue[] {
+  if (typeof value === "string") {
+    const emails = value.match(
+      /[A-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}/giu,
+    );
+    return (emails ?? [])
+      .filter((email) => !isSyntheticEmail(email))
+      .map(() => ({ key: path, reason: "real_contact_forbidden" as const }));
+  }
+  if (Array.isArray(value)) {
+    return value.flatMap((entry, index) =>
+      fixturePayloadIssues(entry, `${path}[${String(index)}]`),
+    );
+  }
+  if (!value || typeof value !== "object") return [];
+
+  const issues: ConfigIssue[] = [];
+  for (const [key, entry] of Object.entries(value)) {
+    const entryPath = `${path}.${key}`;
+    if (
+      /^(?:authorit(?:y|ies)|permissions?|roles?)$/iu.test(key) &&
+      ((Array.isArray(entry) && entry.length > 0) ||
+        (!Array.isArray(entry) && Boolean(entry)))
+    ) {
+      issues.push({ key: entryPath, reason: "test_authority_forbidden" });
+    }
+    if (
+      /(?:phone|mobile)/iu.test(key) &&
+      typeof entry === "string" &&
+      entry.length > 0 &&
+      !/^\+1(?:[ -]?555[ -]?01\d{2})$/u.test(entry)
+    ) {
+      issues.push({ key: entryPath, reason: "real_contact_forbidden" });
+    }
+    issues.push(...fixturePayloadIssues(entry, entryPath));
+  }
+  return issues;
+}
+
+export function assertFixtureAllowed(
+  environment: RuntimeEnvironment,
+  fixture: FixtureDescriptor,
+): void {
+  const issues: ConfigIssue[] = [];
+  if (environment === "staging" || environment === "production") {
+    issues.push({
+      key: `fixture.${fixture.adapter}`,
+      reason: "forbidden_in_environment",
+    });
+  }
+  issues.push(...fixturePayloadIssues(fixture.payload));
+  if (issues.length > 0) {
+    throw new ConfigValidationError(
+      "ADAPTER_FORBIDDEN_IN_ENVIRONMENT",
+      deduplicateIssues(issues),
+    );
+  }
+}
+
+export interface AdapterRequestInput {
+  readonly headers: Readonly<
+    Record<string, string | readonly string[] | undefined>
+  >;
+  readonly query?: unknown;
+}
+
+export function assertNoFixtureAdapterRequestOverride(
+  request: AdapterRequestInput,
+): void {
+  const forbiddenKeys = new Set([
+    "docket_identity_adapter",
+    "fixed_identity",
+    "identity_adapter",
+    "use_fixed_identity",
+    "x-docket-identity-adapter",
+  ]);
+  const attemptedKeys = Object.keys(request.headers).filter((key) =>
+    forbiddenKeys.has(key.toLowerCase()),
+  );
+  if (request.query && typeof request.query === "object") {
+    attemptedKeys.push(
+      ...Object.keys(request.query).filter((key) =>
+        forbiddenKeys.has(key.toLowerCase()),
+      ),
+    );
+  }
+  if (attemptedKeys.length > 0) {
+    throw new ConfigValidationError(
+      "ADAPTER_FORBIDDEN_IN_ENVIRONMENT",
+      attemptedKeys.map((key) => ({
+        key,
+        reason: "forbidden_in_environment",
+      })),
+    );
+  }
+}
+
+export interface AdapterLogRecord {
+  readonly adapter_identity: FixtureAdapterIdentity;
+  readonly correlation_id: string;
+}
+
+export function redactedAdapterLogRecord(
+  adapter: FixtureAdapterIdentity,
+  correlationId: string,
+): AdapterLogRecord {
+  if (!/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/u.test(correlationId)) {
+    throw new TypeError("CORRELATION_ID_INVALID");
+  }
+  return { adapter_identity: adapter, correlation_id: correlationId };
 }
 
 function deduplicateIssues(issues: readonly ConfigIssue[]): ConfigIssue[] {

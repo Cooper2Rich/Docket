@@ -1,11 +1,15 @@
 import { createServer } from "node:net";
 import { afterEach, describe, expect, it } from "vitest";
 import {
+  assertNoFixtureAdapterRequestOverride,
   ConfigValidationError,
   createProcessHealth,
   createTcpProbe,
+  createUuidV7Generator,
   dependencyProbes,
   parseRuntimeConfig,
+  redactedAdapterLogRecord,
+  systemIdGenerator,
 } from "./index.js";
 
 const productionBase = {
@@ -126,6 +130,23 @@ describe("process-scoped runtime configuration", () => {
     ).toThrow(/ADAPTER_FORBIDDEN_IN_ENVIRONMENT.*DOCKET_EMAIL_ADAPTER/u);
   });
 
+  it("rejects alternate fixed-identity environment variables", () => {
+    for (const alias of [
+      "FIXED_IDENTITY",
+      "IDENTITY_ADAPTER",
+      "USE_FIXED_IDENTITY",
+      "DOCKET_FIXED_IDENTITY",
+      "DOCKET_TEST_IDENTITY",
+    ]) {
+      expect(() =>
+        parseRuntimeConfig("api", {
+          ...productionBase,
+          [alias]: "fixed",
+        }),
+      ).toThrow(new RegExp(`CONFIG_INVALID.*${alias}`, "u"));
+    }
+  });
+
   it("probes only dependencies required by the selected process", () => {
     const dependencyNames = (process: "api" | "worker" | "web" | "migration") =>
       dependencyProbes(parseRuntimeConfig(process, {})).map(({ name }) => name);
@@ -138,6 +159,54 @@ describe("process-scoped runtime configuration", () => {
     ]);
     expect(dependencyNames("web")).toEqual(["api"]);
     expect(dependencyNames("migration")).toEqual(["postgresql"]);
+  });
+});
+
+describe("clock, identifier and adapter seams", () => {
+  it("generates production UUIDv7 identifiers with current timestamp bits", () => {
+    const before = Date.now();
+    const identifier = systemIdGenerator.next();
+    const after = Date.now();
+    expect(identifier).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/u,
+    );
+    const timestamp = Number.parseInt(
+      identifier.replaceAll("-", "").slice(0, 12),
+      16,
+    );
+    expect(timestamp).toBeGreaterThanOrEqual(before);
+    expect(timestamp).toBeLessThanOrEqual(after);
+  });
+
+  it("injects Clock and entropy into UUIDv7 generation", () => {
+    const generator = createUuidV7Generator({
+      clock: { now: () => new Date("2026-09-24T12:00:00.000Z") },
+      randomBytes: (size) => new Uint8Array(size).fill(0x2a),
+    });
+    expect(generator.next()).toBe("01a0d349-6e00-7a2a-aa2a-2a2a2a2a2a2a");
+  });
+
+  it("rejects request-level fixed identity controls", () => {
+    expect(() => {
+      assertNoFixtureAdapterRequestOverride({
+        headers: { "x-docket-identity-adapter": "fixed" },
+      });
+    }).toThrow(/ADAPTER_FORBIDDEN_IN_ENVIRONMENT/u);
+    expect(() => {
+      assertNoFixtureAdapterRequestOverride({
+        headers: {},
+        query: { identity_adapter: "fixed" },
+      });
+    }).toThrow(/ADAPTER_FORBIDDEN_IN_ENVIRONMENT/u);
+  });
+
+  it("constructs redacted adapter log records", () => {
+    const record = redactedAdapterLogRecord("fixed-identity", "request-52");
+    expect(record).toEqual({
+      adapter_identity: "fixed-identity",
+      correlation_id: "request-52",
+    });
+    expect(JSON.stringify(record)).not.toContain("identity@example.test");
   });
 });
 

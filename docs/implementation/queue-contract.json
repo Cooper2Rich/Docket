@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "8ded167cda2f0f612ac2d17fa7b26c532d5c40b804bd3f71278da8fb9b3c8552",
+  "graph_sha256": "820a4f910117ce00f0051172f1c014753c8db8e8f6019903571df3cbbafa1ea8",
   "execution_graph": {
     "items": [
       {
@@ -15962,7 +15962,7 @@
         "parent": "R1-FND-002",
         "order": 40,
         "title": "Provide deterministic clocks, identifiers, and guarded adapters",
-        "status": "ready",
+        "status": "done",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [
@@ -15975,7 +15975,10 @@
         ],
         "spec": "docs/implementation/items/R1-FND-002-B.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "ec1d2a241a8fd5db446d1090240ec2041c6a8c3b9cd5101da3b37622bb3ffe5a",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-FND-003-A",
@@ -15983,7 +15986,7 @@
         "parent": "R1-FND-003",
         "order": 50,
         "title": "Run forward module-owned migrations",
-        "status": "blocked",
+        "status": "ready",
         "owner": "database",
         "stage": "01 Foundations",
         "depends_on": [
@@ -15996,7 +15999,7 @@
           "R1-OPS-001"
         ],
         "spec": "docs/implementation/items/R1-FND-003-A.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {
@@ -18583,7 +18586,7 @@
           "R1-FND-002-A",
           "R1-FND-002-B"
         ],
-        "status": "blocked"
+        "status": "done"
       },
       {
         "id": "R1-FND-003",
