@@ -61,8 +61,30 @@ jobs:
           graph_path = implementation / "work-graph.yaml"
           assert manifest["graph_sha256"] in text_hashes(graph_path)
           items = sorted(manifest["execution_graph"]["items"], key=lambda item: item["order"])
-          assert items[0]["id"] == "R1-FND-001-A" and items[0]["status"] == "ready"
-          assert all(item["status"] == "blocked" for item in items[1:])
+          bootstrap_ids = policy["bootstrap_items"]
+          assert [item["id"] for item in items[: len(bootstrap_ids)]] == bootstrap_ids
+          assert items[len(bootstrap_ids)]["id"] == policy["promotion_item"]
+
+          ready_indexes = [index for index, item in enumerate(items) if item["status"] == "ready"]
+          assert len(ready_indexes) == 1
+          ready_index = ready_indexes[0]
+          assert ready_index <= len(bootstrap_ids)
+          assert all(item["status"] == "done" for item in items[:ready_index])
+          assert all(item["status"] == "blocked" for item in items[ready_index + 1 :])
+
+          for item in items[:ready_index]:
+              completion = item["completion"]
+              assert completion == {
+                  "contract_sha256": manifest["items"][item["id"]]["contract_sha256"],
+                  "verification": "controller-must-confirm-integration",
+              }
+          assert all(item["completion"] is None for item in items[ready_index:])
+
+          statuses = {item["id"]: item["status"] for item in items}
+          gates = {gate["id"]: gate for gate in manifest["execution_graph"]["gates"]}
+          ready = items[ready_index]
+          assert all(statuses[dependency] == "done" for dependency in ready["depends_on"])
+          assert all(gates[gate]["status"] == "done" and gates[gate].get("resolution") for gate in ready["gates"])
 
           for contract in manifest["items"].values():
               assert contract["spec_sha256"] in text_hashes(root / contract["spec"])

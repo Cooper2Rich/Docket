@@ -1,0 +1,18 @@
+packages:
+  - apps/*
+  - packages/*
+
+allowBuilds:
+  esbuild: true
+  nx: true
+
+catalog:
+  react: 19.3.0
+  react-dom: 19.3.0
+
+minimumReleaseAgeExclude:
+  - "@clerk/backend@3.19.0"
+  - "@clerk/fastify@3.1.80"
+  - "@clerk/react-router@3.6.25"
+  - "@clerk/react@6.17.0"
+  - "@clerk/shared@4.34.0"

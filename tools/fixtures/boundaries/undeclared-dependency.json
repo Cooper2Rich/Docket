@@ -1,0 +1,6 @@
+{
+  "files": {
+    "apps/api/package.json": "{\"name\":\"@docket/api\",\"type\":\"module\"}",
+    "apps/api/src/index.ts": "import Fastify from 'fastify'; export const app = Fastify();"
+  }
+}
