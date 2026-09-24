@@ -3,6 +3,12 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { gitHead, sha256, writeJsonAtomic } from "./lib/workspace.mjs";
 
+export function applicationEnvironment(environment) {
+  const childEnvironment = { ...environment };
+  delete childEnvironment.DOCKET_VERIFY_ITEM;
+  return childEnvironment;
+}
+
 export async function runCheck({
   checkId,
   command,
@@ -15,7 +21,7 @@ export async function runCheck({
   const startedAt = new Date().toISOString();
   const child = spawn(command, commandArguments, {
     cwd: workspaceRoot,
-    env: process.env,
+    env: applicationEnvironment(process.env),
     shell: process.platform === "win32",
     stdio: ["ignore", "pipe", "pipe"],
   });

@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@docket/runtime": "workspace:*",
     "pg-boss": "12.30.0"
   }
 }

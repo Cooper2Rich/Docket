@@ -10,9 +10,13 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root.js";
 import stylesheet from "./app.css?url";
+import { validateWebRuntime } from "./runtime.server.js";
 
 export const middleware: Route.MiddlewareFunction[] = [clerkMiddleware()];
-export const loader = (args: Route.LoaderArgs) => rootAuthLoader(args);
+export const loader = (args: Route.LoaderArgs) => {
+  validateWebRuntime();
+  return rootAuthLoader(args);
+};
 export const meta: Route.MetaFunction = () => [
   { title: "Docket" },
   {
