@@ -2083,3 +2083,11 @@ Next: resolve the foundation integration policy and private-repository protectio
 ## [2026-09-18] operation | Verify and expose GitHub issue order
 
 Verified all 163 work issues against the graph: the 115 implementation issues (#49–#163), all 115 native child positions and 122 blocking relationships already match the intended sequence. Every prerequisite precedes its dependent; no issue was unclassified. Published and pinned [navigation issue #165](https://github.com/Cooper2Rich/Docket/issues/165) with the complete numbered queue, group and gate indexes, and oldest-first filtered views. See [order audit](../docs/implementation/issue-order.json) and [[build-readiness]]. Existing issue contracts and graph status are unchanged; no application build ran.
+
+## [2026-09-18] operation | Remove blocked labels from GitHub issues
+
+At the owner's request, removed the `status:blocked` label from all 163 Docket work issues and verified that none of the repository's 164 issues retains it. Preserved the label definition, issue bodies, 122 native blocking relationships, graph statuses, decision gates and specification-only build boundary. This label-only operation does not make a leaf ready or authorize implementation; see [[build-readiness]].
+
+## [2026-09-18] operation | Re-block GitHub issues except issue 1
+
+At the owner's request, restored `status:blocked` to every GitHub issue except #1. Verified 163 blocked issues and one unblocked issue: #1, `[R1-FND-001] Scaffold the pinned monorepo`. Preserved issue bodies, native blocking relationships, graph statuses, decision gates and the specification-only build boundary; #1 remains a non-runnable tracking group rather than a ready implementation leaf. See [[build-readiness]].

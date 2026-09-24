@@ -31,6 +31,8 @@ The external launcher now accepts explicit reasoning, subagent-disable and quiet
 
 The [pinned issue-order index](https://github.com/Cooper2Rich/Docket/issues/165) accounts for every work issue. Its [ordered implementation view](https://github.com/Cooper2Rich/Docket/issues?q=is%3Aissue%20is%3Aopen%20label%3Arelease%3Ar1%20label%3Akind%3Aimplementation%20sort%3Acreated-asc) follows steps 001–115 (#49–#163); 40 group issues and eight gate issues are non-runnable. Native child order and every dependency were rechecked. The index is a separate navigation issue and does not change graph eligibility.
 
+At the owner's request on September 18, 2026, GitHub label state was reset so issue #1 (`R1-FND-001`) is the sole issue without `status:blocked`; all other 163 issues, including the navigation issue, carry the label. This is a GitHub presentation-only state: issue bodies, native blocking relationships, graph statuses, decision gates and build authorization remain unchanged. Issue #1 is a non-runnable tracking group, so its missing blocked label does not make an implementation leaf ready.
+
 ## Next concrete objective
 
 Resolve the protected foundation integration decision and private-repository protection prerequisite, review and integrate the setup change, then obtain an explicit application-build instruction. Read the [launch guide](../docs/implementation/launch-guide.md) before activation. Later gates remain attached to the affected leaves.
