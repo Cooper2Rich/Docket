@@ -19,7 +19,7 @@
     "dev": "node tools/unavailable-command.mjs dev R1-FND-005-A",
     "test": "node tools/unavailable-command.mjs test R1-FND-005-B",
     "test:integration": "node tools/unavailable-command.mjs test:integration R1-FND-002-B",
-    "test:e2e": "node tools/unavailable-command.mjs test:e2e R1-FND-005-A",
+    "test:e2e": "node tools/run-check.mjs e2e pnpm exec playwright test",
     "ci:check": "node tools/unavailable-command.mjs ci:check R1-FND-005-B",
     "ci:full": "node tools/unavailable-command.mjs ci:full R1-FND-005-B",
     "security:check": "node tools/unavailable-command.mjs security:check R1-FND-004-A",
@@ -31,6 +31,7 @@
     "migrate": "node tools/unavailable-command.mjs migrate R1-FND-002-A"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@eslint/js": "10.0.1",
     "@types/node": "24.10.1",
     "eslint": "10.9.1",

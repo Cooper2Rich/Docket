@@ -77,6 +77,14 @@ h1 {
   line-height: 1.65;
 }
 
+.state-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  stroke-width: 1.75;
+}
+
 .state-actions {
   display: flex;
   flex-wrap: wrap;
@@ -112,6 +120,18 @@ h1 {
 .state-note {
   margin: 1.25rem 0 0;
   font-size: 0.875rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @media (max-width: 40rem) {
