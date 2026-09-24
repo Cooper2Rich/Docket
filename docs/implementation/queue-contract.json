@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "dbfb1f894109d114c626d8fbefb3aa43aad2211a5bf20c56f2a0399d7d184ff4",
+  "graph_sha256": "42ed1e1df09b556ce6d82df50209fa23d08dad8487c89a4f346bc70498a950d9",
   "execution_graph": {
     "items": [
       {
@@ -15915,7 +15915,7 @@
         "parent": "R1-FND-001",
         "order": 20,
         "title": "Deliver the server-rendered shadcn web foundation",
-        "status": "ready",
+        "status": "done",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [
@@ -15927,7 +15927,10 @@
         ],
         "spec": "docs/implementation/items/R1-FND-001-B.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "50bca3acb9c07622afb4021c7d02c4c78bd9c680fd7cbee4ba4b588df3c1c9ca",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-FND-002-A",
@@ -15935,7 +15938,7 @@
         "parent": "R1-FND-002",
         "order": 30,
         "title": "Bootstrap local services and validate runtime configuration",
-        "status": "blocked",
+        "status": "ready",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [
@@ -15947,7 +15950,7 @@
           "R1-OPS-001"
         ],
         "spec": "docs/implementation/items/R1-FND-002-A.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {
@@ -18569,7 +18572,7 @@
           "R1-FND-001-A",
           "R1-FND-001-B"
         ],
-        "status": "blocked"
+        "status": "done"
       },
       {
         "id": "R1-FND-002",
