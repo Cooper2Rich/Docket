@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "module": "governance",
+  "table_prefixes": ["governance_"]
+}

@@ -10,7 +10,7 @@
   "scripts": {
     "build": "node tools/run-check.mjs build pnpm exec nx run-many -t build --all",
     "check": "node tools/run-check.mjs check pnpm run check:workspace",
-    "check:workspace": "pnpm run format:check && pnpm exec nx run-many -t typecheck --all && pnpm exec eslint apps packages tools && node tools/check-boundaries.mjs",
+    "check:workspace": "pnpm run format:check && pnpm exec nx run-many -t typecheck --all && pnpm exec eslint apps packages tools && node tools/check-boundaries.mjs && pnpm migration:check",
     "format:check": "prettier --check \"{apps,packages,tools}/**/*.{css,json,mjs,ts,tsx}\" \"*.{json,ts,yaml}\"",
     "test:unit": "node tools/run-check.mjs unit pnpm exec vitest run --reporter=verbose",
     "verify:item": "node tools/verification/verify-item.mjs",
@@ -32,8 +32,8 @@
     "artifacts:check": "node tools/unavailable-command.mjs artifacts:check R1-FND-005-B",
     "contracts:generate": "node tools/unavailable-command.mjs contracts:generate R1-FND-003-A",
     "contracts:check": "node tools/unavailable-command.mjs contracts:check R1-FND-003-A",
-    "migration:check": "node tools/unavailable-command.mjs migration:check R1-FND-003-A",
-    "migrate": "node tools/unavailable-command.mjs migrate R1-FND-003-A"
+    "migration:check": "pnpm --filter @docket/database build && node packages/database/dist/cli.js check",
+    "migrate": "pnpm --filter @docket/database build && pnpm --filter @docket/migrate build && node apps/migrate/dist/index.js"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
