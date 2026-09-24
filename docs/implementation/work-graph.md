@@ -2,7 +2,7 @@
 
 Authoritative source: [work-graph.yaml](work-graph.yaml). Detailed contracts: [queue-contract.json](queue-contract.json). Setup does not authorize application implementation.
 
-40 preserved non-runnable groups; 115 runnable leaf specifications; 8 decision/external gates. No implementation is complete. No leaf is ready while the foundation integration decision is unresolved.
+40 preserved non-runnable groups; 115 runnable leaf specifications; 8 decision/external gates. No implementation is complete. R1-FND-001-A is ready under the resolved protected-bootstrap policy.
 
 Milestones group related capabilities. Execution order follows actual prerequisites, so configuration needed for schedule/pairing locks is implemented before those locks; a milestone number is not a second ordering authority.
 

@@ -6,11 +6,11 @@ This pinned index covers all 163 work issues: 115 implementation leaves, 40 trac
 
 The current implementation issue numbers #49 through #163 already match the work graph. GitHub's newest-first view reverses that sequence. Use the implementation filter and oldest-first sort; group numbers and milestone numbers are not an execution order. If future issues are inserted or split, follow the work graph and regenerate this index rather than relying on issue number.
 
-Authority: [work graph](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/implementation/work-graph.yaml), [work-item contract](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/implementation/work-item-contract.md), and [launch guide](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/implementation/launch-guide.md). Only a ready leaf may run, and setup does not authorize an application build.
+Authority: [work graph](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/implementation/work-graph.yaml), [work-item contract](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/implementation/work-item-contract.md), and [launch guide](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/implementation/launch-guide.md). Only a ready leaf may run. The owner authorized the Release 1 build on September 23, 2026.
 
 ## Before starting
 
-Resolve [#41 GATE-BOOTSTRAP](https://github.com/Cooper2Rich/Docket/issues/41) and [#42 GATE-GITHUB](https://github.com/Cooper2Rich/Docket/issues/42), then meet the launch guide's review/integration and explicit build-authorization conditions. The first implementation leaf remains blocked. Independent current-head review is required throughout.
+The bootstrap and repository-protection gates are resolved. Start only [#49 R1-FND-001-A](https://github.com/Cooper2Rich/Docket/issues/49), through the launch guide and protected bootstrap target. Exact-head controller evidence is required throughout; later decision and external gates remain binding.
 
 ## Implementation sequence
 
@@ -183,12 +183,12 @@ These preserve the original objectives. Their child steps define the implementat
 
 ## Decision and external gates
 
-Resolve these before their affected leaves. The graph-linked step below shows each explicit gate edge; private-repository protection and ordinary PR review also apply at activation/integration.
+Resolve remaining gates before their affected leaves. The graph-linked step below shows each explicit gate edge; the first two gates are resolved under the public, protected, single-owner integration policy.
 
 | Gate issue | Required resolution | Directly gated steps |
 | --- | --- | --- |
-| [#41 GATE-BOOTSTRAP](https://github.com/Cooper2Rich/Docket/issues/41) | Choose a protected foundation integration policy | 001 |
-| [#42 GATE-GITHUB](https://github.com/Cooper2Rich/Docket/issues/42) | Enable and verify protection for the private repository | 010 |
+| [#41 GATE-BOOTSTRAP](https://github.com/Cooper2Rich/Docket/issues/41) | Resolved: protected bootstrap branch and staged promotion policy | 001 |
+| [#42 GATE-GITHUB](https://github.com/Cooper2Rich/Docket/issues/42) | Resolved: public repository with verified main protection | 010 |
 | [#43 GATE-RULESET](https://github.com/Cooper2Rich/Docket/issues/43) | Supply the adopted Release 1 Lincoln-Douglas Ruleset | 025 |
 | [#44 GATE-ASSESSMENT](https://github.com/Cooper2Rich/Docket/issues/44) | Approve real assessment provider and scoring policy | 105 |
 | [#45 GATE-REVIEW](https://github.com/Cooper2Rich/Docket/issues/45) | Provide independent review and accessibility evidence | 108 |
@@ -198,6 +198,6 @@ Resolve these before their affected leaves. The graph-linked step below shows ea
 
 ## Verification and maintenance
 
-Verified on September 18, 2026: every dependency precedes its dependent, all 115 native sub-issue positions match the graph, all 122 native blocking relationships match, and the oldest-first implementation view contains exactly the 115 leaves in graph order. Existing issue bodies, IDs, statuses and dependencies are unchanged.
+Reverified September 23, 2026: every dependency precedes its dependent, all 115 native sub-issue positions match the graph, all 122 native blocking relationships match, and the oldest-first implementation view contains exactly the 115 leaves in graph order. Issue bodies and status labels are synchronized to the activated graph.
 
 Keep this index synchronized after an approved graph change. The graph remains authoritative. [GitHub sorting documentation](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/filtering-and-searching-issues-and-pull-requests) explains how shareable filtered views work.

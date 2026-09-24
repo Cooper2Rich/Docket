@@ -2095,3 +2095,7 @@ At the owner's request, restored `status:blocked` to every GitHub issue except #
 ## [2026-09-23] checkpoint | Build authorization and bootstrap direction
 
 The owner requested the Release 1 application build using GPT-5.6 Sol and approved the proposed protected bootstrap branch policy. The owner plans to enable private-repository protection and independent review. The controller's read-only plan still reports `GATE-BOOTSTRAP`, and GitHub still returns a plan restriction for branch protection. The setup PR is draft without review or CI. The exact bootstrap policy, controller behavior, tests and protected branch read-back remain required before the first leaf can run. All 164 repository issues are assigned to `Cooper2Rich`; this changes no graph status or issue scope.
+
+## [2026-09-23] operation | Activate protected Ralph queue
+
+The owner made Docket public, confirmed that no other GitHub account is required, and retained the Sol/high Release 1 build authorization. Recorded the single-owner controller-evidence policy: protect `codex/release-1-bootstrap` with strict `Bootstrap / Verify` for the first nine foundation leaves, promote through `R1-FND-005-B` to `main` with all eleven required contexts, require pull requests and resolved conversations, enforce administrators, and allow no force push, deletion, or bypass. The external controller and 42 tests now enforce that routing. `GATE-BOOTSTRAP` and `GATE-GITHUB` are resolved, and `R1-FND-001-A` is ready. No application worker or command has run yet.

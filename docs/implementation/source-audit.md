@@ -2,7 +2,7 @@
 
 Status: September 18, 2026 setup audit. No application implementation or application checks ran.
 
-The audit preserves the 40 original objectives as non-runnable groups and decomposes them into 115 leaves. Each leaf has three behavioral acceptance criteria and a fourth boundary/evidence criterion. [source-coverage.json](source-coverage.json) indexes 2,201 clauses from 63 governing and contextual documents with source location, content hash, disposition and applicable ownership. [queue-contract.json](queue-contract.json) binds the exact specifications, acceptance IDs, commands and source-file revisions. These are coverage obligations, not proof of passing software.
+The audit preserves the 40 original objectives as non-runnable groups and decomposes them into 115 leaves. Each leaf has three behavioral acceptance criteria and a fourth boundary/evidence criterion. [source-coverage.json](source-coverage.json) indexes 2,202 clauses from 63 governing and contextual documents with source location, content hash, disposition and applicable ownership. [queue-contract.json](queue-contract.json) binds the exact specifications, acceptance IDs, commands and source-file revisions. These are coverage obligations, not proof of passing software.
 
 ## Authority resolutions
 
@@ -28,7 +28,7 @@ Detailed domain clauses are assigned to the narrowest applicable authored leaf. 
 
 ## Unresolved gates
 
-Eight separately tracked gates distinguish decisions and external prerequisites from implementation. Two affect immediate activation: protected foundation integration semantics and private-repository branch-protection availability. The latter returned HTTP 403 from GitHub's ruleset and branch-protection APIs on September 18.
+Eight separately tracked gates distinguish decisions and external prerequisites from implementation. The owner resolved the two activation gates on September 23 by approving the protected bootstrap/promotion policy and making the repository public so branch protection could be configured and read back. Later gates remain attached to their affected leaves.
 
 Later gates cover the adopted LD Ruleset, real assessment provider/scoring policy, independent review/manual accessibility evidence, deployment environments/operators, explicit production go/no-go, and the precise Closed-state boundary for mistaken represented-School attribution. The attribution source refers to Post-Closure Exception requirements while the detailed 168-hour exception is No-Show-specific; this must not be broadened by inference.
 

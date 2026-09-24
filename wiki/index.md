@@ -17,7 +17,7 @@ PRD means Project Resource Document; see [[project-context]] for its design-only
 - [Release 1 Work Graph](../docs/implementation/work-graph.md) - Readable dependency-ordered implementation queue whose authoritative source is the linked YAML graph.
 - [Work Item Contract](../docs/implementation/work-item-contract.md) - Selection, status, required-field, vertical-slice, sizing, and completion rules for agent-runnable work.
 - [GitHub issue order](../docs/implementation/issue-order.md) - Pinned index for all work issues, verified child/dependency order, and an oldest-first implementation view.
-- [Completed issue setup](../docs/implementation/setup-report.md) - Verified GitHub queue, 39 external-controller tests, review provenance, remaining activation gates and exact launch guide.
+- [Activated issue setup](../docs/implementation/setup-report.md) - Verified GitHub queue, 42 external-controller tests, protected bootstrap/main policy and exact launch guide.
 - [Implementation issue audit](../docs/implementation/source-audit.md) - Option-B decomposition into 115 leaves, source dispositions, eight explicit gates and verification boundaries; [launch guide](../docs/implementation/launch-guide.md) and [GitHub mapping](../docs/implementation/github-issues.json).
 - [Sol-Only Ralph Build Orchestration](../docs/implementation/agent-orchestration.md) - Sequential GPT-5.6 Sol implementation with externally bounded fresh processes, durable handoffs, and one dependency-ordered work item per Ralph run.
 - [Development contract](../docs/development.md) - Reserved workspace commands, local infrastructure, fixed test identity, fixtures, environment validation, and GitHub Actions parity.

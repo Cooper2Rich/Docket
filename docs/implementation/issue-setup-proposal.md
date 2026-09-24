@@ -120,4 +120,4 @@ For option B:
 5. Adapt the external launcher and verify it with fake workers/fixtures covering graph order, no skipped blockers, required settings, incomplete evidence, stale contract/commit receipts, interrupted completion, and fail-stop behavior. This must not launch a real Docket build.
 6. Deliver the exact future launch procedure and an audit report distinguishing setup complete, currently eligible, blocked on implementation prerequisites, and blocked on an owner/external action.
 
-The proposal above records the pre-selection recommendation. Its option-B setup has since been completed: consult the [setup report](setup-report.md) for the published queue, tested launcher and unresolved activation gates. Application implementation remains separately authorized work.
+The proposal above records the pre-selection recommendation. Its option-B setup has since been completed and activated by the owner's September 23, 2026 build instruction: consult the [setup report](setup-report.md) for the published queue, tested launcher and accepted integration policy.

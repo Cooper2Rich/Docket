@@ -22,7 +22,11 @@ Configure the repository ruleset for `main` to require these exact, case-sensiti
 10. `Required / Accessibility`
 11. `Required / Artifacts`
 
-Require every context to succeed on the current pull-request head before merge. Require the branch to be current with `main`, block force pushes and deletion, apply the ruleset to administrators, and define no bypass actor. Require at least one approving review and dismiss approvals when the protected diff changes. A release operator must compare the configured contexts to this list after any workflow rename; an absent context is a release-blocking `REQUIRED_CHECK_MISSING` condition.
+Require every context to succeed on the current pull-request head before merge. Require the branch to be current with `main`, require pull requests and resolved conversations, block force pushes and deletion, apply protection to administrators, and define no bypass actor. This owner-operated repository requires zero GitHub approvals; exact-head evidence, CI, graph transitions and merge ancestry are independently validated by the external controller. A release operator must compare the configured contexts to this list after any workflow rename; an absent context is a release-blocking `REQUIRED_CHECK_MISSING` condition.
+
+## Foundation bootstrap protection
+
+The resolved foundation policy temporarily protects `codex/release-1-bootstrap` with the strict current-head context `Bootstrap / Verify`, required pull requests, resolved conversations, administrator enforcement, no force push or deletion, and no bypass actors. `R1-FND-001-A` through `R1-FND-005-A` integrate there one PR at a time; controller-verified bootstrap integration satisfies their dependencies. `R1-FND-005-B` starts from that exact branch head and promotes the accumulated foundation history to `main` only after all eleven contexts pass. The bootstrap policy then expires and all later integration targets `main`.
 
 The workflow runs on pull requests, pushes to `main`, and explicit manual dispatch. It grants the workflow token only read access to repository contents. Fork-originated code receives no deployment or repository-writing authority.
 

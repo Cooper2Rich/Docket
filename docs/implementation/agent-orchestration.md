@@ -19,7 +19,7 @@ One Ralph run owns one runnable work item. A run may not start a later item, bro
 3. Change the selected item from `ready` to `in_progress` and synchronize the readable roadmap.
 4. Implement its complete vertical slice, including code, tests, generated artifacts, documentation, and operational surfaces named by the item.
 5. Change it to `verification`, run every declared evidence command, and repair failures within scope.
-6. Propose completion in the item's PR using the external controller. Change the integrated queue to `done` only when the Work Item Contract and independent controller checks confirm the exact tested head, required CI, current-head review and merge. Promote only newly unblocked immediate dependents to `ready`.
+6. Propose completion in the item's PR using the external controller. Change the integrated queue to `done` only when the Work Item Contract and controller confirm the exact tested head, required CI, accepted review mode and protected-target merge. During the resolved foundation bootstrap only, the protected bootstrap branch is the integration target through `R1-FND-005-A`; `R1-FND-005-B` is the all-checks promotion to `main`. Promote only newly unblocked immediate dependents to `ready`.
 7. Synchronize the roadmap and, once its generator exists, traceability, update relevant durable wiki knowledge, update `wiki/index.md` when its content map changes, and append one dated entry to `wiki/log.md`.
 
 A failed, blocked, or iteration-exhausted run stops the queue. Do not skip ahead.
@@ -38,7 +38,7 @@ A failed, blocked, or iteration-exhausted run stops the queue. Do not skip ahead
 
 `RALPH_LOOP_COMPLETE` is valid only after every declared output and acceptance check passes and the queue, roadmap, traceability, and required wiki checkpoint agree. `RALPH_LOOP_BLOCKED` returns control to the owner with one concrete blocker. Otherwise the run continues within its iteration cap.
 
-The marker hands control to independent verification; it never closes a GitHub issue or proves integration by itself. Use the [verification protocol](verification-protocol.md) and [launch guide](launch-guide.md). Tracking groups and decision issues are never passed to a generic open-issue loop. A stopped item must resume or reconcile before any later leaf starts.
+The marker hands control to controller verification; it never closes a GitHub issue or proves integration by itself. This single-account repository does not manufacture a second reviewer: the controller validates exact-head evidence and protected integration, while genuinely human or specialist review remains required only where a product or release criterion explicitly names it. Use the [verification protocol](verification-protocol.md) and [launch guide](launch-guide.md). Tracking groups and decision issues are never passed to a generic open-issue loop. A stopped item must resume or reconcile before any later leaf starts.
 
 ## Start parameters
 

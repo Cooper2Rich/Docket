@@ -12,7 +12,7 @@ Implement only the behaviors below. Practice Workspaces, School/Account export p
 
 ## Prerequisites
 
-- Completed and independently verified leaves: R1-FND-004-B.
+- Completed and controller-verified leaves: R1-FND-004-B.
 - External/decision gates: none unique to this leaf; protected integration and review still apply.
 - Read AGENTS.md, wiki/index.md, BUILD.md, CONTEXT.md and the applicable ADRs; then the scoped sources below. Future commands are created by the named foundation dependencies and are not currently implemented.
 
@@ -51,11 +51,11 @@ Run from the repository root. Bootstrap creates its own required commands before
 | integration | `pnpm test:integration` | R1-FND-003-B | Exit zero with nonempty applicable checks; no skipped required scenario or permissive success flag. |
 | e2e | `pnpm test:e2e` | R1-FND-001-B | Exit zero with nonempty applicable checks; no skipped required scenario or permissive success flag. |
 | contracts | `pnpm contracts check` | R1-FND-004-A | Exit zero with nonempty applicable checks; no skipped required scenario or permissive success flag. |
-| ci-full | `pnpm ci:full` | R1-FND-005-A | All eleven commands pass locally; separately verify all eleven exact current-head CI contexts and current-head approving review. |
+| ci-full | `pnpm ci:full` | R1-FND-005-A | All eleven commands pass locally; separately verify all eleven exact current-head CI contexts and the accepted review mode. |
 
 Write machine evidence to `.ralph/evidence/R1-FND-005-A/acceptance.json` using [the verification protocol](../verification-protocol.md). The independent expected sets are stored in `docs/implementation/queue-contract.json`; the worker cannot reduce them.
 
-All eleven current-head CI contexts and at least one current-head approval are required for main integration. Foundation integration remains blocked until GATE-BOOTSTRAP establishes an explicit tested policy. Manual review, provider, environment and production evidence cannot be manufactured from fixture results.
+All eleven current-head CI contexts and the accepted controller-evidence review mode are required for ordinary main integration. The resolved GATE-BOOTSTRAP policy narrowly permits protected bootstrap integration through R1-FND-005-A and one all-checks promotion in R1-FND-005-B. Manual review, provider, environment and production evidence cannot be manufactured from fixture results.
 
 ## Source obligations
 
@@ -64,10 +64,10 @@ Exact audited clauses are indexed in [source coverage](../source-coverage.json).
 - [docs/development.md](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/development.md): Reproducible Development Contract; Host prerequisites; Frontend generator policy; Reserved workspace commands; Local infrastructure; Database migrations; Executable contract generation; Identity in development and tests; Environment configuration; Deterministic fixtures; Continuous integration. Clauses: SRC-97db29a7-001, SRC-97db29a7-002, SRC-97db29a7-003, SRC-97db29a7-004, SRC-97db29a7-005, SRC-97db29a7-006, SRC-97db29a7-007, SRC-97db29a7-008, SRC-97db29a7-009, SRC-97db29a7-010, SRC-97db29a7-011, SRC-97db29a7-012, SRC-97db29a7-013, SRC-97db29a7-014, SRC-97db29a7-015, SRC-97db29a7-016, SRC-97db29a7-017, SRC-97db29a7-018, SRC-97db29a7-019, SRC-97db29a7-020, SRC-97db29a7-021, SRC-97db29a7-022, SRC-97db29a7-023, SRC-97db29a7-024, SRC-97db29a7-025, SRC-97db29a7-026, SRC-97db29a7-027, SRC-97db29a7-028, SRC-97db29a7-029, SRC-97db29a7-030, SRC-97db29a7-031, SRC-97db29a7-032, SRC-97db29a7-033, SRC-97db29a7-034, SRC-97db29a7-035, SRC-97db29a7-036, SRC-97db29a7-037, SRC-97db29a7-038, SRC-97db29a7-039.
 - [docs/implementation/source-audit.md](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/implementation/source-audit.md): Engineering interpretation and evidence contract. Clauses: .
 - [docs/implementation/verification-protocol.md](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/implementation/verification-protocol.md): Engineering interpretation and evidence contract. Clauses: .
-- [docs/operations/github-branch-protection.md](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/operations/github-branch-protection.md): GitHub Required Checks and Branch Protection; Required check contexts; Local-command parity; Cache policy; Artifact retention policy; Change procedure. Clauses: SRC-4485609c-001, SRC-4485609c-002, SRC-4485609c-003, SRC-4485609c-004, SRC-4485609c-005, SRC-4485609c-006, SRC-4485609c-007, SRC-4485609c-008, SRC-4485609c-009, SRC-4485609c-010, SRC-4485609c-011, SRC-4485609c-012, SRC-4485609c-013, SRC-4485609c-014, SRC-4485609c-015, SRC-4485609c-016, SRC-4485609c-017, SRC-4485609c-018, SRC-4485609c-019, SRC-4485609c-020, SRC-4485609c-021, SRC-4485609c-022, SRC-4485609c-023, SRC-4485609c-024.
+- [docs/operations/github-branch-protection.md](https://github.com/Cooper2Rich/Docket/blob/codex/release-1-issue-setup/docs/operations/github-branch-protection.md): GitHub Required Checks and Branch Protection; Required check contexts; Foundation bootstrap protection; Local-command parity; Cache policy; Artifact retention policy; Change procedure. Clauses: SRC-4485609c-001, SRC-4485609c-002, SRC-4485609c-003, SRC-4485609c-004, SRC-4485609c-005, SRC-4485609c-006, SRC-4485609c-007, SRC-4485609c-008, SRC-4485609c-009, SRC-4485609c-010, SRC-4485609c-011, SRC-4485609c-012, SRC-4485609c-013, SRC-4485609c-014, SRC-4485609c-015, SRC-4485609c-016, SRC-4485609c-017, SRC-4485609c-018, SRC-4485609c-019, SRC-4485609c-020, SRC-4485609c-021, SRC-4485609c-022, SRC-4485609c-023, SRC-4485609c-024, SRC-4485609c-025.
 
 ## Completion and handoff
 
-Create one PR referencing this issue without automatic closing keywords. Include focused changes, verification evidence, graph/roadmap/trace changes and a durable wiki checkpoint. The candidate graph may propose completion, but a branch-local `done` label is not integrated completion. The external controller validates the exact contract, complete evidence sets, actual PR head, checks, review and merged commit before closing the issue or allowing its dependent.
+Create one PR to the integration target selected by the accepted policy, referencing this issue without automatic closing keywords. Include focused changes, verification evidence, graph/roadmap/trace changes and a durable wiki checkpoint. The candidate graph may propose completion, but only controller-verified protected-target integration establishes completion. The external controller validates the exact contract, complete evidence sets, actual PR head, checks, accepted review mode and merged commit before closing the issue or allowing its dependent.
 
 On a missing decision, unavailable prerequisite, failing required check or exhausted iteration limit, retain evidence and stop this item. Do not start another leaf. If this scope cannot fit one bounded run and reviewable PR, split it under the Work Item Contract before continuing.

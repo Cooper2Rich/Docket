@@ -56,7 +56,7 @@ The issue closes and its dependent becomes eligible only after the verified PR i
 
 ## Bootstrap decision
 
-[GATE-BOOTSTRAP](gates/GATE-BOOTSTRAP.md) records the unresolved integration cycle: the first leaves create the eleven checks required before main integration. The proposed protected bootstrap branch is a decision proposal, not an effective exception. There is currently no runnable first leaf. Resolve the policy in a reviewed engineering change and extend controller fixtures for its exact semantics before activation. Do not silently omit checks or promote branch-local completion to satisfy dependencies.
+[GATE-BOOTSTRAP](gates/GATE-BOOTSTRAP.md) resolves the integration cycle: `R1-FND-001-A` through `R1-FND-005-A` integrate one at a time through protected `codex/release-1-bootstrap` after strict current-head `Bootstrap / Verify`; `R1-FND-005-B` promotes the exact accumulated history to `main` only after all eleven checks pass. The controller fixtures enforce the boundary. Do not silently omit checks or promote unverified branch-local completion to satisfy dependencies.
 
 After the foundation transition, every item uses the full established local/CI command set. Foundational commands must prove their own real capability before they can verify subsequent product work.
 
