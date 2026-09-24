@@ -13,6 +13,13 @@ import stylesheet from "./app.css?url";
 
 export const middleware: Route.MiddlewareFunction[] = [clerkMiddleware()];
 export const loader = (args: Route.LoaderArgs) => rootAuthLoader(args);
+export const meta: Route.MetaFunction = () => [
+  { title: "Docket" },
+  {
+    name: "description",
+    content: "Accessible tournament operations for speech and debate.",
+  },
+];
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];

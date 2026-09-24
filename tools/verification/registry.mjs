@@ -3,6 +3,7 @@ import { VerificationError } from "./core.mjs";
 const suiteLoaders = new Map();
 
 registerSuite("R1-FND-001-A", () => import("./suites/r1-fnd-001-a.mjs"));
+registerSuite("R1-FND-001-B", () => import("./suites/r1-fnd-001-b.mjs"));
 
 export function registerSuite(itemId, loader) {
   if (!itemId || typeof loader !== "function") {

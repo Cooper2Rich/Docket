@@ -10,14 +10,14 @@ status_values:
 - verification
 - done
 execution_authorized: true
-next_item: R1-FND-001-B
+next_item: R1-FND-002-A
 first_item: R1-FND-001-A
 bootstrap_gate: GATE-BOOTSTRAP
 groups:
 - id: R1-FND-001
   order: 10
   title: Scaffold the pinned monorepo
-  status: blocked
+  status: done
   owner: runtime
   depends_on: []
   requirements:
@@ -2647,7 +2647,7 @@ items:
   parent: R1-FND-001
   order: 20
   title: Deliver the server-rendered shadcn web foundation
-  status: ready
+  status: done
   owner: runtime
   stage: 01 Foundations
   depends_on:
@@ -2657,13 +2657,15 @@ items:
   - R1-LIFE-001
   spec: docs/implementation/items/R1-FND-001-B.md
   blocking_reason: null
-  completion: null
+  completion:
+    contract_sha256: 50bca3acb9c07622afb4021c7d02c4c78bd9c680fd7cbee4ba4b588df3c1c9ca
+    verification: controller-must-confirm-integration
 - id: R1-FND-002-A
   kind: leaf
   parent: R1-FND-002
   order: 30
   title: Bootstrap local services and validate runtime configuration
-  status: blocked
+  status: ready
   owner: runtime
   stage: 01 Foundations
   depends_on:
@@ -2673,7 +2675,7 @@ items:
   - R1-LIFE-001
   - R1-OPS-001
   spec: docs/implementation/items/R1-FND-002-A.md
-  blocking_reason: Predecessor has not been implemented and verified.
+  blocking_reason: null
   completion: null
 - id: R1-FND-002-B
   kind: leaf

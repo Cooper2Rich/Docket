@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
+    "dev": "react-router dev --host 127.0.0.1",
     "typecheck": "react-router typegen && tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
@@ -22,10 +23,12 @@
     "tailwind-merge": "3.6.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@react-router/dev": "7.18.3",
     "@tailwindcss/vite": "4.3.3",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.3",
+    "axe-core": "4.13.0",
     "shadcn": "4.21.0",
     "tailwindcss": "4.3.3",
     "vite": "8.2.2",
