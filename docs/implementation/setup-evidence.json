@@ -1,0 +1,75 @@
+{
+  "recorded_date": "2026-09-24",
+  "scope": "Owner-authorized Release 1 issue queue activation",
+  "publication": {
+    "issues": 163,
+    "parent_links": 115,
+    "dependency_links": 122,
+    "milestones": 8,
+    "body_hashes_verified": true,
+    "native_relationships_verified": true,
+    "status_projection": {
+      "ready": ["R1-FND-001-A"],
+      "done_gates": ["GATE-BOOTSTRAP", "GATE-GITHUB"]
+    }
+  },
+  "validation": {
+    "leaves": 115,
+    "groups": 40,
+    "gates": 8,
+    "criteria": 460,
+    "source_rows": 2202,
+    "build_launched": false,
+    "controller_tests": 42,
+    "relative_links_checked": 357,
+    "release_prd_unchanged": true,
+    "application_commands_run": false,
+    "group_ids_preserved": true,
+    "requirements": ["R1-AUTH-001", "R1-COMP-001", "R1-CONS-001", "R1-DATA-001", "R1-LIFE-001", "R1-MSG-001", "R1-OPS-001", "R1-PRIV-001"],
+    "skill_validation": "passed",
+    "tool_sha256": {
+      "docket_ralph.py": "58a0ad2e9c3268c91a31d53960d2f885f69d17fb0294f06361ad78ec49b56ef7",
+      "generate_queue.py": "deb7e05a4808fec890a8032ce9ecd659b5f367358991bf04cea00fce2082e296",
+      "publish_queue.py": "5b2a9d99b96f6d08c0c3fe0e25d050e52eaba99333d14e13017821753a1e448d",
+      "audit_sources.py": "e8bef29f4722719c819a3e7402eea73b1aac8a6ceb581fb1c7bca17b68bfa13e",
+      "blueprint.py": "eb5b955c19ff3edc47713f12ad692abc4e263f2a5e505bb78c33035c59e5fab7",
+      "test_docket_ralph.py": "697123e7c595245446646f01ee0cf5a09b7f82e1014e8797537919dea39a22a2",
+      "controller-test-results.txt": "256031445cbd2f891164b372b972c0129939b3624047e329f42443bc021cc163",
+      "ralph-loop.ps1": "bfbbad92dd849c32be7fb504c1dbf2bb046ba5e03912a889c801c8f0ebd725bf",
+      "SKILL.md": "575684ccf73423eeb254c1c0b194f6f4f182e225b1fa7921a86b9c9aa4989a57"
+    }
+  },
+  "python_version": "3.12.14",
+  "git_version": "git version 2.54.0.windows.1",
+  "review_pr": "https://github.com/Cooper2Rich/Docket/pull/164",
+  "repository_visibility": "public",
+  "integration_policy": {
+    "review_mode": "controller_evidence",
+    "required_github_approvals": 0,
+    "bootstrap_branch": "codex/release-1-bootstrap",
+    "bootstrap_items": "R1-FND-001-A through R1-FND-005-A",
+    "bootstrap_contexts": ["Bootstrap / Verify"],
+    "promotion_item": "R1-FND-005-B",
+    "main_contexts": ["Required / Frozen install", "Required / Build", "Required / Check", "Required / Unit", "Required / Integration", "Required / End-to-end", "Required / Contracts", "Required / Migrations", "Required / Security", "Required / Accessibility", "Required / Artifacts"],
+    "strict_current_head": true,
+    "pull_requests_required": true,
+    "conversation_resolution_required": true,
+    "administrators_enforced": true,
+    "force_pushes_allowed": false,
+    "deletions_allowed": false,
+    "bypass_actors": []
+  },
+  "first_leaf": "R1-FND-001-A",
+  "first_blocker": null,
+  "resolved_activation_gates": ["GATE-BOOTSTRAP", "GATE-GITHUB"],
+  "application_implementation_authorized": true,
+  "application_implementation_started": false,
+  "real_codex_worker_started": false,
+  "local_tools_directory": "C:\\Users\\CooperRich\\.codex\\tools\\docket-setup",
+  "artifact_sha256": {
+    "queue-contract.json": "5bc18c68abe6f6b59a1d7f3d125bd6152be1a8d17740ca278f94f76ace072502",
+    "source-coverage.json": "68daa124c6b2a24c85f00a167d06c2cb8391ecbde8adbea3fd6186ff2a2c52c2",
+    "github-issues.json": "6bd18dbf04b270aeb7e4d8c2e7490836cb3f179badae4e08333d874ea1577442",
+    "work-graph.yaml": "349f4008cd65d885830dbc47cfa262aa058b413b2f2f448e83d1f92aaa6f66b8"
+  }
+}

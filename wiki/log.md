@@ -2042,3 +2042,60 @@ The owner clarified that PRD means Project Resource Document: scope, design, req
 - Corrected ADR 0027 to point Judge Assessment retention to ADR 0028 and created accepted ADR 0038 to defer School Data Export while preserving its detailed design as later-release Project Resource Document input.
 - Removed the extensive export specification from ADR 0030, marked the remaining active wiki export material as later-release design, and retained Release 1 represented-School history, privacy, retention, and access boundaries.
 - Preserved the specification-only repository state; no application code, dependency installation, Release 1 scope, or work-graph status changed.
+
+## [2026-09-18] operation | Repository Ralph skill removal
+
+- Removed the repository-owned `.agents/skills/ralph-loop/` package, including its launchers, tests, and agent metadata, because Ralph is installed as a user-level skill outside Docket.
+- Updated active agent, build, orchestration, navigation, routing, and build-readiness documents to resolve the installed `ralph-loop` skill by name and keep implementation tooling outside the repository.
+- Preserved the repository-specific strict review skill, the Sol-only one-item orchestration contract, historical records, and the specification-only state; no build or Ralph run was started.
+
+## [2026-09-18] operation | Project skill requirements removal
+
+- Removed the remaining repository-owned strict-review skill and deleted the project-specific skill-routing document.
+- Preserved the strict-review skill as an exact user-level copy at `C:\Users\CooperRich\.codex\skills\thermo-nuclear-code-quality-review\SKILL.md`; the existing user-level Ralph skill remains outside Docket.
+- Removed active Docket requirements to invoke named skills, replacing them with direct links to the governing build and orchestration contracts.
+- Established that skills and agent launch tooling live outside the Docket repository while preserving the Sol-only one-item orchestration contract, historical records, and specification-only state.
+
+## [2026-09-18] checkpoint | Implementation issue setup recommendations
+
+- Reviewed the current 40-item graph, work-item and orchestration contracts, Release 1 scope, engineering evidence rules, and installed external Ralph runner; the GitHub connector returned no open issues for `Cooper2Rich/Docket`.
+- Added the [issue setup proposal](../docs/implementation/issue-setup-proposal.md) with three owner-selectable approaches and a recommendation to audit and decompose the complete release before publishing runnable leaf issues.
+- Recorded the runner's hard-coded extra-high reasoning, permitted subagents, raw output streaming, and completion-receipt limitations, plus the need to reconcile staged bootstrap evidence and protected-branch CI/review before execution.
+- Updated [[build-readiness]] and the index. The recommendation awaits owner selection; no issues were published, runner files changed, work-graph statuses changed, or application implementation started.
+
+## [2026-09-18] operation | Issue setup authorization checkpoint
+
+- The owner selected option B from the [setup proposal](../docs/implementation/issue-setup-proposal.md), authorizing the full audit, decomposition, publication, and external runner repair while retaining the specification-only boundary.
+- Captured the starting revision, current documents, original graph, and 63-source clause inventory outside the repository to preserve pre-existing changes and support an auditable coverage map.
+- Verified GitHub repository administration access. Both ruleset and main-branch protection queries returned an account-plan upgrade requirement for the private repository; recorded this external prerequisite without changing visibility or policy.
+- The next work is to complete the source-to-issue mapping and establish bounded leaf contracts and staged evidence. No implementation run has started.
+
+## [2026-09-18] operation | Implementation issue contracts and controller checkpoint
+
+The owner-selected option B now has 40 preserved groups, 115 leaf specifications, 460 acceptance IDs and eight explicit gates. The engineering source index classifies 2,201 clauses from 63 sources and distinguishes included behavior, mixed/deferred scope, governing references and historical context. Product PRD contents remain unchanged. The external Ralph parameters and Docket controller passed 33 offline and fake-process tests; no real worker or application command ran. GitHub publication is underway with restart-safe mappings. Immediate activation is blocked by the unresolved foundation integration policy and private-repository protection availability. Remaining setup work is publication/read-back, final documentation and a reviewable artifact.
+
+## [2026-09-18] checkpoint | Implementation issue setup complete
+
+Completed owner-selected option B: 115 implementation leaves under all 40 preserved objectives, eight decision/external gates, 460 acceptance IDs, and 2,201 classified source clauses. Published and read back all 163 GitHub issues, 115 native parent links and 122 blocking links across eight milestones. The external Sol/high controller passed 39 tests; no real worker or application command ran. Product PRD and raw sources remain unchanged. See [setup report](../docs/implementation/setup-report.md), [evidence](../docs/implementation/setup-evidence.json), and [[build-readiness]].
+
+Next: resolve the foundation integration policy and private-repository protection restriction, review/integrate the setup, then obtain explicit build authorization. Other decisions and external gates remain on their affected leaves. [Draft setup PR](https://github.com/Cooper2Rich/Docket/pull/164) preserves pre-existing cleanup separately from the setup changes; the original index/checkout and Obsidian junction are preserved.
+
+## [2026-09-18] operation | Verify and expose GitHub issue order
+
+Verified all 163 work issues against the graph: the 115 implementation issues (#49–#163), all 115 native child positions and 122 blocking relationships already match the intended sequence. Every prerequisite precedes its dependent; no issue was unclassified. Published and pinned [navigation issue #165](https://github.com/Cooper2Rich/Docket/issues/165) with the complete numbered queue, group and gate indexes, and oldest-first filtered views. See [order audit](../docs/implementation/issue-order.json) and [[build-readiness]]. Existing issue contracts and graph status are unchanged; no application build ran.
+
+## [2026-09-18] operation | Remove blocked labels from GitHub issues
+
+At the owner's request, removed the `status:blocked` label from all 163 Docket work issues and verified that none of the repository's 164 issues retains it. Preserved the label definition, issue bodies, 122 native blocking relationships, graph statuses, decision gates and specification-only build boundary. This label-only operation does not make a leaf ready or authorize implementation; see [[build-readiness]].
+
+## [2026-09-18] operation | Re-block GitHub issues except issue 1
+
+At the owner's request, restored `status:blocked` to every GitHub issue except #1. Verified 163 blocked issues and one unblocked issue: #1, `[R1-FND-001] Scaffold the pinned monorepo`. Preserved issue bodies, native blocking relationships, graph statuses, decision gates and the specification-only build boundary; #1 remains a non-runnable tracking group rather than a ready implementation leaf. See [[build-readiness]].
+
+## [2026-09-23] checkpoint | Build authorization and bootstrap direction
+
+The owner requested the Release 1 application build using GPT-5.6 Sol and approved the proposed protected bootstrap branch policy. The owner plans to enable private-repository protection and independent review. The controller's read-only plan still reports `GATE-BOOTSTRAP`, and GitHub still returns a plan restriction for branch protection. The setup PR is draft without review or CI. The exact bootstrap policy, controller behavior, tests and protected branch read-back remain required before the first leaf can run. All 164 repository issues are assigned to `Cooper2Rich`; this changes no graph status or issue scope.
+
+## [2026-09-23] operation | Activate protected Ralph queue
+
+The owner made Docket public, confirmed that no other GitHub account is required, and retained the Sol/high Release 1 build authorization. Recorded the single-owner controller-evidence policy: protect `codex/release-1-bootstrap` with strict `Bootstrap / Verify` for the first nine foundation leaves, promote through `R1-FND-005-B` to `main` with all eleven required contexts, require pull requests and resolved conversations, enforce administrators, and allow no force push, deletion, or bypass. The external controller and 42 tests now enforce that routing. `GATE-BOOTSTRAP` and `GATE-GITHUB` are resolved, and `R1-FND-001-A` is ready. No application worker or command has run yet.

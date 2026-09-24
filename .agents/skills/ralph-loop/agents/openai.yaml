@@ -1,4 +1,0 @@
-interface:
-  display_name: "Ralph Loop"
-  short_description: "Run work through fresh bounded Codex sessions"
-  default_prompt: "Use $ralph-loop to run this objective or approved GitHub issue queue through fresh context slices until verified completion."

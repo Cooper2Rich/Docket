@@ -3,14 +3,14 @@
 ## Start here
 
 - Read `wiki/index.md` and `BUILD.md` before implementation planning. Read the selected work item's inputs, `CONTEXT.md`, and the applicable ADRs before coding.
-- Use `docs/README.md` for the specification map and `docs/implementation/skill-routing.md` for skill selection. Repository-owned skills live in `.agents/skills/`.
+- Use `docs/README.md` for the specification map. Keep Codex skills in the user's local installation; do not store skill packages or project-specific skill-routing policy in this repository.
 - The September 9, 2026 owner-requested reset removed the application implementation. Keep this checkout specification-only until the owner explicitly asks to build. A `ready` graph item is eligibility, not authorization.
 - Treat `docs/archive/previous-build/` and pre-reset build log entries as historical. They cannot establish current implementation or passing verification.
 
 ## Project Resource Document
 
 - In Docket, PRD means **Project Resource Document**: product scope, design, required behavior, and capability targets, starting at `docs/releases/release-1.md`.
-- Keep testing software, test implementation, runnable verification, coverage requirements, and iteration counts outside the PRD. Missing tests do not make the PRD incomplete. Testing methodology is separate later engineering work; generic PRD-skill conventions do not override this boundary.
+- Keep testing software, test implementation, runnable verification, coverage requirements, and iteration counts outside the PRD. Missing tests do not make the PRD incomplete. Testing methodology is separate later engineering work; external agent conventions do not override this boundary.
 
 ## Storage
 
@@ -34,4 +34,4 @@
 
 ## Build orchestration
 
-- **Sol-only build:** execute Release 1 sequentially with GPT-5.6 Sol at high reasoning, one bounded work-graph item per Ralph run, under `docs/implementation/agent-orchestration.md`. Use the repository-owned skill at `.agents/skills/ralph-loop/SKILL.md` and its wrapper; do not use the stale user-level copy. Do not delegate implementation to subagents.
+- **Sol-only build:** execute Release 1 sequentially with GPT-5.6 Sol at high reasoning, one bounded work-graph item per Ralph run, under `docs/implementation/agent-orchestration.md`. Keep launch tooling outside this repository and do not delegate implementation to subagents.
