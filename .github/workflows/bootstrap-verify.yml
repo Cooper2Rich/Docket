@@ -1,0 +1,73 @@
+name: Bootstrap
+
+on:
+  pull_request:
+    branches:
+      - codex/release-1-bootstrap
+  push:
+    branches:
+      - codex/release-1-bootstrap
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Bootstrap / Verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Verify the bound queue contracts
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path.cwd()
+          implementation = root / "docs" / "implementation"
+          manifest = json.loads((implementation / "queue-contract.json").read_text(encoding="utf-8"))
+          coverage = json.loads((implementation / "source-coverage.json").read_text(encoding="utf-8"))["rows"]
+
+          def digest(data: bytes) -> str:
+              return hashlib.sha256(data).hexdigest()
+
+          def text_hashes(path: Path) -> set[str]:
+              data = path.read_bytes()
+              text = data.decode("utf-8-sig").replace("\r\n", "\n").replace("\r", "\n")
+              return {digest(data), digest(text.encode()), digest(text.replace("\n", "\r\n").encode())}
+
+          assert manifest["repository"] == "Cooper2Rich/Docket"
+          assert manifest["model"] == "gpt-5.6-sol"
+          assert manifest["reasoning_effort"] == "high"
+          assert manifest["disable_subagents"] is True
+          assert manifest["max_iterations"] == 20
+          assert len(manifest["items"]) == 115
+          assert len(manifest["execution_graph"]["groups"]) == 40
+          assert len(manifest["execution_graph"]["gates"]) == 8
+          assert not any(row["disposition"] == "needs_classification" for row in coverage)
+
+          policy = manifest["integration_policy"]
+          assert policy["bootstrap_branch"] == "codex/release-1-bootstrap"
+          assert policy["bootstrap_contexts"] == ["Bootstrap / Verify"]
+          assert policy["promotion_item"] == "R1-FND-005-B"
+          assert policy["required_approvals"] == 0
+          assert policy["review_mode"] == "controller_evidence"
+
+          graph_path = implementation / "work-graph.yaml"
+          assert manifest["graph_sha256"] in text_hashes(graph_path)
+          items = sorted(manifest["execution_graph"]["items"], key=lambda item: item["order"])
+          assert items[0]["id"] == "R1-FND-001-A" and items[0]["status"] == "ready"
+          assert all(item["status"] == "blocked" for item in items[1:])
+
+          for contract in manifest["items"].values():
+              assert contract["spec_sha256"] in text_hashes(root / contract["spec"])
+              for relative, expected in contract["sources"].items():
+                  assert expected in text_hashes(root / relative), relative
+
+          print("Bootstrap queue contracts verified")
+          PY

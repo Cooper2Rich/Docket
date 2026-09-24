@@ -55,7 +55,7 @@ Use `verify --workspace <path> --item <leaf>` for a read-only check against GitH
 
 If another authorized actor merged the PR or a process stopped after merge, use `reconcile --workspace <path> --item <leaf> --authorized`. It rechecks the merge and evidence, records both tested head and merge commit, avoids duplicate verification comments, confirms issue closure, and synchronizes immediate-dependent status labels. Dirty or unrelated local work prevents checkout changes and is left for explicit reconciliation. Repeating the command is safe after the recorded side effects.
 
-The controller conservatively requires the documented branch-protection API representation. A future ruleset-only configuration needs an equivalent-policy implementation and fixtures; an unreadable API is never treated as proof of protection.
+The controller requires strict status checks, administrator enforcement, resolved conversations, force-push and deletion protection from classic branch protection. It accepts the pull-request requirement from either classic protection or an active branch ruleset only after validating the target branch, zero-approval policy, stale-review behavior, conversation resolution, and absence of bypass actors. An unreadable or incomplete API response is never treated as proof of protection.
 
 After successful integration, a fresh `plan` identifies the next leaf. A whole-queue authorization permits repeated one-leaf runs; it does not remove review, provider, decision or production gates. Group closure additionally requires checking the combined parent behavior and coverage; parent checkboxes are not an execution signal.
 
