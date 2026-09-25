@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "62cda4e04e154d50c1b1444338e0d39cd3bbba5a82b4b6d1e8dd97e27783913b",
+  "graph_sha256": "d78f98c9abafc011a061f4e2d6d216ea90ab1451ae261a597dce9467297c9906",
   "execution_graph": {
     "items": [
       {
@@ -16086,7 +16086,7 @@
         "parent": "R1-FND-005",
         "order": 90,
         "title": "Run the eleven required checks on current pull-request heads",
-        "status": "ready",
+        "status": "done",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [
@@ -16098,7 +16098,10 @@
         ],
         "spec": "docs/implementation/items/R1-FND-005-A.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "5f08bd5b75c24475fe2e621d4cc02c3cc501ccfd6fc7613422c71cafb95a3d6a",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-FND-005-B",
@@ -16106,7 +16109,7 @@
         "parent": "R1-FND-005",
         "order": 100,
         "title": "Verify main protection and bootstrap-to-CI completion gates",
-        "status": "blocked",
+        "status": "ready",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [
@@ -16119,7 +16122,7 @@
           "R1-OPS-001"
         ],
         "spec": "docs/implementation/items/R1-FND-005-B.md",
-        "blocking_reason": "Explicit prerequisite decision unresolved.",
+        "blocking_reason": null,
         "completion": null
       },
       {

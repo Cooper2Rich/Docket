@@ -64,8 +64,8 @@ for (const state of states) {
   test(`${state} state has no automated WCAG 2.2 AA violation`, async ({
     page,
   }) => {
+    await page.addInitScript({ content: axe.source });
     await page.goto(state === "ready" ? "/" : `/?state=${state}`);
-    await page.addScriptTag({ content: axe.source });
     const violations = await page.evaluate(async () => {
       const engine = (
         globalThis as typeof globalThis & {

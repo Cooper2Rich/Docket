@@ -13,6 +13,9 @@ catalog:
   react: 19.3.0
   react-dom: 19.3.0
 
+overrides:
+  smol-toml: 1.7.1
+
 minimumReleaseAgeExclude:
   - "@clerk/backend@3.19.0"
   - "@clerk/fastify@3.1.80"

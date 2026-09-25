@@ -10,7 +10,7 @@ status_values:
 - verification
 - done
 execution_authorized: true
-next_item: R1-FND-005-A
+next_item: R1-FND-005-B
 first_item: R1-FND-001-A
 bootstrap_gate: GATE-BOOTSTRAP
 groups:
@@ -2783,7 +2783,7 @@ items:
   parent: R1-FND-005
   order: 90
   title: Run the eleven required checks on current pull-request heads
-  status: ready
+  status: done
   owner: runtime
   stage: 01 Foundations
   depends_on:
@@ -2793,13 +2793,15 @@ items:
   - R1-OPS-001
   spec: docs/implementation/items/R1-FND-005-A.md
   blocking_reason: null
-  completion: null
+  completion:
+    contract_sha256: 5f08bd5b75c24475fe2e621d4cc02c3cc501ccfd6fc7613422c71cafb95a3d6a
+    verification: controller-must-confirm-integration
 - id: R1-FND-005-B
   kind: leaf
   parent: R1-FND-005
   order: 100
   title: Verify main protection and bootstrap-to-CI completion gates
-  status: blocked
+  status: ready
   owner: runtime
   stage: 01 Foundations
   depends_on:
@@ -2809,7 +2811,7 @@ items:
   requirements:
   - R1-OPS-001
   spec: docs/implementation/items/R1-FND-005-B.md
-  blocking_reason: Explicit prerequisite decision unresolved.
+  blocking_reason: null
   completion: null
 - id: R1-IDA-001-A
   kind: leaf
