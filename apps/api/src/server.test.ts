@@ -1,4 +1,9 @@
 import { afterEach, describe, expect, it } from "vitest";
+import {
+  ContractClientError,
+  createDocketClient,
+  type ContractTransport,
+} from "@docket/contracts";
 import { buildApiApp } from "./server.js";
 
 const productionApi = {
@@ -40,5 +45,125 @@ describe("request-scoped adapter guards", () => {
     });
     expect(queryAttempt.statusCode).toBe(400);
     expect(queryAttempt.body).not.toContain("fixed");
+  });
+});
+
+function clientFor(
+  app: Awaited<ReturnType<typeof buildApiApp>>,
+): ReturnType<typeof createDocketClient> {
+  const transport: ContractTransport = async ({ method, path }) => {
+    const response = await app.inject({
+      method: method as "GET",
+      url: path,
+    });
+    return { status: response.statusCode, body: response.json() };
+  };
+  return createDocketClient(transport);
+}
+
+describe("generated identity-session client and runtime boundary", () => {
+  it("validates input and an account-self projection across the real API route", async () => {
+    const app = await buildApiApp(productionApi, {
+      resolveSessionAuthority: () => ({
+        userId: "account_fixture_001",
+        sessionId: "session_fixture_001",
+        authorityVersion: "authority-v1",
+        currentAuthorityVersion: "authority-v1",
+      }),
+    });
+    apps.push(app);
+
+    await expect(
+      clientFor(app).getIdentitySession({ audience: "self" }),
+    ).resolves.toEqual({
+      authenticated: true,
+      userId: "account_fixture_001",
+      audience: "self",
+    });
+  });
+
+  it("returns the stable envelope for denied and stale server authority", async () => {
+    const denied = await buildApiApp(productionApi, {
+      resolveSessionAuthority: () => null,
+    });
+    const stale = await buildApiApp(productionApi, {
+      resolveSessionAuthority: () => ({
+        userId: "account_fixture_001",
+        sessionId: "session_fixture_001",
+        authorityVersion: "authority-v1",
+        currentAuthorityVersion: "authority-v2",
+      }),
+    });
+    apps.push(denied, stale);
+
+    await expect(
+      clientFor(denied).getIdentitySession({ audience: "self" }),
+    ).rejects.toMatchObject({
+      name: "ContractClientError",
+      code: "AUTHENTICATION_REQUIRED",
+    });
+    await expect(
+      clientFor(stale).getIdentitySession({ audience: "self" }),
+    ).rejects.toMatchObject({
+      name: "ContractClientError",
+      code: "AUTHORITY_STALE",
+    });
+  });
+
+  it("rejects asserted invalid input before transport and invalid audience output after transport", async () => {
+    let requests = 0;
+    const invalidInputClient = createDocketClient(() => {
+      requests += 1;
+      return Promise.resolve({ status: 200, body: {} });
+    });
+    const asserted = { audience: "administrator" } as unknown as {
+      audience: "self";
+    };
+
+    await expect(
+      invalidInputClient.getIdentitySession(asserted),
+    ).rejects.toMatchObject({
+      name: "ContractClientError",
+      code: "REQUEST_INVALID",
+    });
+    expect(requests).toBe(0);
+
+    const invalidOutputClient = createDocketClient(() =>
+      Promise.resolve({
+        status: 200,
+        body: {
+          authenticated: true,
+          userId: "account_fixture_001",
+          audience: "administrator",
+          privateAuthority: "must-not-cross-the-projection",
+        },
+      }),
+    );
+    await expect(
+      invalidOutputClient.getIdentitySession({ audience: "self" }),
+    ).rejects.toBeInstanceOf(ContractClientError);
+    await expect(
+      invalidOutputClient.getIdentitySession({ audience: "self" }),
+    ).rejects.toMatchObject({ code: "RESPONSE_INVALID" });
+  });
+
+  it("treats equivalent read retries as deterministic and side-effect free", async () => {
+    const app = await buildApiApp(productionApi, {
+      resolveSessionAuthority: () => ({
+        userId: "account_fixture_001",
+        sessionId: "session_fixture_001",
+        authorityVersion: "authority-v1",
+        currentAuthorityVersion: "authority-v1",
+      }),
+    });
+    apps.push(app);
+    const client = clientFor(app);
+
+    const [first, second] = await Promise.all([
+      client.getIdentitySession({ audience: "self" }),
+      client.getIdentitySession({ audience: "self" }),
+    ]);
+    expect(first).toEqual(second);
+    expect(first.userId).toBe("account_fixture_001");
   });
 });

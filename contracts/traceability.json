@@ -1,0 +1,46 @@
+{
+  "requirements": {
+    "R1-AUTH-001": {
+      "artifacts": [
+        "contracts/diagrams/identity-access-states.mmd",
+        "contracts/json-schema/identity-access.v1.json",
+        "contracts/matrices/identity-access-audiences.md",
+        "contracts/matrices/identity-access-authorization.md",
+        "contracts/matrices/identity-access-states.md",
+        "contracts/openapi/v1.json",
+        "contracts/reference/identity-access.md",
+        "contracts/vectors/index.json",
+        "packages/contracts/src/generated.ts"
+      ],
+      "module": "identity-access",
+      "operations": [
+        "getIdentitySession"
+      ],
+      "vectors": [
+        "identity-session-authentication-required-v1",
+        "identity-session-self-success-v1"
+      ]
+    },
+    "R1-PRIV-001": {
+      "artifacts": [
+        "contracts/diagrams/identity-access-states.mmd",
+        "contracts/json-schema/identity-access.v1.json",
+        "contracts/matrices/identity-access-audiences.md",
+        "contracts/matrices/identity-access-authorization.md",
+        "contracts/matrices/identity-access-states.md",
+        "contracts/openapi/v1.json",
+        "contracts/reference/identity-access.md",
+        "contracts/vectors/index.json",
+        "packages/contracts/src/generated.ts"
+      ],
+      "module": "identity-access",
+      "operations": [
+        "getIdentitySession"
+      ],
+      "vectors": [
+        "identity-session-self-success-v1"
+      ]
+    }
+  },
+  "schemaVersion": 1
+}

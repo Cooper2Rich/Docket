@@ -30,8 +30,9 @@
     "security:check": "node tools/unavailable-command.mjs security:check R1-FND-004-A",
     "accessibility:check": "node tools/unavailable-command.mjs accessibility:check R1-FND-005-A",
     "artifacts:check": "node tools/unavailable-command.mjs artifacts:check R1-FND-005-B",
-    "contracts:generate": "node tools/unavailable-command.mjs contracts:generate R1-FND-003-A",
-    "contracts:check": "node tools/unavailable-command.mjs contracts:check R1-FND-003-A",
+    "contracts": "node tools/contracts/cli.mjs",
+    "contracts:generate": "pnpm contracts generate",
+    "contracts:check": "pnpm contracts check",
     "migration:check": "pnpm --filter @docket/database build && node packages/database/dist/cli.js check",
     "migrate": "pnpm --filter @docket/database build && pnpm --filter @docket/migrate build && node apps/migrate/dist/index.js"
   },
