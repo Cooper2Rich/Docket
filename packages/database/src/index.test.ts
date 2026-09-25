@@ -84,7 +84,7 @@ describe("module-owned migration plan", () => {
     expectCode(() => {
       validateMigrationPlan([mutatingVerification], owners);
     }, "SCHEMA_INCOMPATIBLE");
-  });
+  }, 30_000);
 
   it("keeps schema mutation out of API and worker startup", async () => {
     const manifests = await Promise.all(

@@ -87,13 +87,30 @@ export async function verifyItem({
     : null,
 }) {
   const resolvedContractPath = path.resolve(workspaceRoot, contractPath);
-  const { item } = await loadContract(resolvedContractPath, itemId);
   const suite = await suiteLoader(itemId);
-  const criteria = await executeSuite(item, suite, {
-    workspaceRoot,
+  const { item, criterionRegistry } = await loadContract(
+    resolvedContractPath,
+    itemId,
+    {
+      suites: [
+        {
+          itemId: suite.itemId,
+          contractSha256: suite.contractSha256,
+          acceptanceIds: suite.criteria?.map(({ id }) => id) ?? [],
+        },
+      ],
+    },
+  );
+  const criteria = await executeSuite(
     item,
-    testedHead,
-  });
+    suite,
+    {
+      workspaceRoot,
+      item,
+      testedHead,
+    },
+    criterionRegistry.acceptanceIdsForItem(itemId),
+  );
   const evidenceDirectory = path.join(evidenceRoot, itemId);
   const receipts =
     checkReceipts ?? (await readExistingCheckReceipts(item, evidenceDirectory));

@@ -1,6 +1,11 @@
 import { mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { format } from "prettier";
+import {
+  createCriterionRegistry,
+  CriterionRegistryError,
+  RELEASE_REQUIREMENT_IDS,
+} from "../verification/criterion-registry.mjs";
 
 export class ContractGenerationError extends Error {
   constructor(code, message, details = []) {
@@ -217,6 +222,23 @@ function addArtifact(artifacts, owners, relativePath, content, owner) {
   artifacts.set(normalized, content);
 }
 
+export function assertArtifactOwnership(artifacts, owners) {
+  const unowned = [...artifacts.keys()].filter(
+    (artifact) => !owners.has(artifact) || !owners.get(artifact),
+  );
+  const orphanOwners = [...owners.keys()].filter(
+    (artifact) => !artifacts.has(artifact),
+  );
+  if (unowned.length > 0 || orphanOwners.length > 0) {
+    const details = [...unowned, ...orphanOwners].sort();
+    throw new ContractGenerationError(
+      "ARTIFACT_UNOWNED",
+      `generated artifacts do not have exact ownership: ${details.join(", ")}`,
+      details,
+    );
+  }
+}
+
 function allSchemas(sources) {
   return Object.fromEntries(
     sources
@@ -379,35 +401,151 @@ function readableReference(source) {
   return `# ${source.module} contract reference\n\nGenerated from the module-owned executable definition at contract version \`${source.version}\`.\n\n${schemas}\n`;
 }
 
-function traceabilityManifest(sources, artifactOwners) {
-  const requirements = {};
-  for (const source of sources) {
-    const ownedArtifacts = [...artifactOwners]
-      .filter(([, owner]) => owner === source.module || owner === "root")
-      .map(([artifact]) => artifact)
-      .sort();
-    for (const requirement of [...source.requirements].sort()) {
-      if (requirements[requirement]) {
-        throw new ContractGenerationError(
-          "REQUIREMENT_UNTRACED",
-          `${requirement} is owned by more than one module`,
-        );
-      }
-      requirements[requirement] = {
-        module: source.module,
-        operations: source.operations
-          .filter((operation) => operation.requirements.includes(requirement))
-          .map(({ operationId }) => operationId)
-          .sort(),
-        vectors: source.goldenVectors
-          .filter((vector) => vector.requirements.includes(requirement))
-          .map(({ id }) => id)
-          .sort(),
-        artifacts: ownedArtifacts,
-      };
-    }
+function traceabilityManifest(sources, artifactOwners, traceability) {
+  if (!traceability?.queueContract || !traceability?.sourceCoverage) {
+    throw new ContractGenerationError(
+      "REQUIREMENT_UNTRACED",
+      "queue contract and source coverage are required for traceability",
+    );
   }
-  return { schemaVersion: 1, requirements };
+  let registry;
+  try {
+    registry = createCriterionRegistry(traceability.queueContract, {
+      sourceCoverage: traceability.sourceCoverage,
+      suites: traceability.suites,
+    });
+  } catch (error) {
+    if (error instanceof CriterionRegistryError) {
+      throw new ContractGenerationError(
+        error.code,
+        error.message,
+        error.details,
+      );
+    }
+    throw error;
+  }
+  const vectors = sources.flatMap((source) =>
+    source.goldenVectors.map((vector) => ({
+      ...vector,
+      module: source.module,
+    })),
+  );
+  if (vectors.length === 0) {
+    throw new ContractGenerationError(
+      "GOLDEN_CORPUS_EMPTY",
+      "the generated golden corpus is empty",
+    );
+  }
+
+  const criteria = Object.fromEntries(
+    [...registry.criteria]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([id, criterion]) => [id, criterion]),
+  );
+  const requirements = {};
+  for (const requirement of RELEASE_REQUIREMENT_IDS) {
+    const criterionIds = registry.criterionIdsForRequirement(requirement);
+    const requirementCriteria = criterionIds.map((id) => criteria[id]);
+    const moduleSources = sources.filter((source) =>
+      source.requirements.includes(requirement),
+    );
+    requirements[requirement] = {
+      modules: [
+        ...new Set(requirementCriteria.map(({ module }) => module)),
+      ].sort(),
+      contracts: [
+        ...new Set(requirementCriteria.map(({ contract }) => contract.path)),
+      ].sort(),
+      acceptanceCriteria: criterionIds,
+      implementedCriteria: requirementCriteria
+        .filter(
+          ({ coverageStatus }) => coverageStatus === "implemented_foundation",
+        )
+        .map(({ id }) => id),
+      pendingCriteria: requirementCriteria
+        .filter(
+          ({ coverageStatus }) => coverageStatus !== "implemented_foundation",
+        )
+        .map(({ id }) => id),
+      operations: moduleSources
+        .flatMap((source) =>
+          source.operations
+            .filter((operation) => operation.requirements.includes(requirement))
+            .map(({ operationId }) => operationId),
+        )
+        .sort(),
+      vectors: moduleSources
+        .flatMap((source) =>
+          source.goldenVectors
+            .filter((vector) => vector.requirements.includes(requirement))
+            .map(({ id }) => id),
+        )
+        .sort(),
+    };
+  }
+
+  const artifacts = Object.fromEntries(
+    [...artifactOwners]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([artifact, owner]) => [artifact, { owner }]),
+  );
+  if (Object.keys(artifacts).length !== artifactOwners.size) {
+    throw new ContractGenerationError(
+      "ARTIFACT_UNOWNED",
+      "one or more generated artifacts have no unique owner",
+    );
+  }
+
+  const coverageStatuses = [...registry.criteria.values()].reduce(
+    (counts, { coverageStatus }) => ({
+      ...counts,
+      [coverageStatus]: (counts[coverageStatus] ?? 0) + 1,
+    }),
+    {},
+  );
+  return {
+    schemaVersion: 2,
+    summary: {
+      requirements: RELEASE_REQUIREMENT_IDS.length,
+      acceptanceCriteria: registry.criteria.size,
+      excludedSources: Object.keys(registry.excludedSources).length,
+      goldenVectors: vectors.length,
+      coverageStatuses,
+    },
+    requirements,
+    criteria,
+    artifacts,
+    excludedSources: registry.excludedSources,
+  };
+}
+
+function traceabilityReport(manifest) {
+  const rows = RELEASE_REQUIREMENT_IDS.map((requirement) => {
+    const entry = manifest.requirements[requirement];
+    return [
+      requirement,
+      entry.modules.join(", "),
+      entry.implementedCriteria.length,
+      entry.pendingCriteria.length,
+      entry.vectors.length,
+    ];
+  });
+  return `# Release 1 traceability report
+
+Generated from the independently pinned queue contract, source-coverage index, committed verification-suite registry, and module-owned executable contracts. Pending entries are obligations, not claims of implemented behavior.
+
+${markdownTable(
+  [
+    "Requirement",
+    "Owning modules",
+    "Implemented criteria",
+    "Pending criteria",
+    "Golden vectors",
+  ],
+  rows,
+)}
+Active acceptance criteria: ${manifest.summary.acceptanceCriteria}. Explicit deferred or superseded source exclusions: ${manifest.summary.excludedSources}.
+`;
 }
 
 function stateDiagram(source) {
@@ -459,7 +597,7 @@ function generatedClient(sources) {
   return `// Generated by tools/contracts/generator.mjs. Do not edit.\nimport { Type, type Static } from "@sinclair/typebox";\nimport { Value } from "@sinclair/typebox/value";\n\n${schemaExports}\n\nexport interface ContractTransportResponse { readonly status: number; readonly body: unknown; }\nexport type ContractTransport = (request: Readonly<{ method: string; path: string }>) => Promise<ContractTransportResponse>;\n\nexport class ContractClientError extends Error {\n  constructor(public readonly code: string, message: string, public readonly requestId?: string) {\n    super(message);\n    this.name = "ContractClientError";\n  }\n}\n\nexport function createDocketClient(transport: ContractTransport) {\n  return {\n${clients}\n  };\n}\n`;
 }
 
-export function generateArtifacts(sources) {
+export function generateArtifacts(sources, traceability) {
   validateSources(sources);
   const orderedSources = [...sources].sort((left, right) =>
     left.module.localeCompare(right.module),
@@ -550,21 +688,37 @@ export function generateArtifacts(sources) {
     generatedClient(orderedSources),
     "root",
   );
+  const completeOwners = new Map(artifactOwners);
+  completeOwners.set("contracts/traceability.json", "root");
+  completeOwners.set("contracts/reference/traceability.md", "root");
+  const manifest = traceabilityManifest(
+    orderedSources,
+    completeOwners,
+    traceability,
+  );
   addArtifact(
     artifacts,
     artifactOwners,
     "contracts/traceability.json",
-    stableJson(traceabilityManifest(orderedSources, artifactOwners)),
+    stableJson(manifest),
     "root",
   );
+  addArtifact(
+    artifacts,
+    artifactOwners,
+    "contracts/reference/traceability.md",
+    traceabilityReport(manifest),
+    "root",
+  );
+  assertArtifactOwnership(artifacts, artifactOwners);
   return {
     artifacts,
     sourceModules: orderedSources.map(({ module }) => module),
   };
 }
 
-async function materializeArtifacts(sources) {
-  const result = generateArtifacts(sources);
+async function materializeArtifacts(sources, traceability) {
+  const result = generateArtifacts(sources, traceability);
   const artifacts = new Map(result.artifacts);
   for (const [relativePath, content] of artifacts) {
     if (relativePath.endsWith(".ts")) {
@@ -642,8 +796,8 @@ async function readExisting(filePath) {
   }
 }
 
-export async function checkArtifacts(workspaceRoot, sources) {
-  const result = await materializeArtifacts(sources);
+export async function checkArtifacts(workspaceRoot, sources, traceability) {
+  const result = await materializeArtifacts(sources, traceability);
   const expectedOpenApi = result.artifacts.get("contracts/openapi/v1.json");
   const existingOpenApi = await readExisting(
     path.join(workspaceRoot, "contracts/openapi/v1.json"),
@@ -677,8 +831,8 @@ export async function checkArtifacts(workspaceRoot, sources) {
   return result;
 }
 
-export async function writeArtifacts(workspaceRoot, sources) {
-  const result = await materializeArtifacts(sources);
+export async function writeArtifacts(workspaceRoot, sources, traceability) {
+  const result = await materializeArtifacts(sources, traceability);
   for (const [relativePath, content] of result.artifacts) {
     const destination = path.join(workspaceRoot, relativePath);
     await mkdir(path.dirname(destination), { recursive: true });

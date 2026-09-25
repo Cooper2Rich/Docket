@@ -26,6 +26,8 @@ export default defineConfig({
       "**/dist/**",
       "**/*.integration.test.{js,ts}",
     ],
+    fileParallelism: false,
+    maxWorkers: 1,
     passWithNoTests: false,
   },
 });

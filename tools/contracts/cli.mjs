@@ -1,7 +1,13 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { identityAccessContractSource } from "../../packages/identity-access/src/contracts.ts";
-import { gitHead, sha256, writeJsonAtomic } from "../lib/workspace.mjs";
+import {
+  gitHead,
+  readJson,
+  sha256,
+  writeJsonAtomic,
+} from "../lib/workspace.mjs";
+import { registeredSuiteContracts } from "../verification/registry.mjs";
 import {
   checkArtifacts,
   ContractGenerationError,
@@ -27,10 +33,29 @@ export async function runContractsCli(
   try {
     const startedAt = now();
     const sources = [identityAccessContractSource];
+    const traceability = {
+      queueContract: await readJson(
+        path.join(
+          workspaceRoot,
+          "docs",
+          "implementation",
+          "queue-contract.json",
+        ),
+      ),
+      sourceCoverage: await readJson(
+        path.join(
+          workspaceRoot,
+          "docs",
+          "implementation",
+          "source-coverage.json",
+        ),
+      ),
+      suites: await registeredSuiteContracts(),
+    };
     const result =
       command === "generate"
-        ? await writeArtifacts(workspaceRoot, sources)
-        : await checkArtifacts(workspaceRoot, sources);
+        ? await writeArtifacts(workspaceRoot, sources, traceability)
+        : await checkArtifacts(workspaceRoot, sources, traceability);
     if (command === "check") {
       const artifactNames = [...result.artifacts.keys()].sort();
       await writeJsonAtomic(
