@@ -15,6 +15,25 @@ function clone(value) {
 }
 
 describe("required-check workflow policy", () => {
+  it("keeps isolated check and unit jobs build-complete from a frozen workspace", async () => {
+    const [packageManifest, nxConfiguration] = await Promise.all(
+      ["package.json", "nx.json"].map(async (file) =>
+        JSON.parse(await readFile(path.join(workspaceRoot, file), "utf8")),
+      ),
+    );
+
+    expect(nxConfiguration.targetDefaults.typecheck.dependsOn).toEqual([
+      "^build",
+      "^typecheck",
+    ]);
+    expect(packageManifest.scripts["test:unit"]).toBe(
+      "node tools/run-check.mjs unit pnpm run test:unit:workspace",
+    );
+    expect(packageManifest.scripts["test:unit:workspace"]).toBe(
+      "pnpm exec nx run-many -t build --all && pnpm exec vitest run --reporter=verbose",
+    );
+  });
+
   it("publishes every exact context with frozen local-command parity", async () => {
     const result = await validateRequiredWorkflowFile(workspaceRoot);
 

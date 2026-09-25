@@ -65,7 +65,12 @@ for (const state of states) {
     page,
   }) => {
     await page.addInitScript({ content: axe.source });
-    await page.goto(state === "ready" ? "/" : `/?state=${state}`);
+    await page.goto(state === "ready" ? "/" : `/?state=${state}`, {
+      waitUntil: "networkidle",
+    });
+    await expect(page.getByRole("status").first()).toContainText(
+      `Current rendered state: ${state}`,
+    );
     const violations = await page.evaluate(async () => {
       const engine = (
         globalThis as typeof globalThis & {
