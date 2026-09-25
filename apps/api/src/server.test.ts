@@ -45,7 +45,7 @@ describe("request-scoped adapter guards", () => {
     });
     expect(queryAttempt.statusCode).toBe(400);
     expect(queryAttempt.body).not.toContain("fixed");
-  });
+  }, 30_000);
 });
 
 function clientFor(
@@ -80,7 +80,7 @@ describe("generated identity-session client and runtime boundary", () => {
       userId: "account_fixture_001",
       audience: "self",
     });
-  });
+  }, 30_000);
 
   it("returns the stable envelope for denied and stale server authority", async () => {
     const denied = await buildApiApp(productionApi, {

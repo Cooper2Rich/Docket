@@ -10,7 +10,7 @@ status_values:
 - verification
 - done
 execution_authorized: true
-next_item: R1-FND-004-B
+next_item: R1-FND-005-A
 first_item: R1-FND-001-A
 bootstrap_gate: GATE-BOOTSTRAP
 groups:
@@ -188,7 +188,7 @@ groups:
 - id: R1-FND-004
   order: 40
   title: Implement contract generation and traceability validation
-  status: blocked
+  status: done
   owner: contracts
   depends_on: []
   requirements:
@@ -2763,7 +2763,7 @@ items:
   parent: R1-FND-004
   order: 80
   title: Connect requirements, acceptance evidence, and generated traceability
-  status: ready
+  status: done
   owner: contracts
   stage: 01 Foundations
   depends_on:
@@ -2775,13 +2775,15 @@ items:
   - R1-PRIV-001
   spec: docs/implementation/items/R1-FND-004-B.md
   blocking_reason: null
-  completion: null
+  completion:
+    contract_sha256: 74378f5ed74e3ffc9f81ab0e591bac64258f01317cfe36c5ce6f78114f941116
+    verification: controller-must-confirm-integration
 - id: R1-FND-005-A
   kind: leaf
   parent: R1-FND-005
   order: 90
   title: Run the eleven required checks on current pull-request heads
-  status: blocked
+  status: ready
   owner: runtime
   stage: 01 Foundations
   depends_on:
@@ -2790,7 +2792,7 @@ items:
   requirements:
   - R1-OPS-001
   spec: docs/implementation/items/R1-FND-005-A.md
-  blocking_reason: Predecessor has not been implemented and verified.
+  blocking_reason: null
   completion: null
 - id: R1-FND-005-B
   kind: leaf

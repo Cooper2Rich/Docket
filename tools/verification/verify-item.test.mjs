@@ -17,9 +17,37 @@ const item = {
   checks: ["item", "build", "check", "unit"].map((id) => ({
     id,
     command: `pnpm ${id}`,
+    ...(id === "item" ? { acceptance_ids: [] } : {}),
   })),
   contract_sha256: "fixture-contract-digest",
 };
+item.checks[0].acceptance_ids = item.acceptance_ids;
+
+function contractFixture() {
+  return {
+    items: { [item.id]: item },
+    execution_graph: {
+      items: [
+        {
+          id: item.id,
+          kind: "leaf",
+          owner: "foundation",
+          stage: "01 Foundations",
+          requirements: [
+            "R1-AUTH-001",
+            "R1-COMP-001",
+            "R1-CONS-001",
+            "R1-DATA-001",
+            "R1-LIFE-001",
+            "R1-MSG-001",
+            "R1-OPS-001",
+            "R1-PRIV-001",
+          ],
+        },
+      ],
+    },
+  };
+}
 
 function passingSuite() {
   return {
@@ -60,7 +88,7 @@ describe("verify:item fail-closed behavior", () => {
   it("exits nonzero for an unknown item", async () => {
     const root = await mkdtemp(path.join(tmpdir(), "docket-verify-"));
     const contractPath = path.join(root, "contract.json");
-    await writeJsonAtomic(contractPath, { items: { [item.id]: item } });
+    await writeJsonAtomic(contractPath, contractFixture());
     const result = await captureExit(() =>
       loadContract(contractPath, "R1-UNKNOWN-001-A"),
     );
@@ -144,7 +172,7 @@ describe("verify:item fail-closed behavior", () => {
   it("exits nonzero when a required check artifact is missing", async () => {
     const root = await mkdtemp(path.join(tmpdir(), "docket-verify-"));
     const contractPath = path.join(root, "contract.json");
-    await writeJsonAtomic(contractPath, { items: { [item.id]: item } });
+    await writeJsonAtomic(contractPath, contractFixture());
     const result = await captureExit(() =>
       verifyItem({
         workspaceRoot: root,
@@ -167,7 +195,7 @@ describe("verify:item passing evidence", () => {
     const evidenceRoot = path.join(root, ".ralph", "evidence");
     const evidenceDirectory = path.join(evidenceRoot, item.id);
     const testedHead = "b".repeat(40);
-    await writeJsonAtomic(contractPath, { items: { [item.id]: item } });
+    await writeJsonAtomic(contractPath, contractFixture());
     for (const checkId of ["build", "check", "unit"]) {
       await writeJsonAtomic(path.join(evidenceDirectory, `${checkId}.json`), {
         item_id: item.id,

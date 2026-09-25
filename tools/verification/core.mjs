@@ -1,4 +1,8 @@
 import { readFile } from "node:fs/promises";
+import {
+  createCriterionRegistry,
+  CriterionRegistryError,
+} from "./criterion-registry.mjs";
 
 export class VerificationError extends Error {
   constructor(code, message) {
@@ -27,7 +31,7 @@ export function exactSet(actual, expected, code, label) {
   }
 }
 
-export async function loadContract(contractPath, itemId) {
+export async function loadContract(contractPath, itemId, registryOptions = {}) {
   let contract;
   try {
     contract = JSON.parse(await readFile(contractPath, "utf8"));
@@ -55,10 +59,23 @@ export async function loadContract(contractPath, itemId) {
       "CONTRACT_ITEM_MISMATCH",
       `${itemId} resolves to ${item.id ?? "<missing>"}`,
     );
-  return { contract, item };
+  let criterionRegistry;
+  try {
+    criterionRegistry = createCriterionRegistry(contract, registryOptions);
+  } catch (error) {
+    if (error instanceof CriterionRegistryError) {
+      throw new VerificationError(error.code, error.message);
+    }
+    throw error;
+  }
+  return { contract, item, criterionRegistry };
 }
 
-export function validateSuiteContract(item, suite) {
+export function validateSuiteContract(
+  item,
+  suite,
+  expectedAcceptanceIds = item.acceptance_ids,
+) {
   if (!suite || suite.itemId !== item.id)
     throw new VerificationError(
       "SUITE_ITEM_MISMATCH",
@@ -74,7 +91,7 @@ export function validateSuiteContract(item, suite) {
     throw new VerificationError("SUITE_INVALID", "criteria must be an array");
   exactSet(
     suite.criteria.map(({ id }) => id),
-    item.acceptance_ids,
+    expectedAcceptanceIds,
     "ACCEPTANCE_ID_SET_MISMATCH",
     "acceptance criteria",
   );
@@ -150,8 +167,13 @@ export function validateScenarioResult(criterionId, scenario, result) {
   };
 }
 
-export async function executeSuite(item, suite, context) {
-  validateSuiteContract(item, suite);
+export async function executeSuite(
+  item,
+  suite,
+  context,
+  expectedAcceptanceIds = item.acceptance_ids,
+) {
+  validateSuiteContract(item, suite, expectedAcceptanceIds);
   const criteria = [];
   for (const criterion of suite.criteria) {
     const scenarios = [];
