@@ -10476,11 +10476,11 @@
         "path": "docs/implementation/items/R1-FND-005-B.md",
         "sha256": "492416336522b7c5191200288233da81b6ddbd8c6cbd9c2219bebb2cae1fb251"
       },
-      "coverageStatus": "pending_foundation",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-FND-005-B/acceptance.json",
         "criterion": ".ralph/evidence/R1-FND-005-B/ac-01.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-FND-005-B/AC-01",
       "itemId": "R1-FND-005-B",
@@ -10492,7 +10492,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-FND-005-B --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-fnd-005-b.mjs"
       }
     },
@@ -10501,11 +10501,11 @@
         "path": "docs/implementation/items/R1-FND-005-B.md",
         "sha256": "492416336522b7c5191200288233da81b6ddbd8c6cbd9c2219bebb2cae1fb251"
       },
-      "coverageStatus": "pending_foundation",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-FND-005-B/acceptance.json",
         "criterion": ".ralph/evidence/R1-FND-005-B/ac-02.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-FND-005-B/AC-02",
       "itemId": "R1-FND-005-B",
@@ -10517,7 +10517,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-FND-005-B --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-fnd-005-b.mjs"
       }
     },
@@ -10526,11 +10526,11 @@
         "path": "docs/implementation/items/R1-FND-005-B.md",
         "sha256": "492416336522b7c5191200288233da81b6ddbd8c6cbd9c2219bebb2cae1fb251"
       },
-      "coverageStatus": "pending_foundation",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-FND-005-B/acceptance.json",
         "criterion": ".ralph/evidence/R1-FND-005-B/ac-03.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-FND-005-B/AC-03",
       "itemId": "R1-FND-005-B",
@@ -10542,7 +10542,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-FND-005-B --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-fnd-005-b.mjs"
       }
     },
@@ -10551,11 +10551,11 @@
         "path": "docs/implementation/items/R1-FND-005-B.md",
         "sha256": "492416336522b7c5191200288233da81b6ddbd8c6cbd9c2219bebb2cae1fb251"
       },
-      "coverageStatus": "pending_foundation",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-FND-005-B/acceptance.json",
         "criterion": ".ralph/evidence/R1-FND-005-B/ac-04.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-FND-005-B/AC-04",
       "itemId": "R1-FND-005-B",
@@ -10567,7 +10567,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-FND-005-B --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-fnd-005-b.mjs"
       }
     },
@@ -21405,7 +21405,11 @@
         "R1-FND-005-A/AC-01",
         "R1-FND-005-A/AC-02",
         "R1-FND-005-A/AC-03",
-        "R1-FND-005-A/AC-04"
+        "R1-FND-005-A/AC-04",
+        "R1-FND-005-B/AC-01",
+        "R1-FND-005-B/AC-02",
+        "R1-FND-005-B/AC-03",
+        "R1-FND-005-B/AC-04"
       ],
       "modules": [
         "database",
@@ -21415,10 +21419,6 @@
       ],
       "operations": [],
       "pendingCriteria": [
-        "R1-FND-005-B/AC-01",
-        "R1-FND-005-B/AC-02",
-        "R1-FND-005-B/AC-03",
-        "R1-FND-005-B/AC-04",
         "R1-GOV-001-A/AC-01",
         "R1-GOV-001-A/AC-02",
         "R1-GOV-001-A/AC-03",
@@ -22212,9 +22212,8 @@
   "summary": {
     "acceptanceCriteria": 460,
     "coverageStatuses": {
-      "implemented_foundation": 36,
-      "pending_domain": 420,
-      "pending_foundation": 4
+      "implemented_foundation": 40,
+      "pending_domain": 420
     },
     "excludedSources": 98,
     "goldenVectors": 2,

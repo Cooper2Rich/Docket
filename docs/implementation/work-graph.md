@@ -135,8 +135,8 @@ Milestones group related capabilities. Execution order follows actual prerequisi
 - R1-FND-004-A: done
 - R1-FND-004-B: done
 - R1-FND-005-A: done
-- R1-FND-005-B: ready
-- R1-IDA-001-A: blocked
+- R1-FND-005-B: done
+- R1-IDA-001-A: ready
 - R1-IDA-001-B: blocked
 - R1-IDA-002-A: blocked
 - R1-COM-001-A: blocked

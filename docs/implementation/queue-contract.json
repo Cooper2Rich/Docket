@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "d78f98c9abafc011a061f4e2d6d216ea90ab1451ae261a597dce9467297c9906",
+  "graph_sha256": "46d94edec51de1617d9a6ebb4ef8a606369e1a71b8543f3d0de0107fdbbdb63f",
   "execution_graph": {
     "items": [
       {
@@ -16109,7 +16109,7 @@
         "parent": "R1-FND-005",
         "order": 100,
         "title": "Verify main protection and bootstrap-to-CI completion gates",
-        "status": "ready",
+        "status": "done",
         "owner": "runtime",
         "stage": "01 Foundations",
         "depends_on": [
@@ -16123,7 +16123,10 @@
         ],
         "spec": "docs/implementation/items/R1-FND-005-B.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "492416336522b7c5191200288233da81b6ddbd8c6cbd9c2219bebb2cae1fb251",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-IDA-001-A",
@@ -16131,7 +16134,7 @@
         "parent": "R1-IDA-001",
         "order": 110,
         "title": "Authenticate Clerk identities and preserve Account identity",
-        "status": "blocked",
+        "status": "ready",
         "owner": "identity-access",
         "stage": "02 Walking skeleton",
         "depends_on": [
@@ -16144,7 +16147,7 @@
           "R1-PRIV-001"
         ],
         "spec": "docs/implementation/items/R1-IDA-001-A.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {
@@ -18625,7 +18628,7 @@
           "R1-FND-005-A",
           "R1-FND-005-B"
         ],
-        "status": "blocked"
+        "status": "done"
       },
       {
         "id": "R1-IDA-001",

@@ -10,7 +10,7 @@ Generated from the independently pinned queue contract, source-coverage index, c
 | R1-DATA-001 | database, registration, workflows | 8 | 16 | 0 |
 | R1-LIFE-001 | competition, identity-access, publication, registration, runtime, schools, tournaments, workflows | 16 | 340 | 0 |
 | R1-MSG-001 | communications, competition, publication, registration, runtime, workflows | 0 | 72 | 0 |
-| R1-OPS-001 | database, governance, runtime, workflows | 20 | 60 | 0 |
+| R1-OPS-001 | database, governance, runtime, workflows | 24 | 56 | 0 |
 | R1-PRIV-001 | communications, competition, contracts, governance, identity-access, publication, registration, tournaments, workflows | 8 | 304 | 1 |
 
 Active acceptance criteria: 460. Explicit deferred or superseded source exclusions: 98.
