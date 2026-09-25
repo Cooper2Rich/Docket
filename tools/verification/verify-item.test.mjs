@@ -3,7 +3,12 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { sha256, writeJsonAtomic } from "../lib/workspace.mjs";
-import { executeSuite, loadContract, validateSuiteContract } from "./core.mjs";
+import {
+  executeSuite,
+  loadContract,
+  validateCheckReceipts,
+  validateSuiteContract,
+} from "./core.mjs";
 import { runCli, verifyItem } from "./verify-item.mjs";
 
 const item = {
@@ -185,6 +190,38 @@ describe("verify:item fail-closed behavior", () => {
     );
     expect(result.exitCode).toBe(1);
     expect(result.errors[0]).toContain("MISSING_CHECK_ARTIFACT");
+  });
+
+  it("rejects nonpassing, skipped, and superseded-head check receipts", () => {
+    const passingReceipt = (checkId) => ({
+      check_id: checkId,
+      tested_head: "current-head",
+      passed: true,
+      exit_code: 0,
+      assertions: 1,
+      skipped: 0,
+      test_names: [checkId],
+    });
+    const receipts = Object.fromEntries(
+      item.checks.map(({ id }) => [id, passingReceipt(id)]),
+    );
+
+    receipts.build.passed = false;
+    expect(() =>
+      validateCheckReceipts(item, receipts, "current-head"),
+    ).toThrowError(expect.objectContaining({ code: "CHECK_FAILED" }));
+
+    receipts.build = passingReceipt("build");
+    receipts.build.skipped = 1;
+    expect(() =>
+      validateCheckReceipts(item, receipts, "current-head"),
+    ).toThrowError(expect.objectContaining({ code: "CHECK_FAILED" }));
+
+    receipts.build = passingReceipt("build");
+    receipts.build.tested_head = "superseded-head";
+    expect(() =>
+      validateCheckReceipts(item, receipts, "current-head"),
+    ).toThrowError(expect.objectContaining({ code: "STALE_CHECK_RECEIPT" }));
   });
 });
 

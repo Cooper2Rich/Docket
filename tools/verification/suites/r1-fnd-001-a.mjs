@@ -185,7 +185,7 @@ export default {
             focusedVitest(
               workspaceRoot,
               "tools/verification/verify-item.test.mjs",
-              "10 passed",
+              "11 passed",
             ),
         },
       ],
