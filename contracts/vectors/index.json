@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "vectors": [
+    {
+      "contractVersion": "1.0.0",
+      "expected": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "message": "Authentication is required.",
+        "requestId": "request_fixture_001"
+      },
+      "id": "identity-session-authentication-required-v1",
+      "input": {
+        "audience": "self"
+      },
+      "module": "identity-access",
+      "provenance": "synthetic-foundation-fixture",
+      "requirements": [
+        "R1-AUTH-001"
+      ]
+    },
+    {
+      "contractVersion": "1.0.0",
+      "expected": {
+        "audience": "self",
+        "authenticated": true,
+        "userId": "account_fixture_001"
+      },
+      "id": "identity-session-self-success-v1",
+      "input": {
+        "audience": "self"
+      },
+      "module": "identity-access",
+      "provenance": "synthetic-foundation-fixture",
+      "requirements": [
+        "R1-AUTH-001",
+        "R1-PRIV-001"
+      ]
+    }
+  ]
+}

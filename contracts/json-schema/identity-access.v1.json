@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module": "identity-access",
+  "schemas": {
+    "IdentitySessionProjection": {
+      "$id": "IdentitySessionProjection.v1",
+      "additionalProperties": false,
+      "properties": {
+        "audience": {
+          "const": "self",
+          "type": "string"
+        },
+        "authenticated": {
+          "const": true,
+          "type": "boolean"
+        },
+        "userId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "authenticated",
+        "userId",
+        "audience"
+      ],
+      "type": "object"
+    },
+    "IdentitySessionRequest": {
+      "$id": "IdentitySessionRequest.v1",
+      "additionalProperties": false,
+      "properties": {
+        "audience": {
+          "const": "self",
+          "type": "string"
+        }
+      },
+      "required": [
+        "audience"
+      ],
+      "type": "object"
+    },
+    "StableErrorEnvelope": {
+      "$id": "StableErrorEnvelope.v1",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "anyOf": [
+            {
+              "const": "AUTHENTICATION_REQUIRED",
+              "type": "string"
+            },
+            {
+              "const": "AUTHORITY_STALE",
+              "type": "string"
+            },
+            {
+              "const": "REQUEST_INVALID",
+              "type": "string"
+            },
+            {
+              "const": "RESPONSE_INVALID",
+              "type": "string"
+            }
+          ]
+        },
+        "fieldIssues": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "message": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "requestId"
+      ],
+      "type": "object"
+    }
+  },
+  "version": "1.0.0"
+}

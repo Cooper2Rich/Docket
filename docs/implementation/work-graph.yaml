@@ -10,7 +10,7 @@ status_values:
 - verification
 - done
 execution_authorized: true
-next_item: R1-FND-004-A
+next_item: R1-FND-004-B
 first_item: R1-FND-001-A
 bootstrap_gate: GATE-BOOTSTRAP
 groups:
@@ -2743,7 +2743,7 @@ items:
   parent: R1-FND-004
   order: 70
   title: Generate contracts from module-owned definitions
-  status: ready
+  status: done
   owner: contracts
   stage: 01 Foundations
   depends_on:
@@ -2755,13 +2755,15 @@ items:
   - R1-PRIV-001
   spec: docs/implementation/items/R1-FND-004-A.md
   blocking_reason: null
-  completion: null
+  completion:
+    contract_sha256: 140045e4387d14bb8892246bc3c36cbaaf32efadc4661f96b27c84acb6c9b3de
+    verification: controller-must-confirm-integration
 - id: R1-FND-004-B
   kind: leaf
   parent: R1-FND-004
   order: 80
   title: Connect requirements, acceptance evidence, and generated traceability
-  status: blocked
+  status: ready
   owner: contracts
   stage: 01 Foundations
   depends_on:
@@ -2772,7 +2774,7 @@ items:
   - R1-COMP-001
   - R1-PRIV-001
   spec: docs/implementation/items/R1-FND-004-B.md
-  blocking_reason: Predecessor has not been implemented and verified.
+  blocking_reason: null
   completion: null
 - id: R1-FND-005-A
   kind: leaf

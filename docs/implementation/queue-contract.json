@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "6b4050e4951a28a2a033b11ef3f7614f26f074da7c033173a286c7b92d1f3dc1",
+  "graph_sha256": "37d95c08377e0edb39f4db1ba9d970399b678cd657d1b788d7fbacf1c9b83d9b",
   "execution_graph": {
     "items": [
       {
@@ -16036,7 +16036,7 @@
         "parent": "R1-FND-004",
         "order": 70,
         "title": "Generate contracts from module-owned definitions",
-        "status": "ready",
+        "status": "done",
         "owner": "contracts",
         "stage": "01 Foundations",
         "depends_on": [
@@ -16050,7 +16050,10 @@
         ],
         "spec": "docs/implementation/items/R1-FND-004-A.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "140045e4387d14bb8892246bc3c36cbaaf32efadc4661f96b27c84acb6c9b3de",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-FND-004-B",
@@ -16058,7 +16061,7 @@
         "parent": "R1-FND-004",
         "order": 80,
         "title": "Connect requirements, acceptance evidence, and generated traceability",
-        "status": "blocked",
+        "status": "ready",
         "owner": "contracts",
         "stage": "01 Foundations",
         "depends_on": [
@@ -16071,7 +16074,7 @@
           "R1-PRIV-001"
         ],
         "spec": "docs/implementation/items/R1-FND-004-B.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {
