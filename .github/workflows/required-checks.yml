@@ -1,0 +1,388 @@
+{
+  "name": "Required",
+  "on": {
+    "pull_request": {
+      "branches": [
+        "main"
+      ]
+    },
+    "push": {
+      "branches": [
+        "main"
+      ]
+    },
+    "workflow_dispatch": {}
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "jobs": {
+    "frozen_install": {
+      "name": "Required / Frozen install",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 15,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        }
+      ]
+    },
+    "build": {
+      "name": "Required / Build",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 20,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Run Required / Build",
+          "run": "pnpm build"
+        }
+      ]
+    },
+    "check": {
+      "name": "Required / Check",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 20,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Run Required / Check",
+          "run": "pnpm check"
+        }
+      ]
+    },
+    "unit": {
+      "name": "Required / Unit",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 20,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Run Required / Unit",
+          "run": "pnpm test:unit"
+        }
+      ]
+    },
+    "integration": {
+      "name": "Required / Integration",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 30,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Run Required / Integration",
+          "run": "pnpm test:integration"
+        }
+      ]
+    },
+    "end_to_end": {
+      "name": "Required / End-to-end",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 30,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Provision the hosted browser dependency",
+          "run": "pnpm exec playwright install --with-deps chromium"
+        },
+        {
+          "name": "Run Required / End-to-end",
+          "run": "pnpm test:e2e"
+        }
+      ]
+    },
+    "contracts": {
+      "name": "Required / Contracts",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 20,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Run Required / Contracts",
+          "run": "pnpm contracts check"
+        }
+      ]
+    },
+    "migrations": {
+      "name": "Required / Migrations",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 20,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Run Required / Migrations",
+          "run": "pnpm migration:check"
+        }
+      ]
+    },
+    "security": {
+      "name": "Required / Security",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 20,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Run Required / Security",
+          "run": "pnpm security:check"
+        }
+      ]
+    },
+    "accessibility": {
+      "name": "Required / Accessibility",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 30,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Provision the hosted browser dependency",
+          "run": "pnpm exec playwright install --with-deps chromium"
+        },
+        {
+          "name": "Run Required / Accessibility",
+          "run": "pnpm accessibility:check"
+        }
+      ]
+    },
+    "artifacts": {
+      "name": "Required / Artifacts",
+      "runs-on": "ubuntu-latest",
+      "timeout-minutes": 30,
+      "steps": [
+        {
+          "name": "Check out the candidate",
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Enable the repository package manager",
+          "run": "corepack enable"
+        },
+        {
+          "name": "Set up the pinned Node runtime and pnpm store",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version-file": ".node-version",
+            "cache": "pnpm",
+            "cache-dependency-path": "pnpm-lock.yaml"
+          }
+        },
+        {
+          "name": "Install frozen dependencies",
+          "run": "pnpm install --frozen-lockfile"
+        },
+        {
+          "name": "Run Required / Artifacts",
+          "run": "pnpm artifacts:check"
+        },
+        {
+          "name": "Upload the verified build evidence",
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "docket-build-${{ github.sha }}",
+            "path": "build-artifacts/",
+            "if-no-files-found": "error",
+            "include-hidden-files": false,
+            "retention-days": 7
+          }
+        }
+      ]
+    }
+  }
+}

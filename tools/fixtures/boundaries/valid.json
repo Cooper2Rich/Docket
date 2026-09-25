@@ -1,0 +1,8 @@
+{
+  "files": {
+    "packages/schools/package.json": "{\"name\":\"@docket/schools\",\"type\":\"module\",\"exports\":{\".\":{\"types\":\"./dist/index.d.ts\",\"import\":\"./dist/index.js\"}}}",
+    "packages/schools/src/index.ts": "export const schoolId = 'school-fixture';",
+    "apps/api/package.json": "{\"name\":\"@docket/api\",\"type\":\"module\",\"dependencies\":{\"@docket/schools\":\"workspace:*\"}}",
+    "apps/api/src/index.ts": "import { schoolId } from '@docket/schools'; export { schoolId };"
+  }
+}

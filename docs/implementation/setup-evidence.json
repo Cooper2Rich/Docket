@@ -28,13 +28,13 @@
     "requirements": ["R1-AUTH-001", "R1-COMP-001", "R1-CONS-001", "R1-DATA-001", "R1-LIFE-001", "R1-MSG-001", "R1-OPS-001", "R1-PRIV-001"],
     "skill_validation": "passed",
     "tool_sha256": {
-      "docket_ralph.py": "58a0ad2e9c3268c91a31d53960d2f885f69d17fb0294f06361ad78ec49b56ef7",
-      "generate_queue.py": "deb7e05a4808fec890a8032ce9ecd659b5f367358991bf04cea00fce2082e296",
+      "docket_ralph.py": "9fbf77a2544026662d0bc6a4f97038d5c54d24e8b18219d88f74a032b7ba49b7",
+      "generate_queue.py": "44ef773cf36c53ef758bd9e7e669ced22c1670e0e6cb0e3f97ff6e24132a10f0",
       "publish_queue.py": "5b2a9d99b96f6d08c0c3fe0e25d050e52eaba99333d14e13017821753a1e448d",
       "audit_sources.py": "e8bef29f4722719c819a3e7402eea73b1aac8a6ceb581fb1c7bca17b68bfa13e",
       "blueprint.py": "eb5b955c19ff3edc47713f12ad692abc4e263f2a5e505bb78c33035c59e5fab7",
-      "test_docket_ralph.py": "697123e7c595245446646f01ee0cf5a09b7f82e1014e8797537919dea39a22a2",
-      "controller-test-results.txt": "256031445cbd2f891164b372b972c0129939b3624047e329f42443bc021cc163",
+      "test_docket_ralph.py": "78385f02d4ad1cb4136723c3176180e989ebcf56da9a435b853991ca106bb60c",
+      "controller-test-results.txt": "c1b9d7d273e320fea89e99e4f8129a7f16cd726928028418de32f7538cc121e7",
       "ralph-loop.ps1": "bfbbad92dd849c32be7fb504c1dbf2bb046ba5e03912a889c801c8f0ebd725bf",
       "SKILL.md": "575684ccf73423eeb254c1c0b194f6f4f182e225b1fa7921a86b9c9aa4989a57"
     }
@@ -53,6 +53,9 @@
     "main_contexts": ["Required / Frozen install", "Required / Build", "Required / Check", "Required / Unit", "Required / Integration", "Required / End-to-end", "Required / Contracts", "Required / Migrations", "Required / Security", "Required / Accessibility", "Required / Artifacts"],
     "strict_current_head": true,
     "pull_requests_required": true,
+    "pull_request_enforcement": "active branch ruleset with no bypass actors",
+    "bootstrap_ruleset_id": 23919605,
+    "main_ruleset_id": 23919958,
     "conversation_resolution_required": true,
     "administrators_enforced": true,
     "force_pushes_allowed": false,
@@ -65,11 +68,12 @@
   "application_implementation_authorized": true,
   "application_implementation_started": false,
   "real_codex_worker_started": false,
+  "source_hash_policy": "UTF-8 text canonicalized to LF; controller accepts LF and CRLF checkout equivalents",
   "local_tools_directory": "C:\\Users\\CooperRich\\.codex\\tools\\docket-setup",
   "artifact_sha256": {
-    "queue-contract.json": "5bc18c68abe6f6b59a1d7f3d125bd6152be1a8d17740ca278f94f76ace072502",
+    "queue-contract.json": "fda2ba68817fc6fae5ee3582a556c836b537a6f669c20e92d888fbb76597c6c9",
     "source-coverage.json": "68daa124c6b2a24c85f00a167d06c2cb8391ecbde8adbea3fd6186ff2a2c52c2",
-    "github-issues.json": "6bd18dbf04b270aeb7e4d8c2e7490836cb3f179badae4e08333d874ea1577442",
+    "github-issues.json": "b1a1a7725c9c205eaf6c1fe05913f886286532fed1e5bf2aed8719f01ae07631",
     "work-graph.yaml": "349f4008cd65d885830dbc47cfa262aa058b413b2f2f448e83d1f92aaa6f66b8"
   }
 }

@@ -1,0 +1,52 @@
+{
+  "name": "docket",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
+  "packageManager": "pnpm@11.19.0",
+  "scripts": {
+    "build": "node tools/run-check.mjs build pnpm exec nx run-many -t build --all",
+    "check": "node tools/run-check.mjs check pnpm run check:workspace",
+    "check:workspace": "pnpm run format:check && pnpm exec nx run-many -t typecheck --all && pnpm exec eslint apps packages tools && node tools/check-boundaries.mjs && pnpm migration:check",
+    "format:check": "prettier --check \"{apps,packages,tools}/**/*.{css,json,mjs,ts,tsx}\" \"*.{json,ts,yaml}\"",
+    "test:unit": "node tools/run-check.mjs unit pnpm run test:unit:workspace",
+    "test:unit:workspace": "pnpm exec nx run-many -t build --all && pnpm exec vitest run --reporter=verbose",
+    "verify:item": "node tools/verification/verify-item.mjs",
+    "ui:add": "pnpm --dir apps/web exec shadcn add",
+    "bootstrap": "node tools/bootstrap.mjs",
+    "config:validate": "pnpm --filter @docket/runtime build && node packages/runtime/dist/cli.js config:validate",
+    "health:check": "pnpm --filter @docket/runtime build && node packages/runtime/dist/cli.js health:check",
+    "infra:up": "docker compose --project-name docket-local --file compose.yaml up -d --wait",
+    "infra:down": "docker compose --project-name docket-local --file compose.yaml down",
+    "infra:reset": "node tools/infra-reset.mjs",
+    "dev": "node tools/unavailable-command.mjs dev R1-FND-005-A",
+    "test": "node tools/unavailable-command.mjs test R1-FND-005-B",
+    "test:integration": "node tools/run-check.mjs integration pnpm exec vitest run --config vitest.integration.config.mts --reporter=verbose",
+    "test:e2e": "node tools/run-check.mjs e2e pnpm exec playwright test",
+    "ci:check": "node tools/ci/check.mjs",
+    "ci:full": "node tools/run-check.mjs ci-full node tools/ci/full.mjs",
+    "security:check": "node tools/security/check.mjs",
+    "accessibility:check": "pnpm exec playwright test apps/web/e2e/foundation.spec.ts --grep \"has no automated WCAG 2.2 AA violation\"",
+    "artifacts:check": "node tools/artifacts/check.mjs",
+    "contracts": "node tools/contracts/cli.mjs",
+    "contracts:generate": "pnpm contracts generate",
+    "contracts:check": "pnpm contracts check",
+    "migration:check": "pnpm --filter @docket/database build && node packages/database/dist/cli.js check",
+    "migrate": "pnpm --filter @docket/database build && pnpm --filter @docket/migrate build && node apps/migrate/dist/index.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.10.1",
+    "eslint": "10.9.1",
+    "jsdom": "27.0.1",
+    "nx": "23.2.0",
+    "prettier": "3.6.2",
+    "typescript": "6.0.2",
+    "typescript-eslint": "8.69.0",
+    "vitest": "4.1.11"
+  }
+}

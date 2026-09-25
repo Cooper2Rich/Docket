@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "missing_checks": [
+    "frozen_install",
+    "build",
+    "check",
+    "unit",
+    "integration",
+    "end_to_end",
+    "contracts",
+    "migrations",
+    "security",
+    "accessibility",
+    "artifacts"
+  ],
+  "parity_checks": [
+    "frozen_install",
+    "build",
+    "check",
+    "unit",
+    "integration",
+    "end_to_end",
+    "contracts",
+    "migrations",
+    "security",
+    "accessibility",
+    "artifacts"
+  ]
+}

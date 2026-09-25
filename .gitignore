@@ -5,6 +5,7 @@ node_modules/
 dist/
 apps/web/build/
 apps/web/.react-router/
+apps/web/.vercel/
 coverage/
 build-artifacts/
 playwright-report/
