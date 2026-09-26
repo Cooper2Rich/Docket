@@ -19,7 +19,7 @@ export default defineConfig({
   webServer: [
     {
       command:
-        "pnpm --filter @docket/api build && node apps/api/dist/e2e-server.js",
+        "pnpm exec nx run @docket/api:build && node apps/api/dist/e2e-server.js",
       env: {
         DOCKET_ENV: "test",
       },
