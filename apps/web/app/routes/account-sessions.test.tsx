@@ -22,23 +22,36 @@ let root: Root | undefined;
 const sessions: AccountSessionsLoaderData["sessions"] = [
   {
     id: "session-current",
+    sessionClass: "ordinary",
+    device: "Chrome on Windows",
+    approximateLocation: "Austin, Texas",
     status: "active",
     version: 1,
     createdAt: "2026-09-25T18:00:00.000Z",
     lastActivityAt: "2026-09-25T19:00:00.000Z",
+    inactivityExpiresAt: "2026-09-26T07:00:00.000Z",
     expiresAt: "2026-10-02T18:00:00.000Z",
   },
   {
     id: "session-other",
+    sessionClass: "privileged",
+    device: "Safari on macOS",
+    approximateLocation: "Dallas, Texas",
     status: "active",
     version: 1,
     createdAt: "2026-09-24T18:00:00.000Z",
     lastActivityAt: "2026-09-25T18:45:00.000Z",
+    privilegedActivatedAt: "2026-09-25T18:30:00.000Z",
+    inactivityExpiresAt: "2026-09-25T19:15:00.000Z",
     expiresAt: "2026-10-01T18:00:00.000Z",
   },
 ];
 
-function renderRoute(state: AccountSessionViewState, width = 1280) {
+function renderRoute(
+  state: AccountSessionViewState,
+  width = 1280,
+  currentSessionId = "session-current",
+) {
   Object.defineProperty(window, "innerWidth", {
     configurable: true,
     value: width,
@@ -49,7 +62,27 @@ function renderRoute(state: AccountSessionViewState, width = 1280) {
   const loaderData: AccountSessionsLoaderData = {
     state,
     sessions: state === "ready" ? sessions : [],
-    currentSessionId: "session-current",
+    ...(state === "ready"
+      ? {
+          account: {
+            id: "account-local",
+            displayName: "Local Docket Account",
+            verifiedEmail: "local@identity.example.test",
+            authority: [],
+            version: 4,
+          },
+          history: [
+            {
+              id: "history-sign-in",
+              kind: "accepted_sign_in" as const,
+              occurredAt: "2026-09-25T19:00:00.000Z",
+              device: "Chrome on Windows",
+              approximateLocation: "Austin, Texas",
+            },
+          ],
+        }
+      : {}),
+    currentSessionId,
   };
   const router = createMemoryRouter(
     [
@@ -129,6 +162,79 @@ describe("rendered Account Session route", () => {
     expect(
       form?.querySelector<HTMLInputElement>("[name='expectedVersion']")?.value,
     ).toBe("1");
+  });
+
+  it("offers keyboard controls for current-device and all-session logout", () => {
+    const route = renderRoute("ready");
+    const buttons = [...route.querySelectorAll("button")];
+    const current = buttons.find((candidate) =>
+      candidate.textContent.includes("Log out this device"),
+    );
+    const everywhere = buttons.find((candidate) =>
+      candidate.textContent.includes("Log out everywhere"),
+    );
+
+    expect(current).toBeDefined();
+    expect(everywhere).toBeDefined();
+    current?.focus();
+    expect(document.activeElement).toBe(current);
+    expect(
+      everywhere
+        ?.closest("form")
+        ?.querySelector<HTMLInputElement>("[name='intent']")?.value,
+    ).toBe("revoke-all");
+  });
+
+  it("renders a prominent privileged banner with immediate session termination", () => {
+    const route = renderRoute("ready", 1280, "session-other");
+    const banner = route.querySelector(".privileged-session-banner");
+    expect(banner?.textContent).toContain("Privileged context active");
+    expect(banner?.textContent).toContain("Safari on macOS");
+    expect(banner?.textContent).toContain("Dallas, Texas");
+    expect(banner?.textContent).toContain(
+      new Date("2026-09-25T18:30:00.000Z").toLocaleString(),
+    );
+    expect(banner?.textContent).not.toContain(
+      new Date("2026-09-25T18:45:00.000Z").toLocaleString(),
+    );
+    const button = [...(banner?.querySelectorAll("button") ?? [])].find(
+      (candidate) => candidate.textContent.includes("End privileged session"),
+    );
+    expect(button).toBeDefined();
+    expect(
+      button
+        ?.closest("form")
+        ?.querySelector<HTMLInputElement>("[name='sessionId']")?.value,
+    ).toBe("session-other");
+  });
+
+  it("renders the fresh Account version, editable Display Name, and permitted Security History", () => {
+    const route = renderRoute("ready");
+    const displayName = route.querySelector<HTMLInputElement>(
+      "input[name='displayName']",
+    );
+    const profileForm = displayName?.closest("form");
+
+    expect(displayName?.value).toBe("Local Docket Account");
+    expect(
+      profileForm?.querySelector<HTMLInputElement>("[name='expectedVersion']")
+        ?.value,
+    ).toBe("4");
+    expect(route.textContent).toContain("local@identity.example.test");
+    expect(route.textContent).toContain("Accepted sign-in");
+    expect(route.textContent).toContain("Chrome on Windows");
+    expect(route.textContent).toContain("Austin, Texas");
+    expect(route.textContent).not.toContain("history-sign-in");
+  });
+
+  it("offers a native keyboard-focusable Display Name control", () => {
+    const route = renderRoute("ready");
+    const button = [...route.querySelectorAll("button")].find((candidate) =>
+      candidate.textContent.includes("Update Display Name"),
+    );
+    expect(button).toBeDefined();
+    button?.focus();
+    expect(document.activeElement).toBe(button);
   });
 
   it("keeps the session journey within a narrow mobile viewport", () => {

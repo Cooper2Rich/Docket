@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "0003_identity_session_security",
+  "order": 3,
+  "owner": "identity-access",
+  "description": "Add Docket Session security policy, minimized metadata and privileged activation time, durable Clerk-session termination delivery, governed display names and retained Account Security History",
+  "sql_file": "0003_identity_session_security.sql",
+  "verify_sql": "select 1 as session_security_valid where (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'identity_sessions' and column_name in ('session_class', 'device', 'approximate_location', 'privileged_activated_at')) = 4 and (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'identity_accounts' and column_name = 'display_name_changed_at') = 1 and (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'identity_display_name_history' and column_name in ('change_kind', 'review_id', 'approved_by_account_id')) = 3 and to_regclass('public.identity_clerk_session_terminations') is not null and to_regclass('public.identity_display_name_history') is not null and to_regclass('public.identity_account_security_history') is not null and not exists (select 1 from identity_sessions where session_class = 'ordinary' and (expires_at > created_at + interval '168 hours' or privileged_activated_at is not null)) and not exists (select 1 from identity_sessions where session_class = 'privileged' and privileged_activated_at is null)",
+  "compatibility": "additive",
+  "requirements": ["R1-LIFE-001", "R1-AUTH-001", "R1-PRIV-001"]
+}

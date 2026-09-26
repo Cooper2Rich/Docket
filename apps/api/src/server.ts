@@ -3,15 +3,19 @@ import { verifyWebhook } from "@clerk/fastify/webhooks";
 import {
   authenticateFixedIdentity,
   authenticateClerkSession,
+  changeDisplayNameResponse,
   clerkWebhookHintTypes,
   createSessionResponse,
+  getAccountProfileResponse,
   IdentityError,
   IdentityService,
   IdentityWebhookHintService,
   listSessionsResponse,
+  listAccountSecurityHistoryResponse,
   PostgresIdentityStore,
   PostgresIdentityWebhookHintStore,
   revokeSessionResponse,
+  revokeAllSessionsResponse,
   resolveIdentitySession,
   type ClerkIdentity,
   type ClerkSessionPolicy,
@@ -61,6 +65,14 @@ type ClerkRequestSession = Readonly<{
   userId: string;
   status: string;
   expireAt: number;
+  latestActivity?:
+    | Readonly<{
+        browserName?: string | undefined;
+        deviceType?: string | undefined;
+        city?: string | undefined;
+        country?: string | undefined;
+      }>
+    | undefined;
 }>;
 
 type ClerkRequestSdk = Readonly<{
@@ -74,6 +86,25 @@ type ClerkRequestSdk = Readonly<{
     sessionId: string,
   ): Promise<ClerkRequestSession>;
 }>;
+
+function sessionMetadata(session: ClerkRequestSession) {
+  const activity = session.latestActivity;
+  const device = [activity?.browserName, activity?.deviceType]
+    .map((value) => value?.trim())
+    .filter((value): value is string => Boolean(value))
+    .join(" on ")
+    .slice(0, 256);
+  const approximateLocation = [activity?.city, activity?.country]
+    .map((value) => value?.trim())
+    .filter((value): value is string => Boolean(value))
+    .join(", ")
+    .slice(0, 256);
+  return {
+    device: device || "Unknown device",
+    approximateLocation:
+      approximateLocation || "Approximate location unavailable",
+  };
+}
 
 function validateClerkRequestToken(
   auth: ClerkRequestAuth,
@@ -177,6 +208,10 @@ export async function buildApiApp(
       | "listDocketSessions"
       | "resumeDocketSession"
       | "revokeDocketSession"
+      | "revokeAllDocketSessions"
+      | "getAccountProfile"
+      | "listAccountSecurityHistory"
+      | "changeDisplayName"
     >;
     verifyClerkWebhook?: (
       request: Parameters<typeof verifyWebhook>[0],
@@ -351,6 +386,7 @@ export async function buildApiApp(
           ? profileName
           : (user.username ?? verifiedEmail.emailAddress),
       signInMethod: googleIdentity ? "google" : "verified_email_code",
+      sessionMetadata: sessionMetadata(session),
     };
     return authenticateClerkSession(evidence, policy, now);
   };
@@ -402,6 +438,42 @@ export async function buildApiApp(
   });
   app.post("/v1/docket-sessions/revoke", async (request, reply) => {
     const result = await revokeSessionResponse(
+      identityService,
+      await acceptedIdentity(request),
+      request.body,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.post("/v1/docket-sessions/revoke-all", async (request, reply) => {
+    const result = await revokeAllSessionsResponse(
+      identityService,
+      await acceptedIdentity(request),
+      request.body,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.get("/v1/account/security-history", async (request, reply) => {
+    const result = await listAccountSecurityHistoryResponse(
+      identityService,
+      await acceptedIdentity(request),
+      request.query,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.get("/v1/account/profile", async (request, reply) => {
+    const result = await getAccountProfileResponse(
+      identityService,
+      await acceptedIdentity(request),
+      request.query,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.post("/v1/account/display-name", async (request, reply) => {
+    const result = await changeDisplayNameResponse(
       identityService,
       await acceptedIdentity(request),
       request.body,

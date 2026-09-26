@@ -6,8 +6,10 @@ import {
   type ContractTransport,
 } from "@docket/contracts";
 import {
+  ClerkSessionTerminationService,
   IdentityError,
   IdentityService,
+  InMemoryClerkSessionTerminationStore,
   IdentityWebhookHintService,
   InMemoryIdentityStore,
   InMemoryIdentityWebhookHintStore,
@@ -194,6 +196,12 @@ function clerkRequestSdkFixture() {
     userLocked: false,
     sessionStatus: "active",
     sessionExpiresAt: Date.now() + 7 * 24 * 60 * 60 * 1_000,
+    latestActivity: {
+      browserName: "Firefox",
+      deviceType: "desktop",
+      city: "Austin",
+      country: "US",
+    },
   };
   return {
     state,
@@ -227,6 +235,7 @@ function clerkRequestSdkFixture() {
           userId: "user_clerk_boundary_001",
           status: state.sessionStatus,
           expireAt: state.sessionExpiresAt,
+          latestActivity: state.latestActivity,
         });
       },
     },
@@ -236,9 +245,10 @@ function clerkRequestSdkFixture() {
 function sessionFixture() {
   const store = new InMemoryIdentityStore();
   let sequence = 0;
+  let clock = new Date("2026-09-25T16:00:00.000Z");
   const service = new IdentityService({
     store,
-    now: () => new Date("2026-09-25T16:00:00.000Z"),
+    now: () => new Date(clock),
     nextId: (kind) => `${kind}_api_${String(++sequence).padStart(3, "0")}`,
   });
   const identity: ClerkIdentity = {
@@ -249,7 +259,14 @@ function sessionFixture() {
     signInMethod: "google",
     expiresAt: new Date("2026-10-02T16:00:00.000Z"),
   };
-  return { service, identity };
+  return {
+    service,
+    store,
+    identity,
+    advanceTo: (next: Date) => {
+      clock = new Date(next);
+    },
+  };
 }
 
 describe("generated identity-session client and runtime boundary", () => {
@@ -383,7 +400,18 @@ describe("generated identity-session client and runtime boundary", () => {
     });
     await expect(
       refreshedClient.listDocketSessions({ audience: "self" }),
-    ).resolves.toEqual({ sessions: [created.session] });
+    ).resolves.toEqual({
+      sessions: [
+        {
+          ...created.session,
+          version: 1,
+          lastActivityAt: afterFirstExpiry.toISOString(),
+          inactivityExpiresAt: new Date(
+            afterFirstExpiry.getTime() + 12 * 60 * 60 * 1_000,
+          ).toISOString(),
+        },
+      ],
+    });
     expect(created.session.expiresAt).toBe(
       new Date(resources.state.sessionExpiresAt).toISOString(),
     );
@@ -404,9 +432,11 @@ describe("generated identity-session client and runtime boundary", () => {
     const created = await client.createDocketSession({
       idempotencyKey: "command_boundary_create_001",
     });
-    expect(created.session.expiresAt).toBe(
-      new Date(clerk.state.sessionExpiresAt).toISOString(),
-    );
+    expect(created.session.expiresAt).toBe("2026-10-02T16:00:00.000Z");
+    expect(created.session).toMatchObject({
+      device: "Firefox on desktop",
+      approximateLocation: "Austin, US",
+    });
     await expect(
       client.getIdentitySession({ audience: "self" }),
     ).resolves.toMatchObject({
@@ -420,6 +450,49 @@ describe("generated identity-session client and runtime boundary", () => {
     await expect(
       client.listDocketSessions({ audience: "self" }),
     ).resolves.toEqual({ sessions: [created.session] });
+  });
+
+  it("keeps session creation retryable when trusted Clerk activity metadata changes or is unavailable", async () => {
+    const fixture = sessionFixture();
+    const clerk = clerkRequestSdkFixture();
+    const app = await buildApiApp(productionApi, {
+      clerkRequestSdk: clerk.sdk,
+      identityService: fixture.service,
+    });
+    apps.push(app);
+    const client = clientFor(app, {
+      origin: productionApi.DOCKET_CLERK_ALLOWED_ORIGINS,
+    });
+    const command = {
+      idempotencyKey: "command_boundary_metadata_retry_001",
+    } as const;
+
+    const created = await client.createDocketSession(command);
+    clerk.state.latestActivity = {
+      browserName: "Safari",
+      deviceType: "mobile",
+      city: "Dallas",
+      country: "US",
+    };
+    await expect(client.createDocketSession(command)).resolves.toEqual(created);
+
+    clerk.state.latestActivity = {
+      browserName: "",
+      deviceType: "",
+      city: "",
+      country: "",
+    };
+    await expect(client.createDocketSession(command)).resolves.toEqual(created);
+    await expect(
+      client.listDocketSessions({ audience: "self" }),
+    ).resolves.toMatchObject({
+      sessions: [
+        {
+          device: "Firefox on desktop",
+          approximateLocation: "Austin, US",
+        },
+      ],
+    });
   });
 
   it.each([
@@ -472,6 +545,10 @@ describe("generated identity-session client and runtime boundary", () => {
           listDocketSessions,
           resumeDocketSession: vi.fn(),
           revokeDocketSession: vi.fn(),
+          revokeAllDocketSessions: vi.fn(),
+          getAccountProfile: vi.fn(),
+          listAccountSecurityHistory: vi.fn(),
+          changeDisplayName: vi.fn(),
         },
       });
       apps.push(app);
@@ -499,6 +576,10 @@ describe("generated identity-session client and runtime boundary", () => {
         listDocketSessions,
         resumeDocketSession: vi.fn(),
         revokeDocketSession: vi.fn(),
+        revokeAllDocketSessions: vi.fn(),
+        getAccountProfile: vi.fn(),
+        listAccountSecurityHistory: vi.fn(),
+        changeDisplayName: vi.fn(),
       },
     });
     apps.push(app);
@@ -863,11 +944,30 @@ describe("generated identity-session client and runtime boundary", () => {
       verifiedEmail: "account-holder@identity.example.test",
       authority: [],
     });
-    expect(created.session).toMatchObject({ status: "active", version: 1 });
+    expect(created.session).toMatchObject({
+      device: "Unknown device",
+      approximateLocation: "Approximate location unavailable",
+      status: "active",
+      version: 1,
+    });
 
     await expect(
       client.listDocketSessions({ audience: "self" }),
     ).resolves.toEqual({ sessions: [created.session] });
+
+    fixture.advanceTo(new Date("2026-09-25T17:00:00.000Z"));
+    await expect(
+      client.listDocketSessions({ audience: "self" }),
+    ).resolves.toMatchObject({
+      sessions: [
+        {
+          id: created.session.id,
+          version: created.session.version,
+          lastActivityAt: "2026-09-25T17:00:00.000Z",
+        },
+      ],
+    });
+    fixture.advanceTo(new Date("2026-09-25T17:01:00.000Z"));
 
     const revoked = await client.revokeDocketSession({
       sessionId: created.session.id,
@@ -879,6 +979,228 @@ describe("generated identity-session client and runtime boundary", () => {
       status: "revoked",
       version: 2,
     });
+  });
+
+  it("lists minimized Security History and governs Display Names through the generated API", async () => {
+    const fixture = sessionFixture();
+    const app = await buildApiApp(productionApi, {
+      authenticateIdentity: () => fixture.identity,
+      identityService: fixture.service,
+    });
+    apps.push(app);
+    const client = clientFor(app);
+    const created = await client.createDocketSession({
+      idempotencyKey: "command_api_account_security_create_001",
+    });
+
+    const securityHistory = await client.listAccountSecurityHistory({
+      audience: "self",
+    });
+    await expect(
+      client.getAccountProfile({ audience: "self" }),
+    ).resolves.toEqual(created.account);
+    expect(securityHistory.history[0]?.id).toBe("event_api_005");
+    expect(securityHistory).toMatchObject({
+      history: [
+        {
+          kind: "accepted_sign_in",
+          occurredAt: "2026-09-25T16:00:00.000Z",
+          device: "Unknown device",
+          approximateLocation: "Approximate location unavailable",
+        },
+      ],
+    });
+    const changed = await client.changeDisplayName({
+      displayName: "API Governed Name",
+      expectedVersion: created.account.version,
+      idempotencyKey: "command_api_display_name_001",
+    });
+    expect(changed.account).toMatchObject({
+      displayName: "API Governed Name",
+      version: created.account.version + 1,
+    });
+    await expect(
+      client.getAccountProfile({ audience: "self" }),
+    ).resolves.toEqual(changed.account);
+    await expect(
+      client.changeDisplayName({
+        displayName: "API Too Soon",
+        expectedVersion: changed.account.version,
+        idempotencyKey: "command_api_display_name_002",
+      }),
+    ).rejects.toMatchObject({ code: "DISPLAY_NAME_CHANGE_TOO_SOON" });
+  });
+
+  it("logs out every Docket and associated Clerk session through the generated API", async () => {
+    const fixture = sessionFixture();
+    const app = await buildApiApp(productionApi, {
+      authenticateIdentity: () => fixture.identity,
+      identityService: fixture.service,
+    });
+    apps.push(app);
+    const client = clientFor(app);
+    await client.createDocketSession({
+      idempotencyKey: "command_api_logout_all_create_001",
+    });
+    await fixture.service.createDocketSession({
+      identity: { ...fixture.identity, sessionId: "session_clerk_api_other" },
+      idempotencyKey: "command_api_logout_all_create_002",
+    });
+
+    const result = await client.revokeAllDocketSessions({
+      idempotencyKey: "command_api_logout_all_001",
+    });
+
+    expect(result.session).toMatchObject({ status: "revoked", version: 2 });
+    expect(fixture.store.snapshot().sessions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ status: "revoked" }),
+        expect.objectContaining({ status: "revoked" }),
+      ]),
+    );
+    expect(fixture.store.snapshot().clerkSessionTerminations).toHaveLength(2);
+  });
+
+  it("requires live Docket authority before API receipt replay while Clerk termination is failed", async () => {
+    const fixture = sessionFixture();
+    let actingIdentity = fixture.identity;
+    const app = await buildApiApp(productionApi, {
+      authenticateIdentity: () => actingIdentity,
+      identityService: fixture.service,
+    });
+    apps.push(app);
+    const client = clientFor(app);
+    const actor = await client.createDocketSession({
+      idempotencyKey: "command_api_receipt_actor",
+    });
+    const targetIdentity = {
+      ...fixture.identity,
+      sessionId: "clerk_session_api_receipt_target",
+    };
+    const target = await fixture.service.createDocketSession({
+      identity: targetIdentity,
+      idempotencyKey: "command_api_receipt_target",
+    });
+    const command = {
+      sessionId: target.session.id,
+      expectedVersion: target.session.version,
+      idempotencyKey: "command_api_receipt_revoke",
+    } as const;
+
+    const first = await client.revokeDocketSession(command);
+    await expect(client.revokeDocketSession(command)).resolves.toEqual(first);
+    const pending = fixture.store
+      .snapshot()
+      .clerkSessionTerminations.find(
+        ({ sessionId }) => sessionId === target.session.id,
+      );
+    expect(pending).toBeDefined();
+    if (!pending) throw new Error("expected a pending Clerk termination");
+    const deliveryStore = new InMemoryClerkSessionTerminationStore();
+    deliveryStore.enqueue(pending);
+    await expect(
+      new ClerkSessionTerminationService(
+        deliveryStore,
+        () => new Date("2026-09-25T16:00:00.000Z"),
+      ).deliverNext(() => Promise.reject(new Error("Clerk unavailable"))),
+    ).resolves.toMatchObject({ status: "failed" });
+
+    await client.revokeDocketSession({
+      sessionId: actor.session.id,
+      expectedVersion: actor.session.version,
+      idempotencyKey: "command_api_receipt_revoke_actor",
+    });
+    await expect(client.revokeDocketSession(command)).rejects.toMatchObject({
+      code: "SESSION_EXPIRED",
+    });
+    expect(deliveryStore.snapshot()[0]).toMatchObject({
+      lastErrorCode: "DELIVERY_FAILED",
+    });
+
+    actingIdentity = {
+      ...fixture.identity,
+      sessionId: "clerk_session_api_receipt_replacement",
+    };
+    await fixture.service.createDocketSession({
+      identity: actingIdentity,
+      idempotencyKey: "command_api_receipt_replacement",
+    });
+    await expect(client.revokeDocketSession(command)).resolves.toEqual(first);
+  });
+
+  it.each([
+    ["inactivity", new Date("2026-09-26T04:00:00.000Z")],
+    ["absolute lifetime", new Date("2026-10-02T16:00:00.000Z")],
+  ])(
+    "rejects API receipt replay after actor %s expiry",
+    async (reason, expiry) => {
+      const fixture = sessionFixture();
+      const actorIdentity = {
+        ...fixture.identity,
+        expiresAt: new Date("2026-10-10T16:00:00.000Z"),
+      };
+      const app = await buildApiApp(productionApi, {
+        authenticateIdentity: () => actorIdentity,
+        identityService: fixture.service,
+      });
+      apps.push(app);
+      const client = clientFor(app);
+      await client.createDocketSession({
+        idempotencyKey: `command_api_expiry_actor_${reason}`,
+      });
+      const target = await fixture.service.createDocketSession({
+        identity: {
+          ...actorIdentity,
+          sessionId: `clerk_session_api_expiry_target_${reason}`,
+        },
+        idempotencyKey: `command_api_expiry_target_${reason}`,
+      });
+      const command = {
+        sessionId: target.session.id,
+        expectedVersion: target.session.version,
+        idempotencyKey: `command_api_expiry_revoke_${reason}`,
+      } as const;
+      await client.revokeDocketSession(command);
+
+      if (reason === "absolute lifetime") {
+        const start = new Date("2026-09-25T16:00:00.000Z");
+        for (let hour = 11; hour < 7 * 24; hour += 11) {
+          fixture.advanceTo(new Date(start.getTime() + hour * 60 * 60 * 1_000));
+          await client.listDocketSessions({ audience: "self" });
+        }
+      }
+      fixture.advanceTo(expiry);
+      await expect(client.revokeDocketSession(command)).rejects.toMatchObject({
+        code: "SESSION_EXPIRED",
+      });
+    },
+  );
+
+  it("rejects client-asserted session metadata before creating a session", async () => {
+    const fixture = sessionFixture();
+    const create = vi.spyOn(fixture.service, "createDocketSession");
+    const app = await buildApiApp(productionApi, {
+      authenticateIdentity: () => fixture.identity,
+      identityService: fixture.service,
+    });
+    apps.push(app);
+
+    const response = await app.inject({
+      method: "POST",
+      url: "/v1/docket-sessions",
+      headers: {
+        "user-agent": "Hostile Client/1.0",
+      },
+      payload: {
+        idempotencyKey: "command_api_untrusted_metadata_001",
+        device: "Trusted administrator workstation",
+        approximateLocation: "Docket headquarters",
+      },
+    });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.json()).toMatchObject({ code: "REQUEST_INVALID" });
+    expect(create).not.toHaveBeenCalled();
   });
 
   it("returns the stable stale-authority response for a conflicting session version", async () => {

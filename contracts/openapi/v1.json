@@ -1,6 +1,176 @@
 {
   "components": {
     "schemas": {
+      "AccountProfileProjection": {
+        "$id": "AccountProfileProjection.v1",
+        "additionalProperties": false,
+        "properties": {
+          "authority": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 0,
+            "type": "array"
+          },
+          "displayName": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "verifiedEmail": {
+            "maxLength": 320,
+            "minLength": 3,
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "displayName",
+          "verifiedEmail",
+          "authority",
+          "version"
+        ],
+        "type": "object"
+      },
+      "AccountProfileRequest": {
+        "$id": "AccountProfileRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "audience": {
+            "const": "self",
+            "type": "string"
+          }
+        },
+        "required": [
+          "audience"
+        ],
+        "type": "object"
+      },
+      "AccountSecurityHistoryList": {
+        "$id": "AccountSecurityHistoryList.v1",
+        "additionalProperties": false,
+        "properties": {
+          "history": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "approximateLocation": {
+                  "maxLength": 256,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "device": {
+                  "maxLength": 256,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "id": {
+                  "maxLength": 128,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "kind": {
+                  "anyOf": [
+                    {
+                      "const": "accepted_sign_in",
+                      "type": "string"
+                    },
+                    {
+                      "const": "clerk_reverification",
+                      "type": "string"
+                    },
+                    {
+                      "const": "account_suspension",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "occurredAt": {
+                  "maxLength": 35,
+                  "minLength": 20,
+                  "type": "string"
+                },
+                "suspensionStatus": {
+                  "anyOf": [
+                    {
+                      "const": "imposed",
+                      "type": "string"
+                    },
+                    {
+                      "const": "reinstated",
+                      "type": "string"
+                    },
+                    {
+                      "const": "expired",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "occurredAt"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "history"
+        ],
+        "type": "object"
+      },
+      "AccountSecurityHistoryRequest": {
+        "$id": "AccountSecurityHistoryRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "audience": {
+            "const": "self",
+            "type": "string"
+          }
+        },
+        "required": [
+          "audience"
+        ],
+        "type": "object"
+      },
+      "ChangeDisplayNameRequest": {
+        "$id": "ChangeDisplayNameRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "displayName": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "expectedVersion": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "idempotencyKey": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "displayName",
+          "expectedVersion",
+          "idempotencyKey"
+        ],
+        "type": "object"
+      },
       "CreateDocketSessionRequest": {
         "$id": "CreateDocketSessionRequest.v1",
         "additionalProperties": false,
@@ -24,9 +194,19 @@
             "items": {
               "additionalProperties": false,
               "properties": {
+                "approximateLocation": {
+                  "maxLength": 256,
+                  "minLength": 1,
+                  "type": "string"
+                },
                 "createdAt": {
                   "maxLength": 35,
                   "minLength": 20,
+                  "type": "string"
+                },
+                "device": {
+                  "maxLength": 256,
+                  "minLength": 1,
                   "type": "string"
                 },
                 "expiresAt": {
@@ -39,15 +219,41 @@
                   "minLength": 1,
                   "type": "string"
                 },
+                "inactivityExpiresAt": {
+                  "maxLength": 35,
+                  "minLength": 20,
+                  "type": "string"
+                },
                 "lastActivityAt": {
                   "maxLength": 35,
                   "minLength": 20,
                   "type": "string"
                 },
+                "privilegedActivatedAt": {
+                  "maxLength": 35,
+                  "minLength": 20,
+                  "type": "string"
+                },
+                "sessionClass": {
+                  "anyOf": [
+                    {
+                      "const": "ordinary",
+                      "type": "string"
+                    },
+                    {
+                      "const": "privileged",
+                      "type": "string"
+                    }
+                  ]
+                },
                 "status": {
                   "anyOf": [
                     {
                       "const": "active",
+                      "type": "string"
+                    },
+                    {
+                      "const": "expired",
                       "type": "string"
                     },
                     {
@@ -63,10 +269,14 @@
               },
               "required": [
                 "id",
+                "sessionClass",
+                "device",
+                "approximateLocation",
                 "status",
                 "version",
                 "createdAt",
                 "lastActivityAt",
+                "inactivityExpiresAt",
                 "expiresAt"
               ],
               "type": "object"
@@ -84,6 +294,7 @@
         "additionalProperties": false,
         "properties": {
           "account": {
+            "$id": "AccountProfileProjection.v1",
             "additionalProperties": false,
             "properties": {
               "authority": {
@@ -125,9 +336,19 @@
           "session": {
             "additionalProperties": false,
             "properties": {
+              "approximateLocation": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              },
               "createdAt": {
                 "maxLength": 35,
                 "minLength": 20,
+                "type": "string"
+              },
+              "device": {
+                "maxLength": 256,
+                "minLength": 1,
                 "type": "string"
               },
               "expiresAt": {
@@ -140,15 +361,41 @@
                 "minLength": 1,
                 "type": "string"
               },
+              "inactivityExpiresAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
               "lastActivityAt": {
                 "maxLength": 35,
                 "minLength": 20,
                 "type": "string"
               },
+              "privilegedActivatedAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "sessionClass": {
+                "anyOf": [
+                  {
+                    "const": "ordinary",
+                    "type": "string"
+                  },
+                  {
+                    "const": "privileged",
+                    "type": "string"
+                  }
+                ]
+              },
               "status": {
                 "anyOf": [
                   {
                     "const": "active",
+                    "type": "string"
+                  },
+                  {
+                    "const": "expired",
                     "type": "string"
                   },
                   {
@@ -164,10 +411,14 @@
             },
             "required": [
               "id",
+              "sessionClass",
+              "device",
+              "approximateLocation",
               "status",
               "version",
               "createdAt",
               "lastActivityAt",
+              "inactivityExpiresAt",
               "expiresAt"
             ],
             "type": "object"
@@ -232,6 +483,21 @@
         ],
         "type": "object"
       },
+      "RevokeAllDocketSessionsRequest": {
+        "$id": "RevokeAllDocketSessionsRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "idempotencyKey": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "idempotencyKey"
+        ],
+        "type": "object"
+      },
       "RevokeDocketSessionRequest": {
         "$id": "RevokeDocketSessionRequest.v1",
         "additionalProperties": false,
@@ -270,6 +536,10 @@
               },
               {
                 "const": "AUTHORITY_STALE",
+                "type": "string"
+              },
+              {
+                "const": "DISPLAY_NAME_CHANGE_TOO_SOON",
                 "type": "string"
               },
               {
@@ -342,6 +612,210 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/v1/account/display-name": {
+      "post": {
+        "operationId": "changeDisplayName",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeDisplayNameRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocketSessionResult"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "Authentication is required."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The current authority is stale."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The response did not match its contract."
+          }
+        },
+        "summary": "Change the authenticated Account holder's governed Docket Display Name.",
+        "x-audience": "account-self",
+        "x-requirements": [
+          "R1-AUTH-001",
+          "R1-LIFE-001",
+          "R1-PRIV-001"
+        ]
+      }
+    },
+    "/v1/account/profile": {
+      "get": {
+        "operationId": "getAccountProfile",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "audience",
+            "required": true,
+            "schema": {
+              "const": "self",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountProfileProjection"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "Authentication is required."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The response did not match its contract."
+          }
+        },
+        "summary": "Return the authenticated Account holder's current Docket profile.",
+        "x-audience": "account-self",
+        "x-requirements": [
+          "R1-AUTH-001",
+          "R1-LIFE-001",
+          "R1-PRIV-001"
+        ]
+      }
+    },
+    "/v1/account/security-history": {
+      "get": {
+        "operationId": "listAccountSecurityHistory",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "audience",
+            "required": true,
+            "schema": {
+              "const": "self",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountSecurityHistoryList"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "Authentication is required."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The response did not match its contract."
+          }
+        },
+        "summary": "List the authenticated Account holder's retained Security History.",
+        "x-audience": "account-self",
+        "x-requirements": [
+          "R1-AUTH-001",
+          "R1-PRIV-001"
+        ]
+      }
+    },
     "/v1/docket-sessions": {
       "get": {
         "operationId": "listDocketSessions",
@@ -546,6 +1020,70 @@
           }
         },
         "summary": "Revoke one of the authenticated Account holder's Docket Sessions.",
+        "x-audience": "account-self",
+        "x-requirements": [
+          "R1-AUTH-001",
+          "R1-PRIV-001"
+        ]
+      }
+    },
+    "/v1/docket-sessions/revoke-all": {
+      "post": {
+        "operationId": "revokeAllDocketSessions",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevokeAllDocketSessionsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocketSessionResult"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "Authentication is required."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The response did not match its contract."
+          }
+        },
+        "summary": "Revoke every Docket Session held by the authenticated Account holder.",
         "x-audience": "account-self",
         "x-requirements": [
           "R1-AUTH-001",

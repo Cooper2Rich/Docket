@@ -10,9 +10,16 @@ for (const signal of ["SIGINT", "SIGTERM"] as const) {
   });
 }
 
-await runIdentityHintConsumer(createConfiguredIdentityHintWorker(), {
-  signal: shutdown.signal,
-  onError: () => {
-    console.error("identity hint worker poll failed");
+await runIdentityHintConsumer(
+  createConfiguredIdentityHintWorker(process.env, {
+    onRetentionError: () => {
+      console.error("Account Security History retention cleanup failed");
+    },
+  }),
+  {
+    signal: shutdown.signal,
+    onError: () => {
+      console.error("identity hint worker poll failed");
+    },
   },
-});
+);

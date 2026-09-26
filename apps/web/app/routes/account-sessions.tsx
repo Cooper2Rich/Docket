@@ -2,17 +2,21 @@ import { getAuth } from "@clerk/react-router/server";
 import {
   ContractClientError,
   createDocketClient,
+  type AccountProfileProjection,
+  type AccountSecurityHistoryList,
   type DocketSessionList,
 } from "@docket/contracts";
 import { Form, useNavigation, useRevalidator } from "react-router";
 import {
   CircleAlert,
   Clock3,
+  History,
   Inbox,
   Laptop,
   Loader2,
   RotateCcw,
   ShieldX,
+  UserRound,
 } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { validateWebRuntime } from "~/runtime.server";
@@ -78,6 +82,8 @@ export function hasTrustedMutationOrigin(
 export type AccountSessionsLoaderData = Readonly<{
   state: AccountSessionViewState;
   sessions: DocketSessionList["sessions"];
+  account?: AccountProfileProjection;
+  history?: AccountSecurityHistoryList["history"];
   currentSessionId?: string;
 }>;
 
@@ -135,12 +141,23 @@ export async function loader(
     const current = await context.client.createDocketSession({
       idempotencyKey: `web-create-${context.actorSessionId}`,
     });
+    // Each authenticated read advances the same activity timestamp inside a
+    // serializable PostgreSQL transaction, so sequence them to avoid turning
+    // an ordinary page load into a false concurrent-authority conflict.
+    const account = await context.client.getAccountProfile({
+      audience: "self",
+    });
     const { sessions } = await context.client.listDocketSessions({
+      audience: "self",
+    });
+    const { history } = await context.client.listAccountSecurityHistory({
       audience: "self",
     });
     return {
       state: sessions.length === 0 ? "empty" : "ready",
       sessions,
+      account,
+      history,
       currentSessionId: current.session.id,
     };
   } catch (error) {
@@ -157,6 +174,59 @@ export async function action(args: Route.ActionArgs) {
   }
 
   const form = await args.request.formData();
+  const intent = form.get("intent");
+  if (intent === "change-display-name") {
+    const displayName = form.get("displayName");
+    const expectedVersion = Number(form.get("expectedVersion"));
+    if (
+      typeof displayName !== "string" ||
+      displayName.trim().length === 0 ||
+      displayName.trim().length > 128 ||
+      !Number.isInteger(expectedVersion) ||
+      expectedVersion < 1
+    ) {
+      return { ok: false, message: "The Display Name request was invalid." };
+    }
+    try {
+      const context = await apiContext(args);
+      if (!context) return { ok: false, message: "Session access denied." };
+      await context.client.changeDisplayName({
+        displayName: displayName.trim(),
+        expectedVersion,
+        idempotencyKey: `web-display-name-${String(expectedVersion)}-${context.actorSessionId}`,
+      });
+      return { ok: true, message: "Docket Display Name updated." };
+    } catch (error) {
+      if (error instanceof ContractClientError) {
+        if (error.code === "AUTHORITY_STALE") {
+          return {
+            ok: false,
+            message: "The Account changed. Reload before trying again.",
+          };
+        }
+        if (error.code === "DISPLAY_NAME_CHANGE_TOO_SOON") {
+          return {
+            ok: false,
+            message:
+              "The Docket Display Name may be changed once every 30 days.",
+          };
+        }
+      }
+      return { ok: false, message: "The Display Name could not be changed." };
+    }
+  }
+  if (intent === "revoke-all") {
+    try {
+      const context = await apiContext(args);
+      if (!context) return { ok: false, message: "Session access denied." };
+      await context.client.revokeAllDocketSessions({
+        idempotencyKey: `web-revoke-all-${context.actorSessionId}`,
+      });
+      return { ok: true, message: "Logged out everywhere." };
+    } catch {
+      return { ok: false, message: "Docket could not log out every session." };
+    }
+  }
   const sessionId = form.get("sessionId");
   const expectedVersion = Number(form.get("expectedVersion"));
   if (
@@ -176,7 +246,7 @@ export async function action(args: Route.ActionArgs) {
       expectedVersion,
       idempotencyKey: `web-revoke-${context.actorSessionId}-${sessionId}-${String(expectedVersion)}`,
     });
-    return { ok: true, message: "Session revoked." };
+    return { ok: true, message: "Session ended." };
   } catch (error) {
     const state = stateForError(error);
     return {
@@ -193,6 +263,24 @@ function sessionDetail(session: DocketSessionList["sessions"][number]): string {
   const lastActive = new Date(session.lastActivityAt).toLocaleString();
   const expires = new Date(session.expiresAt).toLocaleString();
   return `Last active ${lastActive} · expires ${expires}`;
+}
+
+function historyLabel(
+  entry: AccountSecurityHistoryList["history"][number],
+): string {
+  if (entry.kind === "accepted_sign_in") return "Accepted sign-in";
+  if (entry.kind === "clerk_reverification") return "Clerk reverification";
+  return `Account suspension ${entry.suspensionStatus ?? "updated"}`;
+}
+
+function historyDetail(
+  entry: AccountSecurityHistoryList["history"][number],
+): string {
+  const place = [entry.device, entry.approximateLocation]
+    .filter((value): value is string => Boolean(value))
+    .join(" · ");
+  const occurredAt = new Date(entry.occurredAt).toLocaleString();
+  return place ? `${occurredAt} · ${place}` : occurredAt;
 }
 
 export function AccountSessionsView({
@@ -213,6 +301,11 @@ export function AccountSessionsView({
   const activeSessions = loaderData.sessions.filter(
     (session) => session.status === "active",
   );
+  const currentSession = activeSessions.find(
+    (session) => session.id === loaderData.currentSessionId,
+  );
+  const account = loaderData.account;
+  const securityHistory = loaderData.history ?? [];
 
   return (
     <main className="page-shell account-session-shell" id="main-content">
@@ -232,57 +325,204 @@ export function AccountSessionsView({
 
         {state === "ready" ? (
           <>
-            <Button
-              type="button"
-              variant="outline"
-              disabled={revalidator.state !== "idle"}
-              onClick={() => {
-                void revalidator.revalidate();
-              }}
+            {currentSession?.sessionClass === "privileged" ? (
+              <aside
+                className="privileged-session-banner"
+                aria-labelledby="privileged-session-heading"
+              >
+                <CircleAlert aria-hidden="true" />
+                <div>
+                  <h2 id="privileged-session-heading">
+                    Privileged context active
+                  </h2>
+                  <p>
+                    {currentSession.device} ·{" "}
+                    {currentSession.approximateLocation}
+                    {" · "}
+                    {currentSession.privilegedActivatedAt
+                      ? `activated ${new Date(
+                          currentSession.privilegedActivatedAt,
+                        ).toLocaleString()}`
+                      : "activation time unavailable"}
+                  </p>
+                </div>
+                <Form method="post">
+                  <input type="hidden" name="intent" value="revoke-one" />
+                  <input
+                    type="hidden"
+                    name="sessionId"
+                    value={currentSession.id}
+                  />
+                  <input
+                    type="hidden"
+                    name="expectedVersion"
+                    value={currentSession.version}
+                  />
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    disabled={navigation.state !== "idle"}
+                  >
+                    End privileged session
+                  </Button>
+                </Form>
+              </aside>
+            ) : null}
+            {account ? (
+              <section
+                className="account-security-section"
+                aria-labelledby="profile-heading"
+              >
+                <div className="section-heading">
+                  <UserRound aria-hidden="true" />
+                  <div>
+                    <h2 id="profile-heading">Docket profile</h2>
+                    <p>{account.verifiedEmail}</p>
+                  </div>
+                </div>
+                <Form method="post" className="display-name-form">
+                  <input
+                    type="hidden"
+                    name="intent"
+                    value="change-display-name"
+                  />
+                  <input
+                    type="hidden"
+                    name="expectedVersion"
+                    value={account.version}
+                  />
+                  <label htmlFor="display-name">Docket Display Name</label>
+                  <input
+                    id="display-name"
+                    name="displayName"
+                    defaultValue={account.displayName}
+                    minLength={1}
+                    maxLength={128}
+                    required
+                  />
+                  <Button type="submit" disabled={navigation.state !== "idle"}>
+                    Update Display Name
+                  </Button>
+                </Form>
+                <p className="section-note">
+                  Self-service changes are available once every 30 days.
+                </p>
+              </section>
+            ) : null}
+
+            <section
+              className="account-security-section"
+              aria-labelledby="history-heading"
             >
-              <RotateCcw aria-hidden="true" />
-              Refresh sessions
-            </Button>
-            <ul className="session-list" aria-label="Active Docket sessions">
-              {activeSessions.map((session) => {
-                const current = session.id === loaderData.currentSessionId;
-                return (
-                  <li className="session-row" key={session.id}>
-                    <Laptop className="session-device" aria-hidden="true" />
-                    <div className="session-copy">
-                      <h2>{current ? "This device" : "Signed-in session"}</h2>
-                      <p>{sessionDetail(session)}</p>
-                      <p className="session-status">
-                        Active{current ? " · current session" : ""}
-                      </p>
-                    </div>
-                    {current ? (
-                      <span className="current-badge">Current</span>
-                    ) : (
-                      <Form method="post">
-                        <input
-                          type="hidden"
-                          name="sessionId"
-                          value={session.id}
-                        />
-                        <input
-                          type="hidden"
-                          name="expectedVersion"
-                          value={session.version}
-                        />
-                        <Button
-                          type="submit"
-                          variant="outline"
-                          disabled={navigation.state !== "idle"}
-                        >
-                          Revoke signed-in session
-                        </Button>
-                      </Form>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+              <div className="section-heading">
+                <History aria-hidden="true" />
+                <div>
+                  <h2 id="history-heading">Account Security History</h2>
+                  <p>Retained sign-in and Account security events.</p>
+                </div>
+              </div>
+              {securityHistory.length === 0 ? (
+                <p>No Account Security History is available.</p>
+              ) : (
+                <ul className="security-history-list">
+                  {securityHistory.map((entry) => (
+                    <li key={entry.id}>
+                      <strong>{historyLabel(entry)}</strong>
+                      <span>{historyDetail(entry)}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+
+            <section
+              className="account-security-section"
+              aria-labelledby="active-sessions-heading"
+            >
+              <div className="section-heading section-heading-actions">
+                <div>
+                  <h2 id="active-sessions-heading">Active sessions</h2>
+                  <p>Review and end Docket sessions across your devices.</p>
+                </div>
+                <div className="session-actions">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={revalidator.state !== "idle"}
+                    onClick={() => {
+                      void revalidator.revalidate();
+                    }}
+                  >
+                    <RotateCcw aria-hidden="true" />
+                    Refresh sessions
+                  </Button>
+                  <Form method="post">
+                    <input type="hidden" name="intent" value="revoke-all" />
+                    <Button
+                      type="submit"
+                      variant="outline"
+                      disabled={navigation.state !== "idle"}
+                    >
+                      Log out everywhere
+                    </Button>
+                  </Form>
+                </div>
+              </div>
+              <ul className="session-list" aria-label="Active Docket sessions">
+                {activeSessions.map((session) => {
+                  const current = session.id === loaderData.currentSessionId;
+                  return (
+                    <li className="session-row" key={session.id}>
+                      <Laptop className="session-device" aria-hidden="true" />
+                      <div className="session-copy">
+                        <h2>
+                          {current
+                            ? `This device · ${session.device}`
+                            : session.device}
+                        </h2>
+                        <p>{session.approximateLocation}</p>
+                        <p>{sessionDetail(session)}</p>
+                        <p className="session-status">
+                          Active {session.sessionClass} session
+                          {current ? " · current session" : ""}
+                        </p>
+                      </div>
+                      <div>
+                        {current ? (
+                          <span className="current-badge">Current</span>
+                        ) : null}
+                        <Form method="post">
+                          <input
+                            type="hidden"
+                            name="intent"
+                            value="revoke-one"
+                          />
+                          <input
+                            type="hidden"
+                            name="sessionId"
+                            value={session.id}
+                          />
+                          <input
+                            type="hidden"
+                            name="expectedVersion"
+                            value={session.version}
+                          />
+                          <Button
+                            type="submit"
+                            variant="outline"
+                            disabled={navigation.state !== "idle"}
+                          >
+                            {current
+                              ? "Log out this device"
+                              : "Revoke signed-in session"}
+                          </Button>
+                        </Form>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
           </>
         ) : (
           <div
@@ -309,7 +549,7 @@ export function AccountSessionsView({
         </span>
         <p className="sr-only" role="status" aria-live="polite">
           {navigation.state === "submitting"
-            ? "Revoking session."
+            ? "Updating Account security."
             : (actionData?.message ?? "")}
         </p>
       </section>

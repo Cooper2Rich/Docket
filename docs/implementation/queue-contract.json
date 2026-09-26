@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "6c3a324727e6a8925247a8ddceec22935f51b1756ed6239dc09e4077a6426f02",
+  "graph_sha256": "b98784f11e0a1c30bcc9c0bdf481808ff23db889ff8bdc85a4960882fad31c94",
   "execution_graph": {
     "items": [
       {
@@ -16159,7 +16159,7 @@
         "parent": "R1-IDA-001",
         "order": 120,
         "title": "Enforce session limits and Account security views",
-        "status": "ready",
+        "status": "done",
         "owner": "identity-access",
         "stage": "02 Walking skeleton",
         "depends_on": [
@@ -16173,7 +16173,10 @@
         ],
         "spec": "docs/implementation/items/R1-IDA-001-B.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "dd65941fbcafe1b108c9a56434efc5cc7ce2fc3a7943353e5b68569c0d16d991",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-IDA-002-A",
@@ -16181,7 +16184,7 @@
         "parent": "R1-IDA-002",
         "order": 130,
         "title": "Isolate Active Role Context and reverify sensitive actions",
-        "status": "blocked",
+        "status": "ready",
         "owner": "identity-access",
         "stage": "02 Walking skeleton",
         "depends_on": [
@@ -16194,7 +16197,7 @@
           "R1-CONS-001"
         ],
         "spec": "docs/implementation/items/R1-IDA-002-A.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {

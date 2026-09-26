@@ -1,6 +1,10 @@
 import { createClerkClient, type ClerkClient } from "@clerk/backend";
 import {
+  ClerkSessionTerminationService,
+  IdentityService,
   IdentityWebhookHintService,
+  PostgresClerkSessionTerminationStore,
+  PostgresIdentityStore,
   PostgresIdentityWebhookHintStore,
   type ClerkWebhookHint,
   type WebhookHintDelivery,
@@ -21,6 +25,7 @@ export const workerAdapterStatus = {
 } as const;
 
 export type IdentityHintObserver = (hint: ClerkWebhookHint) => Promise<void>;
+export type ClerkSessionTerminator = (clerkSessionId: string) => Promise<void>;
 
 export function createIdentityHintWorker(
   service: Pick<IdentityWebhookHintService, "deliverNext">,
@@ -30,6 +35,60 @@ export function createIdentityHintWorker(
 }
 
 export type IdentityHintWorker = ReturnType<typeof createIdentityHintWorker>;
+
+export function createClerkSessionTerminationWorker(
+  service: Pick<ClerkSessionTerminationService, "deliverNext">,
+  terminate: ClerkSessionTerminator,
+) {
+  return { runOnce: () => service.deliverNext(terminate) };
+}
+
+export function createAccountSecurityHistoryRetentionWorker(
+  service: Pick<IdentityService, "deleteExpiredAccountSecurityHistory">,
+  options: Readonly<{
+    now?: () => Date;
+    intervalMilliseconds?: number;
+  }> = {},
+) {
+  const now = options.now ?? (() => new Date());
+  const intervalMilliseconds =
+    options.intervalMilliseconds ?? 24 * 60 * 60 * 1_000;
+  let nextRunAt = Number.NEGATIVE_INFINITY;
+  return {
+    runOnce: async () => {
+      const currentTime = now().getTime();
+      if (currentTime < nextRunAt) {
+        return { status: "idle", deleted: 0 } as const;
+      }
+      const deleted = await service.deleteExpiredAccountSecurityHistory();
+      nextRunAt = currentTime + intervalMilliseconds;
+      return { status: "completed", deleted } as const;
+    },
+  };
+}
+
+export function createIdentityMaintenanceWorker(
+  retentionWorker: Readonly<{ runOnce(): Promise<unknown> }>,
+  terminationWorker: Readonly<{
+    runOnce(): ReturnType<ClerkSessionTerminationService["deliverNext"]>;
+  }>,
+  hintWorker: IdentityHintWorker,
+  options: Readonly<{
+    onRetentionError?: (error: unknown) => void;
+  }> = {},
+) {
+  return {
+    runOnce: async () => {
+      try {
+        await retentionWorker.runOnce();
+      } catch (error) {
+        options.onRetentionError?.(error);
+      }
+      const termination = await terminationWorker.runOnce();
+      return termination.status === "idle" ? hintWorker.runOnce() : termination;
+    },
+  };
+}
 
 type ConsumerWait = (
   milliseconds: number,
@@ -75,6 +134,7 @@ export async function runIdentityHintConsumer(
 }
 
 type ClerkHintBackend = Pick<ClerkClient, "sessions" | "users">;
+type ClerkSessionBackend = Pick<ClerkClient, "sessions">;
 
 function isNotFound(error: unknown): boolean {
   return (
@@ -117,17 +177,55 @@ export function createClerkIdentityHintObserver(
   };
 }
 
+export function createClerkSessionTerminator(
+  clerk: ClerkSessionBackend,
+): ClerkSessionTerminator {
+  return async (clerkSessionId) => {
+    try {
+      await clerk.sessions.revokeSession(clerkSessionId);
+    } catch (error) {
+      if (isNotFound(error)) return;
+      throw error;
+    }
+  };
+}
+
 export function createConfiguredIdentityHintWorker(
   environment: Readonly<Record<string, string | undefined>> = process.env,
+  options: Readonly<{
+    onRetentionError?: (error: unknown) => void;
+  }> = {},
 ) {
   const config = validateWorkerRuntime(environment);
+  const now = () => new Date();
   const service = new IdentityWebhookHintService(
     new PostgresIdentityWebhookHintStore(config.databaseUrl ?? ""),
-    () => new Date(),
+    now,
   );
   const clerk = createClerkClient({ secretKey: config.clerkSecretKey ?? "" });
-  return createIdentityHintWorker(
+  const retentionWorker = createAccountSecurityHistoryRetentionWorker(
+    new IdentityService({
+      store: new PostgresIdentityStore(config.databaseUrl ?? ""),
+      now,
+      nextId: (kind) => `${kind}_worker_retention_unused`,
+    }),
+    { now },
+  );
+  const terminationWorker = createClerkSessionTerminationWorker(
+    new ClerkSessionTerminationService(
+      new PostgresClerkSessionTerminationStore(config.databaseUrl ?? ""),
+      now,
+    ),
+    createClerkSessionTerminator(clerk),
+  );
+  const hintWorker = createIdentityHintWorker(
     service,
     createClerkIdentityHintObserver(clerk),
+  );
+  return createIdentityMaintenanceWorker(
+    retentionWorker,
+    terminationWorker,
+    hintWorker,
+    options,
   );
 }
