@@ -1,3 +1,5 @@
 stateDiagram-v2
+  active-role-context --> selector: switch or leave role context [current version and resolved save/discard decision]
   active --> expired: expire [absolute or inactivity limit reached]
   active --> revoked: revoke [current session authority]
+  selector --> active-role-context: enter role context [current server-side grant and tab-scoped selection]

@@ -4,10 +4,14 @@ import {
   IdentityService,
   IdentityWebhookHintService,
   PostgresClerkSessionTerminationStore,
+  PostgresAccountSecurityAlertPublisher,
   PostgresIdentityStore,
   PostgresIdentityWebhookHintStore,
+  PostgresPrivilegedContextAlertStore,
+  PrivilegedContextAlertService,
   type ClerkWebhookHint,
   type WebhookHintDelivery,
+  type PrivilegedContextRestoredAlert,
 } from "@docket/identity-access";
 import { parseRuntimeConfig } from "@docket/runtime";
 
@@ -26,6 +30,9 @@ export const workerAdapterStatus = {
 
 export type IdentityHintObserver = (hint: ClerkWebhookHint) => Promise<void>;
 export type ClerkSessionTerminator = (clerkSessionId: string) => Promise<void>;
+export type PrivilegedContextAlertPublisher = (
+  alert: PrivilegedContextRestoredAlert,
+) => Promise<void>;
 
 export function createIdentityHintWorker(
   service: Pick<IdentityWebhookHintService, "deliverNext">,
@@ -41,6 +48,13 @@ export function createClerkSessionTerminationWorker(
   terminate: ClerkSessionTerminator,
 ) {
   return { runOnce: () => service.deliverNext(terminate) };
+}
+
+export function createPrivilegedContextAlertWorker(
+  service: Pick<PrivilegedContextAlertService, "deliverNext">,
+  publish: PrivilegedContextAlertPublisher,
+) {
+  return { runOnce: () => service.deliverNext(publish) };
 }
 
 export function createAccountSecurityHistoryRetentionWorker(
@@ -76,6 +90,9 @@ export function createIdentityMaintenanceWorker(
   options: Readonly<{
     onRetentionError?: (error: unknown) => void;
   }> = {},
+  privilegedContextAlertWorker?: Readonly<{
+    runOnce(): ReturnType<PrivilegedContextAlertService["deliverNext"]>;
+  }>,
 ) {
   return {
     runOnce: async () => {
@@ -85,7 +102,12 @@ export function createIdentityMaintenanceWorker(
         options.onRetentionError?.(error);
       }
       const termination = await terminationWorker.runOnce();
-      return termination.status === "idle" ? hintWorker.runOnce() : termination;
+      if (termination.status !== "idle") return termination;
+      if (privilegedContextAlertWorker) {
+        const alert = await privilegedContextAlertWorker.runOnce();
+        if (alert.status !== "idle") return alert;
+      }
+      return hintWorker.runOnce();
     },
   };
 }
@@ -222,10 +244,22 @@ export function createConfiguredIdentityHintWorker(
     service,
     createClerkIdentityHintObserver(clerk),
   );
+  const alertPublisher = new PostgresAccountSecurityAlertPublisher(
+    config.databaseUrl ?? "",
+    now,
+  );
+  const privilegedContextAlertWorker = createPrivilegedContextAlertWorker(
+    new PrivilegedContextAlertService(
+      new PostgresPrivilegedContextAlertStore(config.databaseUrl ?? ""),
+      now,
+    ),
+    (alert) => alertPublisher.publish(alert),
+  );
   return createIdentityMaintenanceWorker(
     retentionWorker,
     terminationWorker,
     hintWorker,
     options,
+    privilegedContextAlertWorker,
   );
 }

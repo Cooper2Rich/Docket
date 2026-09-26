@@ -4,6 +4,8 @@ import {
   IdentityWebhookHintService,
   InMemoryClerkSessionTerminationStore,
   InMemoryIdentityWebhookHintStore,
+  InMemoryPrivilegedContextAlertStore,
+  PrivilegedContextAlertService,
 } from "@docket/identity-access";
 import {
   createAccountSecurityHistoryRetentionWorker,
@@ -12,6 +14,7 @@ import {
   createClerkSessionTerminationWorker,
   createIdentityMaintenanceWorker,
   createIdentityHintWorker,
+  createPrivilegedContextAlertWorker,
   runIdentityHintConsumer,
 } from "./index.js";
 
@@ -244,5 +247,46 @@ describe("Clerk session termination", () => {
       sessionId: "session_docket_worker_001",
     });
     expect(terminated).toEqual(["session_clerk_worker_001"]);
+  });
+});
+
+describe("privileged-context security alert worker", () => {
+  it("publishes the device, approximate location, time and termination control", async () => {
+    const now = new Date("2026-09-26T18:00:00.000Z");
+    const store = new InMemoryPrivilegedContextAlertStore();
+    store.enqueue({
+      id: "security-alert-worker-001",
+      accountId: "account-worker-001",
+      docketSessionId: "session-worker-001",
+      contextId: "context-worker-001",
+      contextKind: "platform_administrator",
+      scopeLabel: "Docket platform",
+      device: "Firefox on Windows",
+      approximateLocation: "Austin, US",
+      restoredAt: now,
+      terminationPath: "/account/sessions",
+      attemptCount: 0,
+    });
+    const published: unknown[] = [];
+    const worker = createPrivilegedContextAlertWorker(
+      new PrivilegedContextAlertService(store, () => now),
+      (alert) => {
+        published.push(alert);
+        return Promise.resolve();
+      },
+    );
+
+    await expect(worker.runOnce()).resolves.toEqual({
+      status: "delivered",
+      alertId: "security-alert-worker-001",
+    });
+    expect(published).toEqual([
+      expect.objectContaining({
+        device: "Firefox on Windows",
+        approximateLocation: "Austin, US",
+        restoredAt: now,
+        terminationPath: "/account/sessions",
+      }),
+    ]);
   });
 });

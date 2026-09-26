@@ -146,6 +146,165 @@
       ],
       "type": "object"
     },
+    "ActiveRoleContext": {
+      "$id": "ActiveRoleContext.v1",
+      "additionalProperties": false,
+      "properties": {
+        "authorityVersion": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "contextKind": {
+          "anyOf": [
+            {
+              "const": "school",
+              "type": "string"
+            },
+            {
+              "const": "tournament",
+              "type": "string"
+            },
+            {
+              "const": "judge",
+              "type": "string"
+            },
+            {
+              "const": "platform_administrator",
+              "type": "string"
+            },
+            {
+              "const": "legal_and_privacy_operations",
+              "type": "string"
+            }
+          ]
+        },
+        "grantId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "privileged": {
+          "type": "boolean"
+        },
+        "scopeId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "scopeLabel": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "grantId",
+        "contextKind",
+        "scopeId",
+        "scopeLabel",
+        "privileged",
+        "authorityVersion",
+        "version"
+      ],
+      "type": "object"
+    },
+    "AuthorityDecision": {
+      "$id": "AuthorityDecision.v1",
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "const": true,
+          "type": "boolean"
+        },
+        "context": {
+          "$id": "ActiveRoleContext.v1",
+          "additionalProperties": false,
+          "properties": {
+            "authorityVersion": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "contextKind": {
+              "anyOf": [
+                {
+                  "const": "school",
+                  "type": "string"
+                },
+                {
+                  "const": "tournament",
+                  "type": "string"
+                },
+                {
+                  "const": "judge",
+                  "type": "string"
+                },
+                {
+                  "const": "platform_administrator",
+                  "type": "string"
+                },
+                {
+                  "const": "legal_and_privacy_operations",
+                  "type": "string"
+                }
+              ]
+            },
+            "grantId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "id": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "privileged": {
+              "type": "boolean"
+            },
+            "scopeId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "scopeLabel": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            "version": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "grantId",
+            "contextKind",
+            "scopeId",
+            "scopeLabel",
+            "privileged",
+            "authorityVersion",
+            "version"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "allowed",
+        "context"
+      ],
+      "type": "object"
+    },
     "ChangeDisplayNameRequest": {
       "$id": "ChangeDisplayNameRequest.v1",
       "additionalProperties": false,
@@ -169,6 +328,38 @@
         "displayName",
         "expectedVersion",
         "idempotencyKey"
+      ],
+      "type": "object"
+    },
+    "ClerkReverificationEvidence": {
+      "$id": "ClerkReverificationEvidence.v1",
+      "additionalProperties": false,
+      "properties": {
+        "clerkSessionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "signatureValidated": {
+          "const": true,
+          "type": "boolean"
+        },
+        "verificationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "verifiedAt": {
+          "maxLength": 35,
+          "minLength": 20,
+          "type": "string"
+        }
+      },
+      "required": [
+        "verificationId",
+        "clerkSessionId",
+        "signatureValidated",
+        "verifiedAt"
       ],
       "type": "object"
     },
@@ -431,6 +622,166 @@
       ],
       "type": "object"
     },
+    "EnterActiveRoleContextRequest": {
+      "$id": "EnterActiveRoleContextRequest.v1",
+      "additionalProperties": false,
+      "properties": {
+        "expectedCurrentContextId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "expectedCurrentVersion": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "grantId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "idempotencyKey": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "switchDecision": {
+          "anyOf": [
+            {
+              "const": "save",
+              "type": "string"
+            },
+            {
+              "const": "discard",
+              "type": "string"
+            },
+            {
+              "const": "cancel",
+              "type": "string"
+            }
+          ]
+        },
+        "tabId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "tabId",
+        "grantId",
+        "switchDecision",
+        "idempotencyKey"
+      ],
+      "type": "object"
+    },
+    "EnterActiveRoleContextResult": {
+      "$id": "EnterActiveRoleContextResult.v1",
+      "additionalProperties": false,
+      "properties": {
+        "cacheInvalidation": {
+          "$id": "RoleContextCacheInvalidation.v1",
+          "additionalProperties": false,
+          "properties": {
+            "closeOpenViews": {
+              "const": true,
+              "type": "boolean"
+            },
+            "destroyProtectedCache": {
+              "const": true,
+              "type": "boolean"
+            },
+            "previousContextId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "destroyProtectedCache",
+            "closeOpenViews"
+          ],
+          "type": "object"
+        },
+        "context": {
+          "$id": "ActiveRoleContext.v1",
+          "additionalProperties": false,
+          "properties": {
+            "authorityVersion": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "contextKind": {
+              "anyOf": [
+                {
+                  "const": "school",
+                  "type": "string"
+                },
+                {
+                  "const": "tournament",
+                  "type": "string"
+                },
+                {
+                  "const": "judge",
+                  "type": "string"
+                },
+                {
+                  "const": "platform_administrator",
+                  "type": "string"
+                },
+                {
+                  "const": "legal_and_privacy_operations",
+                  "type": "string"
+                }
+              ]
+            },
+            "grantId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "id": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "privileged": {
+              "type": "boolean"
+            },
+            "scopeId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "scopeLabel": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            "version": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "grantId",
+            "contextKind",
+            "scopeId",
+            "scopeLabel",
+            "privileged",
+            "authorityVersion",
+            "version"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "context",
+        "cacheInvalidation"
+      ],
+      "type": "object"
+    },
     "IdentitySessionProjection": {
       "$id": "IdentitySessionProjection.v1",
       "additionalProperties": false,
@@ -470,6 +821,87 @@
       ],
       "type": "object"
     },
+    "InspectRoleContextDeepLinkRequest": {
+      "$id": "InspectRoleContextDeepLinkRequest.v1",
+      "additionalProperties": false,
+      "properties": {
+        "requiredGrantId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "tabId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "tabId",
+        "requiredGrantId"
+      ],
+      "type": "object"
+    },
+    "LeaveActiveRoleContextRequest": {
+      "$id": "LeaveActiveRoleContextRequest.v1",
+      "additionalProperties": false,
+      "properties": {
+        "expectedCurrentContextId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "expectedCurrentVersion": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "tabId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "tabId",
+        "expectedCurrentContextId",
+        "expectedCurrentVersion"
+      ],
+      "type": "object"
+    },
+    "LeaveActiveRoleContextResult": {
+      "$id": "LeaveActiveRoleContextResult.v1",
+      "additionalProperties": false,
+      "properties": {
+        "cacheInvalidation": {
+          "additionalProperties": false,
+          "properties": {
+            "closeOpenViews": {
+              "const": true,
+              "type": "boolean"
+            },
+            "destroyProtectedCache": {
+              "const": true,
+              "type": "boolean"
+            },
+            "previousContextId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "previousContextId",
+            "destroyProtectedCache",
+            "closeOpenViews"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "cacheInvalidation"
+      ],
+      "type": "object"
+    },
     "ListDocketSessionsRequest": {
       "$id": "ListDocketSessionsRequest.v1",
       "additionalProperties": false,
@@ -481,6 +913,42 @@
       },
       "required": [
         "audience"
+      ],
+      "type": "object"
+    },
+    "ListRoleContextsRequest": {
+      "$id": "ListRoleContextsRequest.v1",
+      "additionalProperties": false,
+      "properties": {
+        "tabId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "tabId"
+      ],
+      "type": "object"
+    },
+    "RestoreMostRecentRoleContextRequest": {
+      "$id": "RestoreMostRecentRoleContextRequest.v1",
+      "additionalProperties": false,
+      "properties": {
+        "idempotencyKey": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "tabId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "tabId",
+        "idempotencyKey"
       ],
       "type": "object"
     },
@@ -525,6 +993,263 @@
       ],
       "type": "object"
     },
+    "RoleContextCacheInvalidation": {
+      "$id": "RoleContextCacheInvalidation.v1",
+      "additionalProperties": false,
+      "properties": {
+        "closeOpenViews": {
+          "const": true,
+          "type": "boolean"
+        },
+        "destroyProtectedCache": {
+          "const": true,
+          "type": "boolean"
+        },
+        "previousContextId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "destroyProtectedCache",
+        "closeOpenViews"
+      ],
+      "type": "object"
+    },
+    "RoleContextDeepLinkDecision": {
+      "$id": "RoleContextDeepLinkDecision.v1",
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "anyOf": [
+            {
+              "const": "current",
+              "type": "string"
+            },
+            {
+              "const": "switch_required",
+              "type": "string"
+            },
+            {
+              "const": "denied",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "decision"
+      ],
+      "type": "object"
+    },
+    "RoleContextOption": {
+      "$id": "RoleContextOption.v1",
+      "additionalProperties": false,
+      "properties": {
+        "authorityVersion": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "contextKind": {
+          "anyOf": [
+            {
+              "const": "school",
+              "type": "string"
+            },
+            {
+              "const": "tournament",
+              "type": "string"
+            },
+            {
+              "const": "judge",
+              "type": "string"
+            },
+            {
+              "const": "platform_administrator",
+              "type": "string"
+            },
+            {
+              "const": "legal_and_privacy_operations",
+              "type": "string"
+            }
+          ]
+        },
+        "grantId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "privileged": {
+          "type": "boolean"
+        },
+        "scopeId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "scopeLabel": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "grantId",
+        "contextKind",
+        "scopeId",
+        "scopeLabel",
+        "privileged",
+        "authorityVersion"
+      ],
+      "type": "object"
+    },
+    "RoleContextSelector": {
+      "$id": "RoleContextSelector.v1",
+      "additionalProperties": false,
+      "properties": {
+        "contexts": {
+          "items": {
+            "$id": "RoleContextOption.v1",
+            "additionalProperties": false,
+            "properties": {
+              "authorityVersion": {
+                "minimum": 1,
+                "type": "integer"
+              },
+              "contextKind": {
+                "anyOf": [
+                  {
+                    "const": "school",
+                    "type": "string"
+                  },
+                  {
+                    "const": "tournament",
+                    "type": "string"
+                  },
+                  {
+                    "const": "judge",
+                    "type": "string"
+                  },
+                  {
+                    "const": "platform_administrator",
+                    "type": "string"
+                  },
+                  {
+                    "const": "legal_and_privacy_operations",
+                    "type": "string"
+                  }
+                ]
+              },
+              "grantId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "privileged": {
+                "type": "boolean"
+              },
+              "scopeId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "scopeLabel": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "grantId",
+              "contextKind",
+              "scopeId",
+              "scopeLabel",
+              "privileged",
+              "authorityVersion"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "current": {
+          "$id": "ActiveRoleContext.v1",
+          "additionalProperties": false,
+          "properties": {
+            "authorityVersion": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "contextKind": {
+              "anyOf": [
+                {
+                  "const": "school",
+                  "type": "string"
+                },
+                {
+                  "const": "tournament",
+                  "type": "string"
+                },
+                {
+                  "const": "judge",
+                  "type": "string"
+                },
+                {
+                  "const": "platform_administrator",
+                  "type": "string"
+                },
+                {
+                  "const": "legal_and_privacy_operations",
+                  "type": "string"
+                }
+              ]
+            },
+            "grantId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "id": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "privileged": {
+              "type": "boolean"
+            },
+            "scopeId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "scopeLabel": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            "version": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "grantId",
+            "contextKind",
+            "scopeId",
+            "scopeLabel",
+            "privileged",
+            "authorityVersion",
+            "version"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "contexts"
+      ],
+      "type": "object"
+    },
     "StableErrorEnvelope": {
       "$id": "StableErrorEnvelope.v1",
       "additionalProperties": false,
@@ -566,6 +1291,22 @@
             {
               "const": "FIXED_IDENTITY_FORBIDDEN",
               "type": "string"
+            },
+            {
+              "const": "AUTHORITY_DENIED",
+              "type": "string"
+            },
+            {
+              "const": "CONTEXT_STALE",
+              "type": "string"
+            },
+            {
+              "const": "REAUTHENTICATION_REQUIRED",
+              "type": "string"
+            },
+            {
+              "const": "ROLE_SWITCH_BLOCKED",
+              "type": "string"
             }
           ]
         },
@@ -606,5 +1347,5 @@
       "type": "object"
     }
   },
-  "version": "1.0.0"
+  "version": "1.1.0"
 }

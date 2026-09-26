@@ -12428,11 +12428,11 @@
         "path": "docs/implementation/items/R1-IDA-002-A.md",
         "sha256": "d9dab3c323f4172290e01cb7cc7ace9a0d14ef3d8ead09342e0f21506adf3913"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-002-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-002-A/ac-01.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-002-A/AC-01",
       "itemId": "R1-IDA-002-A",
@@ -12463,7 +12463,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-002-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-002-a.mjs"
       }
     },
@@ -12472,11 +12472,11 @@
         "path": "docs/implementation/items/R1-IDA-002-A.md",
         "sha256": "d9dab3c323f4172290e01cb7cc7ace9a0d14ef3d8ead09342e0f21506adf3913"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-002-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-002-A/ac-02.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-002-A/AC-02",
       "itemId": "R1-IDA-002-A",
@@ -12507,7 +12507,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-002-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-002-a.mjs"
       }
     },
@@ -12516,11 +12516,11 @@
         "path": "docs/implementation/items/R1-IDA-002-A.md",
         "sha256": "d9dab3c323f4172290e01cb7cc7ace9a0d14ef3d8ead09342e0f21506adf3913"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-002-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-002-A/ac-03.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-002-A/AC-03",
       "itemId": "R1-IDA-002-A",
@@ -12551,7 +12551,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-002-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-002-a.mjs"
       }
     },
@@ -12560,11 +12560,11 @@
         "path": "docs/implementation/items/R1-IDA-002-A.md",
         "sha256": "d9dab3c323f4172290e01cb7cc7ace9a0d14ef3d8ead09342e0f21506adf3913"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-002-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-002-A/ac-04.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-002-A/AC-04",
       "itemId": "R1-IDA-002-A",
@@ -12595,7 +12595,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-002-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-002-a.mjs"
       }
     },
@@ -18932,7 +18932,11 @@
         "R1-IDA-001-B/AC-01",
         "R1-IDA-001-B/AC-02",
         "R1-IDA-001-B/AC-03",
-        "R1-IDA-001-B/AC-04"
+        "R1-IDA-001-B/AC-04",
+        "R1-IDA-002-A/AC-01",
+        "R1-IDA-002-A/AC-02",
+        "R1-IDA-002-A/AC-03",
+        "R1-IDA-002-A/AC-04"
       ],
       "modules": [
         "competition",
@@ -18947,10 +18951,15 @@
       "operations": [
         "changeDisplayName",
         "createDocketSession",
+        "enterActiveRoleContext",
         "getAccountProfile",
         "getIdentitySession",
+        "inspectRoleContextDeepLink",
+        "leaveActiveRoleContext",
         "listAccountSecurityHistory",
         "listDocketSessions",
+        "listRoleContexts",
+        "restoreMostRecentRoleContext",
         "revokeAllDocketSessions",
         "revokeDocketSession"
       ],
@@ -19067,10 +19076,6 @@
         "R1-IDA-001-E/AC-02",
         "R1-IDA-001-E/AC-03",
         "R1-IDA-001-E/AC-04",
-        "R1-IDA-002-A/AC-01",
-        "R1-IDA-002-A/AC-02",
-        "R1-IDA-002-A/AC-03",
-        "R1-IDA-002-A/AC-04",
         "R1-IDA-002-B/AC-01",
         "R1-IDA-002-B/AC-02",
         "R1-IDA-002-B/AC-03",
@@ -19149,6 +19154,7 @@
         "R1-TRN-001-B/AC-04"
       ],
       "vectors": [
+        "active-role-context-school-success-v1",
         "identity-session-authentication-required-v1",
         "identity-session-self-success-v1"
       ]
@@ -19856,7 +19862,11 @@
         "R1-FND-003-B/AC-01",
         "R1-FND-003-B/AC-02",
         "R1-FND-003-B/AC-03",
-        "R1-FND-003-B/AC-04"
+        "R1-FND-003-B/AC-04",
+        "R1-IDA-002-A/AC-01",
+        "R1-IDA-002-A/AC-02",
+        "R1-IDA-002-A/AC-03",
+        "R1-IDA-002-A/AC-04"
       ],
       "modules": [
         "communications",
@@ -19871,7 +19881,11 @@
         "tournaments",
         "workflows"
       ],
-      "operations": [],
+      "operations": [
+        "enterActiveRoleContext",
+        "leaveActiveRoleContext",
+        "restoreMostRecentRoleContext"
+      ],
       "pendingCriteria": [
         "R1-CMP-001-A/AC-01",
         "R1-CMP-001-A/AC-02",
@@ -20069,10 +20083,6 @@
         "R1-GOV-001-D/AC-02",
         "R1-GOV-001-D/AC-03",
         "R1-GOV-001-D/AC-04",
-        "R1-IDA-002-A/AC-01",
-        "R1-IDA-002-A/AC-02",
-        "R1-IDA-002-A/AC-03",
-        "R1-IDA-002-A/AC-04",
         "R1-IDA-002-B/AC-01",
         "R1-IDA-002-B/AC-02",
         "R1-IDA-002-B/AC-03",
@@ -21900,7 +21910,11 @@
         "R1-IDA-001-B/AC-01",
         "R1-IDA-001-B/AC-02",
         "R1-IDA-001-B/AC-03",
-        "R1-IDA-001-B/AC-04"
+        "R1-IDA-001-B/AC-04",
+        "R1-IDA-002-A/AC-01",
+        "R1-IDA-002-A/AC-02",
+        "R1-IDA-002-A/AC-03",
+        "R1-IDA-002-A/AC-04"
       ],
       "modules": [
         "communications",
@@ -21916,10 +21930,15 @@
       "operations": [
         "changeDisplayName",
         "createDocketSession",
+        "enterActiveRoleContext",
         "getAccountProfile",
         "getIdentitySession",
+        "inspectRoleContextDeepLink",
+        "leaveActiveRoleContext",
         "listAccountSecurityHistory",
         "listDocketSessions",
+        "listRoleContexts",
+        "restoreMostRecentRoleContext",
         "revokeAllDocketSessions",
         "revokeDocketSession"
       ],
@@ -22148,10 +22167,6 @@
         "R1-IDA-001-E/AC-02",
         "R1-IDA-001-E/AC-03",
         "R1-IDA-001-E/AC-04",
-        "R1-IDA-002-A/AC-01",
-        "R1-IDA-002-A/AC-02",
-        "R1-IDA-002-A/AC-03",
-        "R1-IDA-002-A/AC-04",
         "R1-IDA-002-B/AC-01",
         "R1-IDA-002-B/AC-02",
         "R1-IDA-002-B/AC-03",
@@ -22222,6 +22237,7 @@
         "R1-TRN-004-B/AC-04"
       ],
       "vectors": [
+        "active-role-context-school-success-v1",
         "identity-session-self-success-v1"
       ]
     }
@@ -22230,11 +22246,11 @@
   "summary": {
     "acceptanceCriteria": 460,
     "coverageStatuses": {
-      "implemented_foundation": 48,
-      "pending_domain": 412
+      "implemented_foundation": 52,
+      "pending_domain": 408
     },
     "excludedSources": 98,
-    "goldenVectors": 2,
+    "goldenVectors": 3,
     "requirements": 8
   }
 }

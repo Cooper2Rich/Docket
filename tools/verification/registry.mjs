@@ -14,6 +14,7 @@ registerSuite("R1-FND-005-A", () => import("./suites/r1-fnd-005-a.mjs"));
 registerSuite("R1-FND-005-B", () => import("./suites/r1-fnd-005-b.mjs"));
 registerSuite("R1-IDA-001-A", () => import("./suites/r1-ida-001-a.mjs"));
 registerSuite("R1-IDA-001-B", () => import("./suites/r1-ida-001-b.mjs"));
+registerSuite("R1-IDA-002-A", () => import("./suites/r1-ida-002-a.mjs"));
 
 export function registerSuite(itemId, loader) {
   if (!itemId || typeof loader !== "function") {

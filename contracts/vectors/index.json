@@ -2,6 +2,38 @@
   "schemaVersion": 1,
   "vectors": [
     {
+      "contractVersion": "1.1.0",
+      "expected": {
+        "cacheInvalidation": {
+          "closeOpenViews": true,
+          "destroyProtectedCache": true
+        },
+        "context": {
+          "authorityVersion": 1,
+          "contextKind": "school",
+          "grantId": "grant_fixture_school_001",
+          "id": "context_fixture_001",
+          "privileged": false,
+          "scopeId": "school_fixture_001",
+          "scopeLabel": "Fixture High School",
+          "version": 1
+        }
+      },
+      "id": "active-role-context-school-success-v1",
+      "input": {
+        "grantId": "grant_fixture_school_001",
+        "idempotencyKey": "enter_fixture_001",
+        "switchDecision": "discard",
+        "tabId": "tab_fixture_001"
+      },
+      "module": "identity-access",
+      "provenance": "synthetic-role-context-fixture",
+      "requirements": [
+        "R1-AUTH-001",
+        "R1-PRIV-001"
+      ]
+    },
+    {
       "contractVersion": "1.0.0",
       "expected": {
         "code": "AUTHENTICATION_REQUIRED",

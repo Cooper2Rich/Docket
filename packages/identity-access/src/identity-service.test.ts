@@ -159,6 +159,29 @@ describe("AuthenticateClerkSession", () => {
 });
 
 describe("Docket Account and Session commands", () => {
+  it("resolves a role-context actor only from the current server-side Docket Session", async () => {
+    const { service } = harness();
+    const identity = acceptedIdentity();
+    const created = await service.createDocketSession({
+      identity,
+      idempotencyKey: "create-role-actor-session",
+    });
+
+    await expect(service.resolveRoleContextActor(identity)).resolves.toEqual({
+      accountId: created.account.id,
+      docketSessionId: created.session.id,
+      clerkSessionId: identity.sessionId,
+      device: created.session.device,
+      approximateLocation: created.session.approximateLocation,
+    });
+    await expect(
+      service.resolveRoleContextActor({
+        ...identity,
+        sessionId: "another-clerk-session",
+      }),
+    ).rejects.toMatchObject({ code: "SESSION_EXPIRED" });
+  });
+
   it("maps one stable Clerk user to one role-free Account across mutable profile changes", async () => {
     const { service, store } = harness();
     const first = await service.createDocketSession({

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "0004_identity_role_contexts",
+  "order": 4,
+  "owner": "identity-access",
+  "description": "Add server-authoritative role grants, tab-scoped Active Role Contexts, one-use Clerk reverification evidence, retained context events and privileged-restoration security alerts",
+  "sql_file": "0004_identity_role_contexts.sql",
+  "verify_sql": "select 1 as role_contexts_valid where to_regclass('public.identity_authority_grants') is not null and to_regclass('public.identity_role_contexts') is not null and to_regclass('public.identity_reauthentication_events') is not null and to_regclass('public.identity_role_context_events') is not null and to_regclass('public.identity_privileged_context_alert_outbox') is not null and to_regclass('public.identity_account_security_alerts') is not null and (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'identity_accounts' and column_name = 'remembered_role_context_grant_id') = 1",
+  "compatibility": "additive",
+  "requirements": ["R1-AUTH-001", "R1-PRIV-001", "R1-CONS-001"]
+}

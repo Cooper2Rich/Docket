@@ -7,13 +7,20 @@ import {
   clerkWebhookHintTypes,
   createSessionResponse,
   getAccountProfileResponse,
+  enterActiveRoleContextResponse,
   IdentityError,
   IdentityService,
   IdentityWebhookHintService,
+  inspectRoleContextDeepLinkResponse,
+  leaveActiveRoleContextResponse,
   listSessionsResponse,
+  listRoleContextsResponse,
   listAccountSecurityHistoryResponse,
   PostgresIdentityStore,
+  PostgresRoleContextStore,
   PostgresIdentityWebhookHintStore,
+  RoleContextService,
+  restoreMostRecentRoleContextResponse,
   revokeSessionResponse,
   revokeAllSessionsResponse,
   resolveIdentitySession,
@@ -21,6 +28,7 @@ import {
   type ClerkSessionPolicy,
   type ClerkSessionEvidence,
   type IdentitySessionAuthority,
+  type RoleContextActor,
 } from "@docket/identity-access";
 import {
   assertNoFixtureAdapterRequestOverride,
@@ -213,6 +221,17 @@ export async function buildApiApp(
       | "listAccountSecurityHistory"
       | "changeDisplayName"
     >;
+    roleContextService?: Pick<
+      RoleContextService,
+      | "getRoleContextState"
+      | "inspectDeepLink"
+      | "enterActiveRoleContext"
+      | "restoreMostRecentContext"
+      | "leaveActiveRoleContext"
+    >;
+    resolveRoleContextActor?: (
+      identity: ClerkIdentity,
+    ) => RoleContextActor | null | Promise<RoleContextActor | null>;
     verifyClerkWebhook?: (
       request: Parameters<typeof verifyWebhook>[0],
     ) => Promise<Readonly<{ type: string; data: Readonly<{ id?: string }> }>>;
@@ -225,13 +244,23 @@ export async function buildApiApp(
   const config = parseRuntimeConfig("api", environment);
   const health = createProcessHealth("api", dependencyProbes(config));
   const app = Fastify({ logger: false });
-  const identityService =
-    options.identityService ??
-    new IdentityService({
-      store: new PostgresIdentityStore(config.databaseUrl ?? ""),
+  const defaultIdentityService = new IdentityService({
+    store: new PostgresIdentityStore(config.databaseUrl ?? ""),
+    now: () => systemClock.now(),
+    nextId: () => systemIdGenerator.next(),
+  });
+  const identityService = options.identityService ?? defaultIdentityService;
+  const roleContextService =
+    options.roleContextService ??
+    new RoleContextService({
+      store: new PostgresRoleContextStore(config.databaseUrl ?? ""),
       now: () => systemClock.now(),
       nextId: () => systemIdGenerator.next(),
     });
+  const resolveRoleContextActor =
+    options.resolveRoleContextActor ??
+    ((identity: ClerkIdentity) =>
+      defaultIdentityService.resolveRoleContextActor(identity));
   const webhookHintService =
     options.webhookHintService ??
     new IdentityWebhookHintService(
@@ -401,6 +430,18 @@ export async function buildApiApp(
     }
   };
 
+  const acceptedRoleContextActor = async (
+    request: Parameters<typeof getAuth>[0],
+  ): Promise<RoleContextActor | null> => {
+    const identity = await acceptedIdentity(request);
+    if (!identity) return null;
+    try {
+      return await resolveRoleContextActor(identity);
+    } catch {
+      return null;
+    }
+  };
+
   app.get("/v1/session", async (request, reply) => {
     const authority = options.resolveSessionAuthority
       ? options.resolveSessionAuthority(request)
@@ -476,6 +517,51 @@ export async function buildApiApp(
     const result = await changeDisplayNameResponse(
       identityService,
       await acceptedIdentity(request),
+      request.body,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.get("/v1/role-contexts", async (request, reply) => {
+    const result = await listRoleContextsResponse(
+      roleContextService,
+      await acceptedRoleContextActor(request),
+      request.query,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.post("/v1/role-contexts/deep-link", async (request, reply) => {
+    const result = await inspectRoleContextDeepLinkResponse(
+      roleContextService,
+      await acceptedRoleContextActor(request),
+      request.body,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.post("/v1/role-contexts/enter", async (request, reply) => {
+    const result = await enterActiveRoleContextResponse(
+      roleContextService,
+      await acceptedRoleContextActor(request),
+      request.body,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.post("/v1/role-contexts/restore", async (request, reply) => {
+    const result = await restoreMostRecentRoleContextResponse(
+      roleContextService,
+      await acceptedRoleContextActor(request),
+      request.body,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.post("/v1/role-contexts/leave", async (request, reply) => {
+    const result = await leaveActiveRoleContextResponse(
+      roleContextService,
+      await acceptedRoleContextActor(request),
       request.body,
       request.id,
     );

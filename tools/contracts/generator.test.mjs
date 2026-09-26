@@ -110,10 +110,15 @@ describe("module-owned contract generation", () => {
           operations: [
             "changeDisplayName",
             "createDocketSession",
+            "enterActiveRoleContext",
             "getAccountProfile",
             "getIdentitySession",
+            "inspectRoleContextDeepLink",
+            "leaveActiveRoleContext",
             "listAccountSecurityHistory",
             "listDocketSessions",
+            "listRoleContexts",
+            "restoreMostRecentRoleContext",
             "revokeAllDocketSessions",
             "revokeDocketSession",
           ],
@@ -123,10 +128,15 @@ describe("module-owned contract generation", () => {
           operations: [
             "changeDisplayName",
             "createDocketSession",
+            "enterActiveRoleContext",
             "getAccountProfile",
             "getIdentitySession",
+            "inspectRoleContextDeepLink",
+            "leaveActiveRoleContext",
             "listAccountSecurityHistory",
             "listDocketSessions",
+            "listRoleContexts",
+            "restoreMostRecentRoleContext",
             "revokeAllDocketSessions",
             "revokeDocketSession",
           ],
@@ -168,7 +178,7 @@ describe("module-owned contract generation", () => {
 
     const changedSource = {
       ...identityAccessContractSource,
-      version: "1.0.1",
+      version: "1.1.1",
     };
     await expect(
       checkArtifacts(workspace, [changedSource], traceability),
@@ -178,7 +188,7 @@ describe("module-owned contract generation", () => {
       path.join(workspace, "contracts/json-schema/identity-access.v1.json"),
       "utf8",
     );
-    expect(JSON.parse(checkedIn).version).toBe("1.0.0");
+    expect(JSON.parse(checkedIn).version).toBe("1.1.0");
   });
 
   it("rejects invalid schemas and untraced requirements with named errors", () => {
