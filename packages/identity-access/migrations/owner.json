@@ -1,5 +1,5 @@
 {
   "schema_version": 1,
   "module": "identity-access",
-  "table_prefixes": ["identity_access_"]
+  "table_prefixes": ["identity_"]
 }

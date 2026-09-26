@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "0002_identity_accounts_and_sessions",
+  "order": 2,
+  "owner": "identity-access",
+  "description": "Create stable Account, Clerk identity link, Docket Session, receipt, and event records",
+  "sql_file": "0002_identity_accounts_and_sessions.sql",
+  "verify_sql": "select count(*)::integer as identity_tables from information_schema.tables where table_schema = 'public' and table_name in ('identity_accounts', 'identity_clerk_links', 'identity_sessions', 'identity_command_receipts', 'identity_events') having count(*) = 5",
+  "compatibility": "additive",
+  "requirements": ["R1-LIFE-001", "R1-AUTH-001", "R1-PRIV-001"]
+}

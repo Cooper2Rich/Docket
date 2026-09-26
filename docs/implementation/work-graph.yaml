@@ -10,7 +10,7 @@ status_values:
 - verification
 - done
 execution_authorized: true
-next_item: R1-IDA-001-A
+next_item: R1-IDA-001-B
 first_item: R1-FND-001-A
 bootstrap_gate: GATE-BOOTSTRAP
 groups:
@@ -2820,7 +2820,7 @@ items:
   parent: R1-IDA-001
   order: 110
   title: Authenticate Clerk identities and preserve Account identity
-  status: ready
+  status: done
   owner: identity-access
   stage: 02 Walking skeleton
   depends_on:
@@ -2832,13 +2832,15 @@ items:
   - R1-PRIV-001
   spec: docs/implementation/items/R1-IDA-001-A.md
   blocking_reason: null
-  completion: null
+  completion:
+    contract_sha256: 4289a9651290c09d8f9fa90988a57ce2b1dc1a1c82011a0baa8964f6abb930a4
+    verification: controller-must-confirm-integration
 - id: R1-IDA-001-B
   kind: leaf
   parent: R1-IDA-001
   order: 120
   title: Enforce session limits and Account security views
-  status: blocked
+  status: ready
   owner: identity-access
   stage: 02 Walking skeleton
   depends_on:
@@ -2849,7 +2851,7 @@ items:
   - R1-AUTH-001
   - R1-PRIV-001
   spec: docs/implementation/items/R1-IDA-001-B.md
-  blocking_reason: Predecessor has not been implemented and verified.
+  blocking_reason: null
   completion: null
 - id: R1-IDA-002-A
   kind: leaf

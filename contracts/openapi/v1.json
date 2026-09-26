@@ -1,6 +1,184 @@
 {
   "components": {
     "schemas": {
+      "CreateDocketSessionRequest": {
+        "$id": "CreateDocketSessionRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "idempotencyKey": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "idempotencyKey"
+        ],
+        "type": "object"
+      },
+      "DocketSessionList": {
+        "$id": "DocketSessionList.v1",
+        "additionalProperties": false,
+        "properties": {
+          "sessions": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "createdAt": {
+                  "maxLength": 35,
+                  "minLength": 20,
+                  "type": "string"
+                },
+                "expiresAt": {
+                  "maxLength": 35,
+                  "minLength": 20,
+                  "type": "string"
+                },
+                "id": {
+                  "maxLength": 128,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "lastActivityAt": {
+                  "maxLength": 35,
+                  "minLength": 20,
+                  "type": "string"
+                },
+                "status": {
+                  "anyOf": [
+                    {
+                      "const": "active",
+                      "type": "string"
+                    },
+                    {
+                      "const": "revoked",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "version": {
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "status",
+                "version",
+                "createdAt",
+                "lastActivityAt",
+                "expiresAt"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "sessions"
+        ],
+        "type": "object"
+      },
+      "DocketSessionResult": {
+        "$id": "DocketSessionResult.v1",
+        "additionalProperties": false,
+        "properties": {
+          "account": {
+            "additionalProperties": false,
+            "properties": {
+              "authority": {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 0,
+                "type": "array"
+              },
+              "displayName": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "verifiedEmail": {
+                "maxLength": 320,
+                "minLength": 3,
+                "type": "string"
+              },
+              "version": {
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "displayName",
+              "verifiedEmail",
+              "authority",
+              "version"
+            ],
+            "type": "object"
+          },
+          "session": {
+            "additionalProperties": false,
+            "properties": {
+              "createdAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "expiresAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "lastActivityAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "status": {
+                "anyOf": [
+                  {
+                    "const": "active",
+                    "type": "string"
+                  },
+                  {
+                    "const": "revoked",
+                    "type": "string"
+                  }
+                ]
+              },
+              "version": {
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "status",
+              "version",
+              "createdAt",
+              "lastActivityAt",
+              "expiresAt"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "account",
+          "session"
+        ],
+        "type": "object"
+      },
       "IdentitySessionProjection": {
         "$id": "IdentitySessionProjection.v1",
         "additionalProperties": false,
@@ -40,6 +218,46 @@
         ],
         "type": "object"
       },
+      "ListDocketSessionsRequest": {
+        "$id": "ListDocketSessionsRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "audience": {
+            "const": "self",
+            "type": "string"
+          }
+        },
+        "required": [
+          "audience"
+        ],
+        "type": "object"
+      },
+      "RevokeDocketSessionRequest": {
+        "$id": "RevokeDocketSessionRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "expectedVersion": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "idempotencyKey": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "sessionId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "sessionId",
+          "expectedVersion",
+          "idempotencyKey"
+        ],
+        "type": "object"
+      },
       "StableErrorEnvelope": {
         "$id": "StableErrorEnvelope.v1",
         "additionalProperties": false,
@@ -60,6 +278,22 @@
               },
               {
                 "const": "RESPONSE_INVALID",
+                "type": "string"
+              },
+              {
+                "const": "IDENTITY_INVALID",
+                "type": "string"
+              },
+              {
+                "const": "SESSION_EXPIRED",
+                "type": "string"
+              },
+              {
+                "const": "SESSION_LIMIT_REACHED",
+                "type": "string"
+              },
+              {
+                "const": "FIXED_IDENTITY_FORBIDDEN",
                 "type": "string"
               }
             ]
@@ -108,6 +342,217 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/v1/docket-sessions": {
+      "get": {
+        "operationId": "listDocketSessions",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "audience",
+            "required": true,
+            "schema": {
+              "const": "self",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocketSessionList"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "Authentication is required."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The response did not match its contract."
+          }
+        },
+        "summary": "List only the authenticated Account holder's Docket Sessions.",
+        "x-audience": "account-self",
+        "x-requirements": [
+          "R1-AUTH-001",
+          "R1-PRIV-001"
+        ]
+      },
+      "post": {
+        "operationId": "createDocketSession",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDocketSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocketSessionResult"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "Authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "Fixed identity is unavailable in this environment."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Account has reached its session limit."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The response did not match its contract."
+          }
+        },
+        "summary": "Create or recover the Account holder's Docket Session.",
+        "x-audience": "account-self",
+        "x-requirements": [
+          "R1-AUTH-001",
+          "R1-LIFE-001",
+          "R1-PRIV-001"
+        ]
+      }
+    },
+    "/v1/docket-sessions/revoke": {
+      "post": {
+        "operationId": "revokeDocketSession",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevokeDocketSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocketSessionResult"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "Authentication is required."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The response did not match its contract."
+          }
+        },
+        "summary": "Revoke one of the authenticated Account holder's Docket Sessions.",
+        "x-audience": "account-self",
+        "x-requirements": [
+          "R1-AUTH-001",
+          "R1-PRIV-001"
+        ]
+      }
+    },
     "/v1/session": {
       "get": {
         "operationId": "getIdentitySession",

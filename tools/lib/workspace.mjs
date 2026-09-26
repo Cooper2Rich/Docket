@@ -22,6 +22,12 @@ export function applicationEnvironment(environment) {
   return childEnvironment;
 }
 
+export function verificationEnvironment(environment) {
+  const childEnvironment = { ...environment };
+  delete childEnvironment.DOCKET_PR_NUMBER;
+  return childEnvironment;
+}
+
 export function gitHead(workspaceRoot) {
   return execFileSync("git", ["rev-parse", "HEAD"], {
     cwd: workspaceRoot,

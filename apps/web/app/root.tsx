@@ -12,7 +12,15 @@ import type { Route } from "./+types/root.js";
 import stylesheet from "./app.css?url";
 import { validateWebRuntime } from "./runtime.server.js";
 
-export const middleware: Route.MiddlewareFunction[] = [clerkMiddleware()];
+const webRuntime = validateWebRuntime();
+export const middleware: Route.MiddlewareFunction[] = [
+  clerkMiddleware({
+    ...(webRuntime.clerkAudience ? { audience: webRuntime.clerkAudience } : {}),
+    ...(webRuntime.clerkAuthorizedParties
+      ? { authorizedParties: webRuntime.clerkAuthorizedParties }
+      : {}),
+  }),
+];
 export const loader = (args: Route.LoaderArgs) => {
   validateWebRuntime();
   return rootAuthLoader(args);

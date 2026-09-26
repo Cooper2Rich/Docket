@@ -5,10 +5,17 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@clerk/backend": "3.19.0",
+    "@docket/identity-access": "workspace:*",
     "@docket/runtime": "workspace:*",
     "pg-boss": "12.30.0"
+  },
+  "devDependencies": {
+    "@docket/testkit": "workspace:*",
+    "vitest": "4.1.11"
   }
 }

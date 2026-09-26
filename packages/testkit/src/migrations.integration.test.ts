@@ -22,14 +22,21 @@ async function plan(): Promise<MigrationPlan> {
   return loadMigrationPlan(process.cwd());
 }
 
+function nextMigration(base: MigrationPlan, suffix: string) {
+  const order = base.migrations.length + 1;
+  const prefix = String(order).padStart(4, "0");
+  return { id: `${prefix}_${suffix}`, order } as const;
+}
+
 function failingPlan(base: MigrationPlan): MigrationPlan {
+  const next = nextMigration(base, "platform_rollback_probe");
   const metadata: MigrationMetadata = {
     schema_version: 1,
-    id: "0002_platform_rollback_probe",
-    order: 2,
+    id: next.id,
+    order: next.order,
     owner: "database",
     description: "Prove rollback and durable failure evidence",
-    sql_file: "0002_platform_rollback_probe.sql",
+    sql_file: `${next.id}.sql`,
     verify_sql: "select 1 where false",
     compatibility: "additive",
     requirements: ["R1-DATA-001", "R1-CONS-001", "R1-OPS-001"],
@@ -39,7 +46,7 @@ function failingPlan(base: MigrationPlan): MigrationPlan {
     ...metadata,
     sql,
     checksum: calculateMigrationChecksum(metadata, sql),
-    source: "synthetic/0002_platform_rollback_probe.migration.json",
+    source: `synthetic/${next.id}.migration.json`,
   };
   return {
     migrations: [...base.migrations, migration],
@@ -50,13 +57,14 @@ function failingPlan(base: MigrationPlan): MigrationPlan {
 }
 
 function additiveHeadPlan(base: MigrationPlan): MigrationPlan {
+  const next = nextMigration(base, "platform_compatibility_probe");
   const metadata: MigrationMetadata = {
     schema_version: 1,
-    id: "0002_platform_compatibility_probe",
-    order: 2,
+    id: next.id,
+    order: next.order,
     owner: "database",
     description: "Prove adjacent application compatibility",
-    sql_file: "0002_platform_compatibility_probe.sql",
+    sql_file: `${next.id}.sql`,
     verify_sql:
       "select count(*)::integer as probe_columns from information_schema.columns where table_schema = 'public' and table_name = 'platform_compatibility_probe' having count(*) = 2",
     compatibility: "additive",
@@ -68,7 +76,7 @@ function additiveHeadPlan(base: MigrationPlan): MigrationPlan {
     ...metadata,
     sql,
     checksum: calculateMigrationChecksum(metadata, sql),
-    source: "synthetic/0002_platform_compatibility_probe.migration.json",
+    source: `synthetic/${next.id}.migration.json`,
   };
   return {
     migrations: [...base.migrations, migration],
@@ -79,13 +87,14 @@ function additiveHeadPlan(base: MigrationPlan): MigrationPlan {
 }
 
 function adjacentIncompatiblePlan(base: MigrationPlan): MigrationPlan {
+  const next = nextMigration(base, "platform_break_previous_reader");
   const metadata: MigrationMetadata = {
     schema_version: 1,
-    id: "0002_platform_break_previous_reader",
-    order: 2,
+    id: next.id,
+    order: next.order,
     owner: "database",
     description: "A forbidden change that breaks the previous application",
-    sql_file: "0002_platform_break_previous_reader.sql",
+    sql_file: `${next.id}.sql`,
     verify_sql: "select 1",
     compatibility: "additive",
     requirements: ["R1-DATA-001", "R1-CONS-001", "R1-OPS-001"],
@@ -96,7 +105,7 @@ function adjacentIncompatiblePlan(base: MigrationPlan): MigrationPlan {
     ...metadata,
     sql,
     checksum: calculateMigrationChecksum(metadata, sql),
-    source: "synthetic/0002_platform_break_previous_reader.migration.json",
+    source: `synthetic/${next.id}.migration.json`,
   };
   return {
     migrations: [...base.migrations, migration],
@@ -134,10 +143,10 @@ describe("PostgreSQL migration boundary", () => {
     );
 
     expect(first.status).toBe("applied");
-    expect(first.applied).toHaveLength(1);
+    expect(first.applied).toHaveLength(migrationPlan.migrations.length);
     expect(first.applied[0]?.name).toBe("MigrationApplied");
     expect(retry).toMatchObject({ status: "noop", applied: [] });
-    expect(journal.rows[0]?.applied).toBe(1);
+    expect(journal.rows[0]?.applied).toBe(migrationPlan.migrations.length);
   }, 120_000);
 
   it("migrates the previous schema to head while preserving the previous application read", async () => {
@@ -173,17 +182,17 @@ describe("PostgreSQL migration boundary", () => {
     expect(result).toMatchObject({
       status: "applied",
       previousHead: previous.head,
-      head: "0002_platform_compatibility_probe",
+      head: head.head,
     });
     expect(result.applied).toHaveLength(1);
     expect(previousApplicationRead.rows).toEqual([
-      {
-        migration_id: "0001_platform_migration_journal",
-        owner: "database",
+      ...previous.migrations.map((migration) => ({
+        migration_id: migration.id,
+        owner: migration.owner,
         outcome: "applied",
-      },
+      })),
       {
-        migration_id: "0002_platform_compatibility_probe",
+        migration_id: head.head,
         owner: "database",
         outcome: "applied",
       },
@@ -229,12 +238,14 @@ describe("PostgreSQL migration boundary", () => {
       "applied",
       "noop",
     ]);
-    expect(journal.rows[0]?.applied).toBe(1);
+    expect(journal.rows[0]?.applied).toBe(migrationPlan.migrations.length);
   }, 120_000);
 
   it("rolls back a failed migration and retains immutable failure evidence", async () => {
     const database = await emptyDatabase();
     const base = await plan();
+    const failed = failingPlan(base);
+    const failedHead = failed.head;
     await runMigrations({
       databaseUrl: database.databaseUrl,
       plan: base,
@@ -244,7 +255,7 @@ describe("PostgreSQL migration boundary", () => {
     await expect(
       runMigrations({
         databaseUrl: database.databaseUrl,
-        plan: failingPlan(base),
+        plan: failed,
         authority: {
           actor: "release-operator",
           authorityVersion: 1,
@@ -257,12 +268,14 @@ describe("PostgreSQL migration boundary", () => {
       probe: string | null;
       failures: number;
     }>(
-      "select to_regclass('public.platform_rollback_probe')::text as probe, (select count(*)::integer from platform_migration_journal where migration_id = '0002_platform_rollback_probe' and outcome = 'failed') as failures",
+      "select to_regclass('public.platform_rollback_probe')::text as probe, (select count(*)::integer from platform_migration_journal where migration_id = $1 and outcome = 'failed') as failures",
+      [failedHead],
     );
     expect(rollback.rows[0]).toEqual({ probe: null, failures: 1 });
     await expect(
       database.query(
-        "delete from platform_migration_journal where migration_id = '0002_platform_rollback_probe'",
+        "delete from platform_migration_journal where migration_id = $1",
+        [failedHead],
       ),
     ).rejects.toMatchObject({ code: "55000" });
   }, 120_000);
@@ -319,14 +332,16 @@ describe("PostgreSQL migration boundary", () => {
       const rows = await queryBuilder
         .selectFrom("platform_migration_journal")
         .select(["migration_id", "owner", "outcome"])
+        .orderBy("migration_order")
         .execute();
-      expect(rows).toEqual([
-        {
-          migration_id: "0001_platform_migration_journal",
-          owner: "database",
+      const migrationPlan = await plan();
+      expect(rows).toEqual(
+        migrationPlan.migrations.map((migration) => ({
+          migration_id: migration.id,
+          owner: migration.owner,
           outcome: "applied",
-        },
-      ]);
+        })),
+      );
     } finally {
       await queryBuilder.destroy();
     }

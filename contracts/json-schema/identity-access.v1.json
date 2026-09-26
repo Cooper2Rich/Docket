@@ -2,6 +2,184 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "module": "identity-access",
   "schemas": {
+    "CreateDocketSessionRequest": {
+      "$id": "CreateDocketSessionRequest.v1",
+      "additionalProperties": false,
+      "properties": {
+        "idempotencyKey": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "idempotencyKey"
+      ],
+      "type": "object"
+    },
+    "DocketSessionList": {
+      "$id": "DocketSessionList.v1",
+      "additionalProperties": false,
+      "properties": {
+        "sessions": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "createdAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "expiresAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "id": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "lastActivityAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "status": {
+                "anyOf": [
+                  {
+                    "const": "active",
+                    "type": "string"
+                  },
+                  {
+                    "const": "revoked",
+                    "type": "string"
+                  }
+                ]
+              },
+              "version": {
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "status",
+              "version",
+              "createdAt",
+              "lastActivityAt",
+              "expiresAt"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "sessions"
+      ],
+      "type": "object"
+    },
+    "DocketSessionResult": {
+      "$id": "DocketSessionResult.v1",
+      "additionalProperties": false,
+      "properties": {
+        "account": {
+          "additionalProperties": false,
+          "properties": {
+            "authority": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "displayName": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "id": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "verifiedEmail": {
+              "maxLength": 320,
+              "minLength": 3,
+              "type": "string"
+            },
+            "version": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "displayName",
+            "verifiedEmail",
+            "authority",
+            "version"
+          ],
+          "type": "object"
+        },
+        "session": {
+          "additionalProperties": false,
+          "properties": {
+            "createdAt": {
+              "maxLength": 35,
+              "minLength": 20,
+              "type": "string"
+            },
+            "expiresAt": {
+              "maxLength": 35,
+              "minLength": 20,
+              "type": "string"
+            },
+            "id": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "lastActivityAt": {
+              "maxLength": 35,
+              "minLength": 20,
+              "type": "string"
+            },
+            "status": {
+              "anyOf": [
+                {
+                  "const": "active",
+                  "type": "string"
+                },
+                {
+                  "const": "revoked",
+                  "type": "string"
+                }
+              ]
+            },
+            "version": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "status",
+            "version",
+            "createdAt",
+            "lastActivityAt",
+            "expiresAt"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "account",
+        "session"
+      ],
+      "type": "object"
+    },
     "IdentitySessionProjection": {
       "$id": "IdentitySessionProjection.v1",
       "additionalProperties": false,
@@ -41,6 +219,46 @@
       ],
       "type": "object"
     },
+    "ListDocketSessionsRequest": {
+      "$id": "ListDocketSessionsRequest.v1",
+      "additionalProperties": false,
+      "properties": {
+        "audience": {
+          "const": "self",
+          "type": "string"
+        }
+      },
+      "required": [
+        "audience"
+      ],
+      "type": "object"
+    },
+    "RevokeDocketSessionRequest": {
+      "$id": "RevokeDocketSessionRequest.v1",
+      "additionalProperties": false,
+      "properties": {
+        "expectedVersion": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "idempotencyKey": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "sessionId",
+        "expectedVersion",
+        "idempotencyKey"
+      ],
+      "type": "object"
+    },
     "StableErrorEnvelope": {
       "$id": "StableErrorEnvelope.v1",
       "additionalProperties": false,
@@ -61,6 +279,22 @@
             },
             {
               "const": "RESPONSE_INVALID",
+              "type": "string"
+            },
+            {
+              "const": "IDENTITY_INVALID",
+              "type": "string"
+            },
+            {
+              "const": "SESSION_EXPIRED",
+              "type": "string"
+            },
+            {
+              "const": "SESSION_LIMIT_REACHED",
+              "type": "string"
+            },
+            {
+              "const": "FIXED_IDENTITY_FORBIDDEN",
               "type": "string"
             }
           ]

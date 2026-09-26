@@ -11716,11 +11716,11 @@
         "path": "docs/implementation/items/R1-IDA-001-A.md",
         "sha256": "4289a9651290c09d8f9fa90988a57ce2b1dc1a1c82011a0baa8964f6abb930a4"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-001-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-001-A/ac-01.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-001-A/AC-01",
       "itemId": "R1-IDA-001-A",
@@ -11743,7 +11743,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-001-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-001-a.mjs"
       }
     },
@@ -11752,11 +11752,11 @@
         "path": "docs/implementation/items/R1-IDA-001-A.md",
         "sha256": "4289a9651290c09d8f9fa90988a57ce2b1dc1a1c82011a0baa8964f6abb930a4"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-001-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-001-A/ac-02.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-001-A/AC-02",
       "itemId": "R1-IDA-001-A",
@@ -11779,7 +11779,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-001-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-001-a.mjs"
       }
     },
@@ -11788,11 +11788,11 @@
         "path": "docs/implementation/items/R1-IDA-001-A.md",
         "sha256": "4289a9651290c09d8f9fa90988a57ce2b1dc1a1c82011a0baa8964f6abb930a4"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-001-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-001-A/ac-03.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-001-A/AC-03",
       "itemId": "R1-IDA-001-A",
@@ -11815,7 +11815,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-001-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-001-a.mjs"
       }
     },
@@ -11824,11 +11824,11 @@
         "path": "docs/implementation/items/R1-IDA-001-A.md",
         "sha256": "4289a9651290c09d8f9fa90988a57ce2b1dc1a1c82011a0baa8964f6abb930a4"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-001-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-001-A/ac-04.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-001-A/AC-04",
       "itemId": "R1-IDA-001-A",
@@ -11851,7 +11851,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-001-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-001-a.mjs"
       }
     },
@@ -18924,7 +18924,11 @@
         "R1-FND-004-B/AC-01",
         "R1-FND-004-B/AC-02",
         "R1-FND-004-B/AC-03",
-        "R1-FND-004-B/AC-04"
+        "R1-FND-004-B/AC-04",
+        "R1-IDA-001-A/AC-01",
+        "R1-IDA-001-A/AC-02",
+        "R1-IDA-001-A/AC-03",
+        "R1-IDA-001-A/AC-04"
       ],
       "modules": [
         "competition",
@@ -18937,7 +18941,10 @@
         "workflows"
       ],
       "operations": [
-        "getIdentitySession"
+        "createDocketSession",
+        "getIdentitySession",
+        "listDocketSessions",
+        "revokeDocketSession"
       ],
       "pendingCriteria": [
         "R1-CMP-002-A/AC-01",
@@ -19040,10 +19047,6 @@
         "R1-GOV-002-C/AC-02",
         "R1-GOV-002-C/AC-03",
         "R1-GOV-002-C/AC-04",
-        "R1-IDA-001-A/AC-01",
-        "R1-IDA-001-A/AC-02",
-        "R1-IDA-001-A/AC-03",
-        "R1-IDA-001-A/AC-04",
         "R1-IDA-001-B/AC-01",
         "R1-IDA-001-B/AC-02",
         "R1-IDA-001-B/AC-03",
@@ -20742,7 +20745,11 @@
         "R1-FND-002-B/AC-01",
         "R1-FND-002-B/AC-02",
         "R1-FND-002-B/AC-03",
-        "R1-FND-002-B/AC-04"
+        "R1-FND-002-B/AC-04",
+        "R1-IDA-001-A/AC-01",
+        "R1-IDA-001-A/AC-02",
+        "R1-IDA-001-A/AC-03",
+        "R1-IDA-001-A/AC-04"
       ],
       "modules": [
         "competition",
@@ -20754,7 +20761,9 @@
         "tournaments",
         "workflows"
       ],
-      "operations": [],
+      "operations": [
+        "createDocketSession"
+      ],
       "pendingCriteria": [
         "R1-CMP-001-A/AC-01",
         "R1-CMP-001-A/AC-02",
@@ -20952,10 +20961,6 @@
         "R1-CMP-016-B/AC-02",
         "R1-CMP-016-B/AC-03",
         "R1-CMP-016-B/AC-04",
-        "R1-IDA-001-A/AC-01",
-        "R1-IDA-001-A/AC-02",
-        "R1-IDA-001-A/AC-03",
-        "R1-IDA-001-A/AC-04",
         "R1-IDA-001-B/AC-01",
         "R1-IDA-001-B/AC-02",
         "R1-IDA-001-B/AC-03",
@@ -21881,7 +21886,11 @@
         "R1-FND-004-B/AC-01",
         "R1-FND-004-B/AC-02",
         "R1-FND-004-B/AC-03",
-        "R1-FND-004-B/AC-04"
+        "R1-FND-004-B/AC-04",
+        "R1-IDA-001-A/AC-01",
+        "R1-IDA-001-A/AC-02",
+        "R1-IDA-001-A/AC-03",
+        "R1-IDA-001-A/AC-04"
       ],
       "modules": [
         "communications",
@@ -21895,7 +21904,10 @@
         "workflows"
       ],
       "operations": [
-        "getIdentitySession"
+        "createDocketSession",
+        "getIdentitySession",
+        "listDocketSessions",
+        "revokeDocketSession"
       ],
       "pendingCriteria": [
         "R1-CMP-001-A/AC-01",
@@ -22110,10 +22122,6 @@
         "R1-GOV-002-C/AC-02",
         "R1-GOV-002-C/AC-03",
         "R1-GOV-002-C/AC-04",
-        "R1-IDA-001-A/AC-01",
-        "R1-IDA-001-A/AC-02",
-        "R1-IDA-001-A/AC-03",
-        "R1-IDA-001-A/AC-04",
         "R1-IDA-001-B/AC-01",
         "R1-IDA-001-B/AC-02",
         "R1-IDA-001-B/AC-03",
@@ -22212,8 +22220,8 @@
   "summary": {
     "acceptanceCriteria": 460,
     "coverageStatuses": {
-      "implemented_foundation": 40,
-      "pending_domain": 420
+      "implemented_foundation": 44,
+      "pending_domain": 416
     },
     "excludedSources": 98,
     "goldenVectors": 2,
