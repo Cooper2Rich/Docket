@@ -78,9 +78,36 @@ test("server renders the Account Session journey without server secrets", async 
   expect(response.ok()).toBe(true);
   expect(html).toContain("Your Docket sessions");
   expect(html).toContain("This device");
+  expect(html).toContain("Docket profile");
+  expect(html).toContain("Account Security History");
+  expect(html).toContain("Accepted sign-in");
   expect(html).toContain('id="main-content"');
   expect(html).not.toContain("CLERK_SECRET_KEY");
   expect(html).not.toContain("sk_live_docket_e2e_fixture");
+});
+
+test("Account profile uses a fresh version and survives route revalidation and reload", async ({
+  page,
+}) => {
+  await page.goto("/account/sessions");
+  const displayName = page.getByRole("textbox", {
+    name: "Docket Display Name",
+  });
+  await expect(displayName).toHaveValue("Local Docket Account");
+  await displayName.fill("Reloaded Docket Account");
+  const update = page.getByRole("button", { name: "Update Display Name" });
+  await update.focus();
+  await expect(update).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("status")).toContainText(
+    "Docket Display Name updated.",
+  );
+  await expect(displayName).toHaveValue("Reloaded Docket Account");
+
+  await page.reload();
+  await expect(
+    page.getByRole("textbox", { name: "Docket Display Name" }),
+  ).toHaveValue("Reloaded Docket Account");
 });
 
 test("Account Session revocation persists through PostgreSQL after reload and a fresh API connection", async ({
@@ -96,10 +123,13 @@ test("Account Session revocation persists through PostgreSQL after reload and a 
   await revoke.focus();
   await expect(revoke).toBeFocused();
   await page.keyboard.press("Enter");
-  await expect(page.getByRole("status")).toContainText("Session revoked.");
-  await expect(page.getByRole("listitem")).toHaveCount(1);
+  await expect(page.getByRole("status")).toContainText("Session ended.");
+  const activeSessions = page
+    .getByRole("list", { name: "Active Docket sessions" })
+    .getByRole("listitem");
+  await expect(activeSessions).toHaveCount(1);
   await page.reload();
-  await expect(page.getByRole("listitem")).toHaveCount(1);
+  await expect(activeSessions).toHaveCount(1);
   await expect(
     page.getByRole("button", { name: "Revoke signed-in session" }),
   ).toHaveCount(0);

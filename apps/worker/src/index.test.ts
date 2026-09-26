@@ -1,13 +1,99 @@
 import { describe, expect, it } from "vitest";
 import {
+  ClerkSessionTerminationService,
   IdentityWebhookHintService,
+  InMemoryClerkSessionTerminationStore,
   InMemoryIdentityWebhookHintStore,
 } from "@docket/identity-access";
 import {
+  createAccountSecurityHistoryRetentionWorker,
   createClerkIdentityHintObserver,
+  createClerkSessionTerminator,
+  createClerkSessionTerminationWorker,
+  createIdentityMaintenanceWorker,
   createIdentityHintWorker,
   runIdentityHintConsumer,
 } from "./index.js";
+
+describe("Account Security History retention", () => {
+  it("runs immediately and then no more than once per configured interval", async () => {
+    let now = new Date("2026-09-26T18:00:00.000Z");
+    let calls = 0;
+    const worker = createAccountSecurityHistoryRetentionWorker(
+      {
+        deleteExpiredAccountSecurityHistory: () => {
+          calls += 1;
+          return Promise.resolve(2);
+        },
+      },
+      { now: () => now, intervalMilliseconds: 60_000 },
+    );
+
+    await expect(worker.runOnce()).resolves.toEqual({
+      status: "completed",
+      deleted: 2,
+    });
+    await expect(worker.runOnce()).resolves.toEqual({
+      status: "idle",
+      deleted: 0,
+    });
+    now = new Date("2026-09-26T18:01:00.000Z");
+    await expect(worker.runOnce()).resolves.toEqual({
+      status: "completed",
+      deleted: 2,
+    });
+    expect(calls).toBe(2);
+  });
+
+  it("keeps delivering pending Clerk terminations when cleanup repeatedly fails", async () => {
+    const now = new Date("2026-09-26T18:00:00.000Z");
+    const store = new InMemoryClerkSessionTerminationStore();
+    for (const suffix of ["001", "002"]) {
+      store.enqueue({
+        sessionId: `session_docket_cleanup_failure_${suffix}`,
+        clerkSessionId: `session_clerk_cleanup_failure_${suffix}`,
+        requestedAt: now,
+        attemptCount: 0,
+      });
+    }
+    const cleanupError = new Error("simulated retention database failure");
+    const observedErrors: unknown[] = [];
+    let cleanupAttempts = 0;
+    const terminated: string[] = [];
+    const worker = createIdentityMaintenanceWorker(
+      {
+        runOnce: () => {
+          cleanupAttempts += 1;
+          return Promise.reject(cleanupError);
+        },
+      },
+      createClerkSessionTerminationWorker(
+        new ClerkSessionTerminationService(store, () => now),
+        (sessionId) => {
+          terminated.push(sessionId);
+          return Promise.resolve();
+        },
+      ),
+      {
+        runOnce: () => Promise.reject(new Error("hint poll should not run")),
+      },
+      { onRetentionError: (error) => observedErrors.push(error) },
+    );
+
+    await expect(worker.runOnce()).resolves.toMatchObject({
+      status: "delivered",
+    });
+    await expect(worker.runOnce()).resolves.toMatchObject({
+      status: "delivered",
+    });
+    expect(cleanupAttempts).toBe(2);
+    expect(observedErrors).toEqual([cleanupError, cleanupError]);
+    expect(terminated).toEqual([
+      "session_clerk_cleanup_failure_001",
+      "session_clerk_cleanup_failure_002",
+    ]);
+  });
+});
 
 describe("identity hint worker", () => {
   it("delivers one sanitized hint through the worker boundary", async () => {
@@ -116,5 +202,47 @@ describe("Clerk hint revalidation", () => {
     } as never);
 
     await expect(observer(hint("user.deleted"))).resolves.toBeUndefined();
+  });
+});
+
+describe("Clerk session termination", () => {
+  it("revokes only the associated Clerk session without an upstream-provider call", async () => {
+    const revoked: string[] = [];
+    const terminate = createClerkSessionTerminator({
+      sessions: {
+        revokeSession: (sessionId: string) => {
+          revoked.push(sessionId);
+          return Promise.resolve({ id: sessionId });
+        },
+      },
+    } as never);
+
+    await expect(terminate("session_clerk_001")).resolves.toBeUndefined();
+    expect(revoked).toEqual(["session_clerk_001"]);
+  });
+
+  it("delivers a queued termination through the worker boundary", async () => {
+    const now = new Date("2026-09-26T16:00:00.000Z");
+    const store = new InMemoryClerkSessionTerminationStore();
+    store.enqueue({
+      sessionId: "session_docket_worker_001",
+      clerkSessionId: "session_clerk_worker_001",
+      requestedAt: now,
+      attemptCount: 0,
+    });
+    const terminated: string[] = [];
+    const worker = createClerkSessionTerminationWorker(
+      new ClerkSessionTerminationService(store, () => now),
+      (sessionId) => {
+        terminated.push(sessionId);
+        return Promise.resolve();
+      },
+    );
+
+    await expect(worker.runOnce()).resolves.toEqual({
+      status: "delivered",
+      sessionId: "session_docket_worker_001",
+    });
+    expect(terminated).toEqual(["session_clerk_worker_001"]);
   });
 });

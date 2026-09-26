@@ -108,18 +108,26 @@ describe("module-owned contract generation", () => {
         "R1-AUTH-001": {
           modules: expect.arrayContaining(["contracts", "identity-access"]),
           operations: [
+            "changeDisplayName",
             "createDocketSession",
+            "getAccountProfile",
             "getIdentitySession",
+            "listAccountSecurityHistory",
             "listDocketSessions",
+            "revokeAllDocketSessions",
             "revokeDocketSession",
           ],
         },
         "R1-PRIV-001": {
           modules: expect.arrayContaining(["contracts", "identity-access"]),
           operations: [
+            "changeDisplayName",
             "createDocketSession",
+            "getAccountProfile",
             "getIdentitySession",
+            "listAccountSecurityHistory",
             "listDocketSessions",
+            "revokeAllDocketSessions",
             "revokeDocketSession",
           ],
         },

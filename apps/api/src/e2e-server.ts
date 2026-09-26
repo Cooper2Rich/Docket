@@ -69,6 +69,18 @@ const controlledIdentityService = {
   revokeDocketSession: (
     input: Parameters<IdentityService["revokeDocketSession"]>[0],
   ) => identityService.revokeDocketSession(input),
+  revokeAllDocketSessions: (
+    input: Parameters<IdentityService["revokeAllDocketSessions"]>[0],
+  ) => identityService.revokeAllDocketSessions(input),
+  listAccountSecurityHistory: (
+    input: Parameters<IdentityService["listAccountSecurityHistory"]>[0],
+  ) => identityService.listAccountSecurityHistory(input),
+  getAccountProfile: (
+    input: Parameters<IdentityService["getAccountProfile"]>[0],
+  ) => identityService.getAccountProfile(input),
+  changeDisplayName: (
+    input: Parameters<IdentityService["changeDisplayName"]>[0],
+  ) => identityService.changeDisplayName(input),
 };
 const app = await buildApiApp(environment, {
   identityService: controlledIdentityService,

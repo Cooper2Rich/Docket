@@ -1,10 +1,16 @@
 import { Value } from "@sinclair/typebox/value";
 import {
+  AccountProfileProjectionSchema,
+  AccountProfileRequestSchema,
+  AccountSecurityHistoryListSchema,
+  AccountSecurityHistoryRequestSchema,
+  ChangeDisplayNameRequestSchema,
   CreateDocketSessionRequestSchema,
   DocketSessionListSchema,
   DocketSessionResultSchema,
   ListDocketSessionsRequestSchema,
   RevokeDocketSessionRequestSchema,
+  RevokeAllDocketSessionsRequestSchema,
   StableErrorEnvelopeSchema,
 } from "./contracts.js";
 import {
@@ -17,7 +23,13 @@ export type SessionApiResponse = Readonly<{ status: number; body: unknown }>;
 
 type SessionService = Pick<
   IdentityService,
-  "createDocketSession" | "listDocketSessions" | "revokeDocketSession"
+  | "createDocketSession"
+  | "listDocketSessions"
+  | "revokeDocketSession"
+  | "revokeAllDocketSessions"
+  | "getAccountProfile"
+  | "listAccountSecurityHistory"
+  | "changeDisplayName"
 >;
 
 function response(status: number, body: unknown): SessionApiResponse {
@@ -28,6 +40,7 @@ function stableError(
   code:
     | "AUTHENTICATION_REQUIRED"
     | "AUTHORITY_STALE"
+    | "DISPLAY_NAME_CHANGE_TOO_SOON"
     | "IDENTITY_INVALID"
     | "SESSION_EXPIRED"
     | "SESSION_LIMIT_REACHED"
@@ -49,6 +62,10 @@ function domainError(error: unknown, requestId: string): SessionApiResponse {
   if (!(error instanceof IdentityError)) throw error;
   const definitions = {
     AUTHORITY_STALE: [409, "The record changed. Reload and try again."],
+    DISPLAY_NAME_CHANGE_TOO_SOON: [
+      409,
+      "The Docket Display Name may be changed once every 30 days.",
+    ],
     IDENTITY_INVALID: [401, "The identity evidence was not accepted."],
     SESSION_EXPIRED: [401, "The session is no longer active."],
     SESSION_LIMIT_REACHED: [409, "The Account has reached its session limit."],
@@ -168,6 +185,142 @@ export async function revokeSessionResponse(
     const result = await service.revokeDocketSession({
       identity: authenticated,
       sessionId: input.sessionId,
+      expectedVersion: input.expectedVersion,
+      idempotencyKey: input.idempotencyKey,
+    });
+    const body = { account: result.account, session: result.session };
+    return Value.Check(DocketSessionResultSchema, body)
+      ? response(200, body)
+      : stableError(
+          "RESPONSE_INVALID",
+          "The response did not match its contract.",
+          requestId,
+          500,
+        );
+  } catch (error) {
+    return domainError(error, requestId);
+  }
+}
+
+export async function revokeAllSessionsResponse(
+  service: SessionService,
+  identity: ClerkIdentity | null,
+  input: unknown,
+  requestId: string,
+): Promise<SessionApiResponse> {
+  if (!Value.Check(RevokeAllDocketSessionsRequestSchema, input)) {
+    return stableError(
+      "REQUEST_INVALID",
+      "The request is invalid.",
+      requestId,
+      400,
+    );
+  }
+  const authenticated = requireIdentity(identity, requestId);
+  if (isResponse(authenticated)) return authenticated;
+  try {
+    const result = await service.revokeAllDocketSessions({
+      identity: authenticated,
+      idempotencyKey: input.idempotencyKey,
+    });
+    const body = { account: result.account, session: result.session };
+    return Value.Check(DocketSessionResultSchema, body)
+      ? response(200, body)
+      : stableError(
+          "RESPONSE_INVALID",
+          "The response did not match its contract.",
+          requestId,
+          500,
+        );
+  } catch (error) {
+    return domainError(error, requestId);
+  }
+}
+
+export async function listAccountSecurityHistoryResponse(
+  service: SessionService,
+  identity: ClerkIdentity | null,
+  input: unknown,
+  requestId: string,
+): Promise<SessionApiResponse> {
+  if (!Value.Check(AccountSecurityHistoryRequestSchema, input)) {
+    return stableError(
+      "REQUEST_INVALID",
+      "The request is invalid.",
+      requestId,
+      400,
+    );
+  }
+  const authenticated = requireIdentity(identity, requestId);
+  if (isResponse(authenticated)) return authenticated;
+  try {
+    const body = {
+      history: await service.listAccountSecurityHistory(authenticated),
+    };
+    return Value.Check(AccountSecurityHistoryListSchema, body)
+      ? response(200, body)
+      : stableError(
+          "RESPONSE_INVALID",
+          "The response did not match its contract.",
+          requestId,
+          500,
+        );
+  } catch (error) {
+    return domainError(error, requestId);
+  }
+}
+
+export async function getAccountProfileResponse(
+  service: SessionService,
+  identity: ClerkIdentity | null,
+  input: unknown,
+  requestId: string,
+): Promise<SessionApiResponse> {
+  if (!Value.Check(AccountProfileRequestSchema, input)) {
+    return stableError(
+      "REQUEST_INVALID",
+      "The request is invalid.",
+      requestId,
+      400,
+    );
+  }
+  const authenticated = requireIdentity(identity, requestId);
+  if (isResponse(authenticated)) return authenticated;
+  try {
+    const body = await service.getAccountProfile(authenticated);
+    return Value.Check(AccountProfileProjectionSchema, body)
+      ? response(200, body)
+      : stableError(
+          "RESPONSE_INVALID",
+          "The response did not match its contract.",
+          requestId,
+          500,
+        );
+  } catch (error) {
+    return domainError(error, requestId);
+  }
+}
+
+export async function changeDisplayNameResponse(
+  service: SessionService,
+  identity: ClerkIdentity | null,
+  input: unknown,
+  requestId: string,
+): Promise<SessionApiResponse> {
+  if (!Value.Check(ChangeDisplayNameRequestSchema, input)) {
+    return stableError(
+      "REQUEST_INVALID",
+      "The request is invalid.",
+      requestId,
+      400,
+    );
+  }
+  const authenticated = requireIdentity(identity, requestId);
+  if (isResponse(authenticated)) return authenticated;
+  try {
+    const result = await service.changeDisplayName({
+      identity: authenticated,
+      displayName: input.displayName,
       expectedVersion: input.expectedVersion,
       idempotencyKey: input.idempotencyKey,
     });

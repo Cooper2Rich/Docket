@@ -11860,11 +11860,11 @@
         "path": "docs/implementation/items/R1-IDA-001-B.md",
         "sha256": "dd65941fbcafe1b108c9a56434efc5cc7ce2fc3a7943353e5b68569c0d16d991"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-001-B/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-001-B/ac-01.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-001-B/AC-01",
       "itemId": "R1-IDA-001-B",
@@ -11892,7 +11892,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-001-B --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-001-b.mjs"
       }
     },
@@ -11901,11 +11901,11 @@
         "path": "docs/implementation/items/R1-IDA-001-B.md",
         "sha256": "dd65941fbcafe1b108c9a56434efc5cc7ce2fc3a7943353e5b68569c0d16d991"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-001-B/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-001-B/ac-02.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-001-B/AC-02",
       "itemId": "R1-IDA-001-B",
@@ -11933,7 +11933,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-001-B --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-001-b.mjs"
       }
     },
@@ -11942,11 +11942,11 @@
         "path": "docs/implementation/items/R1-IDA-001-B.md",
         "sha256": "dd65941fbcafe1b108c9a56434efc5cc7ce2fc3a7943353e5b68569c0d16d991"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-001-B/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-001-B/ac-03.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-001-B/AC-03",
       "itemId": "R1-IDA-001-B",
@@ -11974,7 +11974,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-001-B --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-001-b.mjs"
       }
     },
@@ -11983,11 +11983,11 @@
         "path": "docs/implementation/items/R1-IDA-001-B.md",
         "sha256": "dd65941fbcafe1b108c9a56434efc5cc7ce2fc3a7943353e5b68569c0d16d991"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-IDA-001-B/acceptance.json",
         "criterion": ".ralph/evidence/R1-IDA-001-B/ac-04.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-IDA-001-B/AC-04",
       "itemId": "R1-IDA-001-B",
@@ -12015,7 +12015,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-IDA-001-B --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-ida-001-b.mjs"
       }
     },
@@ -18928,7 +18928,11 @@
         "R1-IDA-001-A/AC-01",
         "R1-IDA-001-A/AC-02",
         "R1-IDA-001-A/AC-03",
-        "R1-IDA-001-A/AC-04"
+        "R1-IDA-001-A/AC-04",
+        "R1-IDA-001-B/AC-01",
+        "R1-IDA-001-B/AC-02",
+        "R1-IDA-001-B/AC-03",
+        "R1-IDA-001-B/AC-04"
       ],
       "modules": [
         "competition",
@@ -18941,9 +18945,13 @@
         "workflows"
       ],
       "operations": [
+        "changeDisplayName",
         "createDocketSession",
+        "getAccountProfile",
         "getIdentitySession",
+        "listAccountSecurityHistory",
         "listDocketSessions",
+        "revokeAllDocketSessions",
         "revokeDocketSession"
       ],
       "pendingCriteria": [
@@ -19047,10 +19055,6 @@
         "R1-GOV-002-C/AC-02",
         "R1-GOV-002-C/AC-03",
         "R1-GOV-002-C/AC-04",
-        "R1-IDA-001-B/AC-01",
-        "R1-IDA-001-B/AC-02",
-        "R1-IDA-001-B/AC-03",
-        "R1-IDA-001-B/AC-04",
         "R1-IDA-001-C/AC-01",
         "R1-IDA-001-C/AC-02",
         "R1-IDA-001-C/AC-03",
@@ -20749,7 +20753,11 @@
         "R1-IDA-001-A/AC-01",
         "R1-IDA-001-A/AC-02",
         "R1-IDA-001-A/AC-03",
-        "R1-IDA-001-A/AC-04"
+        "R1-IDA-001-A/AC-04",
+        "R1-IDA-001-B/AC-01",
+        "R1-IDA-001-B/AC-02",
+        "R1-IDA-001-B/AC-03",
+        "R1-IDA-001-B/AC-04"
       ],
       "modules": [
         "competition",
@@ -20762,7 +20770,9 @@
         "workflows"
       ],
       "operations": [
-        "createDocketSession"
+        "changeDisplayName",
+        "createDocketSession",
+        "getAccountProfile"
       ],
       "pendingCriteria": [
         "R1-CMP-001-A/AC-01",
@@ -20961,10 +20971,6 @@
         "R1-CMP-016-B/AC-02",
         "R1-CMP-016-B/AC-03",
         "R1-CMP-016-B/AC-04",
-        "R1-IDA-001-B/AC-01",
-        "R1-IDA-001-B/AC-02",
-        "R1-IDA-001-B/AC-03",
-        "R1-IDA-001-B/AC-04",
         "R1-IDA-001-C/AC-01",
         "R1-IDA-001-C/AC-02",
         "R1-IDA-001-C/AC-03",
@@ -21890,7 +21896,11 @@
         "R1-IDA-001-A/AC-01",
         "R1-IDA-001-A/AC-02",
         "R1-IDA-001-A/AC-03",
-        "R1-IDA-001-A/AC-04"
+        "R1-IDA-001-A/AC-04",
+        "R1-IDA-001-B/AC-01",
+        "R1-IDA-001-B/AC-02",
+        "R1-IDA-001-B/AC-03",
+        "R1-IDA-001-B/AC-04"
       ],
       "modules": [
         "communications",
@@ -21904,9 +21914,13 @@
         "workflows"
       ],
       "operations": [
+        "changeDisplayName",
         "createDocketSession",
+        "getAccountProfile",
         "getIdentitySession",
+        "listAccountSecurityHistory",
         "listDocketSessions",
+        "revokeAllDocketSessions",
         "revokeDocketSession"
       ],
       "pendingCriteria": [
@@ -22122,10 +22136,6 @@
         "R1-GOV-002-C/AC-02",
         "R1-GOV-002-C/AC-03",
         "R1-GOV-002-C/AC-04",
-        "R1-IDA-001-B/AC-01",
-        "R1-IDA-001-B/AC-02",
-        "R1-IDA-001-B/AC-03",
-        "R1-IDA-001-B/AC-04",
         "R1-IDA-001-C/AC-01",
         "R1-IDA-001-C/AC-02",
         "R1-IDA-001-C/AC-03",
@@ -22220,8 +22230,8 @@
   "summary": {
     "acceptanceCriteria": 460,
     "coverageStatuses": {
-      "implemented_foundation": 44,
-      "pending_domain": 416
+      "implemented_foundation": 48,
+      "pending_domain": 412
     },
     "excludedSources": 98,
     "goldenVectors": 2,

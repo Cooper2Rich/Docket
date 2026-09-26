@@ -31,6 +31,7 @@ export const StableErrorEnvelopeSchema = Type.Object(
     code: Type.Union([
       Type.Literal("AUTHENTICATION_REQUIRED"),
       Type.Literal("AUTHORITY_STALE"),
+      Type.Literal("DISPLAY_NAME_CHANGE_TOO_SOON"),
       Type.Literal("REQUEST_INVALID"),
       Type.Literal("RESPONSE_INVALID"),
       Type.Literal("IDENTITY_INVALID"),
@@ -77,7 +78,37 @@ export const RevokeDocketSessionRequestSchema = Type.Object(
   { $id: "RevokeDocketSessionRequest.v1", additionalProperties: false },
 );
 
-const accountProjection = Type.Object(
+export const RevokeAllDocketSessionsRequestSchema = Type.Object(
+  { idempotencyKey: identifier },
+  {
+    $id: "RevokeAllDocketSessionsRequest.v1",
+    additionalProperties: false,
+  },
+);
+
+export const AccountSecurityHistoryRequestSchema = Type.Object(
+  { audience: Type.Literal("self") },
+  {
+    $id: "AccountSecurityHistoryRequest.v1",
+    additionalProperties: false,
+  },
+);
+
+export const AccountProfileRequestSchema = Type.Object(
+  { audience: Type.Literal("self") },
+  { $id: "AccountProfileRequest.v1", additionalProperties: false },
+);
+
+export const ChangeDisplayNameRequestSchema = Type.Object(
+  {
+    displayName: Type.String({ minLength: 1, maxLength: 128 }),
+    expectedVersion: Type.Integer({ minimum: 1 }),
+    idempotencyKey: identifier,
+  },
+  { $id: "ChangeDisplayNameRequest.v1", additionalProperties: false },
+);
+
+export const AccountProfileProjectionSchema = Type.Object(
   {
     id: identifier,
     displayName: Type.String({ minLength: 1, maxLength: 128 }),
@@ -85,29 +116,70 @@ const accountProjection = Type.Object(
     authority: Type.Array(Type.String(), { maxItems: 0 }),
     version: Type.Integer({ minimum: 1 }),
   },
-  { additionalProperties: false },
+  { $id: "AccountProfileProjection.v1", additionalProperties: false },
 );
 
 const docketSessionProjection = Type.Object(
   {
     id: identifier,
-    status: Type.Union([Type.Literal("active"), Type.Literal("revoked")]),
+    sessionClass: Type.Union([
+      Type.Literal("ordinary"),
+      Type.Literal("privileged"),
+    ]),
+    device: Type.String({ minLength: 1, maxLength: 256 }),
+    approximateLocation: Type.String({ minLength: 1, maxLength: 256 }),
+    status: Type.Union([
+      Type.Literal("active"),
+      Type.Literal("expired"),
+      Type.Literal("revoked"),
+    ]),
     version: Type.Integer({ minimum: 1 }),
     createdAt: timestamp,
     lastActivityAt: timestamp,
+    privilegedActivatedAt: Type.Optional(timestamp),
+    inactivityExpiresAt: timestamp,
     expiresAt: timestamp,
   },
   { additionalProperties: false },
 );
 
 export const DocketSessionResultSchema = Type.Object(
-  { account: accountProjection, session: docketSessionProjection },
+  { account: AccountProfileProjectionSchema, session: docketSessionProjection },
   { $id: "DocketSessionResult.v1", additionalProperties: false },
 );
 
 export const DocketSessionListSchema = Type.Object(
   { sessions: Type.Array(docketSessionProjection) },
   { $id: "DocketSessionList.v1", additionalProperties: false },
+);
+
+const accountSecurityHistoryProjection = Type.Object(
+  {
+    id: identifier,
+    kind: Type.Union([
+      Type.Literal("accepted_sign_in"),
+      Type.Literal("clerk_reverification"),
+      Type.Literal("account_suspension"),
+    ]),
+    occurredAt: timestamp,
+    device: Type.Optional(Type.String({ minLength: 1, maxLength: 256 })),
+    approximateLocation: Type.Optional(
+      Type.String({ minLength: 1, maxLength: 256 }),
+    ),
+    suspensionStatus: Type.Optional(
+      Type.Union([
+        Type.Literal("imposed"),
+        Type.Literal("reinstated"),
+        Type.Literal("expired"),
+      ]),
+    ),
+  },
+  { additionalProperties: false },
+);
+
+export const AccountSecurityHistoryListSchema = Type.Object(
+  { history: Type.Array(accountSecurityHistoryProjection) },
+  { $id: "AccountSecurityHistoryList.v1", additionalProperties: false },
 );
 
 export const identityAccessContractSource = {
@@ -133,8 +205,32 @@ export const identityAccessContractSource = {
       name: "RevokeDocketSessionRequest",
       schema: RevokeDocketSessionRequestSchema,
     },
+    {
+      name: "RevokeAllDocketSessionsRequest",
+      schema: RevokeAllDocketSessionsRequestSchema,
+    },
+    {
+      name: "AccountSecurityHistoryRequest",
+      schema: AccountSecurityHistoryRequestSchema,
+    },
+    {
+      name: "AccountProfileRequest",
+      schema: AccountProfileRequestSchema,
+    },
+    {
+      name: "AccountProfileProjection",
+      schema: AccountProfileProjectionSchema,
+    },
+    {
+      name: "ChangeDisplayNameRequest",
+      schema: ChangeDisplayNameRequestSchema,
+    },
     { name: "DocketSessionResult", schema: DocketSessionResultSchema },
     { name: "DocketSessionList", schema: DocketSessionListSchema },
+    {
+      name: "AccountSecurityHistoryList",
+      schema: AccountSecurityHistoryListSchema,
+    },
   ],
   operations: [
     {
@@ -210,6 +306,82 @@ export const identityAccessContractSource = {
       audience: "account-self",
       inputLocation: "body",
     },
+    {
+      operationId: "revokeAllDocketSessions",
+      method: "post",
+      path: "/v1/docket-sessions/revoke-all",
+      summary:
+        "Revoke every Docket Session held by the authenticated Account holder.",
+      requirements: ["R1-AUTH-001", "R1-PRIV-001"],
+      inputSchema: "RevokeAllDocketSessionsRequest",
+      successSchema: "DocketSessionResult",
+      errorCodes: [
+        "AUTHENTICATION_REQUIRED",
+        "IDENTITY_INVALID",
+        "SESSION_EXPIRED",
+        "REQUEST_INVALID",
+        "RESPONSE_INVALID",
+      ],
+      audience: "account-self",
+      inputLocation: "body",
+    },
+    {
+      operationId: "listAccountSecurityHistory",
+      method: "get",
+      path: "/v1/account/security-history",
+      summary:
+        "List the authenticated Account holder's retained Security History.",
+      requirements: ["R1-AUTH-001", "R1-PRIV-001"],
+      inputSchema: "AccountSecurityHistoryRequest",
+      successSchema: "AccountSecurityHistoryList",
+      errorCodes: [
+        "AUTHENTICATION_REQUIRED",
+        "IDENTITY_INVALID",
+        "SESSION_EXPIRED",
+        "REQUEST_INVALID",
+        "RESPONSE_INVALID",
+      ],
+      audience: "account-self",
+    },
+    {
+      operationId: "getAccountProfile",
+      method: "get",
+      path: "/v1/account/profile",
+      summary:
+        "Return the authenticated Account holder's current Docket profile.",
+      requirements: ["R1-LIFE-001", "R1-AUTH-001", "R1-PRIV-001"],
+      inputSchema: "AccountProfileRequest",
+      successSchema: "AccountProfileProjection",
+      errorCodes: [
+        "AUTHENTICATION_REQUIRED",
+        "IDENTITY_INVALID",
+        "SESSION_EXPIRED",
+        "REQUEST_INVALID",
+        "RESPONSE_INVALID",
+      ],
+      audience: "account-self",
+    },
+    {
+      operationId: "changeDisplayName",
+      method: "post",
+      path: "/v1/account/display-name",
+      summary:
+        "Change the authenticated Account holder's governed Docket Display Name.",
+      requirements: ["R1-LIFE-001", "R1-AUTH-001", "R1-PRIV-001"],
+      inputSchema: "ChangeDisplayNameRequest",
+      successSchema: "DocketSessionResult",
+      errorCodes: [
+        "AUTHENTICATION_REQUIRED",
+        "AUTHORITY_STALE",
+        "DISPLAY_NAME_CHANGE_TOO_SOON",
+        "IDENTITY_INVALID",
+        "SESSION_EXPIRED",
+        "REQUEST_INVALID",
+        "RESPONSE_INVALID",
+      ],
+      audience: "account-self",
+      inputLocation: "body",
+    },
   ],
   transitions: [
     {
@@ -255,6 +427,7 @@ export const identityAccessContractSource = {
       "createDocketSession",
       "listDocketSessions",
       "revokeDocketSession",
+      "revokeAllDocketSessions",
     ].flatMap((operationId) => [
       {
         actor: "authenticated-account",
@@ -272,6 +445,54 @@ export const identityAccessContractSource = {
         errorCode: "AUTHENTICATION_REQUIRED",
       },
     ]),
+    {
+      actor: "authenticated-account",
+      operationId: "listAccountSecurityHistory",
+      resource: "own-account-security-history",
+      condition:
+        "current server-validated Clerk identity and active Docket Session",
+      decision: "allow",
+    },
+    {
+      actor: "anonymous",
+      operationId: "listAccountSecurityHistory",
+      resource: "any-account-security-history",
+      condition: "no server-validated Clerk identity",
+      decision: "deny",
+      errorCode: "AUTHENTICATION_REQUIRED",
+    },
+    {
+      actor: "authenticated-account",
+      operationId: "getAccountProfile",
+      resource: "own-account-profile",
+      condition:
+        "current server-validated Clerk identity and active Docket Session",
+      decision: "allow",
+    },
+    {
+      actor: "anonymous",
+      operationId: "getAccountProfile",
+      resource: "any-account-profile",
+      condition: "no server-validated Clerk identity",
+      decision: "deny",
+      errorCode: "AUTHENTICATION_REQUIRED",
+    },
+    {
+      actor: "authenticated-account",
+      operationId: "changeDisplayName",
+      resource: "own-account-profile",
+      condition:
+        "current server-validated Clerk identity, active Docket Session and current Account version",
+      decision: "allow",
+    },
+    {
+      actor: "anonymous",
+      operationId: "changeDisplayName",
+      resource: "any-account-profile",
+      condition: "no server-validated Clerk identity",
+      decision: "deny",
+      errorCode: "AUTHENTICATION_REQUIRED",
+    },
   ],
   errors: [
     {
@@ -283,6 +504,11 @@ export const identityAccessContractSource = {
       code: "AUTHORITY_STALE",
       status: 409,
       safeMessage: "The current authority is stale.",
+    },
+    {
+      code: "DISPLAY_NAME_CHANGE_TOO_SOON",
+      status: 409,
+      safeMessage: "The Docket Display Name may be changed once every 30 days.",
     },
     {
       code: "REQUEST_INVALID",

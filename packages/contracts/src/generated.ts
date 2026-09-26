@@ -2,6 +2,80 @@
 import { Type, type Static } from "@sinclair/typebox";
 import { Value } from "@sinclair/typebox/value";
 
+export const AccountProfileProjectionSchema = Type.Object(
+  {
+    authority: Type.Array(Type.String(), { maxItems: 0 }),
+    displayName: Type.String({ maxLength: 128, minLength: 1 }),
+    id: Type.String({ maxLength: 128, minLength: 1 }),
+    verifiedEmail: Type.String({ maxLength: 320, minLength: 3 }),
+    version: Type.Integer({ minimum: 1 }),
+  },
+  { $id: "AccountProfileProjection.v1", additionalProperties: false },
+);
+export type AccountProfileProjection = Static<
+  typeof AccountProfileProjectionSchema
+>;
+
+export const AccountProfileRequestSchema = Type.Object(
+  { audience: Type.Literal("self") },
+  { $id: "AccountProfileRequest.v1", additionalProperties: false },
+);
+export type AccountProfileRequest = Static<typeof AccountProfileRequestSchema>;
+
+export const AccountSecurityHistoryListSchema = Type.Object(
+  {
+    history: Type.Array(
+      Type.Object(
+        {
+          approximateLocation: Type.Optional(
+            Type.String({ maxLength: 256, minLength: 1 }),
+          ),
+          device: Type.Optional(Type.String({ maxLength: 256, minLength: 1 })),
+          id: Type.String({ maxLength: 128, minLength: 1 }),
+          kind: Type.Union([
+            Type.Literal("accepted_sign_in"),
+            Type.Literal("clerk_reverification"),
+            Type.Literal("account_suspension"),
+          ]),
+          occurredAt: Type.String({ maxLength: 35, minLength: 20 }),
+          suspensionStatus: Type.Optional(
+            Type.Union([
+              Type.Literal("imposed"),
+              Type.Literal("reinstated"),
+              Type.Literal("expired"),
+            ]),
+          ),
+        },
+        { additionalProperties: false },
+      ),
+    ),
+  },
+  { $id: "AccountSecurityHistoryList.v1", additionalProperties: false },
+);
+export type AccountSecurityHistoryList = Static<
+  typeof AccountSecurityHistoryListSchema
+>;
+
+export const AccountSecurityHistoryRequestSchema = Type.Object(
+  { audience: Type.Literal("self") },
+  { $id: "AccountSecurityHistoryRequest.v1", additionalProperties: false },
+);
+export type AccountSecurityHistoryRequest = Static<
+  typeof AccountSecurityHistoryRequestSchema
+>;
+
+export const ChangeDisplayNameRequestSchema = Type.Object(
+  {
+    displayName: Type.String({ maxLength: 128, minLength: 1 }),
+    expectedVersion: Type.Integer({ minimum: 1 }),
+    idempotencyKey: Type.String({ maxLength: 128, minLength: 1 }),
+  },
+  { $id: "ChangeDisplayNameRequest.v1", additionalProperties: false },
+);
+export type ChangeDisplayNameRequest = Static<
+  typeof ChangeDisplayNameRequestSchema
+>;
+
 export const CreateDocketSessionRequestSchema = Type.Object(
   { idempotencyKey: Type.String({ maxLength: 128, minLength: 1 }) },
   { $id: "CreateDocketSessionRequest.v1", additionalProperties: false },
@@ -15,11 +89,25 @@ export const DocketSessionListSchema = Type.Object(
     sessions: Type.Array(
       Type.Object(
         {
+          approximateLocation: Type.String({ maxLength: 256, minLength: 1 }),
           createdAt: Type.String({ maxLength: 35, minLength: 20 }),
+          device: Type.String({ maxLength: 256, minLength: 1 }),
           expiresAt: Type.String({ maxLength: 35, minLength: 20 }),
           id: Type.String({ maxLength: 128, minLength: 1 }),
+          inactivityExpiresAt: Type.String({ maxLength: 35, minLength: 20 }),
           lastActivityAt: Type.String({ maxLength: 35, minLength: 20 }),
-          status: Type.Union([Type.Literal("active"), Type.Literal("revoked")]),
+          privilegedActivatedAt: Type.Optional(
+            Type.String({ maxLength: 35, minLength: 20 }),
+          ),
+          sessionClass: Type.Union([
+            Type.Literal("ordinary"),
+            Type.Literal("privileged"),
+          ]),
+          status: Type.Union([
+            Type.Literal("active"),
+            Type.Literal("expired"),
+            Type.Literal("revoked"),
+          ]),
           version: Type.Integer({ minimum: 1 }),
         },
         { additionalProperties: false },
@@ -40,15 +128,29 @@ export const DocketSessionResultSchema = Type.Object(
         verifiedEmail: Type.String({ maxLength: 320, minLength: 3 }),
         version: Type.Integer({ minimum: 1 }),
       },
-      { additionalProperties: false },
+      { $id: "AccountProfileProjection.v1", additionalProperties: false },
     ),
     session: Type.Object(
       {
+        approximateLocation: Type.String({ maxLength: 256, minLength: 1 }),
         createdAt: Type.String({ maxLength: 35, minLength: 20 }),
+        device: Type.String({ maxLength: 256, minLength: 1 }),
         expiresAt: Type.String({ maxLength: 35, minLength: 20 }),
         id: Type.String({ maxLength: 128, minLength: 1 }),
+        inactivityExpiresAt: Type.String({ maxLength: 35, minLength: 20 }),
         lastActivityAt: Type.String({ maxLength: 35, minLength: 20 }),
-        status: Type.Union([Type.Literal("active"), Type.Literal("revoked")]),
+        privilegedActivatedAt: Type.Optional(
+          Type.String({ maxLength: 35, minLength: 20 }),
+        ),
+        sessionClass: Type.Union([
+          Type.Literal("ordinary"),
+          Type.Literal("privileged"),
+        ]),
+        status: Type.Union([
+          Type.Literal("active"),
+          Type.Literal("expired"),
+          Type.Literal("revoked"),
+        ]),
         version: Type.Integer({ minimum: 1 }),
       },
       { additionalProperties: false },
@@ -86,6 +188,14 @@ export type ListDocketSessionsRequest = Static<
   typeof ListDocketSessionsRequestSchema
 >;
 
+export const RevokeAllDocketSessionsRequestSchema = Type.Object(
+  { idempotencyKey: Type.String({ maxLength: 128, minLength: 1 }) },
+  { $id: "RevokeAllDocketSessionsRequest.v1", additionalProperties: false },
+);
+export type RevokeAllDocketSessionsRequest = Static<
+  typeof RevokeAllDocketSessionsRequestSchema
+>;
+
 export const RevokeDocketSessionRequestSchema = Type.Object(
   {
     expectedVersion: Type.Integer({ minimum: 1 }),
@@ -103,6 +213,7 @@ export const StableErrorEnvelopeSchema = Type.Object(
     code: Type.Union([
       Type.Literal("AUTHENTICATION_REQUIRED"),
       Type.Literal("AUTHORITY_STALE"),
+      Type.Literal("DISPLAY_NAME_CHANGE_TOO_SOON"),
       Type.Literal("REQUEST_INVALID"),
       Type.Literal("RESPONSE_INVALID"),
       Type.Literal("IDENTITY_INVALID"),
@@ -251,6 +362,134 @@ export function createDocketClient(transport: ContractTransport) {
       const response = await transport({
         method: "POST",
         path: "/v1/docket-sessions/revoke",
+        body: input,
+      });
+      if (response.status === 200) {
+        if (!Value.Check(DocketSessionResultSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async revokeAllDocketSessions(
+      input: unknown,
+    ): Promise<DocketSessionResult> {
+      if (!Value.Check(RevokeAllDocketSessionsRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const response = await transport({
+        method: "POST",
+        path: "/v1/docket-sessions/revoke-all",
+        body: input,
+      });
+      if (response.status === 200) {
+        if (!Value.Check(DocketSessionResultSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async listAccountSecurityHistory(
+      input: unknown,
+    ): Promise<AccountSecurityHistoryList> {
+      if (!Value.Check(AccountSecurityHistoryRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const query = new URLSearchParams(input).toString();
+      const response = await transport({
+        method: "GET",
+        path: "/v1/account/security-history" + (query ? `?${query}` : ""),
+      });
+      if (response.status === 200) {
+        if (!Value.Check(AccountSecurityHistoryListSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async getAccountProfile(input: unknown): Promise<AccountProfileProjection> {
+      if (!Value.Check(AccountProfileRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const query = new URLSearchParams(input).toString();
+      const response = await transport({
+        method: "GET",
+        path: "/v1/account/profile" + (query ? `?${query}` : ""),
+      });
+      if (response.status === 200) {
+        if (!Value.Check(AccountProfileProjectionSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async changeDisplayName(input: unknown): Promise<DocketSessionResult> {
+      if (!Value.Check(ChangeDisplayNameRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const response = await transport({
+        method: "POST",
+        path: "/v1/account/display-name",
         body: input,
       });
       if (response.status === 200) {

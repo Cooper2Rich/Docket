@@ -8,6 +8,10 @@ import {
   type ClerkIdentity,
   type ClerkSessionEvidence,
 } from "./identity-service.js";
+import {
+  ClerkSessionTerminationService,
+  InMemoryClerkSessionTerminationStore,
+} from "./session-terminations.js";
 
 const now = new Date("2026-09-25T20:00:00.000Z");
 const policy = {
@@ -56,6 +60,31 @@ function harness() {
     advanceTo: (next: Date) => {
       clock = new Date(next);
     },
+  };
+}
+
+function privilegedDecision(
+  accountId: string,
+  clerkSessionId: string,
+  changes: Partial<{
+    decisionId: string;
+    contextId: string;
+    authorityVersion: number;
+    currentAuthorityVersion: number;
+    activation: "switch" | "restore";
+  }> = {},
+) {
+  return {
+    decisionId: "privileged-decision-001",
+    accountId,
+    clerkSessionId,
+    contextId: "platform-context-001",
+    contextKind: "platform_administrator" as const,
+    authorityVersion: 1,
+    currentAuthorityVersion: 1,
+    status: "active" as const,
+    activation: "switch" as const,
+    ...changes,
   };
 }
 
@@ -161,6 +190,278 @@ describe("Docket Account and Session commands", () => {
       store.snapshot().events.filter(({ name }) => name === "AccountCreated"),
     ).toHaveLength(1);
     expect(store.snapshot().events[0]?.actorAccountId).toBe(first.account.id);
+    expect(store.snapshot().displayNameHistory).toMatchObject([
+      { displayName: "Ada Example" },
+    ]);
+  });
+
+  it("records only minimized accepted sign-ins in the two-year Account Security History", async () => {
+    const { service, store } = harness();
+    await service.createDocketSession({
+      identity: acceptedIdentity({
+        sessionMetadata: {
+          device: "Firefox on desktop",
+          approximateLocation: "Austin, US",
+        },
+      }),
+      idempotencyKey: "security-history-create",
+    });
+
+    const history =
+      await service.listAccountSecurityHistory(acceptedIdentity());
+    expect(history[0]?.id).toBe("event_003");
+    expect(history).toMatchObject([
+      {
+        kind: "accepted_sign_in",
+        occurredAt: now.toISOString(),
+        device: "Firefox on desktop",
+        approximateLocation: "Austin, US",
+      },
+    ]);
+    expect(store.snapshot().securityHistory[0]).toMatchObject({
+      accountId: store.snapshot().accounts[0]?.id,
+      retainedUntil: new Date("2028-09-25T20:00:00.000Z"),
+      legalHold: false,
+    });
+    expect(store.snapshot().securityHistory[0]).not.toHaveProperty(
+      "clerkSessionId",
+    );
+    expect(store.snapshot().securityHistory[0]).not.toHaveProperty(
+      "verifiedEmail",
+    );
+  });
+
+  it("idempotently ingests only trusted reverification and suspension history", async () => {
+    const { service, store } = harness();
+    const created = await service.createDocketSession({
+      identity: acceptedIdentity(),
+      idempotencyKey: "trusted-history-create",
+    });
+    const reverification = {
+      eventId: "reverification-001",
+      accountId: created.account.id,
+      kind: "clerk_reverification" as const,
+      source: "validated_clerk_reverification" as const,
+      signatureValidated: true as const,
+      occurredAt: now,
+    };
+    const first =
+      await service.recordTrustedAccountSecurityHistory(reverification);
+    await expect(
+      service.recordTrustedAccountSecurityHistory(reverification),
+    ).resolves.toEqual(first);
+    await service.recordTrustedAccountSecurityHistory({
+      eventId: "suspension-001",
+      accountId: created.account.id,
+      kind: "account_suspension",
+      source: "account_suspension_workflow",
+      decisionVersion: 3,
+      currentDecisionVersion: 3,
+      suspensionStatus: "imposed",
+      occurredAt: now,
+    });
+
+    expect(store.snapshot().securityHistory.map(({ kind }) => kind)).toEqual([
+      "accepted_sign_in",
+      "clerk_reverification",
+      "account_suspension",
+    ]);
+    expect(JSON.stringify(store.snapshot().securityHistory)).not.toContain(
+      '"source"',
+    );
+    await expect(
+      service.recordTrustedAccountSecurityHistory({
+        ...reverification,
+        signatureValidated: false,
+      } as never),
+    ).rejects.toMatchObject({ code: "IDENTITY_INVALID" });
+    await expect(
+      service.recordTrustedAccountSecurityHistory({
+        eventId: "suspension-stale",
+        accountId: created.account.id,
+        kind: "account_suspension",
+        source: "account_suspension_workflow",
+        decisionVersion: 2,
+        currentDecisionVersion: 3,
+        suspensionStatus: "reinstated",
+        occurredAt: now,
+      }),
+    ).rejects.toMatchObject({ code: "AUTHORITY_STALE" });
+  });
+
+  it("deletes expired Account Security History while keeping current records", async () => {
+    const { service, store, advanceTo } = harness();
+    await service.createDocketSession({
+      identity: acceptedIdentity(),
+      idempotencyKey: "retention-create",
+    });
+    advanceTo(new Date("2028-09-25T19:59:59.999Z"));
+    await expect(service.deleteExpiredAccountSecurityHistory()).resolves.toBe(
+      0,
+    );
+    advanceTo(new Date("2028-09-25T20:00:00.000Z"));
+    await expect(service.deleteExpiredAccountSecurityHistory()).resolves.toBe(
+      1,
+    );
+    expect(store.snapshot().securityHistory).toEqual([]);
+  });
+
+  it("governs Docket Display Name changes independently of Clerk profile recovery", async () => {
+    const { service, store, advanceTo } = harness();
+    const created = await service.createDocketSession({
+      identity: acceptedIdentity(),
+      idempotencyKey: "display-create",
+    });
+    const command = {
+      identity: acceptedIdentity(),
+      displayName: "Ada Docket",
+      expectedVersion: created.account.version,
+      idempotencyKey: "display-change",
+    } as const;
+    const changed = await service.changeDisplayName(command);
+    await expect(service.changeDisplayName(command)).resolves.toEqual(changed);
+    const cachedCreateReceipt = await service.createDocketSession({
+      identity: acceptedIdentity(),
+      idempotencyKey: "display-create",
+    });
+    expect(cachedCreateReceipt.account.displayName).toBe("Ada Example");
+    await expect(
+      service.getAccountProfile(acceptedIdentity()),
+    ).resolves.toEqual(changed.account);
+
+    await expect(
+      service.changeDisplayName({
+        ...command,
+        displayName: "Ada Too Soon",
+        expectedVersion: changed.account.version,
+        idempotencyKey: "display-too-soon",
+      }),
+    ).rejects.toMatchObject({ code: "DISPLAY_NAME_CHANGE_TOO_SOON" });
+
+    advanceTo(new Date("2026-10-25T20:00:00.000Z"));
+    const recoveredIdentity = acceptedIdentity({
+      sessionId: "session_clerk_recovered",
+      profileName: "Changed Clerk Profile",
+      expiresAt: new Date("2026-11-01T20:00:00.000Z"),
+    });
+    const recovered = await service.createDocketSession({
+      identity: recoveredIdentity,
+      idempotencyKey: "display-recovery",
+    });
+    expect(recovered.account.displayName).toBe("Ada Docket");
+    expect(
+      store.snapshot().displayNameHistory.map(({ displayName }) => displayName),
+    ).toEqual(["Ada Example", "Ada Docket"]);
+    expect(store.snapshot().links[0]?.profileName).toBe(
+      "Changed Clerk Profile",
+    );
+  });
+
+  it("allows an idempotent documented early correction only through current Platform approval", async () => {
+    const { service, store } = harness();
+    const created = await service.createDocketSession({
+      identity: acceptedIdentity(),
+      idempotencyKey: "reviewed-name-create",
+    });
+    const selfChanged = await service.changeDisplayName({
+      identity: acceptedIdentity(),
+      displayName: "Ada Public",
+      expectedVersion: created.account.version,
+      idempotencyKey: "reviewed-name-self-change",
+    });
+    const approval = {
+      reviewId: "name-review-001",
+      targetAccountId: created.account.id,
+      approvedByAccountId: created.account.id,
+      permission: "platform_administrator" as const,
+      authorityVersion: 4,
+      currentAuthorityVersion: 4,
+      status: "approved" as const,
+      decidedAt: now,
+    };
+    const corrected = await service.changeDisplayNameAfterReviewedCorrection({
+      displayName: "Ada Safety Name",
+      expectedVersion: selfChanged.account.version,
+      approval,
+    });
+    await expect(
+      service.changeDisplayNameAfterReviewedCorrection({
+        displayName: "Ada Safety Name",
+        expectedVersion: selfChanged.account.version,
+        approval,
+      }),
+    ).resolves.toEqual(corrected);
+
+    expect(corrected.history).toMatchObject({
+      changeKind: "reviewed_correction",
+      reviewId: approval.reviewId,
+      approvedByAccountId: approval.approvedByAccountId,
+    });
+    expect(
+      store.snapshot().displayNameHistory.map(({ displayName }) => displayName),
+    ).toEqual(["Ada Example", "Ada Public", "Ada Safety Name"]);
+    await expect(
+      service.changeDisplayNameAfterReviewedCorrection({
+        displayName: "Rejected Name",
+        expectedVersion: corrected.account.version,
+        approval: {
+          ...approval,
+          reviewId: "name-review-stale",
+          authorityVersion: 3,
+        },
+      }),
+    ).rejects.toMatchObject({ code: "AUTHORITY_STALE" });
+  });
+
+  it("rejects stale concurrent Display Name changes and rolls failed writes back", async () => {
+    const { service, store, advanceTo } = harness();
+    const created = await service.createDocketSession({
+      identity: acceptedIdentity(),
+      idempotencyKey: "display-concurrency-create",
+    });
+    const [first, second] = await Promise.allSettled([
+      service.changeDisplayName({
+        identity: acceptedIdentity(),
+        displayName: "Ada First",
+        expectedVersion: created.account.version,
+        idempotencyKey: "display-first",
+      }),
+      service.changeDisplayName({
+        identity: acceptedIdentity(),
+        displayName: "Ada Second",
+        expectedVersion: created.account.version,
+        idempotencyKey: "display-second",
+      }),
+    ]);
+    expect(first.status).toBe("fulfilled");
+    expect(second.status).toBe("rejected");
+    if (second.status !== "rejected") throw new Error("expected rejection");
+    expect(second.reason).toBeInstanceOf(IdentityError);
+    if (!(second.reason instanceof IdentityError)) {
+      throw new Error("expected IdentityError");
+    }
+    expect(second.reason.code).toBe("AUTHORITY_STALE");
+
+    advanceTo(new Date("2026-10-25T20:00:00.000Z"));
+    const laterIdentity = acceptedIdentity({
+      sessionId: "session_clerk_later",
+      expiresAt: new Date("2026-11-01T20:00:00.000Z"),
+    });
+    await service.createDocketSession({
+      identity: laterIdentity,
+      idempotencyKey: "display-rollback-session",
+    });
+    const before = store.snapshot();
+    store.failBeforeCommit = true;
+    await expect(
+      service.changeDisplayName({
+        identity: laterIdentity,
+        displayName: "Ada Rollback",
+        expectedVersion: before.accounts[0]?.version ?? 0,
+        idempotencyKey: "display-rollback",
+      }),
+    ).rejects.toThrow("simulated persistence failure before commit");
+    expect(store.snapshot()).toEqual(before);
   });
 
   it("returns an equivalent retry and rejects conflicting reuse of its command key", async () => {
@@ -186,6 +487,44 @@ describe("Docket Account and Session commands", () => {
     expect(store.snapshot().sessions).toHaveLength(1);
   });
 
+  it("captures trusted session metadata once without changing command identity", async () => {
+    const { service, store } = harness();
+    const identity = acceptedIdentity({
+      sessionMetadata: {
+        device: "Firefox on desktop",
+        approximateLocation: "Austin, US",
+      },
+    });
+    const first = await service.createDocketSession({
+      identity,
+      idempotencyKey: "stable-observational-metadata",
+    });
+
+    const changed = await service.createDocketSession({
+      identity: {
+        ...identity,
+        sessionMetadata: {
+          device: "Safari on mobile",
+          approximateLocation: "Dallas, US",
+        },
+      },
+      idempotencyKey: "stable-observational-metadata",
+    });
+    const unavailable = await service.createDocketSession({
+      identity: acceptedIdentity(),
+      idempotencyKey: "stable-observational-metadata",
+    });
+
+    expect(changed).toEqual(first);
+    expect(unavailable).toEqual(first);
+    expect(store.snapshot().sessions).toMatchObject([
+      {
+        device: "Firefox on desktop",
+        approximateLocation: "Austin, US",
+      },
+    ]);
+  });
+
   it("accepts a refreshed token for the same live Clerk and Docket session", async () => {
     const { service, advanceTo } = harness();
     const firstIdentity = authenticateClerkSession(evidence, policy, now);
@@ -207,7 +546,11 @@ describe("Docket Account and Session commands", () => {
 
     await expect(
       service.listDocketSessions(refreshedIdentity),
-    ).resolves.toContainEqual(created.session);
+    ).resolves.toContainEqual({
+      ...created.session,
+      lastActivityAt: "2026-09-25T20:06:00.000Z",
+      inactivityExpiresAt: "2026-09-26T08:06:00.000Z",
+    });
   });
 
   it("resumes only an already-active Docket session during provider unavailability", async () => {
@@ -264,12 +607,15 @@ describe("Docket Account and Session commands", () => {
       links: [],
       sessions: [],
       events: [],
+      clerkSessionTerminations: [],
+      displayNameHistory: [],
+      securityHistory: [],
     });
   });
 
-  it("enforces the ordinary five-session limit without persisting a sixth", async () => {
+  it("ends the oldest ordinary session when a sixth ordinary session starts", async () => {
     const { service, store } = harness();
-    for (let index = 1; index <= 5; index += 1) {
+    for (let index = 1; index <= 6; index += 1) {
       await service.createDocketSession({
         identity: acceptedIdentity({
           sessionId: `clerk-session-${String(index)}`,
@@ -278,13 +624,174 @@ describe("Docket Account and Session commands", () => {
       });
     }
 
+    expect(store.snapshot().sessions).toHaveLength(6);
+    expect(store.snapshot().sessions[0]).toMatchObject({
+      clerkSessionId: "clerk-session-1",
+      status: "revoked",
+    });
+    expect(
+      store.snapshot().sessions.filter(({ status }) => status === "active"),
+    ).toHaveLength(5);
+    expect(store.snapshot().events.at(-2)?.name).toBe("SessionRevoked");
+  });
+
+  it("ends the prior privileged session when a second privileged session starts", async () => {
+    const { service, store, advanceTo } = harness();
+    const firstIdentity = acceptedIdentity({ sessionId: "privileged-clerk-1" });
+    const first = await service.createDocketSession({
+      identity: firstIdentity,
+      idempotencyKey: "privileged-create-1",
+      device: "Firefox on Linux",
+      approximateLocation: "Austin, Texas",
+    });
+    await service.activatePrivilegedDocketSession({
+      identity: firstIdentity,
+      authorization: privilegedDecision(
+        first.account.id,
+        firstIdentity.sessionId,
+      ),
+      expectedVersion: first.session.version,
+      idempotencyKey: "privileged-activate-1",
+    });
+    const secondIdentity = acceptedIdentity({
+      sessionId: "privileged-clerk-2",
+    });
+    const second = await service.createDocketSession({
+      identity: secondIdentity,
+      idempotencyKey: "privileged-create-2",
+      device: "Safari on macOS",
+      approximateLocation: "Dallas, Texas",
+    });
+    const command = {
+      identity: secondIdentity,
+      authorization: privilegedDecision(
+        second.account.id,
+        secondIdentity.sessionId,
+        {
+          decisionId: "privileged-decision-002",
+          contextId: "privacy-context-001",
+          activation: "restore",
+        },
+      ),
+      expectedVersion: second.session.version,
+      idempotencyKey: "privileged-activate-2",
+    } as const;
+    const current = await service.activatePrivilegedDocketSession(command);
     await expect(
-      service.createDocketSession({
-        identity: acceptedIdentity({ sessionId: "clerk-session-6" }),
-        idempotencyKey: "create-6",
-      }),
-    ).rejects.toMatchObject({ code: "SESSION_LIMIT_REACHED" });
-    expect(store.snapshot().sessions).toHaveLength(5);
+      service.activatePrivilegedDocketSession(command),
+    ).resolves.toEqual(current);
+
+    expect(current.session).toMatchObject({
+      sessionClass: "privileged",
+      device: "Safari on macOS",
+      approximateLocation: "Dallas, Texas",
+      privilegedActivatedAt: "2026-09-25T20:00:00.000Z",
+      expiresAt: "2026-09-26T08:00:00.000Z",
+      inactivityExpiresAt: "2026-09-25T20:30:00.000Z",
+    });
+    expect(current.privilegedActivation).toMatchObject({
+      activation: "restore",
+      securityAlert: {
+        device: "Safari on macOS",
+        approximateLocation: "Dallas, Texas",
+        occurredAt: now.toISOString(),
+      },
+    });
+    expect(store.snapshot().sessions).toMatchObject([
+      { status: "revoked", sessionClass: "privileged" },
+      { status: "active", sessionClass: "privileged" },
+    ]);
+
+    advanceTo(new Date("2026-09-25T20:20:00.000Z"));
+    const refreshed = (await service.listDocketSessions(secondIdentity)).find(
+      ({ id }) => id === current.session.id,
+    );
+    expect(refreshed).toMatchObject({
+      lastActivityAt: "2026-09-25T20:20:00.000Z",
+      privilegedActivatedAt: "2026-09-25T20:00:00.000Z",
+    });
+  });
+
+  it("enforces ordinary inactivity and absolute limits while activity refreshes only the inactivity deadline", async () => {
+    const { service, advanceTo } = harness();
+    const identity = acceptedIdentity();
+    await service.createDocketSession({
+      identity,
+      idempotencyKey: "ordinary-limits",
+    });
+
+    advanceTo(new Date("2026-09-26T07:00:00.000Z"));
+    const active = await service.listDocketSessions(identity);
+    expect(active[0]).toMatchObject({
+      lastActivityAt: "2026-09-26T07:00:00.000Z",
+      inactivityExpiresAt: "2026-09-26T19:00:00.000Z",
+      expiresAt: "2026-10-02T20:00:00.000Z",
+    });
+    advanceTo(new Date("2026-09-26T19:00:00.000Z"));
+    await expect(service.listDocketSessions(identity)).rejects.toMatchObject({
+      code: "SESSION_EXPIRED",
+    });
+
+    const absolute = harness();
+    const absoluteIdentity = acceptedIdentity();
+    await absolute.service.createDocketSession({
+      identity: absoluteIdentity,
+      idempotencyKey: "ordinary-absolute",
+    });
+    for (let hour = 11; hour < 7 * 24; hour += 11) {
+      absolute.advanceTo(new Date(now.getTime() + hour * 60 * 60 * 1_000));
+      await absolute.service.listDocketSessions(absoluteIdentity);
+    }
+    absolute.advanceTo(new Date("2026-10-02T20:00:00.000Z"));
+    await expect(
+      absolute.service.listDocketSessions(absoluteIdentity),
+    ).rejects.toMatchObject({ code: "SESSION_EXPIRED" });
+  });
+
+  it("enforces privileged 30-minute inactivity and 12-hour absolute limits", async () => {
+    const inactive = harness();
+    const inactiveIdentity = acceptedIdentity({ sessionId: "priv-inactive" });
+    const inactiveCreated = await inactive.service.createDocketSession({
+      identity: inactiveIdentity,
+      idempotencyKey: "priv-inactive-create",
+    });
+    await inactive.service.activatePrivilegedDocketSession({
+      identity: inactiveIdentity,
+      authorization: privilegedDecision(
+        inactiveCreated.account.id,
+        inactiveIdentity.sessionId,
+      ),
+      expectedVersion: inactiveCreated.session.version,
+      idempotencyKey: "priv-inactive-activate",
+    });
+    inactive.advanceTo(new Date("2026-09-25T20:30:00.000Z"));
+    await expect(
+      inactive.service.listDocketSessions(inactiveIdentity),
+    ).rejects.toMatchObject({ code: "SESSION_EXPIRED" });
+
+    const absolute = harness();
+    const absoluteIdentity = acceptedIdentity({ sessionId: "priv-absolute" });
+    const absoluteCreated = await absolute.service.createDocketSession({
+      identity: absoluteIdentity,
+      idempotencyKey: "priv-absolute-create",
+    });
+    await absolute.service.activatePrivilegedDocketSession({
+      identity: absoluteIdentity,
+      authorization: privilegedDecision(
+        absoluteCreated.account.id,
+        absoluteIdentity.sessionId,
+      ),
+      expectedVersion: absoluteCreated.session.version,
+      idempotencyKey: "priv-absolute-activate",
+    });
+    for (let minute = 29; minute < 12 * 60; minute += 29) {
+      absolute.advanceTo(new Date(now.getTime() + minute * 60 * 1_000));
+      await absolute.service.listDocketSessions(absoluteIdentity);
+    }
+    absolute.advanceTo(new Date("2026-09-26T08:00:00.000Z"));
+    await expect(
+      absolute.service.listDocketSessions(absoluteIdentity),
+    ).rejects.toMatchObject({ code: "SESSION_EXPIRED" });
   });
 
   it("lists only the Account holder's sessions and rejects stale revocation", async () => {
@@ -315,6 +822,41 @@ describe("Docket Account and Session commands", () => {
     });
     expect(revoked.session).toMatchObject({ status: "revoked", version: 2 });
     expect(store.snapshot().events.at(-1)?.name).toBe("SessionRevoked");
+    expect(store.snapshot().clerkSessionTerminations).toEqual([
+      expect.objectContaining({
+        sessionId: created.session.id,
+        clerkSessionId: evidence.sessionId,
+      }),
+    ]);
+  });
+
+  it("keeps activity freshness separate from command version for self-revocation", async () => {
+    const { service, advanceTo } = harness();
+    const identity = acceptedIdentity();
+    const created = await service.createDocketSession({
+      identity,
+      idempotencyKey: "create-for-active-self-revoke",
+    });
+
+    advanceTo(new Date("2026-09-25T21:00:00.000Z"));
+    const [active] = await service.listDocketSessions(identity);
+    expect(active).toMatchObject({
+      version: created.session.version,
+      lastActivityAt: "2026-09-25T21:00:00.000Z",
+    });
+
+    advanceTo(new Date("2026-09-25T21:01:00.000Z"));
+    const command = {
+      identity,
+      sessionId: created.session.id,
+      expectedVersion: created.session.version,
+      idempotencyKey: "active-self-revoke",
+    } as const;
+    const revoked = await service.revokeDocketSession(command);
+    expect(revoked.session).toMatchObject({ status: "revoked", version: 2 });
+    await expect(service.revokeDocketSession(command)).rejects.toMatchObject({
+      code: "SESSION_EXPIRED",
+    });
   });
 
   it("rejects a revocation when the acting Docket Session is not active", async () => {
@@ -335,7 +877,7 @@ describe("Docket Account and Session commands", () => {
     expect(store.snapshot().sessions[0]?.status).toBe("active");
   });
 
-  it("rejects expired actors and does not let a receipt revive revoked authority", async () => {
+  it("requires live session authority before replaying a revocation receipt", async () => {
     const { service, store, advanceTo } = harness();
     const actor = await service.createDocketSession({
       identity: acceptedIdentity(),
@@ -355,6 +897,21 @@ describe("Docket Account and Session commands", () => {
 
     const first = await service.revokeDocketSession(command);
     await expect(service.revokeDocketSession(command)).resolves.toEqual(first);
+    const pending = store
+      .snapshot()
+      .clerkSessionTerminations.find(
+        ({ sessionId }) => sessionId === target.session.id,
+      );
+    expect(pending).toBeDefined();
+    if (!pending) throw new Error("expected a pending Clerk termination");
+    const deliveryStore = new InMemoryClerkSessionTerminationStore();
+    deliveryStore.enqueue(pending);
+    await expect(
+      new ClerkSessionTerminationService(
+        deliveryStore,
+        () => new Date(now),
+      ).deliverNext(() => Promise.reject(new Error("Clerk unavailable"))),
+    ).resolves.toMatchObject({ status: "failed" });
     await service.revokeDocketSession({
       identity: acceptedIdentity(),
       sessionId: actor.session.id,
@@ -365,6 +922,20 @@ describe("Docket Account and Session commands", () => {
       code: "SESSION_EXPIRED",
     });
 
+    const replacementIdentity = acceptedIdentity({
+      sessionId: "session-replacement-actor",
+    });
+    await service.createDocketSession({
+      identity: replacementIdentity,
+      idempotencyKey: "create-replacement-actor",
+    });
+    await expect(
+      service.revokeDocketSession({
+        ...command,
+        identity: replacementIdentity,
+      }),
+    ).resolves.toEqual(first);
+
     advanceTo(new Date("2026-09-27T20:00:00.000Z"));
     await expect(
       service.listDocketSessions(targetIdentity),
@@ -372,6 +943,115 @@ describe("Docket Account and Session commands", () => {
     expect(
       store.snapshot().events.filter(({ name }) => name === "SessionRevoked"),
     ).toHaveLength(2);
+  });
+
+  it.each([
+    ["inactivity", new Date("2026-09-26T08:00:00.000Z")],
+    ["absolute lifetime", new Date("2026-10-02T20:00:00.000Z")],
+  ])(
+    "does not let a %s-expired actor replay a revocation receipt",
+    async (_reason, expiry) => {
+      const { service, advanceTo } = harness();
+      const actorIdentity = acceptedIdentity({
+        expiresAt: new Date("2026-10-10T20:00:00.000Z"),
+      });
+      await service.createDocketSession({
+        identity: actorIdentity,
+        idempotencyKey: `create-expiring-actor-${_reason}`,
+      });
+      const target = await service.createDocketSession({
+        identity: acceptedIdentity({ sessionId: `target-${_reason}` }),
+        idempotencyKey: `create-expiring-target-${_reason}`,
+      });
+      const command = {
+        identity: actorIdentity,
+        sessionId: target.session.id,
+        expectedVersion: target.session.version,
+        idempotencyKey: `revoke-before-${_reason}`,
+      } as const;
+      await service.revokeDocketSession(command);
+
+      if (_reason === "absolute lifetime") {
+        for (let hour = 11; hour < 7 * 24; hour += 11) {
+          advanceTo(new Date(now.getTime() + hour * 60 * 60 * 1_000));
+          await service.listDocketSessions(actorIdentity);
+        }
+      }
+      advanceTo(expiry);
+      await expect(service.revokeDocketSession(command)).rejects.toMatchObject({
+        code: "SESSION_EXPIRED",
+      });
+    },
+  );
+
+  it("logs out everywhere atomically and queues every associated Clerk session", async () => {
+    const { service, store } = harness();
+    const identities = [
+      acceptedIdentity(),
+      acceptedIdentity({ sessionId: "session_clerk_002" }),
+      acceptedIdentity({ sessionId: "session_clerk_003" }),
+    ] as const;
+    for (const [index, identity] of identities.entries()) {
+      await service.createDocketSession({
+        identity,
+        idempotencyKey: `create-for-logout-all-${String(index)}`,
+      });
+    }
+    const command = {
+      identity: identities[2],
+      idempotencyKey: "logout-everywhere",
+    } as const;
+
+    const first = await service.revokeAllDocketSessions(command);
+    await expect(
+      service.revokeAllDocketSessions(command),
+    ).rejects.toMatchObject({ code: "SESSION_EXPIRED" });
+
+    const replacementIdentity = acceptedIdentity({
+      sessionId: "session_clerk_after_logout_all",
+    });
+    await service.createDocketSession({
+      identity: replacementIdentity,
+      idempotencyKey: "create-after-logout-all",
+    });
+    await expect(
+      service.revokeAllDocketSessions({
+        ...command,
+        identity: replacementIdentity,
+      }),
+    ).resolves.toEqual(first);
+
+    expect(first.session).toMatchObject({ status: "revoked", version: 2 });
+    expect(store.snapshot().sessions).toHaveLength(4);
+    expect(store.snapshot().sessions.at(-1)).toMatchObject({
+      clerkSessionId: replacementIdentity.sessionId,
+      status: "active",
+    });
+    expect(store.snapshot().clerkSessionTerminations).toHaveLength(3);
+    expect(
+      store
+        .snapshot()
+        .clerkSessionTerminations.map(({ clerkSessionId }) => clerkSessionId)
+        .sort(),
+    ).toEqual(identities.map(({ sessionId }) => sessionId).sort());
+  });
+
+  it("rolls back logout everywhere including provider deliveries", async () => {
+    const { service, store } = harness();
+    await service.createDocketSession({
+      identity: acceptedIdentity(),
+      idempotencyKey: "create-before-logout-rollback",
+    });
+    store.failBeforeCommit = true;
+
+    await expect(
+      service.revokeAllDocketSessions({
+        identity: acceptedIdentity(),
+        idempotencyKey: "logout-everywhere-rollback",
+      }),
+    ).rejects.toThrow("simulated persistence failure");
+    expect(store.snapshot().sessions[0]?.status).toBe("active");
+    expect(store.snapshot().clerkSessionTerminations).toEqual([]);
   });
 
   it("does not count expired sessions toward the ordinary session limit", async () => {
