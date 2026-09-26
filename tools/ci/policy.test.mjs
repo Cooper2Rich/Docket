@@ -15,12 +15,15 @@ function clone(value) {
 }
 
 describe("required-check workflow policy", () => {
-  it("keeps isolated check and unit jobs build-complete from a frozen workspace", async () => {
-    const [packageManifest, nxConfiguration] = await Promise.all(
-      ["package.json", "nx.json"].map(async (file) =>
-        JSON.parse(await readFile(path.join(workspaceRoot, file), "utf8")),
-      ),
-    );
+  it("keeps isolated test jobs build-complete from a frozen workspace", async () => {
+    const [packageManifest, nxConfiguration, playwrightConfiguration] =
+      await Promise.all([
+        readFile(path.join(workspaceRoot, "package.json"), "utf8").then(
+          JSON.parse,
+        ),
+        readFile(path.join(workspaceRoot, "nx.json"), "utf8").then(JSON.parse),
+        readFile(path.join(workspaceRoot, "playwright.config.ts"), "utf8"),
+      ]);
 
     expect(nxConfiguration.targetDefaults.typecheck.dependsOn).toEqual([
       "^build",
@@ -31,6 +34,15 @@ describe("required-check workflow policy", () => {
     );
     expect(packageManifest.scripts["test:unit:workspace"]).toBe(
       "pnpm exec nx run-many -t build --all && pnpm exec vitest run --reporter=verbose",
+    );
+    expect(packageManifest.scripts["test:integration"]).toBe(
+      "node tools/run-check.mjs integration pnpm run test:integration:workspace",
+    );
+    expect(packageManifest.scripts["test:integration:workspace"]).toBe(
+      "pnpm exec nx run-many -t build --all && pnpm exec vitest run --config vitest.integration.config.mts --reporter=verbose",
+    );
+    expect(playwrightConfiguration).toContain(
+      '"pnpm exec nx run @docket/api:build && node apps/api/dist/e2e-server.js"',
     );
   });
 

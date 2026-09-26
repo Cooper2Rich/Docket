@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "46d94edec51de1617d9a6ebb4ef8a606369e1a71b8543f3d0de0107fdbbdb63f",
+  "graph_sha256": "6c3a324727e6a8925247a8ddceec22935f51b1756ed6239dc09e4077a6426f02",
   "execution_graph": {
     "items": [
       {
@@ -16134,7 +16134,7 @@
         "parent": "R1-IDA-001",
         "order": 110,
         "title": "Authenticate Clerk identities and preserve Account identity",
-        "status": "ready",
+        "status": "done",
         "owner": "identity-access",
         "stage": "02 Walking skeleton",
         "depends_on": [
@@ -16148,7 +16148,10 @@
         ],
         "spec": "docs/implementation/items/R1-IDA-001-A.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "4289a9651290c09d8f9fa90988a57ce2b1dc1a1c82011a0baa8964f6abb930a4",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-IDA-001-B",
@@ -16156,7 +16159,7 @@
         "parent": "R1-IDA-001",
         "order": 120,
         "title": "Enforce session limits and Account security views",
-        "status": "blocked",
+        "status": "ready",
         "owner": "identity-access",
         "stage": "02 Walking skeleton",
         "depends_on": [
@@ -16169,7 +16172,7 @@
           "R1-PRIV-001"
         ],
         "spec": "docs/implementation/items/R1-IDA-001-B.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {

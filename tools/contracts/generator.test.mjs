@@ -107,14 +107,44 @@ describe("module-owned contract generation", () => {
       requirements: {
         "R1-AUTH-001": {
           modules: expect.arrayContaining(["contracts", "identity-access"]),
-          operations: ["getIdentitySession"],
+          operations: [
+            "createDocketSession",
+            "getIdentitySession",
+            "listDocketSessions",
+            "revokeDocketSession",
+          ],
         },
         "R1-PRIV-001": {
           modules: expect.arrayContaining(["contracts", "identity-access"]),
-          operations: ["getIdentitySession"],
+          operations: [
+            "createDocketSession",
+            "getIdentitySession",
+            "listDocketSessions",
+            "revokeDocketSession",
+          ],
         },
       },
     });
+
+    const openApi = JSON.parse(
+      first.artifacts.get("contracts/openapi/v1.json"),
+    );
+    expect(openApi.paths["/v1/docket-sessions"].post).toMatchObject({
+      parameters: [],
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/components/schemas/CreateDocketSessionRequest",
+            },
+          },
+        },
+      },
+    });
+    expect(
+      first.artifacts.get("packages/contracts/src/generated.ts"),
+    ).toContain('path: "/v1/docket-sessions", body: input');
   });
 
   it("writes atomically and reports changed source as contract drift", async () => {

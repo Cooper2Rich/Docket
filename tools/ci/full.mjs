@@ -1,7 +1,10 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { applicationEnvironment } from "../lib/workspace.mjs";
+import {
+  applicationEnvironment,
+  verificationEnvironment,
+} from "../lib/workspace.mjs";
 
 export const REQUIRED_LOCAL_COMMANDS = Object.freeze([
   ["install", "--frozen-lockfile"],
@@ -17,7 +20,22 @@ export const REQUIRED_LOCAL_COMMANDS = Object.freeze([
   ["artifacts:check"],
 ]);
 
-async function spawnPnpm(workspaceRoot, arguments_) {
+const RECEIPT_PRODUCING_COMMANDS = new Set([
+  "build",
+  "check",
+  "test:unit",
+  "test:integration",
+  "test:e2e",
+  "contracts",
+]);
+
+export function environmentForFullCiCommand(environment, command) {
+  return RECEIPT_PRODUCING_COMMANDS.has(command[0])
+    ? verificationEnvironment(environment)
+    : applicationEnvironment(environment);
+}
+
+async function spawnPnpm(workspaceRoot, arguments_, environment) {
   const pnpmCli = process.env.npm_execpath;
   const command = pnpmCli
     ? process.execPath
@@ -29,7 +47,7 @@ async function spawnPnpm(workspaceRoot, arguments_) {
     pnpmCli ? [pnpmCli, ...arguments_] : arguments_,
     {
       cwd: workspaceRoot,
-      env: applicationEnvironment(process.env),
+      env: environment,
       shell: process.platform === "win32" && !pnpmCli,
       windowsHide: true,
       stdio: "inherit",
@@ -43,12 +61,20 @@ async function spawnPnpm(workspaceRoot, arguments_) {
 
 export async function runFullCi(
   workspaceRoot,
-  { run = spawnPnpm, stdout = (message) => console.log(message) } = {},
+  {
+    run = spawnPnpm,
+    stdout = (message) => console.log(message),
+    environment = process.env,
+  } = {},
 ) {
   let completed = 0;
   for (const command of REQUIRED_LOCAL_COMMANDS) {
     stdout(`CI_FULL_STEP: pnpm ${command.join(" ")}`);
-    const exitCode = await run(workspaceRoot, command);
+    const exitCode = await run(
+      workspaceRoot,
+      command,
+      environmentForFullCiCommand(environment, command),
+    );
     if (exitCode !== 0) {
       throw new Error(
         `CI_FULL_FAILED: pnpm ${command.join(" ")} exited ${exitCode}`,

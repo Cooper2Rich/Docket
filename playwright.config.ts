@@ -16,14 +16,27 @@ export default defineConfig({
     ...devices["Desktop Chrome"],
     channel: process.env.CI ? undefined : "msedge",
   },
-  webServer: {
-    command: `pnpm --dir apps/web dev --port ${port}`,
-    env: {
-      CLERK_PUBLISHABLE_KEY: "pk_live_ZG9ja2V0LmV4YW1wbGUuY29tJA",
-      CLERK_SECRET_KEY: "sk_live_docket_e2e_fixture",
+  webServer: [
+    {
+      command:
+        "pnpm exec nx run @docket/api:build && node apps/api/dist/e2e-server.js",
+      env: {
+        DOCKET_ENV: "test",
+      },
+      reuseExistingServer: false,
+      timeout: 120_000,
+      url: "http://127.0.0.1:3001/health/live",
     },
-    reuseExistingServer: false,
-    timeout: 120_000,
-    url: baseURL,
-  },
+    {
+      command: `pnpm --dir apps/web dev --port ${port}`,
+      env: {
+        CLERK_PUBLISHABLE_KEY: "pk_live_ZG9ja2V0LmV4YW1wbGUuY29tJA",
+        CLERK_SECRET_KEY: "sk_live_docket_e2e_fixture",
+        DOCKET_CLERK_ALLOWED_ORIGINS: baseURL,
+      },
+      reuseExistingServer: false,
+      timeout: 120_000,
+      url: baseURL,
+    },
+  ],
 });

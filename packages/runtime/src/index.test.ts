@@ -26,6 +26,10 @@ const productionBase = {
   DOCKET_WORKER_CONCURRENCY: "4",
   CLERK_PUBLISHABLE_KEY: "publishable-placeholder",
   CLERK_SECRET_KEY: "sensitive-value-that-must-not-appear",
+  DOCKET_CLERK_ISSUER: "https://clerk.example.test",
+  DOCKET_CLERK_AUDIENCE: "docket-api",
+  DOCKET_CLERK_AUTHORIZED_PARTIES: "https://docket.example.test",
+  DOCKET_CLERK_ALLOWED_ORIGINS: "https://docket.example.test",
 } as const;
 
 const servers: ReturnType<typeof createServer>[] = [];
@@ -64,6 +68,12 @@ describe("process-scoped runtime configuration", () => {
         DOCKET_API_PORT: "3001",
         CLERK_PUBLISHABLE_KEY: "publishable-placeholder",
         CLERK_SECRET_KEY: "secret-placeholder",
+        DOCKET_CLERK_ISSUER: productionBase.DOCKET_CLERK_ISSUER,
+        DOCKET_CLERK_AUDIENCE: productionBase.DOCKET_CLERK_AUDIENCE,
+        DOCKET_CLERK_AUTHORIZED_PARTIES:
+          productionBase.DOCKET_CLERK_AUTHORIZED_PARTIES,
+        DOCKET_CLERK_ALLOWED_ORIGINS:
+          productionBase.DOCKET_CLERK_ALLOWED_ORIGINS,
       }).process,
     ).toBe("api");
     expect(
@@ -76,6 +86,7 @@ describe("process-scoped runtime configuration", () => {
         DOCKET_OBJECT_STORAGE_ADAPTER: "s3",
         DOCKET_EMAIL_ADAPTER: "ses",
         DOCKET_WORKER_CONCURRENCY: "4",
+        CLERK_SECRET_KEY: "secret-placeholder",
       }).process,
     ).toBe("worker");
     expect(
@@ -84,6 +95,11 @@ describe("process-scoped runtime configuration", () => {
         DOCKET_API_BASE_URL: productionBase.DOCKET_API_BASE_URL,
         DOCKET_IDENTITY_ADAPTER: "clerk",
         CLERK_PUBLISHABLE_KEY: "publishable-placeholder",
+        DOCKET_CLERK_AUDIENCE: productionBase.DOCKET_CLERK_AUDIENCE,
+        DOCKET_CLERK_AUTHORIZED_PARTIES:
+          productionBase.DOCKET_CLERK_AUTHORIZED_PARTIES,
+        DOCKET_CLERK_ALLOWED_ORIGINS:
+          productionBase.DOCKET_CLERK_ALLOWED_ORIGINS,
       }).process,
     ).toBe("web");
     expect(

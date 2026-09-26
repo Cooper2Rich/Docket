@@ -101,6 +101,15 @@ const RuntimeConfigSchema = Type.Object(
     workerConcurrency: Type.Optional(Type.Integer({ minimum: 1, maximum: 64 })),
     clerkPublishableKey: Type.Optional(Type.String({ minLength: 1 })),
     clerkSecretKey: Type.Optional(Type.String({ minLength: 1 })),
+    clerkJwtKey: Type.Optional(Type.String({ minLength: 1 })),
+    clerkIssuer: Type.Optional(Type.String({ minLength: 1 })),
+    clerkAudience: Type.Optional(Type.String({ minLength: 1 })),
+    clerkAuthorizedParties: Type.Optional(
+      Type.Array(Type.String({ minLength: 1 }), { minItems: 1 }),
+    ),
+    clerkAllowedOrigins: Type.Optional(
+      Type.Array(Type.String({ minLength: 1 }), { minItems: 1 }),
+    ),
   },
   { additionalProperties: false },
 );
@@ -149,6 +158,11 @@ const knownKeys = new Set([
   "DOCKET_WORKER_CONCURRENCY",
   "CLERK_PUBLISHABLE_KEY",
   "CLERK_SECRET_KEY",
+  "CLERK_JWT_KEY",
+  "DOCKET_CLERK_ISSUER",
+  "DOCKET_CLERK_AUDIENCE",
+  "DOCKET_CLERK_AUTHORIZED_PARTIES",
+  "DOCKET_CLERK_ALLOWED_ORIGINS",
 ]);
 
 const forbiddenIdentityAliasKeys = new Set([
@@ -173,6 +187,10 @@ const localDefaults: Readonly<Record<string, string>> = {
   DOCKET_WORKER_CONCURRENCY: "2",
   CLERK_PUBLISHABLE_KEY: "pk_test_ZG9ja2V0LmxvY2FsJA",
   CLERK_SECRET_KEY: "sk_test_docket_local_only",
+  DOCKET_CLERK_ISSUER: "https://docket.local",
+  DOCKET_CLERK_AUDIENCE: "docket-api",
+  DOCKET_CLERK_AUTHORIZED_PARTIES: "http://127.0.0.1:3000",
+  DOCKET_CLERK_ALLOWED_ORIGINS: "http://127.0.0.1:3000",
 };
 
 const processRequirements: Readonly<Record<ProcessKind, readonly string[]>> = {
@@ -185,6 +203,10 @@ const processRequirements: Readonly<Record<ProcessKind, readonly string[]>> = {
     "DOCKET_API_PORT",
     "CLERK_PUBLISHABLE_KEY",
     "CLERK_SECRET_KEY",
+    "DOCKET_CLERK_ISSUER",
+    "DOCKET_CLERK_AUDIENCE",
+    "DOCKET_CLERK_AUTHORIZED_PARTIES",
+    "DOCKET_CLERK_ALLOWED_ORIGINS",
   ],
   worker: [
     "DOCKET_DATABASE_URL",
@@ -193,11 +215,15 @@ const processRequirements: Readonly<Record<ProcessKind, readonly string[]>> = {
     "DOCKET_OBJECT_STORAGE_ADAPTER",
     "DOCKET_EMAIL_ADAPTER",
     "DOCKET_WORKER_CONCURRENCY",
+    "CLERK_SECRET_KEY",
   ],
   web: [
     "DOCKET_API_BASE_URL",
     "DOCKET_IDENTITY_ADAPTER",
     "CLERK_PUBLISHABLE_KEY",
+    "DOCKET_CLERK_AUDIENCE",
+    "DOCKET_CLERK_AUTHORIZED_PARTIES",
+    "DOCKET_CLERK_ALLOWED_ORIGINS",
   ],
   migration: ["DOCKET_DATABASE_URL"],
 };
@@ -209,6 +235,11 @@ const propertyEnvironmentKeys: Readonly<Record<string, string>> = {
   apiHost: "DOCKET_API_HOST",
   apiPort: "DOCKET_API_PORT",
   workerConcurrency: "DOCKET_WORKER_CONCURRENCY",
+  clerkIssuer: "DOCKET_CLERK_ISSUER",
+  clerkJwtKey: "CLERK_JWT_KEY",
+  clerkAudience: "DOCKET_CLERK_AUDIENCE",
+  clerkAuthorizedParties: "DOCKET_CLERK_AUTHORIZED_PARTIES",
+  clerkAllowedOrigins: "DOCKET_CLERK_ALLOWED_ORIGINS",
 };
 
 function integer(value: string | undefined): number | undefined {
@@ -223,6 +254,15 @@ function isUrl(value: string): boolean {
   } catch {
     return false;
   }
+}
+
+function list(value: string | undefined): string[] | undefined {
+  if (!value) return undefined;
+  const entries = value
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+  return entries.length > 0 ? entries : undefined;
 }
 
 function withLocalDefaults(
@@ -248,6 +288,8 @@ export function parseRuntimeConfig(
   const values = withLocalDefaults(source, environment);
   const apiPort = integer(values.DOCKET_API_PORT);
   const workerConcurrency = integer(values.DOCKET_WORKER_CONCURRENCY);
+  const clerkAuthorizedParties = list(values.DOCKET_CLERK_AUTHORIZED_PARTIES);
+  const clerkAllowedOrigins = list(values.DOCKET_CLERK_ALLOWED_ORIGINS);
   const unknown = Object.keys(source)
     .filter(
       (key) =>
@@ -298,6 +340,15 @@ export function parseRuntimeConfig(
     ...(values.CLERK_SECRET_KEY
       ? { clerkSecretKey: values.CLERK_SECRET_KEY }
       : {}),
+    ...(values.CLERK_JWT_KEY ? { clerkJwtKey: values.CLERK_JWT_KEY } : {}),
+    ...(values.DOCKET_CLERK_ISSUER
+      ? { clerkIssuer: values.DOCKET_CLERK_ISSUER }
+      : {}),
+    ...(values.DOCKET_CLERK_AUDIENCE
+      ? { clerkAudience: values.DOCKET_CLERK_AUDIENCE }
+      : {}),
+    ...(clerkAuthorizedParties ? { clerkAuthorizedParties } : {}),
+    ...(clerkAllowedOrigins ? { clerkAllowedOrigins } : {}),
   };
 
   const issues: ConfigIssue[] = [];
@@ -313,8 +364,17 @@ export function parseRuntimeConfig(
     ["DOCKET_OBJECT_STORAGE_ENDPOINT", candidate.objectStorageEndpoint],
     ["DOCKET_SMTP_URL", candidate.smtpUrl],
     ["DOCKET_API_BASE_URL", candidate.apiBaseUrl],
+    ["DOCKET_CLERK_ISSUER", candidate.clerkIssuer],
   ] as const) {
     if (value !== undefined && !isUrl(value)) {
+      issues.push({ key, reason: "malformed" });
+    }
+  }
+  for (const [key, values] of [
+    ["DOCKET_CLERK_AUTHORIZED_PARTIES", candidate.clerkAuthorizedParties],
+    ["DOCKET_CLERK_ALLOWED_ORIGINS", candidate.clerkAllowedOrigins],
+  ] as const) {
+    if (values?.some((value) => !isUrl(value))) {
       issues.push({ key, reason: "malformed" });
     }
   }

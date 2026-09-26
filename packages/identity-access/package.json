@@ -18,9 +18,11 @@
   },
   "dependencies": {
     "@docket/contracts": "workspace:*",
+    "@docket/database": "workspace:*",
     "@sinclair/typebox": "0.34.52"
   },
   "devDependencies": {
+    "@docket/testkit": "workspace:*",
     "vitest": "4.1.11"
   }
 }

@@ -5,10 +5,17 @@ import {
   applicationEnvironment,
   gitHead,
   sha256,
+  verificationEnvironment,
   writeJsonAtomic,
 } from "./lib/workspace.mjs";
 
-export { applicationEnvironment };
+export { applicationEnvironment, verificationEnvironment };
+
+export function environmentForCheck(checkId, environment) {
+  return checkId === "ci-full"
+    ? verificationEnvironment(environment)
+    : applicationEnvironment(environment);
+}
 
 export async function runCheck({
   checkId,
@@ -22,7 +29,7 @@ export async function runCheck({
   const startedAt = new Date().toISOString();
   const child = spawn(command, commandArguments, {
     cwd: workspaceRoot,
-    env: applicationEnvironment(process.env),
+    env: environmentForCheck(checkId, process.env),
     shell: process.platform === "win32",
     stdio: ["ignore", "pipe", "pipe"],
   });

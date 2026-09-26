@@ -32,13 +32,14 @@ function expectCode(action: () => void, code: string): void {
 }
 
 describe("module-owned migration plan", () => {
-  it("loads one ordered migration and every package-local owner declaration", async () => {
+  it("loads every ordered migration and package-local owner declaration", async () => {
     const plan = await loadMigrationPlan(workspaceRoot);
 
     expect(plan.migrations.map(({ id }) => id)).toEqual([
       "0001_platform_migration_journal",
+      "0002_identity_accounts_and_sessions",
     ]);
-    expect(plan.head).toBe("0001_platform_migration_journal");
+    expect(plan.head).toBe("0002_identity_accounts_and_sessions");
     expect(plan.owners.size).toBe(10);
     expect(plan.digest).toMatch(/^[a-f0-9]{64}$/u);
   });

@@ -30,4 +30,44 @@ describe("serial full CI", () => {
     expect(observed.at(-1)).toEqual(["test:unit"]);
     expect(observed).toHaveLength(4);
   });
+
+  it("attributes child receipts to the selected leaf without leaking metadata to application commands", async () => {
+    const observed = [];
+    await runFullCi("workspace", {
+      environment: {
+        DOCKET_PR_NUMBER: "170",
+        DOCKET_VERIFY_ITEM: "R1-IDA-001-A",
+        DOCKET_ENV: "test",
+        PATH: "synthetic-path",
+      },
+      run: async (_root, command, environment) => {
+        observed.push({ command, environment });
+        return 0;
+      },
+      stdout: vi.fn(),
+    });
+
+    for (const { command, environment } of observed) {
+      expect(environment.DOCKET_PR_NUMBER).toBeUndefined();
+      if (
+        [
+          "build",
+          "check",
+          "test:unit",
+          "test:integration",
+          "test:e2e",
+          "contracts",
+        ].includes(command[0])
+      ) {
+        expect(environment.DOCKET_VERIFY_ITEM, command.join(" ")).toBe(
+          "R1-IDA-001-A",
+        );
+      } else {
+        expect(
+          environment.DOCKET_VERIFY_ITEM,
+          command.join(" "),
+        ).toBeUndefined();
+      }
+    }
+  });
 });

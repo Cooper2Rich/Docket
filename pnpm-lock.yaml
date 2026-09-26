@@ -68,6 +68,9 @@ importers:
         specifier: 5.11.3
         version: 5.11.3
     devDependencies:
+      "@docket/testkit":
+        specifier: workspace:*
+        version: link:../../packages/testkit
       vitest:
         specifier: 4.1.11
         version: 4.1.11(@types/node@24.10.1)(jsdom@27.0.1(supports-color@7.2.0))(vite@8.2.2(@types/node@24.10.1)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
@@ -96,6 +99,9 @@ importers:
       "@clerk/react-router":
         specifier: 3.6.25
         version: 3.6.25(react-dom@19.3.0(react@19.3.0))(react-router@7.18.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
+      "@docket/contracts":
+        specifier: workspace:*
+        version: link:../../packages/contracts
       "@docket/runtime":
         specifier: workspace:*
         version: link:../../packages/runtime
@@ -163,12 +169,25 @@ importers:
 
   apps/worker:
     dependencies:
+      "@clerk/backend":
+        specifier: 3.19.0
+        version: 3.19.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      "@docket/identity-access":
+        specifier: workspace:*
+        version: link:../../packages/identity-access
       "@docket/runtime":
         specifier: workspace:*
         version: link:../../packages/runtime
       pg-boss:
         specifier: 12.30.0
         version: 12.30.0
+    devDependencies:
+      "@docket/testkit":
+        specifier: workspace:*
+        version: link:../../packages/testkit
+      vitest:
+        specifier: 4.1.11
+        version: 4.1.11(@types/node@24.10.1)(jsdom@27.0.1(supports-color@7.2.0))(vite@8.2.2(@types/node@24.10.1)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
 
   packages/communications: {}
 
@@ -206,10 +225,16 @@ importers:
       "@docket/contracts":
         specifier: workspace:*
         version: link:../contracts
+      "@docket/database":
+        specifier: workspace:*
+        version: link:../database
       "@sinclair/typebox":
         specifier: 0.34.52
         version: 0.34.52
     devDependencies:
+      "@docket/testkit":
+        specifier: workspace:*
+        version: link:../testkit
       vitest:
         specifier: 4.1.11
         version: 4.1.11(@types/node@24.10.1)(jsdom@27.0.1(supports-color@7.2.0))(vite@8.2.2(@types/node@24.10.1)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))

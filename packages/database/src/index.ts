@@ -110,6 +110,8 @@ export interface MigrationSession {
   release(): void | Promise<void>;
 }
 
+export type DatabaseSession = MigrationSession;
+
 export interface RunMigrationsOptions {
   readonly databaseUrl: string;
   readonly plan: MigrationPlan;
@@ -397,9 +399,9 @@ export function createDatabase(databaseUrl: string): Kysely<MigrationDatabase> {
   });
 }
 
-export async function connectMigrationSession(
+export async function connectDatabaseSession(
   databaseUrl: string,
-): Promise<MigrationSession> {
+): Promise<DatabaseSession> {
   const pool = new Pool({ connectionString: databaseUrl, max: 2 });
   const client = await pool.connect();
   let released = false;
@@ -416,6 +418,8 @@ export async function connectMigrationSession(
     },
   };
 }
+
+export const connectMigrationSession = connectDatabaseSession;
 
 function safeFailureCode(error: unknown): string {
   if (error instanceof MigrationError) return error.code;

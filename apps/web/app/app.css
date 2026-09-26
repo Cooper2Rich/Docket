@@ -44,13 +44,104 @@ a {
 }
 
 .hero,
-.status-card {
+.status-card,
+.session-panel {
   width: min(100%, 48rem);
   padding: clamp(1.5rem, 5vw, 4rem);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--card);
   box-shadow: 0 1.25rem 4rem oklch(0.25 0.03 250 / 0.09);
+}
+
+.account-session-shell {
+  align-items: start;
+}
+
+.session-panel {
+  width: min(100%, 58rem);
+}
+
+.session-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.session-list {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.session-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 0.2rem);
+}
+
+.session-device,
+.session-state-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+}
+
+.session-copy h2,
+.session-copy p {
+  margin: 0;
+}
+
+.session-copy h2 {
+  font-size: 1rem;
+}
+
+.session-copy p {
+  margin-top: 0.25rem;
+  line-height: 1.45;
+}
+
+.session-status,
+.current-badge {
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+
+.current-badge {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.session-state {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px dashed var(--border);
+  border-radius: calc(var(--radius) - 0.2rem);
+}
+
+.session-state p {
+  margin: 0;
+}
+
+.session-state .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.session-state .button svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .eyebrow {
@@ -138,11 +229,21 @@ h1 {
   .button {
     flex: 1 1 8rem;
   }
+
+  .session-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .session-row .button,
+  .current-badge {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .hero,
-  .status-card {
+  .status-card,
+  .session-panel {
     animation: settle 240ms ease-out;
   }
 }

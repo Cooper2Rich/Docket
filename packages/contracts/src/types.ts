@@ -15,6 +15,7 @@ export type ContractOperation = Readonly<{
   successSchema: string;
   errorCodes: readonly string[];
   audience: string;
+  inputLocation?: "query" | "body";
 }>;
 
 export type StateTransition = Readonly<{
