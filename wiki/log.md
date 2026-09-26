@@ -2143,3 +2143,7 @@ Implemented the bounded `R1-FND-005-B` slice: executable policy validation reads
 ## [2026-09-25] checkpoint | First identity-access candidate
 
 Implemented the bounded `R1-IDA-001-A` identity slice: stable Clerk-to-Account mapping, complete signed-token and live-session validation, persistent Docket Session create/list/revoke commands, classified provider-outage continuity, durable advisory webhook hints with executable retrying consumption, generated API contracts, and an authenticated rendered Account Sessions journey backed by isolated PostgreSQL. The exact leaf suite passed its unit, true overlapping-transaction, worker-restart, and nine browser-state scenarios after a prior transient API startup timeout did not recur. The external controller prepared the provisional graph/roadmap transition, but final-head check receipts and acceptance evidence, the focused commit, PR, all eleven required contexts, and controller-verified protected integration remain; `R1-IDA-001-B` has not started.
+
+## [2026-09-25] checkpoint | Preserve the pinned identity source
+
+Restored [[access-model]] to its exact pre-run governing-source content after the identity implementation checkpoint caused controller source drift. The tested `R1-IDA-001-A` candidate status remains recorded in [[build-readiness]] and this activity log, while the index again describes the access-model page only as accepted product behavior. Source hashes, acceptance sets, issue contracts, and the provisional controller transition remain unchanged.
