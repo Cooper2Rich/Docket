@@ -1,4 +1,9 @@
 import {
+  CommunicationsError,
+  CommunicationsService,
+  PostgresCommunicationsStore,
+} from "@docket/communications";
+import {
   IdentityError,
   IdentityService,
   PostgresIdentityStore,
@@ -43,6 +48,37 @@ await identityService.createDocketSession({
   identity: fixtureIdentity("session_fixture_other_001"),
   idempotencyKey: "e2e-preseed-other-session",
 });
+const communicationsService = new CommunicationsService({
+  store: new PostgresCommunicationsStore(database.databaseUrl),
+  authority: {
+    resolve: (_actor, recipientAccountId) =>
+      Promise.resolve({
+        allowed: recipientAccountId === localSession.account.id,
+        authorityVersion: localSession.account.version,
+      }),
+  },
+  provider: {
+    deliver: ({ idempotencyKey }) =>
+      Promise.resolve({ providerMessageId: `e2e:${idempotencyKey}` }),
+  },
+  now: () => new Date(),
+  nextId: (kind) => `${kind}_e2e_${String(++sequence).padStart(3, "0")}`,
+});
+const seededNotice = await communicationsService.createNoticeIntent(
+  { accountId: localSession.account.id },
+  {
+    noticeIntentId: "notice_e2e_welcome_001",
+    recipientAccountId: localSession.account.id,
+    subject: "Tournament operations update",
+    body: "Your Docket notice is available in this recipient-scoped inbox.",
+    expectedAuthorityVersion: localSession.account.version,
+    expectedVersion: 0,
+    idempotencyKey: "e2e-welcome-notice",
+    correlationId: "correlation_e2e_welcome_001",
+    causationId: "causation_e2e_welcome_001",
+  },
+);
+await communicationsService.deliverNotice(seededNotice.outbox);
 const grantTime = new Date("2026-09-26T12:00:00.000Z");
 await database.query(
   "insert into identity_authority_grants (grant_id, account_id, context_kind, scope_id, scope_label, permissions, privileged, status, record_version, created_at, updated_at) values ($1, $2, 'school', $3, $4, $5::jsonb, false, 'active', 1, $6, $6), ($7, $2, 'platform_administrator', $8, $9, $10::jsonb, true, 'active', 1, $6, $6)",
@@ -140,11 +176,37 @@ const controlledRoleContextService = {
     ...args: Parameters<RoleContextService["leaveActiveRoleContext"]>
   ) => roleContextService.leaveActiveRoleContext(...args),
 };
+const controlledCommunicationsService = {
+  createNoticeIntent: (
+    ...args: Parameters<CommunicationsService["createNoticeIntent"]>
+  ) => communicationsService.createNoticeIntent(...args),
+  readAccessInbox: async (
+    ...args: Parameters<CommunicationsService["readAccessInbox"]>
+  ) => {
+    if (mode === "delay") {
+      await new Promise((resolve) => setTimeout(resolve, 750));
+    }
+    if (mode === "empty") return { items: [] };
+    if (mode === "error") throw new Error("simulated inbox failure");
+    if (mode === "stale") {
+      throw new CommunicationsError("STALE_VERSION", "simulated stale inbox");
+    }
+    if (mode === "denied") {
+      throw new CommunicationsError(
+        "RECIPIENT_UNAUTHORIZED",
+        "simulated denied recipient",
+      );
+    }
+    return communicationsService.readAccessInbox(...args);
+  },
+};
 const app = await buildApiApp(environment, {
   identityService: controlledIdentityService,
   roleContextService: controlledRoleContextService,
   resolveRoleContextActor: (identity) =>
     identityService.resolveRoleContextActor(identity),
+  communicationsService: controlledCommunicationsService,
+  resolveCommunicationsActor: () => ({ accountId: localSession.account.id }),
 });
 app.post<{ Body: { mode?: string } }>("/__e2e/mode", (request, reply) => {
   const accepted = [

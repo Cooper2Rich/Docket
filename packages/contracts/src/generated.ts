@@ -137,6 +137,22 @@ export type ClerkReverificationEvidence = Static<
   typeof ClerkReverificationEvidenceSchema
 >;
 
+export const CommunicationsErrorSchema = Type.Object(
+  {
+    code: Type.Union([
+      Type.Literal("IDEMPOTENCY_CONFLICT"),
+      Type.Literal("RECIPIENT_UNAUTHORIZED"),
+      Type.Literal("DELIVERY_PROVIDER_FAILED"),
+      Type.Literal("STALE_VERSION"),
+      Type.Literal("REQUEST_INVALID"),
+    ]),
+    message: Type.String({ maxLength: 256, minLength: 1 }),
+    requestId: Type.String({ maxLength: 128, minLength: 1 }),
+  },
+  { $id: "CommunicationsError.v1", additionalProperties: false },
+);
+export type CommunicationsError = Static<typeof CommunicationsErrorSchema>;
+
 export const CreateDocketSessionRequestSchema = Type.Object(
   { idempotencyKey: Type.String({ maxLength: 128, minLength: 1 }) },
   { $id: "CreateDocketSessionRequest.v1", additionalProperties: false },
@@ -144,6 +160,134 @@ export const CreateDocketSessionRequestSchema = Type.Object(
 export type CreateDocketSessionRequest = Static<
   typeof CreateDocketSessionRequestSchema
 >;
+
+export const CreateNoticeIntentRequestSchema = Type.Object(
+  {
+    body: Type.String({ maxLength: 4000, minLength: 1 }),
+    causationId: Type.String({ maxLength: 128, minLength: 1 }),
+    correlationId: Type.String({ maxLength: 128, minLength: 1 }),
+    expectedAuthorityVersion: Type.Integer({ minimum: 1 }),
+    expectedVersion: Type.Literal(0),
+    idempotencyKey: Type.String({ maxLength: 128, minLength: 1 }),
+    noticeIntentId: Type.String({ maxLength: 128, minLength: 1 }),
+    recipientAccountId: Type.String({ maxLength: 128, minLength: 1 }),
+    subject: Type.String({ maxLength: 160, minLength: 1 }),
+  },
+  { $id: "CreateNoticeIntentRequest.v1", additionalProperties: false },
+);
+export type CreateNoticeIntentRequest = Static<
+  typeof CreateNoticeIntentRequestSchema
+>;
+
+export const CreateNoticeIntentResultSchema = Type.Object(
+  {
+    intent: Type.Object(
+      {
+        audience: Type.Literal("authorized_recipient"),
+        body: Type.String({ maxLength: 4000, minLength: 1 }),
+        causationId: Type.String({ maxLength: 128, minLength: 1 }),
+        correlationId: Type.String({ maxLength: 128, minLength: 1 }),
+        createdAt: Type.String({ maxLength: 35, minLength: 20 }),
+        eventVersion: Type.Literal(1),
+        id: Type.String({ maxLength: 128, minLength: 1 }),
+        initiatingActorId: Type.String({ maxLength: 128, minLength: 1 }),
+        recipientAccountId: Type.String({ maxLength: 128, minLength: 1 }),
+        retainedUntil: Type.String({ maxLength: 35, minLength: 20 }),
+        state: Type.Union([
+          Type.Literal("queued"),
+          Type.Literal("retrying"),
+          Type.Literal("delivered"),
+          Type.Literal("failed"),
+        ]),
+        subject: Type.String({ maxLength: 160, minLength: 1 }),
+        version: Type.Integer({ minimum: 1 }),
+      },
+      { $id: "NoticeIntent.v1", additionalProperties: false },
+    ),
+    outbox: Type.Object(
+      {
+        aggregateId: Type.String({ maxLength: 128, minLength: 1 }),
+        causationId: Type.String({ maxLength: 128, minLength: 1 }),
+        correlationId: Type.String({ maxLength: 128, minLength: 1 }),
+        eventName: Type.Union([
+          Type.Literal("NoticeRequested"),
+          Type.Literal("NoticeDelivered"),
+          Type.Literal("NoticeDeliveryFailed"),
+          Type.Literal("NoticeEscalated"),
+        ]),
+        eventVersion: Type.Literal(1),
+        id: Type.String({ maxLength: 128, minLength: 1 }),
+        occurredAt: Type.String({ maxLength: 35, minLength: 20 }),
+        payload: Type.Object(
+          { noticeIntentId: Type.String({ maxLength: 128, minLength: 1 }) },
+          { additionalProperties: false },
+        ),
+      },
+      { $id: "OutboxEnvelope.v1", additionalProperties: false },
+    ),
+  },
+  { $id: "CreateNoticeIntentResult.v1", additionalProperties: false },
+);
+export type CreateNoticeIntentResult = Static<
+  typeof CreateNoticeIntentResultSchema
+>;
+
+export const DeliverNoticeRequestSchema = Type.Object(
+  {
+    envelope: Type.Object(
+      {
+        aggregateId: Type.String({ maxLength: 128, minLength: 1 }),
+        causationId: Type.String({ maxLength: 128, minLength: 1 }),
+        correlationId: Type.String({ maxLength: 128, minLength: 1 }),
+        eventName: Type.Union([
+          Type.Literal("NoticeRequested"),
+          Type.Literal("NoticeDelivered"),
+          Type.Literal("NoticeDeliveryFailed"),
+          Type.Literal("NoticeEscalated"),
+        ]),
+        eventVersion: Type.Literal(1),
+        id: Type.String({ maxLength: 128, minLength: 1 }),
+        occurredAt: Type.String({ maxLength: 35, minLength: 20 }),
+        payload: Type.Object(
+          { noticeIntentId: Type.String({ maxLength: 128, minLength: 1 }) },
+          { additionalProperties: false },
+        ),
+      },
+      { $id: "OutboxEnvelope.v1", additionalProperties: false },
+    ),
+  },
+  { $id: "DeliverNoticeRequest.v1", additionalProperties: false },
+);
+export type DeliverNoticeRequest = Static<typeof DeliverNoticeRequestSchema>;
+
+export const DeliverNoticeResultSchema = Type.Object(
+  {
+    equivalentRetry: Type.Boolean(),
+    noticeIntentId: Type.String({ maxLength: 128, minLength: 1 }),
+    state: Type.Literal("delivered"),
+  },
+  { $id: "DeliverNoticeResult.v1", additionalProperties: false },
+);
+export type DeliverNoticeResult = Static<typeof DeliverNoticeResultSchema>;
+
+export const DeliveryAttemptSchema = Type.Object(
+  {
+    attemptNumber: Type.Integer({ minimum: 1 }),
+    completedAt: Type.Optional(Type.String({ maxLength: 35, minLength: 20 })),
+    id: Type.String({ maxLength: 128, minLength: 1 }),
+    nextAttemptAt: Type.Optional(Type.String({ maxLength: 35, minLength: 20 })),
+    noticeIntentId: Type.String({ maxLength: 128, minLength: 1 }),
+    providerCode: Type.Optional(Type.String({ maxLength: 64, minLength: 1 })),
+    startedAt: Type.String({ maxLength: 35, minLength: 20 }),
+    state: Type.Union([
+      Type.Literal("started"),
+      Type.Literal("delivered"),
+      Type.Literal("failed"),
+    ]),
+  },
+  { $id: "DeliveryAttempt.v1", additionalProperties: false },
+);
+export type DeliveryAttempt = Static<typeof DeliveryAttemptSchema>;
 
 export const DocketSessionListSchema = Type.Object(
   {
@@ -300,6 +444,25 @@ export type IdentitySessionRequest = Static<
   typeof IdentitySessionRequestSchema
 >;
 
+export const InboxItemSchema = Type.Object(
+  {
+    body: Type.String({ maxLength: 4000, minLength: 1 }),
+    createdAt: Type.String({ maxLength: 35, minLength: 20 }),
+    deliveryState: Type.Union([
+      Type.Literal("pending"),
+      Type.Literal("delivered"),
+      Type.Literal("delivery_failed"),
+    ]),
+    id: Type.String({ maxLength: 128, minLength: 1 }),
+    noticeIntentId: Type.String({ maxLength: 128, minLength: 1 }),
+    recipientAccountId: Type.String({ maxLength: 128, minLength: 1 }),
+    subject: Type.String({ maxLength: 160, minLength: 1 }),
+    version: Type.Integer({ minimum: 1 }),
+  },
+  { $id: "InboxItem.v1", additionalProperties: false },
+);
+export type InboxItem = Static<typeof InboxItemSchema>;
+
 export const InspectRoleContextDeepLinkRequestSchema = Type.Object(
   {
     requiredGrantId: Type.String({ maxLength: 128, minLength: 1 }),
@@ -355,6 +518,88 @@ export const ListRoleContextsRequestSchema = Type.Object(
 export type ListRoleContextsRequest = Static<
   typeof ListRoleContextsRequestSchema
 >;
+
+export const NoticeIntentSchema = Type.Object(
+  {
+    audience: Type.Literal("authorized_recipient"),
+    body: Type.String({ maxLength: 4000, minLength: 1 }),
+    causationId: Type.String({ maxLength: 128, minLength: 1 }),
+    correlationId: Type.String({ maxLength: 128, minLength: 1 }),
+    createdAt: Type.String({ maxLength: 35, minLength: 20 }),
+    eventVersion: Type.Literal(1),
+    id: Type.String({ maxLength: 128, minLength: 1 }),
+    initiatingActorId: Type.String({ maxLength: 128, minLength: 1 }),
+    recipientAccountId: Type.String({ maxLength: 128, minLength: 1 }),
+    retainedUntil: Type.String({ maxLength: 35, minLength: 20 }),
+    state: Type.Union([
+      Type.Literal("queued"),
+      Type.Literal("retrying"),
+      Type.Literal("delivered"),
+      Type.Literal("failed"),
+    ]),
+    subject: Type.String({ maxLength: 160, minLength: 1 }),
+    version: Type.Integer({ minimum: 1 }),
+  },
+  { $id: "NoticeIntent.v1", additionalProperties: false },
+);
+export type NoticeIntent = Static<typeof NoticeIntentSchema>;
+
+export const OutboxEnvelopeSchema = Type.Object(
+  {
+    aggregateId: Type.String({ maxLength: 128, minLength: 1 }),
+    causationId: Type.String({ maxLength: 128, minLength: 1 }),
+    correlationId: Type.String({ maxLength: 128, minLength: 1 }),
+    eventName: Type.Union([
+      Type.Literal("NoticeRequested"),
+      Type.Literal("NoticeDelivered"),
+      Type.Literal("NoticeDeliveryFailed"),
+      Type.Literal("NoticeEscalated"),
+    ]),
+    eventVersion: Type.Literal(1),
+    id: Type.String({ maxLength: 128, minLength: 1 }),
+    occurredAt: Type.String({ maxLength: 35, minLength: 20 }),
+    payload: Type.Object(
+      { noticeIntentId: Type.String({ maxLength: 128, minLength: 1 }) },
+      { additionalProperties: false },
+    ),
+  },
+  { $id: "OutboxEnvelope.v1", additionalProperties: false },
+);
+export type OutboxEnvelope = Static<typeof OutboxEnvelopeSchema>;
+
+export const ReadAccessInboxRequestSchema = Type.Object(
+  { recipientAccountId: Type.String({ maxLength: 128, minLength: 1 }) },
+  { $id: "ReadAccessInboxRequest.v1", additionalProperties: false },
+);
+export type ReadAccessInboxRequest = Static<
+  typeof ReadAccessInboxRequestSchema
+>;
+
+export const ReadAccessInboxResultSchema = Type.Object(
+  {
+    items: Type.Array(
+      Type.Object(
+        {
+          body: Type.String({ maxLength: 4000, minLength: 1 }),
+          createdAt: Type.String({ maxLength: 35, minLength: 20 }),
+          deliveryState: Type.Union([
+            Type.Literal("pending"),
+            Type.Literal("delivered"),
+            Type.Literal("delivery_failed"),
+          ]),
+          id: Type.String({ maxLength: 128, minLength: 1 }),
+          noticeIntentId: Type.String({ maxLength: 128, minLength: 1 }),
+          recipientAccountId: Type.String({ maxLength: 128, minLength: 1 }),
+          subject: Type.String({ maxLength: 160, minLength: 1 }),
+          version: Type.Integer({ minimum: 1 }),
+        },
+        { $id: "InboxItem.v1", additionalProperties: false },
+      ),
+    ),
+  },
+  { $id: "ReadAccessInboxResult.v1", additionalProperties: false },
+);
+export type ReadAccessInboxResult = Static<typeof ReadAccessInboxResultSchema>;
 
 export const RestoreMostRecentRoleContextRequestSchema = Type.Object(
   {
@@ -500,6 +745,10 @@ export const StableErrorEnvelopeSchema = Type.Object(
       Type.Literal("CONTEXT_STALE"),
       Type.Literal("REAUTHENTICATION_REQUIRED"),
       Type.Literal("ROLE_SWITCH_BLOCKED"),
+      Type.Literal("IDEMPOTENCY_CONFLICT"),
+      Type.Literal("RECIPIENT_UNAUTHORIZED"),
+      Type.Literal("DELIVERY_PROVIDER_FAILED"),
+      Type.Literal("STALE_VERSION"),
     ]),
     fieldIssues: Type.Optional(
       Type.Array(
@@ -537,6 +786,101 @@ export class ContractClientError extends Error {
 
 export function createDocketClient(transport: ContractTransport) {
   return {
+    async createNoticeIntent(
+      input: unknown,
+    ): Promise<CreateNoticeIntentResult> {
+      if (!Value.Check(CreateNoticeIntentRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const response = await transport({
+        method: "POST",
+        path: "/v1/communications/notices",
+        body: input,
+      });
+      if (response.status === 200) {
+        if (!Value.Check(CreateNoticeIntentResultSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async deliverNotice(input: unknown): Promise<DeliverNoticeResult> {
+      if (!Value.Check(DeliverNoticeRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const response = await transport({
+        method: "POST",
+        path: "/v1/communications/notices/deliver",
+        body: input,
+      });
+      if (response.status === 200) {
+        if (!Value.Check(DeliverNoticeResultSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async readAccessInbox(input: unknown): Promise<ReadAccessInboxResult> {
+      if (!Value.Check(ReadAccessInboxRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const query = new URLSearchParams(input).toString();
+      const response = await transport({
+        method: "GET",
+        path: "/v1/communications/inbox" + (query ? `?${query}` : ""),
+      });
+      if (response.status === 200) {
+        if (!Value.Check(ReadAccessInboxResultSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
     async getIdentitySession(
       input: unknown,
     ): Promise<IdentitySessionProjection> {

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/backend": "3.19.0",
+    "@docket/communications": "workspace:*",
     "@docket/identity-access": "workspace:*",
     "@docket/runtime": "workspace:*",
     "pg-boss": "12.30.0"

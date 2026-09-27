@@ -362,6 +362,52 @@
         ],
         "type": "object"
       },
+      "CommunicationsError": {
+        "$id": "CommunicationsError.v1",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "anyOf": [
+              {
+                "const": "IDEMPOTENCY_CONFLICT",
+                "type": "string"
+              },
+              {
+                "const": "RECIPIENT_UNAUTHORIZED",
+                "type": "string"
+              },
+              {
+                "const": "DELIVERY_PROVIDER_FAILED",
+                "type": "string"
+              },
+              {
+                "const": "STALE_VERSION",
+                "type": "string"
+              },
+              {
+                "const": "REQUEST_INVALID",
+                "type": "string"
+              }
+            ]
+          },
+          "message": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "requestId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "requestId"
+        ],
+        "type": "object"
+      },
       "CreateDocketSessionRequest": {
         "$id": "CreateDocketSessionRequest.v1",
         "additionalProperties": false,
@@ -374,6 +420,435 @@
         },
         "required": [
           "idempotencyKey"
+        ],
+        "type": "object"
+      },
+      "CreateNoticeIntentRequest": {
+        "$id": "CreateNoticeIntentRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "causationId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "correlationId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "expectedAuthorityVersion": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "expectedVersion": {
+            "const": 0,
+            "type": "number"
+          },
+          "idempotencyKey": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "noticeIntentId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "recipientAccountId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "subject": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "noticeIntentId",
+          "recipientAccountId",
+          "subject",
+          "body",
+          "expectedAuthorityVersion",
+          "expectedVersion",
+          "idempotencyKey",
+          "correlationId",
+          "causationId"
+        ],
+        "type": "object"
+      },
+      "CreateNoticeIntentResult": {
+        "$id": "CreateNoticeIntentResult.v1",
+        "additionalProperties": false,
+        "properties": {
+          "intent": {
+            "$id": "NoticeIntent.v1",
+            "additionalProperties": false,
+            "properties": {
+              "audience": {
+                "const": "authorized_recipient",
+                "type": "string"
+              },
+              "body": {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              "causationId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "correlationId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "createdAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "eventVersion": {
+                "const": 1,
+                "type": "number"
+              },
+              "id": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "initiatingActorId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "recipientAccountId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "retainedUntil": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "state": {
+                "anyOf": [
+                  {
+                    "const": "queued",
+                    "type": "string"
+                  },
+                  {
+                    "const": "retrying",
+                    "type": "string"
+                  },
+                  {
+                    "const": "delivered",
+                    "type": "string"
+                  },
+                  {
+                    "const": "failed",
+                    "type": "string"
+                  }
+                ]
+              },
+              "subject": {
+                "maxLength": 160,
+                "minLength": 1,
+                "type": "string"
+              },
+              "version": {
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "initiatingActorId",
+              "recipientAccountId",
+              "audience",
+              "subject",
+              "body",
+              "state",
+              "version",
+              "correlationId",
+              "causationId",
+              "eventVersion",
+              "createdAt",
+              "retainedUntil"
+            ],
+            "type": "object"
+          },
+          "outbox": {
+            "$id": "OutboxEnvelope.v1",
+            "additionalProperties": false,
+            "properties": {
+              "aggregateId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "causationId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "correlationId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "eventName": {
+                "anyOf": [
+                  {
+                    "const": "NoticeRequested",
+                    "type": "string"
+                  },
+                  {
+                    "const": "NoticeDelivered",
+                    "type": "string"
+                  },
+                  {
+                    "const": "NoticeDeliveryFailed",
+                    "type": "string"
+                  },
+                  {
+                    "const": "NoticeEscalated",
+                    "type": "string"
+                  }
+                ]
+              },
+              "eventVersion": {
+                "const": 1,
+                "type": "number"
+              },
+              "id": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "occurredAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "payload": {
+                "additionalProperties": false,
+                "properties": {
+                  "noticeIntentId": {
+                    "maxLength": 128,
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "noticeIntentId"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "id",
+              "eventName",
+              "eventVersion",
+              "aggregateId",
+              "correlationId",
+              "causationId",
+              "occurredAt",
+              "payload"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "intent",
+          "outbox"
+        ],
+        "type": "object"
+      },
+      "DeliverNoticeRequest": {
+        "$id": "DeliverNoticeRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "envelope": {
+            "$id": "OutboxEnvelope.v1",
+            "additionalProperties": false,
+            "properties": {
+              "aggregateId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "causationId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "correlationId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "eventName": {
+                "anyOf": [
+                  {
+                    "const": "NoticeRequested",
+                    "type": "string"
+                  },
+                  {
+                    "const": "NoticeDelivered",
+                    "type": "string"
+                  },
+                  {
+                    "const": "NoticeDeliveryFailed",
+                    "type": "string"
+                  },
+                  {
+                    "const": "NoticeEscalated",
+                    "type": "string"
+                  }
+                ]
+              },
+              "eventVersion": {
+                "const": 1,
+                "type": "number"
+              },
+              "id": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "occurredAt": {
+                "maxLength": 35,
+                "minLength": 20,
+                "type": "string"
+              },
+              "payload": {
+                "additionalProperties": false,
+                "properties": {
+                  "noticeIntentId": {
+                    "maxLength": 128,
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "noticeIntentId"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "id",
+              "eventName",
+              "eventVersion",
+              "aggregateId",
+              "correlationId",
+              "causationId",
+              "occurredAt",
+              "payload"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "envelope"
+        ],
+        "type": "object"
+      },
+      "DeliverNoticeResult": {
+        "$id": "DeliverNoticeResult.v1",
+        "additionalProperties": false,
+        "properties": {
+          "equivalentRetry": {
+            "type": "boolean"
+          },
+          "noticeIntentId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "state": {
+            "const": "delivered",
+            "type": "string"
+          }
+        },
+        "required": [
+          "state",
+          "noticeIntentId",
+          "equivalentRetry"
+        ],
+        "type": "object"
+      },
+      "DeliveryAttempt": {
+        "$id": "DeliveryAttempt.v1",
+        "additionalProperties": false,
+        "properties": {
+          "attemptNumber": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "completedAt": {
+            "maxLength": 35,
+            "minLength": 20,
+            "type": "string"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "nextAttemptAt": {
+            "maxLength": 35,
+            "minLength": 20,
+            "type": "string"
+          },
+          "noticeIntentId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "providerCode": {
+            "maxLength": 64,
+            "minLength": 1,
+            "type": "string"
+          },
+          "startedAt": {
+            "maxLength": 35,
+            "minLength": 20,
+            "type": "string"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "const": "started",
+                "type": "string"
+              },
+              {
+                "const": "delivered",
+                "type": "string"
+              },
+              {
+                "const": "failed",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "noticeIntentId",
+          "attemptNumber",
+          "state",
+          "startedAt"
         ],
         "type": "object"
       },
@@ -820,6 +1295,73 @@
         ],
         "type": "object"
       },
+      "InboxItem": {
+        "$id": "InboxItem.v1",
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "createdAt": {
+            "maxLength": 35,
+            "minLength": 20,
+            "type": "string"
+          },
+          "deliveryState": {
+            "anyOf": [
+              {
+                "const": "pending",
+                "type": "string"
+              },
+              {
+                "const": "delivered",
+                "type": "string"
+              },
+              {
+                "const": "delivery_failed",
+                "type": "string"
+              }
+            ]
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "noticeIntentId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "recipientAccountId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "subject": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "noticeIntentId",
+          "recipientAccountId",
+          "subject",
+          "body",
+          "deliveryState",
+          "version",
+          "createdAt"
+        ],
+        "type": "object"
+      },
       "InspectRoleContextDeepLinkRequest": {
         "$id": "InspectRoleContextDeepLinkRequest.v1",
         "additionalProperties": false,
@@ -927,6 +1469,280 @@
         },
         "required": [
           "tabId"
+        ],
+        "type": "object"
+      },
+      "NoticeIntent": {
+        "$id": "NoticeIntent.v1",
+        "additionalProperties": false,
+        "properties": {
+          "audience": {
+            "const": "authorized_recipient",
+            "type": "string"
+          },
+          "body": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "causationId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "correlationId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "createdAt": {
+            "maxLength": 35,
+            "minLength": 20,
+            "type": "string"
+          },
+          "eventVersion": {
+            "const": 1,
+            "type": "number"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "initiatingActorId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "recipientAccountId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "retainedUntil": {
+            "maxLength": 35,
+            "minLength": 20,
+            "type": "string"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "const": "queued",
+                "type": "string"
+              },
+              {
+                "const": "retrying",
+                "type": "string"
+              },
+              {
+                "const": "delivered",
+                "type": "string"
+              },
+              {
+                "const": "failed",
+                "type": "string"
+              }
+            ]
+          },
+          "subject": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "initiatingActorId",
+          "recipientAccountId",
+          "audience",
+          "subject",
+          "body",
+          "state",
+          "version",
+          "correlationId",
+          "causationId",
+          "eventVersion",
+          "createdAt",
+          "retainedUntil"
+        ],
+        "type": "object"
+      },
+      "OutboxEnvelope": {
+        "$id": "OutboxEnvelope.v1",
+        "additionalProperties": false,
+        "properties": {
+          "aggregateId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "causationId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "correlationId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "eventName": {
+            "anyOf": [
+              {
+                "const": "NoticeRequested",
+                "type": "string"
+              },
+              {
+                "const": "NoticeDelivered",
+                "type": "string"
+              },
+              {
+                "const": "NoticeDeliveryFailed",
+                "type": "string"
+              },
+              {
+                "const": "NoticeEscalated",
+                "type": "string"
+              }
+            ]
+          },
+          "eventVersion": {
+            "const": 1,
+            "type": "number"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "occurredAt": {
+            "maxLength": 35,
+            "minLength": 20,
+            "type": "string"
+          },
+          "payload": {
+            "additionalProperties": false,
+            "properties": {
+              "noticeIntentId": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "noticeIntentId"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "eventName",
+          "eventVersion",
+          "aggregateId",
+          "correlationId",
+          "causationId",
+          "occurredAt",
+          "payload"
+        ],
+        "type": "object"
+      },
+      "ReadAccessInboxRequest": {
+        "$id": "ReadAccessInboxRequest.v1",
+        "additionalProperties": false,
+        "properties": {
+          "recipientAccountId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "recipientAccountId"
+        ],
+        "type": "object"
+      },
+      "ReadAccessInboxResult": {
+        "$id": "ReadAccessInboxResult.v1",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$id": "InboxItem.v1",
+              "additionalProperties": false,
+              "properties": {
+                "body": {
+                  "maxLength": 4000,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "createdAt": {
+                  "maxLength": 35,
+                  "minLength": 20,
+                  "type": "string"
+                },
+                "deliveryState": {
+                  "anyOf": [
+                    {
+                      "const": "pending",
+                      "type": "string"
+                    },
+                    {
+                      "const": "delivered",
+                      "type": "string"
+                    },
+                    {
+                      "const": "delivery_failed",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "id": {
+                  "maxLength": 128,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "noticeIntentId": {
+                  "maxLength": 128,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "recipientAccountId": {
+                  "maxLength": 128,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "subject": {
+                  "maxLength": 160,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "version": {
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "noticeIntentId",
+                "recipientAccountId",
+                "subject",
+                "body",
+                "deliveryState",
+                "version",
+                "createdAt"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
         ],
         "type": "object"
       },
@@ -1306,6 +2122,22 @@
               {
                 "const": "ROLE_SWITCH_BLOCKED",
                 "type": "string"
+              },
+              {
+                "const": "IDEMPOTENCY_CONFLICT",
+                "type": "string"
+              },
+              {
+                "const": "RECIPIENT_UNAUTHORIZED",
+                "type": "string"
+              },
+              {
+                "const": "DELIVERY_PROVIDER_FAILED",
+                "type": "string"
+              },
+              {
+                "const": "STALE_VERSION",
+                "type": "string"
               }
             ]
           },
@@ -1554,6 +2386,158 @@
         "x-requirements": [
           "R1-AUTH-001",
           "R1-PRIV-001"
+        ]
+      }
+    },
+    "/v1/communications/inbox": {
+      "get": {
+        "operationId": "readAccessInbox",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "recipientAccountId",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadAccessInboxResult"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested recipient is unavailable."
+          }
+        },
+        "summary": "Read only the authenticated recipient's notice inbox",
+        "x-audience": "authorized recipient",
+        "x-requirements": [
+          "R1-PRIV-001"
+        ]
+      }
+    },
+    "/v1/communications/notices": {
+      "post": {
+        "operationId": "createNoticeIntent",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNoticeIntentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateNoticeIntentResult"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested recipient is unavailable."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The idempotency key was already used for different input."
+          }
+        },
+        "summary": "Commit an authorized notice intent and outbox event atomically",
+        "x-audience": "initiating actor",
+        "x-requirements": [
+          "R1-CONS-001",
+          "R1-MSG-001",
+          "R1-PRIV-001"
+        ]
+      }
+    },
+    "/v1/communications/notices/deliver": {
+      "post": {
+        "operationId": "deliverNotice",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliverNoticeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliverNoticeResult"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "The idempotency key was already used for different input."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StableErrorEnvelope"
+                }
+              }
+            },
+            "description": "Delivery will be retried."
+          }
+        },
+        "summary": "Deliver a versioned notice idempotently from the durable queue",
+        "x-audience": "operations",
+        "x-requirements": [
+          "R1-MSG-001"
         ]
       }
     },

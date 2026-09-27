@@ -3,6 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import { identityAccessContractSource } from "../../packages/identity-access/src/contracts.ts";
+import { communicationsContractSource } from "../../packages/communications/src/contracts.ts";
 import { registeredSuiteContracts } from "../verification/registry.mjs";
 import { runContractsCli } from "./cli.mjs";
 import {
@@ -268,7 +269,7 @@ describe("module-owned contract generation", () => {
     const workspace = await temporaryWorkspace();
     await writeArtifacts(
       workspace,
-      [identityAccessContractSource],
+      [communicationsContractSource, identityAccessContractSource],
       traceability,
     );
     await seedTraceabilityInputs(workspace);
@@ -296,10 +297,10 @@ describe("module-owned contract generation", () => {
       tested_head: "test-head",
       passed: true,
       exit_code: 0,
-      assertions: 11,
+      assertions: 17,
       skipped: 0,
     });
-    expect(receipt.test_names).toHaveLength(11);
+    expect(receipt.test_names).toHaveLength(17);
   });
 
   it("rejects unowned artifacts and an empty golden corpus", () => {

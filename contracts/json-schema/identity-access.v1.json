@@ -1307,6 +1307,22 @@
             {
               "const": "ROLE_SWITCH_BLOCKED",
               "type": "string"
+            },
+            {
+              "const": "IDEMPOTENCY_CONFLICT",
+              "type": "string"
+            },
+            {
+              "const": "RECIPIENT_UNAUTHORIZED",
+              "type": "string"
+            },
+            {
+              "const": "DELIVERY_PROVIDER_FAILED",
+              "type": "string"
+            },
+            {
+              "const": "STALE_VERSION",
+              "type": "string"
             }
           ]
         },

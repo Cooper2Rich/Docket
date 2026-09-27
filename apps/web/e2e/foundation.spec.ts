@@ -345,6 +345,96 @@ test("Active Role Context reflows on mobile and has no automated WCAG 2.2 AA vio
   expect(violations).toEqual([]);
 });
 
+test("server renders the recipient-scoped Communications Inbox", async ({
+  request,
+}) => {
+  const response = await request.get("/account/inbox");
+  const html = await response.text();
+
+  expect(response.ok()).toBe(true);
+  expect(html).toContain("Your Docket notices");
+  expect(html).toContain("Tournament operations update");
+  expect(html).toContain('id="main-content"');
+  expect(html).not.toContain("CLERK_SECRET_KEY");
+  expect(html).not.toContain("sk_live_docket_e2e_fixture");
+});
+
+test("Communications Inbox renders loading then the authorized recipient projection", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/account/inbox", { waitUntil: "networkidle" });
+  const response = await request.post(`${apiBaseUrl}/__e2e/mode`, {
+    data: { mode: "delay" },
+  });
+  expect(response.ok()).toBe(true);
+  const refresh = page.getByRole("button", { name: "Refresh notices" });
+  await refresh.focus();
+  await expect(refresh).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(
+    page.getByRole("heading", { name: "Loading your notices" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Your Docket notices" }),
+  ).toBeVisible();
+  await expect(page.getByText("Tournament operations update")).toBeVisible();
+});
+
+for (const [mode, heading] of [
+  ["empty", "No notices yet"],
+  ["error", "Notices unavailable"],
+  ["denied", "Notice access denied"],
+  ["stale", "This inbox is out of date"],
+] as const) {
+  test(`Communications Inbox renders its ${mode} state`, async ({
+    page,
+    request,
+  }) => {
+    const response = await request.post(`${apiBaseUrl}/__e2e/mode`, {
+      data: { mode },
+    });
+    expect(response.ok()).toBe(true);
+    await page.goto("/account/inbox");
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+    await expect(
+      page.getByTestId("communications-inbox-view-state"),
+    ).toContainText(mode);
+  });
+}
+
+test("Communications Inbox reflows on mobile and has no automated WCAG 2.2 AA violation", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.addInitScript({ content: axe.source });
+  await page.goto("/account/inbox", { waitUntil: "networkidle" });
+  await expect(
+    page.getByRole("list", { name: "Docket notices" }),
+  ).toBeVisible();
+  const widths = await page.evaluate(() => ({
+    document: document.documentElement.scrollWidth,
+    viewport: document.documentElement.clientWidth,
+  }));
+  expect(widths.document).toBeLessThanOrEqual(widths.viewport);
+  const violations = await page.evaluate(async () => {
+    const result = await (
+      globalThis as typeof globalThis & {
+        axe: {
+          run: (
+            context: Document,
+            options: { runOnly: { type: string; values: string[] } },
+          ) => Promise<{ violations: { id: string }[] }>;
+        };
+      }
+    ).axe.run(document, {
+      runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag22aa"] },
+    });
+    return result.violations.map(({ id }) => id);
+  });
+  expect(violations).toEqual([]);
+});
+
 for (const state of states) {
   test(`${state} state has no automated WCAG 2.2 AA violation`, async ({
     page,

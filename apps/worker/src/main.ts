@@ -1,5 +1,7 @@
 import {
+  createConfiguredCommunicationsWorker,
   createConfiguredIdentityHintWorker,
+  runCommunicationsOutboxDispatcher,
   runIdentityHintConsumer,
 } from "./index.js";
 
@@ -10,16 +12,29 @@ for (const signal of ["SIGINT", "SIGTERM"] as const) {
   });
 }
 
-await runIdentityHintConsumer(
-  createConfiguredIdentityHintWorker(process.env, {
-    onRetentionError: () => {
-      console.error("Account Security History retention cleanup failed");
-    },
-  }),
-  {
-    signal: shutdown.signal,
-    onError: () => {
-      console.error("identity hint worker poll failed");
-    },
-  },
-);
+const communications = await createConfiguredCommunicationsWorker(process.env);
+try {
+  await Promise.all([
+    runIdentityHintConsumer(
+      createConfiguredIdentityHintWorker(process.env, {
+        onRetentionError: () => {
+          console.error("Account Security History retention cleanup failed");
+        },
+      }),
+      {
+        signal: shutdown.signal,
+        onError: () => {
+          console.error("identity hint worker poll failed");
+        },
+      },
+    ),
+    runCommunicationsOutboxDispatcher(communications.worker, {
+      signal: shutdown.signal,
+      onError: () => {
+        console.error("communications outbox dispatch failed");
+      },
+    }),
+  ]);
+} finally {
+  await communications.boss.stop({ graceful: true, timeout: 30_000 });
+}

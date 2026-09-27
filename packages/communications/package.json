@@ -15,5 +15,15 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@docket/contracts": "workspace:*",
+    "@docket/database": "workspace:*",
+    "@sinclair/typebox": "0.34.52"
+  },
+  "devDependencies": {
+    "@docket/testkit": "workspace:*",
+    "@types/node": "24.10.1",
+    "vitest": "4.1.11"
   }
 }

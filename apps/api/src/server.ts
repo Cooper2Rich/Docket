@@ -1,6 +1,13 @@
 import { clerkPlugin, getAuth } from "@clerk/fastify";
 import { verifyWebhook } from "@clerk/fastify/webhooks";
 import {
+  CommunicationsService,
+  PostgresCommunicationsStore,
+  createNoticeIntentResponse,
+  readAccessInboxResponse,
+  type CommunicationsActor,
+} from "@docket/communications";
+import {
   authenticateFixedIdentity,
   authenticateClerkSession,
   changeDisplayNameResponse,
@@ -239,6 +246,13 @@ export async function buildApiApp(
       IdentityWebhookHintService,
       "enqueueVerifiedHint"
     >;
+    communicationsService?: Pick<
+      CommunicationsService,
+      "createNoticeIntent" | "readAccessInbox"
+    >;
+    resolveCommunicationsActor?: (
+      identity: ClerkIdentity,
+    ) => CommunicationsActor | null | Promise<CommunicationsActor | null>;
   }> = {},
 ): Promise<FastifyInstance> {
   const config = parseRuntimeConfig("api", environment);
@@ -267,6 +281,27 @@ export async function buildApiApp(
       new PostgresIdentityWebhookHintStore(config.databaseUrl ?? ""),
       () => systemClock.now(),
     );
+  const communicationsService =
+    options.communicationsService ??
+    new CommunicationsService({
+      store: new PostgresCommunicationsStore(config.databaseUrl ?? ""),
+      authority: {
+        resolve: () => Promise.resolve({ allowed: false, authorityVersion: 0 }),
+      },
+      provider: {
+        deliver: ({ idempotencyKey }) =>
+          Promise.resolve({ providerMessageId: `inbox:${idempotencyKey}` }),
+      },
+      now: () => systemClock.now(),
+      nextId: () => systemIdGenerator.next(),
+    });
+  const resolveCommunicationsActor =
+    options.resolveCommunicationsActor ??
+    (async (identity: ClerkIdentity) => {
+      const resolved =
+        await defaultIdentityService.resolveRoleContextActor(identity);
+      return { accountId: resolved.accountId };
+    });
 
   if (config.clerkPublishableKey && config.clerkSecretKey) {
     const clerkPluginOptions = {
@@ -442,6 +477,18 @@ export async function buildApiApp(
     }
   };
 
+  const acceptedCommunicationsActor = async (
+    request: Parameters<typeof getAuth>[0],
+  ): Promise<CommunicationsActor | null> => {
+    const identity = await acceptedIdentity(request);
+    if (!identity) return null;
+    try {
+      return await resolveCommunicationsActor(identity);
+    } catch {
+      return null;
+    }
+  };
+
   app.get("/v1/session", async (request, reply) => {
     const authority = options.resolveSessionAuthority
       ? options.resolveSessionAuthority(request)
@@ -563,6 +610,24 @@ export async function buildApiApp(
       roleContextService,
       await acceptedRoleContextActor(request),
       request.body,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.post("/v1/communications/notices", async (request, reply) => {
+    const result = await createNoticeIntentResponse(
+      communicationsService,
+      await acceptedCommunicationsActor(request),
+      request.body,
+      request.id,
+    );
+    return reply.code(result.status).send(result.body);
+  });
+  app.get("/v1/communications/inbox", async (request, reply) => {
+    const result = await readAccessInboxResponse(
+      communicationsService,
+      await acceptedCommunicationsActor(request),
+      request.query,
       request.id,
     );
     return reply.code(result.status).send(result.body);
