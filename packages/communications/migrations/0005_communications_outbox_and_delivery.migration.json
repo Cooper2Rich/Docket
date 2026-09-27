@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "0005_communications_outbox_and_delivery",
+  "order": 5,
+  "owner": "communications",
+  "description": "Add transactional notice intents and outbox messages, idempotency receipts, retry history and recipient-scoped inbox items",
+  "sql_file": "0005_communications_outbox_and_delivery.sql",
+  "verify_sql": "select 1 as communications_delivery_valid where to_regclass('public.communications_notice_intents') is not null and to_regclass('public.communications_module_outbox') is not null and to_regclass('public.communications_notice_receipts') is not null and to_regclass('public.communications_delivery_attempts') is not null and to_regclass('public.communications_inbox_items') is not null",
+  "compatibility": "additive",
+  "requirements": ["R1-MSG-001", "R1-CONS-001", "R1-PRIV-001"]
+}

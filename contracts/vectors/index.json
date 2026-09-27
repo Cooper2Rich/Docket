@@ -36,6 +36,25 @@
     {
       "contractVersion": "1.0.0",
       "expected": {
+        "eventName": "NoticeRequested",
+        "eventVersion": 1,
+        "payload": {
+          "noticeIntentId": "notice_001"
+        }
+      },
+      "id": "communications-outbox-envelope-v1",
+      "input": {
+        "noticeIntentId": "notice_001"
+      },
+      "module": "communications",
+      "provenance": "R1-COM-001-A/AC-01",
+      "requirements": [
+        "R1-MSG-001"
+      ]
+    },
+    {
+      "contractVersion": "1.0.0",
+      "expected": {
         "code": "AUTHENTICATION_REQUIRED",
         "message": "Authentication is required.",
         "requestId": "request_fixture_001"

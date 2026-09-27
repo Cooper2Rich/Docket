@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "403a428de4de87eb3fd23e274f6f4ee50afaccfc6135536925495d41c9c46a61",
+  "graph_sha256": "6ff40091f3fedbd9d8f4f60524d7086d59e58a01ed5ba2d86f5979e848af10db",
   "execution_graph": {
     "items": [
       {
@@ -16209,7 +16209,7 @@
         "parent": "R1-COM-001",
         "order": 140,
         "title": "Commit outbox events and deliver idempotent work",
-        "status": "ready",
+        "status": "done",
         "owner": "communications",
         "stage": "02 Walking skeleton",
         "depends_on": [
@@ -16223,7 +16223,10 @@
         ],
         "spec": "docs/implementation/items/R1-COM-001-A.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "1dc2b89e2dd3ce8a642b1a85be242f6a1c3ba1295fd6d69057f03dcc3f973076",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-COM-001-B",
@@ -16231,7 +16234,7 @@
         "parent": "R1-COM-001",
         "order": 150,
         "title": "Deliver scoped inbox and email notices with tracked retries",
-        "status": "blocked",
+        "status": "ready",
         "owner": "communications",
         "stage": "02 Walking skeleton",
         "depends_on": [
@@ -16244,7 +16247,7 @@
           "R1-PRIV-001"
         ],
         "spec": "docs/implementation/items/R1-COM-001-B.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {

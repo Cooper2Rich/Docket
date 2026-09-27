@@ -1,6 +1,7 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { identityAccessContractSource } from "../../packages/identity-access/src/contracts.ts";
+import { communicationsContractSource } from "../../packages/communications/src/contracts.ts";
 import {
   gitHead,
   readJson,
@@ -32,7 +33,10 @@ export async function runContractsCli(
   }
   try {
     const startedAt = now();
-    const sources = [identityAccessContractSource];
+    const sources = [
+      communicationsContractSource,
+      identityAccessContractSource,
+    ];
     const traceability = {
       queueContract: await readJson(
         path.join(

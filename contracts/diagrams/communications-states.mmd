@@ -1,0 +1,5 @@
+stateDiagram-v2
+  queued --> delivered: deliverNotice [provider accepted]
+  queued --> retrying: deliverNotice [provider failed and retries remain]
+  retrying --> delivered: deliverNotice [provider accepted idempotency key]
+  retrying --> failed: deliverNotice [retry policy exhausted]

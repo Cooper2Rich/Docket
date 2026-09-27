@@ -4,13 +4,32 @@ import {
   PostgresIdentityStore,
   PostgresIdentityWebhookHintStore,
 } from "@docket/identity-access";
+import {
+  CommunicationsService,
+  PostgresCommunicationsStore,
+} from "@docket/communications";
+import { PgBoss } from "pg-boss";
 import { withTestDatabase } from "@docket/testkit";
 import { describe, expect, it } from "vitest";
 import {
   createAccountSecurityHistoryRetentionWorker,
+  communicationsNoticeQueue,
+  createCommunicationsQueueWorker,
   createIdentityHintWorker,
   runIdentityHintConsumer,
 } from "./index.js";
+
+async function waitFor(
+  assertion: () => Promise<boolean>,
+  timeoutMilliseconds = 20_000,
+): Promise<void> {
+  const deadline = Date.now() + timeoutMilliseconds;
+  while (Date.now() < deadline) {
+    if (await assertion()) return;
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+  throw new Error("TIMED_OUT_WAITING_FOR_WORKER");
+}
 
 describe("executable identity hint consumer", () => {
   it("deletes expired history on the worker path while preserving Legal Hold across leap-day and DST cases", async () => {
@@ -157,4 +176,139 @@ describe("executable identity hint consumer", () => {
       },
     );
   });
+});
+
+describe("pg-boss communications worker", () => {
+  it("claims a committed outbox event, retries delivery and remains idempotent after worker restart", async () => {
+    await withTestDatabase(
+      { workspaceRoot: process.cwd() },
+      async (database) => {
+        const store = new PostgresCommunicationsStore(database.databaseUrl);
+        let id = 0;
+        let providerCalls = 0;
+        const service = new CommunicationsService({
+          store,
+          authority: {
+            resolve: () =>
+              Promise.resolve({ allowed: true, authorityVersion: 2 }),
+          },
+          provider: {
+            deliver: ({ idempotencyKey }) => {
+              providerCalls += 1;
+              if (providerCalls === 1) {
+                return Promise.reject(
+                  Object.assign(new Error("temporary provider failure"), {
+                    code: "PROVIDER_TEMPORARY",
+                  }),
+                );
+              }
+              return Promise.resolve({
+                providerMessageId: `provider:${idempotencyKey}`,
+              });
+            },
+          },
+          now: () => new Date(),
+          nextId: (kind) => `${kind}_boss_${String(++id)}`,
+        });
+        const created = await service.createNoticeIntent(
+          { accountId: "account_boss_sender_001" },
+          {
+            noticeIntentId: "notice_boss_001",
+            recipientAccountId: "account_boss_recipient_001",
+            subject: "Committed notice",
+            body: "This delivery came from the committed outbox.",
+            expectedAuthorityVersion: 2,
+            expectedVersion: 0,
+            idempotencyKey: "notice-boss-create-001",
+            correlationId: "request-boss-001",
+            causationId: "command-boss-001",
+          },
+        );
+
+        const boss = await new PgBoss({
+          connectionString: database.databaseUrl,
+        }).start();
+        const worker = createCommunicationsQueueWorker(boss, store, service, {
+          owner: "worker-boss-first",
+        });
+        try {
+          await worker.start();
+          await expect(worker.dispatchOnce()).resolves.toMatchObject({
+            status: "published",
+            eventId: created.outbox.id,
+          });
+          await waitFor(async () => {
+            const row = await database.query<{ delivery_state: string }>(
+              "select delivery_state from communications_notice_intents where notice_intent_id=$1",
+              [created.intent.id],
+            );
+            return row.rows[0]?.delivery_state === "delivered";
+          });
+        } finally {
+          await boss.stop({ graceful: true, timeout: 30_000 });
+        }
+
+        expect(providerCalls).toBe(2);
+        const firstRun = await database.query<{
+          attempt_number: number;
+          delivery_state: string;
+        }>(
+          "select attempt_number, delivery_state from communications_delivery_attempts order by attempt_number",
+        );
+        expect(firstRun.rows).toEqual([
+          { attempt_number: 1, delivery_state: "failed" },
+          { attempt_number: 2, delivery_state: "delivered" },
+        ]);
+
+        let restartedProviderCalls = 0;
+        const restartedService = new CommunicationsService({
+          store: new PostgresCommunicationsStore(database.databaseUrl),
+          authority: {
+            resolve: () =>
+              Promise.resolve({ allowed: false, authorityVersion: 0 }),
+          },
+          provider: {
+            deliver: () => {
+              restartedProviderCalls += 1;
+              return Promise.resolve({ providerMessageId: "unexpected" });
+            },
+          },
+        });
+        const restartedBoss = await new PgBoss({
+          connectionString: database.databaseUrl,
+        }).start();
+        const restartedWorker = createCommunicationsQueueWorker(
+          restartedBoss,
+          store,
+          restartedService,
+          { owner: "worker-boss-restarted" },
+        );
+        try {
+          await restartedWorker.start();
+          const duplicateJobId = await restartedBoss.send(
+            communicationsNoticeQueue,
+            created.outbox,
+          );
+          if (!duplicateJobId) throw new Error("duplicate job was not queued");
+          await waitFor(async () => {
+            const jobs = await restartedBoss.findJobs(
+              communicationsNoticeQueue,
+              {
+                id: duplicateJobId,
+              },
+            );
+            return jobs[0]?.state === "completed";
+          });
+        } finally {
+          await restartedBoss.stop({ graceful: true, timeout: 30_000 });
+        }
+        expect(restartedProviderCalls).toBe(0);
+        const logicalEffects = await database.query<{ count: number }>(
+          "select count(*)::int as count from communications_inbox_items where notice_intent_id=$1",
+          [created.intent.id],
+        );
+        expect(logicalEffects.rows[0]?.count).toBe(1);
+      },
+    );
+  }, 90_000);
 });

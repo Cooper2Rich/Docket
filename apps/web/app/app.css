@@ -71,6 +71,65 @@ a {
   width: min(100%, 64rem);
 }
 
+.communications-inbox-shell {
+  align-items: start;
+}
+
+.communications-inbox-panel {
+  width: min(100%, 52rem);
+  padding: clamp(1.5rem, 5vw, 4rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: 0 1.25rem 4rem oklch(0.25 0.03 250 / 0.09);
+}
+
+.communications-inbox-header,
+.communications-inbox-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 1rem;
+}
+
+.communications-inbox-list {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 1.5rem 0;
+  list-style: none;
+}
+
+.communications-inbox-item {
+  grid-template-columns: auto minmax(0, 1fr);
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 0.2rem);
+}
+
+.communications-inbox-item > svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  color: var(--primary);
+}
+
+.communications-inbox-item h2,
+.communications-inbox-item p {
+  margin: 0;
+}
+
+.communications-inbox-item p {
+  margin-top: 0.4rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.notice-delivery-state {
+  color: oklch(0.42 0.02 255);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
 .role-context-header,
 .active-context-banner,
 .deep-link-prompt,

@@ -300,3 +300,27 @@ describe("R1-IDA-002-A committed verification suite", () => {
     );
   });
 });
+
+describe("R1-COM-001-A committed verification suite", () => {
+  it("is registered against the exact independent contract", async () => {
+    const itemId = "R1-COM-001-A";
+    const { item, criterionRegistry } = await loadContract(
+      path.resolve("docs/implementation/queue-contract.json"),
+      itemId,
+    );
+    const suite = await loadRegisteredSuite(itemId);
+
+    expect(() =>
+      validateSuiteContract(
+        item,
+        suite,
+        criterionRegistry.acceptanceIdsForItem(itemId),
+      ),
+    ).not.toThrow();
+    expect(registeredItemIds()).toContain(itemId);
+    expect(suite.criteria.map(({ id }) => id)).toEqual(item.acceptance_ids);
+    expect(suite.criteria.every(({ scenarios }) => scenarios.length > 0)).toBe(
+      true,
+    );
+  });
+});

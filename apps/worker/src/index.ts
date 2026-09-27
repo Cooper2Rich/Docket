@@ -1,5 +1,11 @@
 import { createClerkClient, type ClerkClient } from "@clerk/backend";
 import {
+  CommunicationsService,
+  PostgresCommunicationsStore,
+  type DeliveryProvider,
+  type OutboxEnvelope,
+} from "@docket/communications";
+import {
   ClerkSessionTerminationService,
   IdentityService,
   IdentityWebhookHintService,
@@ -14,6 +20,155 @@ import {
   type PrivilegedContextRestoredAlert,
 } from "@docket/identity-access";
 import { parseRuntimeConfig } from "@docket/runtime";
+import { PgBoss } from "pg-boss";
+
+export const communicationsNoticeQueue = "communications-notice-v1";
+
+export interface CommunicationsBoss {
+  createQueue(
+    name: string,
+    options?: Readonly<Record<string, unknown>>,
+  ): Promise<void>;
+  send(
+    name: string,
+    data: object,
+    options?: Readonly<Record<string, unknown>>,
+  ): Promise<string | null>;
+  work(
+    name: string,
+    options: Readonly<Record<string, unknown>>,
+    handler: (
+      jobs: readonly Readonly<{ data: OutboxEnvelope }>[],
+    ) => Promise<void>,
+  ): Promise<string>;
+}
+
+export function createCommunicationsQueueWorker(
+  boss: CommunicationsBoss,
+  store: Pick<
+    PostgresCommunicationsStore,
+    "claimOutbox" | "markOutboxPublished" | "releaseOutboxClaim"
+  >,
+  service: Pick<CommunicationsService, "deliverNotice">,
+  options: Readonly<{
+    owner: string;
+    now?: () => Date;
+    leaseMilliseconds?: number;
+  }>,
+) {
+  const now = options.now ?? (() => new Date());
+  return {
+    start: async () => {
+      await boss.createQueue(communicationsNoticeQueue, {
+        retryLimit: 4,
+        retryDelay: 1,
+        retryBackoff: true,
+        expireInSeconds: 30,
+        retentionSeconds: 14 * 24 * 60 * 60,
+        deleteAfterSeconds: 7 * 24 * 60 * 60,
+      });
+      return boss.work(
+        communicationsNoticeQueue,
+        { localConcurrency: 2, pollingIntervalSeconds: 1 },
+        async (jobs) => {
+          for (const job of jobs) await service.deliverNotice(job.data);
+        },
+      );
+    },
+    dispatchOnce: async () => {
+      const message = await store.claimOutbox(
+        options.owner,
+        now(),
+        options.leaseMilliseconds,
+      );
+      if (!message) return { status: "idle" } as const;
+      try {
+        const jobId = await boss.send(
+          communicationsNoticeQueue,
+          message.envelope,
+          {
+            retryLimit: 4,
+            retryDelay: 1,
+            retryBackoff: true,
+            expireInSeconds: 30,
+          },
+        );
+        if (!jobId) throw new Error("PG_BOSS_SEND_REJECTED");
+        await store.markOutboxPublished(
+          message.envelope.id,
+          options.owner,
+          now(),
+        );
+        return {
+          status: "published",
+          eventId: message.envelope.id,
+          jobId,
+        } as const;
+      } catch (error) {
+        await store.releaseOutboxClaim(
+          message.envelope.id,
+          options.owner,
+          error,
+        );
+        throw error;
+      }
+    },
+  };
+}
+
+export function createInAppDeliveryProvider(): DeliveryProvider {
+  const delivered = new Map<string, string>();
+  return {
+    deliver: (input) => {
+      const providerMessageId =
+        delivered.get(input.idempotencyKey) ??
+        `inbox-delivery:${input.idempotencyKey}`;
+      delivered.set(input.idempotencyKey, providerMessageId);
+      return Promise.resolve({ providerMessageId });
+    },
+  };
+}
+
+export async function createConfiguredCommunicationsWorker(
+  environment: Readonly<Record<string, string | undefined>> = process.env,
+) {
+  const config = validateWorkerRuntime(environment);
+  const databaseUrl = config.databaseUrl ?? "";
+  const boss = await new PgBoss({ connectionString: databaseUrl }).start();
+  const store = new PostgresCommunicationsStore(databaseUrl);
+  const service = new CommunicationsService({
+    store,
+    authority: {
+      resolve: () => Promise.resolve({ allowed: false, authorityVersion: 0 }),
+    },
+    provider: createInAppDeliveryProvider(),
+  });
+  const worker = createCommunicationsQueueWorker(boss, store, service, {
+    owner: `worker-${String(process.pid)}`,
+  });
+  await worker.start();
+  return { boss, worker };
+}
+
+export async function runCommunicationsOutboxDispatcher(
+  worker: Readonly<{ dispatchOnce(): Promise<unknown> }>,
+  options: Readonly<{
+    signal: AbortSignal;
+    pollIntervalMilliseconds?: number;
+    wait?: ConsumerWait;
+    onError?: (error: unknown) => void;
+  }>,
+): Promise<void> {
+  const wait = options.wait ?? waitForPoll;
+  while (!options.signal.aborted) {
+    try {
+      await worker.dispatchOnce();
+    } catch (error) {
+      options.onError?.(error);
+    }
+    await wait(options.pollIntervalMilliseconds ?? 1_000, options.signal);
+  }
+}
 
 export function validateWorkerRuntime(
   environment: Readonly<Record<string, string | undefined>> = process.env,

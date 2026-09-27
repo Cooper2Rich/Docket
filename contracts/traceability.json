@@ -1,10 +1,25 @@
 {
   "artifacts": {
+    "contracts/diagrams/communications-states.mmd": {
+      "owner": "communications"
+    },
     "contracts/diagrams/identity-access-states.mmd": {
       "owner": "identity-access"
     },
+    "contracts/json-schema/communications.v1.json": {
+      "owner": "communications"
+    },
     "contracts/json-schema/identity-access.v1.json": {
       "owner": "identity-access"
+    },
+    "contracts/matrices/communications-audiences.md": {
+      "owner": "communications"
+    },
+    "contracts/matrices/communications-authorization.md": {
+      "owner": "communications"
+    },
+    "contracts/matrices/communications-states.md": {
+      "owner": "communications"
     },
     "contracts/matrices/identity-access-audiences.md": {
       "owner": "identity-access"
@@ -17,6 +32,9 @@
     },
     "contracts/openapi/v1.json": {
       "owner": "root"
+    },
+    "contracts/reference/communications.md": {
+      "owner": "communications"
     },
     "contracts/reference/identity-access.md": {
       "owner": "identity-access"
@@ -8200,11 +8218,11 @@
         "path": "docs/implementation/items/R1-COM-001-A.md",
         "sha256": "1dc2b89e2dd3ce8a642b1a85be242f6a1c3ba1295fd6d69057f03dcc3f973076"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-COM-001-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-COM-001-A/ac-01.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-COM-001-A/AC-01",
       "itemId": "R1-COM-001-A",
@@ -8222,7 +8240,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-COM-001-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-com-001-a.mjs"
       }
     },
@@ -8231,11 +8249,11 @@
         "path": "docs/implementation/items/R1-COM-001-A.md",
         "sha256": "1dc2b89e2dd3ce8a642b1a85be242f6a1c3ba1295fd6d69057f03dcc3f973076"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-COM-001-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-COM-001-A/ac-02.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-COM-001-A/AC-02",
       "itemId": "R1-COM-001-A",
@@ -8253,7 +8271,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-COM-001-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-com-001-a.mjs"
       }
     },
@@ -8262,11 +8280,11 @@
         "path": "docs/implementation/items/R1-COM-001-A.md",
         "sha256": "1dc2b89e2dd3ce8a642b1a85be242f6a1c3ba1295fd6d69057f03dcc3f973076"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-COM-001-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-COM-001-A/ac-03.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-COM-001-A/AC-03",
       "itemId": "R1-COM-001-A",
@@ -8284,7 +8302,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-COM-001-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-com-001-a.mjs"
       }
     },
@@ -8293,11 +8311,11 @@
         "path": "docs/implementation/items/R1-COM-001-A.md",
         "sha256": "1dc2b89e2dd3ce8a642b1a85be242f6a1c3ba1295fd6d69057f03dcc3f973076"
       },
-      "coverageStatus": "pending_domain",
+      "coverageStatus": "implemented_foundation",
       "evidence": {
         "acceptance": ".ralph/evidence/R1-COM-001-A/acceptance.json",
         "criterion": ".ralph/evidence/R1-COM-001-A/ac-04.json",
-        "status": "pending"
+        "status": "executable"
       },
       "id": "R1-COM-001-A/AC-04",
       "itemId": "R1-COM-001-A",
@@ -8315,7 +8333,7 @@
       "test": {
         "checkId": "item",
         "command": "pnpm verify:item --id R1-COM-001-A --contract docs/implementation/queue-contract.json",
-        "status": "pending",
+        "status": "registered",
         "suite": "tools/verification/suites/r1-com-001-a.mjs"
       }
     },
@@ -19855,6 +19873,10 @@
         "docs/implementation/items/R1-TRN-004-B.md"
       ],
       "implementedCriteria": [
+        "R1-COM-001-A/AC-01",
+        "R1-COM-001-A/AC-02",
+        "R1-COM-001-A/AC-03",
+        "R1-COM-001-A/AC-04",
         "R1-FND-003-A/AC-01",
         "R1-FND-003-A/AC-02",
         "R1-FND-003-A/AC-03",
@@ -19882,6 +19904,7 @@
         "workflows"
       ],
       "operations": [
+        "createNoticeIntent",
         "enterActiveRoleContext",
         "leaveActiveRoleContext",
         "restoreMostRecentRoleContext"
@@ -20059,10 +20082,6 @@
         "R1-CMP-016-B/AC-02",
         "R1-CMP-016-B/AC-03",
         "R1-CMP-016-B/AC-04",
-        "R1-COM-001-A/AC-01",
-        "R1-COM-001-A/AC-02",
-        "R1-COM-001-A/AC-03",
-        "R1-COM-001-A/AC-04",
         "R1-COM-001-B/AC-01",
         "R1-COM-001-B/AC-02",
         "R1-COM-001-B/AC-03",
@@ -21215,7 +21234,12 @@
         "docs/implementation/items/R1-REL-002-D.md",
         "docs/implementation/items/R1-REL-002-E.md"
       ],
-      "implementedCriteria": [],
+      "implementedCriteria": [
+        "R1-COM-001-A/AC-01",
+        "R1-COM-001-A/AC-02",
+        "R1-COM-001-A/AC-03",
+        "R1-COM-001-A/AC-04"
+      ],
       "modules": [
         "communications",
         "competition",
@@ -21224,7 +21248,10 @@
         "runtime",
         "workflows"
       ],
-      "operations": [],
+      "operations": [
+        "createNoticeIntent",
+        "deliverNotice"
+      ],
       "pendingCriteria": [
         "R1-CMP-011-A/AC-01",
         "R1-CMP-011-A/AC-02",
@@ -21242,10 +21269,6 @@
         "R1-CMP-011-D/AC-02",
         "R1-CMP-011-D/AC-03",
         "R1-CMP-011-D/AC-04",
-        "R1-COM-001-A/AC-01",
-        "R1-COM-001-A/AC-02",
-        "R1-COM-001-A/AC-03",
-        "R1-COM-001-A/AC-04",
         "R1-COM-001-B/AC-01",
         "R1-COM-001-B/AC-02",
         "R1-COM-001-B/AC-03",
@@ -21299,7 +21322,9 @@
         "R1-REL-002-E/AC-03",
         "R1-REL-002-E/AC-04"
       ],
-      "vectors": []
+      "vectors": [
+        "communications-outbox-envelope-v1"
+      ]
     },
     "R1-OPS-001": {
       "acceptanceCriteria": [
@@ -21895,6 +21920,10 @@
         "docs/implementation/items/R1-TRN-004-B.md"
       ],
       "implementedCriteria": [
+        "R1-COM-001-A/AC-01",
+        "R1-COM-001-A/AC-02",
+        "R1-COM-001-A/AC-03",
+        "R1-COM-001-A/AC-04",
         "R1-FND-004-A/AC-01",
         "R1-FND-004-A/AC-02",
         "R1-FND-004-A/AC-03",
@@ -21930,6 +21959,7 @@
       "operations": [
         "changeDisplayName",
         "createDocketSession",
+        "createNoticeIntent",
         "enterActiveRoleContext",
         "getAccountProfile",
         "getIdentitySession",
@@ -21938,6 +21968,7 @@
         "listAccountSecurityHistory",
         "listDocketSessions",
         "listRoleContexts",
+        "readAccessInbox",
         "restoreMostRecentRoleContext",
         "revokeAllDocketSessions",
         "revokeDocketSession"
@@ -22119,10 +22150,6 @@
         "R1-CMP-016-B/AC-02",
         "R1-CMP-016-B/AC-03",
         "R1-CMP-016-B/AC-04",
-        "R1-COM-001-A/AC-01",
-        "R1-COM-001-A/AC-02",
-        "R1-COM-001-A/AC-03",
-        "R1-COM-001-A/AC-04",
         "R1-COM-001-B/AC-01",
         "R1-COM-001-B/AC-02",
         "R1-COM-001-B/AC-03",
@@ -22246,11 +22273,11 @@
   "summary": {
     "acceptanceCriteria": 460,
     "coverageStatuses": {
-      "implemented_foundation": 52,
-      "pending_domain": 408
+      "implemented_foundation": 56,
+      "pending_domain": 404
     },
     "excludedSources": 98,
-    "goldenVectors": 3,
+    "goldenVectors": 4,
     "requirements": 8
   }
 }
