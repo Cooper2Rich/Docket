@@ -3,6 +3,13 @@ import { Type } from "@sinclair/typebox";
 
 const identifier = Type.String({ minLength: 1, maxLength: 128 });
 const timestamp = Type.String({ minLength: 20, maxLength: 35 });
+const roleContextKind = Type.Union([
+  Type.Literal("school"),
+  Type.Literal("tournament"),
+  Type.Literal("judge"),
+  Type.Literal("platform_administrator"),
+  Type.Literal("legal_and_privacy_operations"),
+]);
 
 export const IdentitySessionRequestSchema = Type.Object(
   {
@@ -38,6 +45,10 @@ export const StableErrorEnvelopeSchema = Type.Object(
       Type.Literal("SESSION_EXPIRED"),
       Type.Literal("SESSION_LIMIT_REACHED"),
       Type.Literal("FIXED_IDENTITY_FORBIDDEN"),
+      Type.Literal("AUTHORITY_DENIED"),
+      Type.Literal("CONTEXT_STALE"),
+      Type.Literal("REAUTHENTICATION_REQUIRED"),
+      Type.Literal("ROLE_SWITCH_BLOCKED"),
     ]),
     message: Type.String({ minLength: 1 }),
     requestId: identifier,
@@ -182,10 +193,159 @@ export const AccountSecurityHistoryListSchema = Type.Object(
   { $id: "AccountSecurityHistoryList.v1", additionalProperties: false },
 );
 
+export const ListRoleContextsRequestSchema = Type.Object(
+  { tabId: identifier },
+  { $id: "ListRoleContextsRequest.v1", additionalProperties: false },
+);
+
+export const RoleContextOptionSchema = Type.Object(
+  {
+    grantId: identifier,
+    contextKind: roleContextKind,
+    scopeId: identifier,
+    scopeLabel: Type.String({ minLength: 1, maxLength: 256 }),
+    privileged: Type.Boolean(),
+    authorityVersion: Type.Integer({ minimum: 1 }),
+  },
+  { $id: "RoleContextOption.v1", additionalProperties: false },
+);
+
+export const ActiveRoleContextSchema = Type.Object(
+  {
+    id: identifier,
+    grantId: identifier,
+    contextKind: roleContextKind,
+    scopeId: identifier,
+    scopeLabel: Type.String({ minLength: 1, maxLength: 256 }),
+    privileged: Type.Boolean(),
+    authorityVersion: Type.Integer({ minimum: 1 }),
+    version: Type.Integer({ minimum: 1 }),
+  },
+  { $id: "ActiveRoleContext.v1", additionalProperties: false },
+);
+
+export const RoleContextSelectorSchema = Type.Object(
+  {
+    contexts: Type.Array(RoleContextOptionSchema),
+    current: Type.Optional(ActiveRoleContextSchema),
+  },
+  { $id: "RoleContextSelector.v1", additionalProperties: false },
+);
+
+export const InspectRoleContextDeepLinkRequestSchema = Type.Object(
+  { tabId: identifier, requiredGrantId: identifier },
+  {
+    $id: "InspectRoleContextDeepLinkRequest.v1",
+    additionalProperties: false,
+  },
+);
+
+export const RoleContextDeepLinkDecisionSchema = Type.Object(
+  {
+    decision: Type.Union([
+      Type.Literal("current"),
+      Type.Literal("switch_required"),
+      Type.Literal("denied"),
+    ]),
+  },
+  { $id: "RoleContextDeepLinkDecision.v1", additionalProperties: false },
+);
+
+export const EnterActiveRoleContextRequestSchema = Type.Object(
+  {
+    tabId: identifier,
+    grantId: identifier,
+    switchDecision: Type.Union([
+      Type.Literal("save"),
+      Type.Literal("discard"),
+      Type.Literal("cancel"),
+    ]),
+    expectedCurrentContextId: Type.Optional(identifier),
+    expectedCurrentVersion: Type.Optional(Type.Integer({ minimum: 1 })),
+    idempotencyKey: identifier,
+  },
+  {
+    $id: "EnterActiveRoleContextRequest.v1",
+    additionalProperties: false,
+  },
+);
+
+export const RestoreMostRecentRoleContextRequestSchema = Type.Object(
+  { tabId: identifier, idempotencyKey: identifier },
+  {
+    $id: "RestoreMostRecentRoleContextRequest.v1",
+    additionalProperties: false,
+  },
+);
+
+export const RoleContextCacheInvalidationSchema = Type.Object(
+  {
+    previousContextId: Type.Optional(identifier),
+    destroyProtectedCache: Type.Literal(true),
+    closeOpenViews: Type.Literal(true),
+  },
+  { $id: "RoleContextCacheInvalidation.v1", additionalProperties: false },
+);
+
+export const EnterActiveRoleContextResultSchema = Type.Object(
+  {
+    context: ActiveRoleContextSchema,
+    cacheInvalidation: RoleContextCacheInvalidationSchema,
+  },
+  {
+    $id: "EnterActiveRoleContextResult.v1",
+    additionalProperties: false,
+  },
+);
+
+export const LeaveActiveRoleContextRequestSchema = Type.Object(
+  {
+    tabId: identifier,
+    expectedCurrentContextId: identifier,
+    expectedCurrentVersion: Type.Integer({ minimum: 1 }),
+  },
+  {
+    $id: "LeaveActiveRoleContextRequest.v1",
+    additionalProperties: false,
+  },
+);
+
+export const LeaveActiveRoleContextResultSchema = Type.Object(
+  {
+    cacheInvalidation: Type.Object(
+      {
+        previousContextId: identifier,
+        destroyProtectedCache: Type.Literal(true),
+        closeOpenViews: Type.Literal(true),
+      },
+      { additionalProperties: false },
+    ),
+  },
+  {
+    $id: "LeaveActiveRoleContextResult.v1",
+    additionalProperties: false,
+  },
+);
+
+export const AuthorityDecisionSchema = Type.Object(
+  { allowed: Type.Literal(true), context: ActiveRoleContextSchema },
+  { $id: "AuthorityDecision.v1", additionalProperties: false },
+);
+
+export const ClerkReverificationEvidenceSchema = Type.Object(
+  {
+    verificationId: identifier,
+    clerkSessionId: identifier,
+    signatureValidated: Type.Literal(true),
+    verifiedAt: timestamp,
+  },
+  { $id: "ClerkReverificationEvidence.v1", additionalProperties: false },
+);
+
 export const identityAccessContractSource = {
   module: "identity-access",
-  version: "1.0.0",
-  requirements: ["R1-LIFE-001", "R1-AUTH-001", "R1-PRIV-001"],
+  version: "1.1.0",
+  requirements: ["R1-LIFE-001", "R1-AUTH-001", "R1-CONS-001", "R1-PRIV-001"],
   schemas: [
     { name: "IdentitySessionRequest", schema: IdentitySessionRequestSchema },
     {
@@ -230,6 +390,47 @@ export const identityAccessContractSource = {
     {
       name: "AccountSecurityHistoryList",
       schema: AccountSecurityHistoryListSchema,
+    },
+    { name: "ListRoleContextsRequest", schema: ListRoleContextsRequestSchema },
+    { name: "RoleContextOption", schema: RoleContextOptionSchema },
+    { name: "ActiveRoleContext", schema: ActiveRoleContextSchema },
+    { name: "RoleContextSelector", schema: RoleContextSelectorSchema },
+    {
+      name: "InspectRoleContextDeepLinkRequest",
+      schema: InspectRoleContextDeepLinkRequestSchema,
+    },
+    {
+      name: "RoleContextDeepLinkDecision",
+      schema: RoleContextDeepLinkDecisionSchema,
+    },
+    {
+      name: "EnterActiveRoleContextRequest",
+      schema: EnterActiveRoleContextRequestSchema,
+    },
+    {
+      name: "RestoreMostRecentRoleContextRequest",
+      schema: RestoreMostRecentRoleContextRequestSchema,
+    },
+    {
+      name: "RoleContextCacheInvalidation",
+      schema: RoleContextCacheInvalidationSchema,
+    },
+    {
+      name: "EnterActiveRoleContextResult",
+      schema: EnterActiveRoleContextResultSchema,
+    },
+    {
+      name: "LeaveActiveRoleContextRequest",
+      schema: LeaveActiveRoleContextRequestSchema,
+    },
+    {
+      name: "LeaveActiveRoleContextResult",
+      schema: LeaveActiveRoleContextResultSchema,
+    },
+    { name: "AuthorityDecision", schema: AuthorityDecisionSchema },
+    {
+      name: "ClerkReverificationEvidence",
+      schema: ClerkReverificationEvidenceSchema,
     },
   ],
   operations: [
@@ -382,8 +583,113 @@ export const identityAccessContractSource = {
       audience: "account-self",
       inputLocation: "body",
     },
+    {
+      operationId: "listRoleContexts",
+      method: "get",
+      path: "/v1/role-contexts",
+      summary:
+        "List the current Account's available role contexts and this tab's active context.",
+      requirements: ["R1-AUTH-001", "R1-PRIV-001"],
+      inputSchema: "ListRoleContextsRequest",
+      successSchema: "RoleContextSelector",
+      errorCodes: [
+        "AUTHENTICATION_REQUIRED",
+        "CONTEXT_STALE",
+        "REQUEST_INVALID",
+        "RESPONSE_INVALID",
+      ],
+      audience: "account-self",
+    },
+    {
+      operationId: "inspectRoleContextDeepLink",
+      method: "post",
+      path: "/v1/role-contexts/deep-link",
+      summary:
+        "Decide whether a private-payload-free deep link needs a role-context switch.",
+      requirements: ["R1-AUTH-001", "R1-PRIV-001"],
+      inputSchema: "InspectRoleContextDeepLinkRequest",
+      successSchema: "RoleContextDeepLinkDecision",
+      errorCodes: [
+        "AUTHENTICATION_REQUIRED",
+        "REQUEST_INVALID",
+        "RESPONSE_INVALID",
+      ],
+      audience: "account-self",
+      inputLocation: "body",
+    },
+    {
+      operationId: "enterActiveRoleContext",
+      method: "post",
+      path: "/v1/role-contexts/enter",
+      summary:
+        "Enter exactly one tab-scoped Active Role Context after resolving current authority.",
+      requirements: ["R1-AUTH-001", "R1-CONS-001", "R1-PRIV-001"],
+      inputSchema: "EnterActiveRoleContextRequest",
+      successSchema: "EnterActiveRoleContextResult",
+      errorCodes: [
+        "AUTHENTICATION_REQUIRED",
+        "AUTHORITY_DENIED",
+        "CONTEXT_STALE",
+        "ROLE_SWITCH_BLOCKED",
+        "REQUEST_INVALID",
+        "RESPONSE_INVALID",
+      ],
+      audience: "account-self",
+      inputLocation: "body",
+    },
+    {
+      operationId: "restoreMostRecentRoleContext",
+      method: "post",
+      path: "/v1/role-contexts/restore",
+      summary:
+        "Restore the Account's most-recent role context in this tab only while its grant remains current.",
+      requirements: ["R1-AUTH-001", "R1-CONS-001", "R1-PRIV-001"],
+      inputSchema: "RestoreMostRecentRoleContextRequest",
+      successSchema: "RoleContextSelector",
+      errorCodes: [
+        "AUTHENTICATION_REQUIRED",
+        "CONTEXT_STALE",
+        "REQUEST_INVALID",
+        "RESPONSE_INVALID",
+      ],
+      audience: "account-self",
+      inputLocation: "body",
+    },
+    {
+      operationId: "leaveActiveRoleContext",
+      method: "post",
+      path: "/v1/role-contexts/leave",
+      summary:
+        "Leave this tab's Active Role Context and destroy its protected client state.",
+      requirements: ["R1-AUTH-001", "R1-CONS-001", "R1-PRIV-001"],
+      inputSchema: "LeaveActiveRoleContextRequest",
+      successSchema: "LeaveActiveRoleContextResult",
+      errorCodes: [
+        "AUTHENTICATION_REQUIRED",
+        "AUTHORITY_DENIED",
+        "CONTEXT_STALE",
+        "REQUEST_INVALID",
+        "RESPONSE_INVALID",
+      ],
+      audience: "account-self",
+      inputLocation: "body",
+    },
   ],
   transitions: [
+    {
+      from: "selector",
+      command: "enter role context",
+      guard: "current server-side grant and tab-scoped selection",
+      to: "active-role-context",
+      rejectedFrom: ["revoked-authority", "foreign-authority"],
+    },
+    {
+      from: "active-role-context",
+      command: "switch or leave role context",
+      guard: "current version and resolved save/discard decision",
+      to: "selector",
+      rejectedFrom: ["stale-context", "cancelled-unsaved-work"],
+    },
     {
       from: "active",
       command: "expire",
@@ -493,6 +799,30 @@ export const identityAccessContractSource = {
       decision: "deny",
       errorCode: "AUTHENTICATION_REQUIRED",
     },
+    ...[
+      "listRoleContexts",
+      "inspectRoleContextDeepLink",
+      "enterActiveRoleContext",
+      "restoreMostRecentRoleContext",
+      "leaveActiveRoleContext",
+    ].flatMap((operationId) => [
+      {
+        actor: "authenticated-account",
+        operationId,
+        resource: "own-role-contexts",
+        condition:
+          "current server-validated Clerk identity, active Docket Session and current role grant",
+        decision: "allow" as const,
+      },
+      {
+        actor: "anonymous",
+        operationId,
+        resource: "any-role-context",
+        condition: "no server-validated identity",
+        decision: "deny" as const,
+        errorCode: "AUTHENTICATION_REQUIRED",
+      },
+    ]),
   ],
   errors: [
     {
@@ -540,6 +870,26 @@ export const identityAccessContractSource = {
       status: 403,
       safeMessage: "Fixed identity is unavailable in this environment.",
     },
+    {
+      code: "AUTHORITY_DENIED",
+      status: 403,
+      safeMessage: "The requested role context is unavailable.",
+    },
+    {
+      code: "CONTEXT_STALE",
+      status: 409,
+      safeMessage: "The active role context is stale.",
+    },
+    {
+      code: "REAUTHENTICATION_REQUIRED",
+      status: 401,
+      safeMessage: "Fresh Clerk Reverification is required.",
+    },
+    {
+      code: "ROLE_SWITCH_BLOCKED",
+      status: 409,
+      safeMessage: "The role-context switch was not completed.",
+    },
   ],
   goldenVectors: [
     {
@@ -565,6 +915,34 @@ export const identityAccessContractSource = {
         requestId: "request_fixture_001",
       },
       provenance: "synthetic-foundation-fixture",
+    },
+    {
+      id: "active-role-context-school-success-v1",
+      contractVersion: "1.1.0",
+      requirements: ["R1-AUTH-001", "R1-PRIV-001"],
+      input: {
+        tabId: "tab_fixture_001",
+        grantId: "grant_fixture_school_001",
+        switchDecision: "discard",
+        idempotencyKey: "enter_fixture_001",
+      },
+      expected: {
+        context: {
+          id: "context_fixture_001",
+          grantId: "grant_fixture_school_001",
+          contextKind: "school",
+          scopeId: "school_fixture_001",
+          scopeLabel: "Fixture High School",
+          privileged: false,
+          authorityVersion: 1,
+          version: 1,
+        },
+        cacheInvalidation: {
+          destroyProtectedCache: true,
+          closeOpenViews: true,
+        },
+      },
+      provenance: "synthetic-role-context-fixture",
     },
   ],
 } as const satisfies ContractSource;

@@ -1,3 +1,5 @@
+import type { RoleContextActor } from "./role-context.js";
+
 export type IdentityErrorCode =
   | "AUTHORITY_STALE"
   | "DISPLAY_NAME_CHANGE_TOO_SOON"
@@ -886,6 +888,34 @@ export class IdentityService {
       return (await transaction.listSessions(link.accountId))
         .map((session) => sessionProjection(session, now))
         .sort((left, right) => right.createdAt.localeCompare(left.createdAt));
+    });
+  }
+
+  async resolveRoleContextActor(
+    identity: ClerkIdentity,
+  ): Promise<RoleContextActor> {
+    return this.dependencies.store.transaction(async (transaction) => {
+      const now = this.dependencies.now();
+      const link = await transaction.getLink(identity.userId);
+      if (!link) {
+        throw new IdentityError(
+          "IDENTITY_INVALID",
+          "the Account does not exist",
+        );
+      }
+      const session = await requireCurrentSession(
+        transaction,
+        identity,
+        link.accountId,
+        now,
+      );
+      return {
+        accountId: link.accountId,
+        docketSessionId: session.id,
+        clerkSessionId: session.clerkSessionId,
+        device: session.device,
+        approximateLocation: session.approximateLocation,
+      };
     });
   }
 

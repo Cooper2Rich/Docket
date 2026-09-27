@@ -45,7 +45,8 @@ a {
 
 .hero,
 .status-card,
-.session-panel {
+.session-panel,
+.role-context-panel {
   width: min(100%, 48rem);
   padding: clamp(1.5rem, 5vw, 4rem);
   border: 1px solid var(--border);
@@ -60,6 +61,122 @@ a {
 
 .session-panel {
   width: min(100%, 58rem);
+}
+
+.role-context-shell {
+  align-items: start;
+}
+
+.role-context-panel {
+  width: min(100%, 64rem);
+}
+
+.role-context-header,
+.active-context-banner,
+.deep-link-prompt,
+.role-context-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 1rem;
+}
+
+.role-context-header > .state-icon {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.active-context-banner,
+.deep-link-prompt {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  padding: 1rem;
+  margin-block: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 0.2rem);
+  background: var(--background);
+}
+
+.active-context-banner-privileged,
+.role-context-row-privileged {
+  border-color: oklch(0.55 0.18 45);
+  background: oklch(0.96 0.04 70);
+}
+
+.active-context-banner svg,
+.deep-link-prompt svg,
+.role-context-row > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+}
+
+.active-context-banner h2,
+.active-context-banner p,
+.deep-link-prompt h2,
+.deep-link-prompt p,
+.context-kicker {
+  margin: 0;
+}
+
+.context-kicker {
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.context-list-section,
+.context-workspace,
+.unsaved-work-prompt {
+  display: grid;
+  gap: 1rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.role-context-list {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.role-context-row {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 0.2rem);
+}
+
+.role-context-copy h3,
+.role-context-copy p,
+.context-workspace p,
+.unsaved-work-prompt h2,
+.unsaved-work-prompt p {
+  margin: 0;
+}
+
+.role-context-copy p {
+  margin-top: 0.25rem;
+  color: oklch(0.42 0.02 255);
+}
+
+.context-workspace label {
+  font-weight: 700;
+}
+
+.context-workspace textarea {
+  min-height: 6rem;
+  resize: vertical;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 0.2rem);
+  color: var(--foreground);
+  background: var(--card);
+  font: inherit;
 }
 
 .session-header {
@@ -368,6 +485,25 @@ h1 {
     grid-template-columns: auto minmax(0, 1fr);
   }
 
+  .active-context-banner,
+  .deep-link-prompt,
+  .role-context-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .active-context-banner form,
+  .role-context-row form,
+  .role-context-row .current-badge {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .active-context-banner .button,
+  .role-context-row .button,
+  .context-workspace .button {
+    width: 100%;
+  }
+
   .session-row .button,
   .current-badge {
     grid-column: 1 / -1;
@@ -399,7 +535,8 @@ h1 {
 @media (prefers-reduced-motion: no-preference) {
   .hero,
   .status-card,
-  .session-panel {
+  .session-panel,
+  .role-context-panel {
     animation: settle 240ms ease-out;
   }
 }

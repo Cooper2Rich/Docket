@@ -15883,7 +15883,7 @@
       "resolution": null
     }
   },
-  "graph_sha256": "b98784f11e0a1c30bcc9c0bdf481808ff23db889ff8bdc85a4960882fad31c94",
+  "graph_sha256": "403a428de4de87eb3fd23e274f6f4ee50afaccfc6135536925495d41c9c46a61",
   "execution_graph": {
     "items": [
       {
@@ -16184,7 +16184,7 @@
         "parent": "R1-IDA-002",
         "order": 130,
         "title": "Isolate Active Role Context and reverify sensitive actions",
-        "status": "ready",
+        "status": "done",
         "owner": "identity-access",
         "stage": "02 Walking skeleton",
         "depends_on": [
@@ -16198,7 +16198,10 @@
         ],
         "spec": "docs/implementation/items/R1-IDA-002-A.md",
         "blocking_reason": null,
-        "completion": null
+        "completion": {
+          "contract_sha256": "d9dab3c323f4172290e01cb7cc7ace9a0d14ef3d8ead09342e0f21506adf3913",
+          "verification": "controller-must-confirm-integration"
+        }
       },
       {
         "id": "R1-COM-001-A",
@@ -16206,7 +16209,7 @@
         "parent": "R1-COM-001",
         "order": 140,
         "title": "Commit outbox events and deliver idempotent work",
-        "status": "blocked",
+        "status": "ready",
         "owner": "communications",
         "stage": "02 Walking skeleton",
         "depends_on": [
@@ -16219,7 +16222,7 @@
           "R1-PRIV-001"
         ],
         "spec": "docs/implementation/items/R1-COM-001-A.md",
-        "blocking_reason": "Predecessor has not been implemented and verified.",
+        "blocking_reason": null,
         "completion": null
       },
       {

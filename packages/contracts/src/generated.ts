@@ -64,6 +64,54 @@ export type AccountSecurityHistoryRequest = Static<
   typeof AccountSecurityHistoryRequestSchema
 >;
 
+export const ActiveRoleContextSchema = Type.Object(
+  {
+    authorityVersion: Type.Integer({ minimum: 1 }),
+    contextKind: Type.Union([
+      Type.Literal("school"),
+      Type.Literal("tournament"),
+      Type.Literal("judge"),
+      Type.Literal("platform_administrator"),
+      Type.Literal("legal_and_privacy_operations"),
+    ]),
+    grantId: Type.String({ maxLength: 128, minLength: 1 }),
+    id: Type.String({ maxLength: 128, minLength: 1 }),
+    privileged: Type.Boolean(),
+    scopeId: Type.String({ maxLength: 128, minLength: 1 }),
+    scopeLabel: Type.String({ maxLength: 256, minLength: 1 }),
+    version: Type.Integer({ minimum: 1 }),
+  },
+  { $id: "ActiveRoleContext.v1", additionalProperties: false },
+);
+export type ActiveRoleContext = Static<typeof ActiveRoleContextSchema>;
+
+export const AuthorityDecisionSchema = Type.Object(
+  {
+    allowed: Type.Literal(true),
+    context: Type.Object(
+      {
+        authorityVersion: Type.Integer({ minimum: 1 }),
+        contextKind: Type.Union([
+          Type.Literal("school"),
+          Type.Literal("tournament"),
+          Type.Literal("judge"),
+          Type.Literal("platform_administrator"),
+          Type.Literal("legal_and_privacy_operations"),
+        ]),
+        grantId: Type.String({ maxLength: 128, minLength: 1 }),
+        id: Type.String({ maxLength: 128, minLength: 1 }),
+        privileged: Type.Boolean(),
+        scopeId: Type.String({ maxLength: 128, minLength: 1 }),
+        scopeLabel: Type.String({ maxLength: 256, minLength: 1 }),
+        version: Type.Integer({ minimum: 1 }),
+      },
+      { $id: "ActiveRoleContext.v1", additionalProperties: false },
+    ),
+  },
+  { $id: "AuthorityDecision.v1", additionalProperties: false },
+);
+export type AuthorityDecision = Static<typeof AuthorityDecisionSchema>;
+
 export const ChangeDisplayNameRequestSchema = Type.Object(
   {
     displayName: Type.String({ maxLength: 128, minLength: 1 }),
@@ -74,6 +122,19 @@ export const ChangeDisplayNameRequestSchema = Type.Object(
 );
 export type ChangeDisplayNameRequest = Static<
   typeof ChangeDisplayNameRequestSchema
+>;
+
+export const ClerkReverificationEvidenceSchema = Type.Object(
+  {
+    clerkSessionId: Type.String({ maxLength: 128, minLength: 1 }),
+    signatureValidated: Type.Literal(true),
+    verificationId: Type.String({ maxLength: 128, minLength: 1 }),
+    verifiedAt: Type.String({ maxLength: 35, minLength: 20 }),
+  },
+  { $id: "ClerkReverificationEvidence.v1", additionalProperties: false },
+);
+export type ClerkReverificationEvidence = Static<
+  typeof ClerkReverificationEvidenceSchema
 >;
 
 export const CreateDocketSessionRequestSchema = Type.Object(
@@ -160,6 +221,65 @@ export const DocketSessionResultSchema = Type.Object(
 );
 export type DocketSessionResult = Static<typeof DocketSessionResultSchema>;
 
+export const EnterActiveRoleContextRequestSchema = Type.Object(
+  {
+    expectedCurrentContextId: Type.Optional(
+      Type.String({ maxLength: 128, minLength: 1 }),
+    ),
+    expectedCurrentVersion: Type.Optional(Type.Integer({ minimum: 1 })),
+    grantId: Type.String({ maxLength: 128, minLength: 1 }),
+    idempotencyKey: Type.String({ maxLength: 128, minLength: 1 }),
+    switchDecision: Type.Union([
+      Type.Literal("save"),
+      Type.Literal("discard"),
+      Type.Literal("cancel"),
+    ]),
+    tabId: Type.String({ maxLength: 128, minLength: 1 }),
+  },
+  { $id: "EnterActiveRoleContextRequest.v1", additionalProperties: false },
+);
+export type EnterActiveRoleContextRequest = Static<
+  typeof EnterActiveRoleContextRequestSchema
+>;
+
+export const EnterActiveRoleContextResultSchema = Type.Object(
+  {
+    cacheInvalidation: Type.Object(
+      {
+        closeOpenViews: Type.Literal(true),
+        destroyProtectedCache: Type.Literal(true),
+        previousContextId: Type.Optional(
+          Type.String({ maxLength: 128, minLength: 1 }),
+        ),
+      },
+      { $id: "RoleContextCacheInvalidation.v1", additionalProperties: false },
+    ),
+    context: Type.Object(
+      {
+        authorityVersion: Type.Integer({ minimum: 1 }),
+        contextKind: Type.Union([
+          Type.Literal("school"),
+          Type.Literal("tournament"),
+          Type.Literal("judge"),
+          Type.Literal("platform_administrator"),
+          Type.Literal("legal_and_privacy_operations"),
+        ]),
+        grantId: Type.String({ maxLength: 128, minLength: 1 }),
+        id: Type.String({ maxLength: 128, minLength: 1 }),
+        privileged: Type.Boolean(),
+        scopeId: Type.String({ maxLength: 128, minLength: 1 }),
+        scopeLabel: Type.String({ maxLength: 256, minLength: 1 }),
+        version: Type.Integer({ minimum: 1 }),
+      },
+      { $id: "ActiveRoleContext.v1", additionalProperties: false },
+    ),
+  },
+  { $id: "EnterActiveRoleContextResult.v1", additionalProperties: false },
+);
+export type EnterActiveRoleContextResult = Static<
+  typeof EnterActiveRoleContextResultSchema
+>;
+
 export const IdentitySessionProjectionSchema = Type.Object(
   {
     audience: Type.Literal("self"),
@@ -180,12 +300,74 @@ export type IdentitySessionRequest = Static<
   typeof IdentitySessionRequestSchema
 >;
 
+export const InspectRoleContextDeepLinkRequestSchema = Type.Object(
+  {
+    requiredGrantId: Type.String({ maxLength: 128, minLength: 1 }),
+    tabId: Type.String({ maxLength: 128, minLength: 1 }),
+  },
+  { $id: "InspectRoleContextDeepLinkRequest.v1", additionalProperties: false },
+);
+export type InspectRoleContextDeepLinkRequest = Static<
+  typeof InspectRoleContextDeepLinkRequestSchema
+>;
+
+export const LeaveActiveRoleContextRequestSchema = Type.Object(
+  {
+    expectedCurrentContextId: Type.String({ maxLength: 128, minLength: 1 }),
+    expectedCurrentVersion: Type.Integer({ minimum: 1 }),
+    tabId: Type.String({ maxLength: 128, minLength: 1 }),
+  },
+  { $id: "LeaveActiveRoleContextRequest.v1", additionalProperties: false },
+);
+export type LeaveActiveRoleContextRequest = Static<
+  typeof LeaveActiveRoleContextRequestSchema
+>;
+
+export const LeaveActiveRoleContextResultSchema = Type.Object(
+  {
+    cacheInvalidation: Type.Object(
+      {
+        closeOpenViews: Type.Literal(true),
+        destroyProtectedCache: Type.Literal(true),
+        previousContextId: Type.String({ maxLength: 128, minLength: 1 }),
+      },
+      { additionalProperties: false },
+    ),
+  },
+  { $id: "LeaveActiveRoleContextResult.v1", additionalProperties: false },
+);
+export type LeaveActiveRoleContextResult = Static<
+  typeof LeaveActiveRoleContextResultSchema
+>;
+
 export const ListDocketSessionsRequestSchema = Type.Object(
   { audience: Type.Literal("self") },
   { $id: "ListDocketSessionsRequest.v1", additionalProperties: false },
 );
 export type ListDocketSessionsRequest = Static<
   typeof ListDocketSessionsRequestSchema
+>;
+
+export const ListRoleContextsRequestSchema = Type.Object(
+  { tabId: Type.String({ maxLength: 128, minLength: 1 }) },
+  { $id: "ListRoleContextsRequest.v1", additionalProperties: false },
+);
+export type ListRoleContextsRequest = Static<
+  typeof ListRoleContextsRequestSchema
+>;
+
+export const RestoreMostRecentRoleContextRequestSchema = Type.Object(
+  {
+    idempotencyKey: Type.String({ maxLength: 128, minLength: 1 }),
+    tabId: Type.String({ maxLength: 128, minLength: 1 }),
+  },
+  {
+    $id: "RestoreMostRecentRoleContextRequest.v1",
+    additionalProperties: false,
+  },
+);
+export type RestoreMostRecentRoleContextRequest = Static<
+  typeof RestoreMostRecentRoleContextRequestSchema
 >;
 
 export const RevokeAllDocketSessionsRequestSchema = Type.Object(
@@ -208,6 +390,100 @@ export type RevokeDocketSessionRequest = Static<
   typeof RevokeDocketSessionRequestSchema
 >;
 
+export const RoleContextCacheInvalidationSchema = Type.Object(
+  {
+    closeOpenViews: Type.Literal(true),
+    destroyProtectedCache: Type.Literal(true),
+    previousContextId: Type.Optional(
+      Type.String({ maxLength: 128, minLength: 1 }),
+    ),
+  },
+  { $id: "RoleContextCacheInvalidation.v1", additionalProperties: false },
+);
+export type RoleContextCacheInvalidation = Static<
+  typeof RoleContextCacheInvalidationSchema
+>;
+
+export const RoleContextDeepLinkDecisionSchema = Type.Object(
+  {
+    decision: Type.Union([
+      Type.Literal("current"),
+      Type.Literal("switch_required"),
+      Type.Literal("denied"),
+    ]),
+  },
+  { $id: "RoleContextDeepLinkDecision.v1", additionalProperties: false },
+);
+export type RoleContextDeepLinkDecision = Static<
+  typeof RoleContextDeepLinkDecisionSchema
+>;
+
+export const RoleContextOptionSchema = Type.Object(
+  {
+    authorityVersion: Type.Integer({ minimum: 1 }),
+    contextKind: Type.Union([
+      Type.Literal("school"),
+      Type.Literal("tournament"),
+      Type.Literal("judge"),
+      Type.Literal("platform_administrator"),
+      Type.Literal("legal_and_privacy_operations"),
+    ]),
+    grantId: Type.String({ maxLength: 128, minLength: 1 }),
+    privileged: Type.Boolean(),
+    scopeId: Type.String({ maxLength: 128, minLength: 1 }),
+    scopeLabel: Type.String({ maxLength: 256, minLength: 1 }),
+  },
+  { $id: "RoleContextOption.v1", additionalProperties: false },
+);
+export type RoleContextOption = Static<typeof RoleContextOptionSchema>;
+
+export const RoleContextSelectorSchema = Type.Object(
+  {
+    contexts: Type.Array(
+      Type.Object(
+        {
+          authorityVersion: Type.Integer({ minimum: 1 }),
+          contextKind: Type.Union([
+            Type.Literal("school"),
+            Type.Literal("tournament"),
+            Type.Literal("judge"),
+            Type.Literal("platform_administrator"),
+            Type.Literal("legal_and_privacy_operations"),
+          ]),
+          grantId: Type.String({ maxLength: 128, minLength: 1 }),
+          privileged: Type.Boolean(),
+          scopeId: Type.String({ maxLength: 128, minLength: 1 }),
+          scopeLabel: Type.String({ maxLength: 256, minLength: 1 }),
+        },
+        { $id: "RoleContextOption.v1", additionalProperties: false },
+      ),
+    ),
+    current: Type.Optional(
+      Type.Object(
+        {
+          authorityVersion: Type.Integer({ minimum: 1 }),
+          contextKind: Type.Union([
+            Type.Literal("school"),
+            Type.Literal("tournament"),
+            Type.Literal("judge"),
+            Type.Literal("platform_administrator"),
+            Type.Literal("legal_and_privacy_operations"),
+          ]),
+          grantId: Type.String({ maxLength: 128, minLength: 1 }),
+          id: Type.String({ maxLength: 128, minLength: 1 }),
+          privileged: Type.Boolean(),
+          scopeId: Type.String({ maxLength: 128, minLength: 1 }),
+          scopeLabel: Type.String({ maxLength: 256, minLength: 1 }),
+          version: Type.Integer({ minimum: 1 }),
+        },
+        { $id: "ActiveRoleContext.v1", additionalProperties: false },
+      ),
+    ),
+  },
+  { $id: "RoleContextSelector.v1", additionalProperties: false },
+);
+export type RoleContextSelector = Static<typeof RoleContextSelectorSchema>;
+
 export const StableErrorEnvelopeSchema = Type.Object(
   {
     code: Type.Union([
@@ -220,6 +496,10 @@ export const StableErrorEnvelopeSchema = Type.Object(
       Type.Literal("SESSION_EXPIRED"),
       Type.Literal("SESSION_LIMIT_REACHED"),
       Type.Literal("FIXED_IDENTITY_FORBIDDEN"),
+      Type.Literal("AUTHORITY_DENIED"),
+      Type.Literal("CONTEXT_STALE"),
+      Type.Literal("REAUTHENTICATION_REQUIRED"),
+      Type.Literal("ROLE_SWITCH_BLOCKED"),
     ]),
     fieldIssues: Type.Optional(
       Type.Array(
@@ -494,6 +774,169 @@ export function createDocketClient(transport: ContractTransport) {
       });
       if (response.status === 200) {
         if (!Value.Check(DocketSessionResultSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async listRoleContexts(input: unknown): Promise<RoleContextSelector> {
+      if (!Value.Check(ListRoleContextsRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const query = new URLSearchParams(input).toString();
+      const response = await transport({
+        method: "GET",
+        path: "/v1/role-contexts" + (query ? `?${query}` : ""),
+      });
+      if (response.status === 200) {
+        if (!Value.Check(RoleContextSelectorSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async inspectRoleContextDeepLink(
+      input: unknown,
+    ): Promise<RoleContextDeepLinkDecision> {
+      if (!Value.Check(InspectRoleContextDeepLinkRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const response = await transport({
+        method: "POST",
+        path: "/v1/role-contexts/deep-link",
+        body: input,
+      });
+      if (response.status === 200) {
+        if (!Value.Check(RoleContextDeepLinkDecisionSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async enterActiveRoleContext(
+      input: unknown,
+    ): Promise<EnterActiveRoleContextResult> {
+      if (!Value.Check(EnterActiveRoleContextRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const response = await transport({
+        method: "POST",
+        path: "/v1/role-contexts/enter",
+        body: input,
+      });
+      if (response.status === 200) {
+        if (!Value.Check(EnterActiveRoleContextResultSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async restoreMostRecentRoleContext(
+      input: unknown,
+    ): Promise<RoleContextSelector> {
+      if (!Value.Check(RestoreMostRecentRoleContextRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const response = await transport({
+        method: "POST",
+        path: "/v1/role-contexts/restore",
+        body: input,
+      });
+      if (response.status === 200) {
+        if (!Value.Check(RoleContextSelectorSchema, response.body)) {
+          throw new ContractClientError(
+            "RESPONSE_INVALID",
+            "The response did not match its contract.",
+          );
+        }
+        return response.body;
+      }
+      if (!Value.Check(StableErrorEnvelopeSchema, response.body)) {
+        throw new ContractClientError(
+          "RESPONSE_INVALID",
+          "The error response did not match its contract.",
+        );
+      }
+      const error = response.body;
+      throw new ContractClientError(error.code, error.message, error.requestId);
+    },
+
+    async leaveActiveRoleContext(
+      input: unknown,
+    ): Promise<LeaveActiveRoleContextResult> {
+      if (!Value.Check(LeaveActiveRoleContextRequestSchema, input)) {
+        throw new ContractClientError(
+          "REQUEST_INVALID",
+          "The request is invalid.",
+        );
+      }
+      const response = await transport({
+        method: "POST",
+        path: "/v1/role-contexts/leave",
+        body: input,
+      });
+      if (response.status === 200) {
+        if (!Value.Check(LeaveActiveRoleContextResultSchema, response.body)) {
           throw new ContractClientError(
             "RESPONSE_INVALID",
             "The response did not match its contract.",

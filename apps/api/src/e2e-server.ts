@@ -2,6 +2,9 @@ import {
   IdentityError,
   IdentityService,
   PostgresIdentityStore,
+  PostgresRoleContextStore,
+  RoleContextError,
+  RoleContextService,
   type ClerkIdentity,
 } from "@docket/identity-access";
 import { TestDatabase } from "@docket/testkit";
@@ -32,13 +35,38 @@ const fixtureIdentity = (sessionId: string): ClerkIdentity => ({
   signInMethod: "verified_email_code",
   expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1_000),
 });
+const localSession = await identityService.createDocketSession({
+  identity: fixtureIdentity("session_fixture_local_001"),
+  idempotencyKey: "e2e-preseed-local-session",
+});
 await identityService.createDocketSession({
   identity: fixtureIdentity("session_fixture_other_001"),
   idempotencyKey: "e2e-preseed-other-session",
 });
+const grantTime = new Date("2026-09-26T12:00:00.000Z");
+await database.query(
+  "insert into identity_authority_grants (grant_id, account_id, context_kind, scope_id, scope_label, permissions, privileged, status, record_version, created_at, updated_at) values ($1, $2, 'school', $3, $4, $5::jsonb, false, 'active', 1, $6, $6), ($7, $2, 'platform_administrator', $8, $9, $10::jsonb, true, 'active', 1, $6, $6)",
+  [
+    "grant_e2e_school_001",
+    localSession.account.id,
+    "school_e2e_001",
+    "Central High School",
+    JSON.stringify(["school:manage"]),
+    grantTime,
+    "grant_e2e_platform_001",
+    "docket_platform",
+    "Docket platform",
+    JSON.stringify(["platform:support"]),
+  ],
+);
 
 type E2eMode = "denied" | "delay" | "empty" | "error" | "normal" | "stale";
 let mode: E2eMode = "normal";
+const roleContextService = new RoleContextService({
+  store: new PostgresRoleContextStore(database.databaseUrl),
+  now: () => new Date(),
+  nextId: (kind) => `${kind}_e2e_${String(++sequence).padStart(3, "0")}`,
+});
 const controlledIdentityService = {
   createDocketSession: (
     input: Parameters<IdentityService["createDocketSession"]>[0],
@@ -82,8 +110,41 @@ const controlledIdentityService = {
     input: Parameters<IdentityService["changeDisplayName"]>[0],
   ) => identityService.changeDisplayName(input),
 };
+const controlledRoleContextService = {
+  getRoleContextState: async (
+    ...args: Parameters<RoleContextService["getRoleContextState"]>
+  ) => {
+    if (mode === "delay") {
+      await new Promise((resolve) => setTimeout(resolve, 750));
+    }
+    if (mode === "empty") return { contexts: [] };
+    if (mode === "error") throw new Error("simulated role-context failure");
+    if (mode === "stale") {
+      throw new RoleContextError("CONTEXT_STALE", "simulated stale authority");
+    }
+    if (mode === "denied") {
+      throw new RoleContextError("AUTHORITY_DENIED", "simulated denied actor");
+    }
+    return roleContextService.getRoleContextState(...args);
+  },
+  inspectDeepLink: (
+    ...args: Parameters<RoleContextService["inspectDeepLink"]>
+  ) => roleContextService.inspectDeepLink(...args),
+  enterActiveRoleContext: (
+    ...args: Parameters<RoleContextService["enterActiveRoleContext"]>
+  ) => roleContextService.enterActiveRoleContext(...args),
+  restoreMostRecentContext: (
+    ...args: Parameters<RoleContextService["restoreMostRecentContext"]>
+  ) => roleContextService.restoreMostRecentContext(...args),
+  leaveActiveRoleContext: (
+    ...args: Parameters<RoleContextService["leaveActiveRoleContext"]>
+  ) => roleContextService.leaveActiveRoleContext(...args),
+};
 const app = await buildApiApp(environment, {
   identityService: controlledIdentityService,
+  roleContextService: controlledRoleContextService,
+  resolveRoleContextActor: (identity) =>
+    identityService.resolveRoleContextActor(identity),
 });
 app.post<{ Body: { mode?: string } }>("/__e2e/mode", (request, reply) => {
   const accepted = [

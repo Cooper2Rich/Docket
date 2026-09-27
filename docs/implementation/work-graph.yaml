@@ -10,7 +10,7 @@ status_values:
 - verification
 - done
 execution_authorized: true
-next_item: R1-IDA-002-A
+next_item: R1-COM-001-A
 first_item: R1-FND-001-A
 bootstrap_gate: GATE-BOOTSTRAP
 groups:
@@ -2860,7 +2860,7 @@ items:
   parent: R1-IDA-002
   order: 130
   title: Isolate Active Role Context and reverify sensitive actions
-  status: ready
+  status: done
   owner: identity-access
   stage: 02 Walking skeleton
   depends_on:
@@ -2872,13 +2872,15 @@ items:
   - R1-CONS-001
   spec: docs/implementation/items/R1-IDA-002-A.md
   blocking_reason: null
-  completion: null
+  completion:
+    contract_sha256: d9dab3c323f4172290e01cb7cc7ace9a0d14ef3d8ead09342e0f21506adf3913
+    verification: controller-must-confirm-integration
 - id: R1-COM-001-A
   kind: leaf
   parent: R1-COM-001
   order: 140
   title: Commit outbox events and deliver idempotent work
-  status: blocked
+  status: ready
   owner: communications
   stage: 02 Walking skeleton
   depends_on:
@@ -2889,7 +2891,7 @@ items:
   - R1-CONS-001
   - R1-PRIV-001
   spec: docs/implementation/items/R1-COM-001-A.md
-  blocking_reason: Predecessor has not been implemented and verified.
+  blocking_reason: null
   completion: null
 - id: R1-COM-001-B
   kind: leaf

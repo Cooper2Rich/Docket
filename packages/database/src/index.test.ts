@@ -39,8 +39,9 @@ describe("module-owned migration plan", () => {
       "0001_platform_migration_journal",
       "0002_identity_accounts_and_sessions",
       "0003_identity_session_security",
+      "0004_identity_role_contexts",
     ]);
-    expect(plan.head).toBe("0003_identity_session_security");
+    expect(plan.head).toBe("0004_identity_role_contexts");
     expect(plan.owners.size).toBe(10);
     expect(plan.digest).toMatch(/^[a-f0-9]{64}$/u);
   });

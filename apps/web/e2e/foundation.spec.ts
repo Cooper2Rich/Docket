@@ -183,6 +183,168 @@ test("Account Session reflows at a narrow mobile viewport", async ({
   expect(widths.document).toBeLessThanOrEqual(widths.viewport);
 });
 
+test("server renders a safe role-context loading shell before tab-local bootstrap", async ({
+  request,
+}) => {
+  const response = await request.get("/account/role-contexts");
+  const html = await response.text();
+
+  expect(response.ok()).toBe(true);
+  expect(html).toContain("Loading role contexts");
+  expect(html).toContain('id="main-content"');
+  expect(html).not.toContain("grant_e2e_school_001");
+  expect(html).not.toContain("CLERK_SECRET_KEY");
+  expect(html).not.toContain("sk_live_docket_e2e_fixture");
+});
+
+test("Active Role Context renders loading then the authoritative selector", async ({
+  page,
+  request,
+}) => {
+  const mode = await request.post(`${apiBaseUrl}/__e2e/mode`, {
+    data: { mode: "delay" },
+  });
+  expect(mode.ok()).toBe(true);
+  await page.goto("/account/role-contexts");
+  await expect(
+    page.getByRole("heading", { name: "Loading role contexts" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Choose your Docket role" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("list", { name: "Available role contexts" }),
+  ).toBeVisible();
+});
+
+for (const [mode, heading] of [
+  ["empty", "No role contexts available"],
+  ["error", "Role contexts unavailable"],
+  ["denied", "Role context access denied"],
+  ["stale", "Role context is out of date"],
+] as const) {
+  test(`Active Role Context renders its ${mode} state`, async ({
+    page,
+    request,
+  }) => {
+    const response = await request.post(`${apiBaseUrl}/__e2e/mode`, {
+      data: { mode },
+    });
+    expect(response.ok()).toBe(true);
+    await page.goto("/account/role-contexts");
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+    await expect(page.getByTestId("role-context-view-state")).toContainText(
+      mode,
+    );
+  });
+}
+
+test("Active Role Context switches with unsaved-work choices and destroys the prior tab cache", async ({
+  page,
+}) => {
+  await page.goto("/account/role-contexts");
+  const school = page
+    .getByRole("listitem")
+    .filter({ hasText: "School · Central High School" });
+  await school.getByRole("button", { name: "Switch" }).click();
+  await expect(page.locator("#active-context-heading")).toHaveText(
+    "School · Central High School",
+  );
+
+  await page.getByRole("button", { name: "Open context workspace" }).click();
+  await expect(
+    page.getByText("Protected workspace open for Central High School.", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.getByLabel("Context-scoped draft").fill("unfinished pairing");
+
+  const platform = page
+    .getByRole("listitem")
+    .filter({ hasText: "Platform Administrator · Docket platform" });
+  await platform.getByRole("button", { name: "Switch" }).click();
+  await expect(page.getByRole("dialog")).toContainText(
+    "Save the draft, discard it, or cancel",
+  );
+  await page.getByRole("button", { name: "Cancel switch" }).click();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(
+    page.getByText("Protected workspace open for Central High School.", {
+      exact: true,
+    }),
+  ).toBeVisible();
+
+  await platform.getByRole("button", { name: "Switch" }).click();
+  await page.getByRole("button", { name: "Discard draft and switch" }).click();
+  await expect(page.locator("#active-context-heading")).toHaveText(
+    "Platform Administrator · Docket platform",
+  );
+  await expect(
+    page.getByText("Protected workspace open for Central High School.", {
+      exact: true,
+    }),
+  ).toHaveCount(0);
+  const oldCacheKeys = await page.evaluate(() =>
+    Object.keys(sessionStorage).filter((key) =>
+      key.startsWith("docket:role-context:cache:"),
+    ),
+  );
+  expect(oldCacheKeys).toEqual([]);
+});
+
+test("role-context deep links prompt before protected data and deny unknown authority generically", async ({
+  page,
+}) => {
+  await page.goto(
+    "/account/role-contexts?requiredGrant=grant_e2e_platform_001",
+  );
+  await expect(
+    page.getByRole("heading", { name: "Switch context to open this link" }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("has not loaded the protected resource"),
+  ).toBeVisible();
+  await expect(page.getByText("Protected workspace open")).toHaveCount(0);
+
+  await page.goto("/account/role-contexts?requiredGrant=foreign-secret-grant");
+  await expect(
+    page.getByRole("heading", { name: "Role context access denied" }),
+  ).toBeVisible();
+  await expect(page.locator("body")).not.toContainText("foreign-secret-grant");
+});
+
+test("Active Role Context reflows on mobile and has no automated WCAG 2.2 AA violation", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.addInitScript({ content: axe.source });
+  await page.goto("/account/role-contexts", { waitUntil: "networkidle" });
+  await expect(
+    page.getByRole("list", { name: "Available role contexts" }),
+  ).toBeVisible();
+  const widths = await page.evaluate(() => ({
+    document: document.documentElement.scrollWidth,
+    viewport: document.documentElement.clientWidth,
+  }));
+  expect(widths.document).toBeLessThanOrEqual(widths.viewport);
+  const violations = await page.evaluate(async () => {
+    const result = await (
+      globalThis as typeof globalThis & {
+        axe: {
+          run: (
+            context: Document,
+            options: { runOnly: { type: string; values: string[] } },
+          ) => Promise<{ violations: { id: string }[] }>;
+        };
+      }
+    ).axe.run(document, {
+      runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag22aa"] },
+    });
+    return result.violations.map(({ id }) => id);
+  });
+  expect(violations).toEqual([]);
+});
+
 for (const state of states) {
   test(`${state} state has no automated WCAG 2.2 AA violation`, async ({
     page,
